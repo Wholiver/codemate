@@ -3,11 +3,11 @@
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="Codemate logo">
+      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="Codemate logo" width="350">
     </picture>
   </a>
 </p>
-<p align="center">The AI coding agent that gets smarter — right inside your project.</p>
+<p align="center"><strong><font size="4">The AI coding agent that gets smarter — right inside your project.</font></strong></p>
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/codemate-ai"><img alt="npm" src="https://img.shields.io/npm/v/codemate-ai?style=flat-square" /></a>
@@ -19,7 +19,11 @@
   <a href="README.zh.md">简体中文</a>
 </p>
 
-[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
+<p align="center">
+  <a href="https://codemate.ai">
+    <img src="packages/web/src/assets/lander/screenshot.png" alt="Codemate Terminal UI" width="90%">
+  </a>
+</p>
 
 ---
 
@@ -96,39 +100,6 @@ nix run nixpkgs#codemate           # or github:anomalyco/codemate for latest dev
 
 > [!TIP]
 > Remove versions older than 0.1.x before installing.
-
-### Desktop App (BETA)
-
-Codemate is also available as a desktop application. Download directly from the [releases page](https://github.com/Wholiver/codemate/releases) or [codemate.ai/download](https://codemate.ai/download).
-
-| Platform              | Download                              |
-| --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `codemate-desktop-darwin-aarch64.dmg` |
-| macOS (Intel)         | `codemate-desktop-darwin-x64.dmg`     |
-| Windows               | `codemate-desktop-windows-x64.exe`    |
-| Linux                 | `.deb`, `.rpm`, or AppImage           |
-
-```bash
-# macOS (Homebrew)
-brew install --cask codemate-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/codemate-desktop
-```
-
-#### Installation Directory
-
-The install script respects the following priority order for the installation path:
-
-1. `$CODEMATE_INSTALL_DIR` - Custom installation directory
-2. `$XDG_BIN_DIR` - XDG Base Directory Specification compliant path
-3. `$HOME/bin` - Standard user binary directory (if it exists or can be created)
-4. `$HOME/.codemate/bin` - Default fallback
-
-```bash
-# Examples
-CODEMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://codemate.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://codemate.ai/install | bash
-```
 
 ### Documentation
 
