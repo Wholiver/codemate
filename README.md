@@ -75,7 +75,7 @@ After 10 sessions, Codemate knows your project structure, your team's convention
 - **Provider-agnostic** — works with Claude, OpenAI, Google, or local models via [Codemate Zen](https://codemate.ai/zen)
 - **Built-in LSP support** — code intelligence out of the box
 - **Client/server architecture** — run the backend headless, drive it from any frontend (TUI, web, desktop)
-- **Plugin system** — extend via `@codemate_agent/plugin`
+- **Plugin system** — extend via `@codemate-ai/plugin`
 - **100% open source**
 
 ### Installation
