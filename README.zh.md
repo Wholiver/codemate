@@ -7,7 +7,7 @@
     </picture>
   </a>
 </p>
-<p align="center"><strong><font size="4">在项目内部越用越聪明的 AI Coding Agent。</font></strong></p>
+<p align="center"><strong><font size="4">越用越聪明的 AI Coding Agent。</font></strong></p>
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/codemate-ai"><img alt="npm" src="https://img.shields.io/npm/v/codemate-ai?style=flat-square" /></a>
@@ -27,7 +27,7 @@
 
 ---
 
-大多数 AI Coding 工具在每个会话时都会从头开始。Codemate 不同。它在项目内部构建一个**活的项目大脑** — 记忆、经验和历史会随时间不断积累，持久化存储在 SQLite 数据库中。在同一个项目里用得越久，Codemate 就越懂你的代码库、你的模式、你的规范。
+大多数 AI Coding 工具在每个会话时都会从头开始。Codemate 不同。它在项目内部构建一个**活的项目大脑** — 记忆、经验和历史会随时间不断积累，持久化存储在 SQLite 数据库中。在同项目里用得越久，Codemate 就越懂你的代码库、你的模式、你的规范。
 
 ### Codemate 如何在项目内变得越聪明
 
