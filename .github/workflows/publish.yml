@@ -50,7 +50,7 @@ jobs:
 
       - name: Install Codemate
         if: inputs.bump || inputs.version
-        run: bun i -g codemate-ai
+        run: bun i -g codemate_agent
 
       - id: version
         run: |

@@ -8,7 +8,7 @@
 <p align="center"><strong><font size="4">越用越聪明的 AI Coding Agent。</font></strong></p>
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/codemate-ai"><img alt="npm" src="https://img.shields.io/npm/v/codemate-ai?style=flat-square" /></a>
+  <a href="https://www.npmjs.com/package/codemate_agent"><img alt="npm" src="https://img.shields.io/npm/v/codemate_agent?style=flat-square" /></a>
   <a href="https://github.com/Wholiver/codemate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
 
@@ -80,10 +80,10 @@
 
 ```bash
 # npm（推荐）
-npm i -g codemate-ai@latest
+npm i -g codemate_agent@latest
 
 # 软件包管理器
-npm i -g codemate-ai@latest        # 也可使用 bun/pnpm/yarn
+npm i -g codemate_agent@latest        # 也可使用 bun/pnpm/yarn
 scoop install codemate             # Windows
 choco install codemate             # Windows
 brew install anomalyco/tap/codemate # macOS 和 Linux（推荐，始终保持最新）

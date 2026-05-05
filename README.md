@@ -8,7 +8,7 @@
 <p align="center"><strong><font size="4">The AI coding agent that gets smarter — right inside your project.</font></strong></p>
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/codemate-ai"><img alt="npm" src="https://img.shields.io/npm/v/codemate-ai?style=flat-square" /></a>
+  <a href="https://www.npmjs.com/package/codemate_agent"><img alt="npm" src="https://img.shields.io/npm/v/codemate_agent?style=flat-square" /></a>
   <a href="https://github.com/Wholiver/codemate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
 
@@ -75,17 +75,17 @@ After 10 sessions, Codemate knows your project structure, your team's convention
 - **Provider-agnostic** — works with Claude, OpenAI, Google, or local models via [Codemate Zen](https://codemate.ai/zen)
 - **Built-in LSP support** — code intelligence out of the box
 - **Client/server architecture** — run the backend headless, drive it from any frontend (TUI, web, desktop)
-- **Plugin system** — extend via `@codemate-ai/plugin`
+- **Plugin system** — extend via `@codemate_agent/plugin`
 - **100% open source**
 
 ### Installation
 
 ```bash
 # npm (recommended)
-npm i -g codemate-ai@latest
+npm i -g codemate_agent@latest
 
 # Package managers
-npm i -g codemate-ai@latest        # or bun/pnpm/yarn
+npm i -g codemate_agent@latest        # or bun/pnpm/yarn
 scoop install codemate             # Windows
 choco install codemate             # Windows
 brew install anomalyco/tap/codemate # macOS and Linux (recommended, always up to date)

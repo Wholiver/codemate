@@ -28,7 +28,7 @@ jobs:
           codemate-app-secret: ${{ secrets.CODEMATE_APP_SECRET }}
 
       - name: Install Codemate
-        run: bun i -g codemate-ai
+        run: bun i -g codemate_agent
 
       - name: Sync beta branch
         env:

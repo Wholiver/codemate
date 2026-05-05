@@ -6,6 +6,7 @@ import { fileURLToPath } from "url"
 
 const dir = fileURLToPath(new URL("..", import.meta.url))
 process.chdir(dir)
+const wrapperPackageName = "codemate_agent"
 
 async function published(name: string, version: string) {
   return (await $`npm view ${name}@${version} version`.nothrow()).exitCode === 0
@@ -19,12 +20,27 @@ async function publish(dir: string, name: string, version: string) {
     console.log(`already published ${name}@${version}`)
     return
   }
+  await $`rm -f ./*.tgz`.cwd(dir)
   await $`bun pm pack`.cwd(dir)
-  await $`npm publish *.tgz --access public --tag ${Script.channel}`.cwd(dir)
+  for (let attempt = 1; attempt <= 8; attempt++) {
+    const result = await $`npm publish *.tgz --access public --tag ${Script.channel}`.cwd(dir).nothrow()
+    if (result.exitCode === 0) return
+    const stderr = String(result.stderr)
+    const rateLimited = stderr.includes("E429") || stderr.includes("Too Many Requests") || stderr.includes("rate limited")
+    if (!rateLimited) {
+      throw new Error(stderr || `failed to publish ${name}@${version}`)
+    }
+    if (attempt === 8) {
+      throw new Error(`failed to publish ${name}@${version} after 8 retries due to npm rate limiting`)
+    }
+    const sleepMs = Math.min(240_000, 30_000 + attempt * 30_000)
+    console.warn(`rate limited publishing ${name}@${version}, retrying in ${Math.round(sleepMs / 1000)}s (${attempt}/8)`)
+    await Bun.sleep(sleepMs)
+  }
 }
 
 const binaries: Record<string, string> = {}
-for (const filepath of new Bun.Glob("*/package.json").scanSync({ cwd: "./dist" })) {
+for (const filepath of new Bun.Glob("codemate-*/package.json").scanSync({ cwd: "./dist" })) {
   const pkg = await Bun.file(`./dist/${filepath}`).json()
   binaries[pkg.name] = pkg.version
 }
@@ -39,7 +55,7 @@ await Bun.file(`./dist/${pkg.name}/LICENSE`).write(await Bun.file("../../LICENSE
 await Bun.file(`./dist/${pkg.name}/package.json`).write(
   JSON.stringify(
     {
-      name: pkg.name + "-ai",
+      name: wrapperPackageName,
       bin: {
         [pkg.name]: `./bin/${pkg.name}`,
       },
@@ -55,11 +71,11 @@ await Bun.file(`./dist/${pkg.name}/package.json`).write(
   ),
 )
 
-const tasks = Object.entries(binaries).map(async ([name]) => {
-  await publish(`./dist/${name}`, name, binaries[name])
-})
-await Promise.all(tasks)
-await publish(`./dist/${pkg.name}`, `${pkg.name}-ai`, version)
+await Object.entries(binaries).reduce(
+  (prev, [name, version]) => prev.then(() => publish(`./dist/${name}`, name, version)),
+  Promise.resolve(),
+)
+await publish(`./dist/${pkg.name}`, wrapperPackageName, version)
 
 const image = "ghcr.io/anomalyco/codemate"
 const platforms = "linux/amd64,linux/arm64"
