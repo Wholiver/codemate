@@ -81,8 +81,8 @@ After 10 sessions, Codemate knows your project structure, your team's convention
 ### Installation
 
 ```bash
-# YOLO
-curl -fsSL https://codemate.ai/install | bash
+# npm (recommended)
+npm i -g codemate-ai@latest
 
 # Package managers
 npm i -g codemate-ai@latest        # or bun/pnpm/yarn

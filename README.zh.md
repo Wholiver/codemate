@@ -79,8 +79,8 @@
 ### 安装
 
 ```bash
-# 直接安装 (YOLO)
-curl -fsSL https://codemate.ai/install | bash
+# npm（推荐）
+npm i -g codemate-ai@latest
 
 # 软件包管理器
 npm i -g codemate-ai@latest        # 也可使用 bun/pnpm/yarn
