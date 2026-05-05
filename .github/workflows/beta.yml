@@ -1,0 +1,37 @@
+name: beta
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  sync:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
+      - name: Setup Git Committer
+        id: setup-git-committer
+        uses: ./.github/actions/setup-git-committer
+        with:
+          codemate-app-id: ${{ vars.CODEMATE_APP_ID }}
+          codemate-app-secret: ${{ secrets.CODEMATE_APP_SECRET }}
+
+      - name: Install Codemate
+        run: bun i -g codemate-ai
+
+      - name: Sync beta branch
+        env:
+          GH_TOKEN: ${{ steps.setup-git-committer.outputs.token }}
+          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+        run: bun script/beta.ts

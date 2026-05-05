@@ -1,0 +1,3 @@
+Prepare deep-research execution from an existing research workspace.
+
+This tool reads `outline.yaml` and `fields.yaml`, checks which JSON outputs already exist, and returns the remaining item tasks as structured data. Use its output to drive the `task` tool or other sub-agent orchestration.

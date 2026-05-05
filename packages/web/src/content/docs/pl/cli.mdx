@@ -1,0 +1,603 @@
+---
+title: CLI
+description: Opcje i polecenia wiersza poleceń Codemate.
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components"
+
+CLI Codemate domyślnie uruchamia [TUI](/docs/tui), gdy wywołasz je bez argumentów.
+
+```bash
+codemate
+```
+
+CLI obsługuje też polecenia opisane na tej stronie, więc możesz używać Codemate programowo.
+
+```bash
+codemate run "Explain how closures work in JavaScript"
+```
+
+---
+
+### tui
+
+Uruchamia interfejs terminalowy (TUI) Codemate.
+
+```bash
+codemate [project]
+```
+
+#### Flagi
+
+| Flaga        | Skrót | Opis                                                                    |
+| ------------ | ----- | ----------------------------------------------------------------------- |
+| `--continue` | `-c`  | Kontynuuj ostatnią sesję                                                |
+| `--session`  | `-s`  | Identyfikator sesji do kontynuowania                                    |
+| `--fork`     |       | Sklonuj sesję podczas kontynuacji (użyj z `--continue` lub `--session`) |
+| `--prompt`   |       | Monit do użycia                                                         |
+| `--model`    | `-m`  | Model do użycia w formacie dostawca/model                               |
+| `--agent`    |       | Agent do użycia                                                         |
+| `--port`     |       | Port do nasłuchiwania                                                   |
+| `--hostname` |       | Nazwa hosta, do której należy się powiązać                              |
+
+---
+
+## Polecenia
+
+Interfejs CLI Codemate zawiera także dodatkowe polecenia.
+
+---
+
+### agent
+
+Zarządzaj agentami Codemate.
+
+```bash
+codemate agent [command]
+```
+
+---
+
+### attach
+
+Dołącz terminal do już działającego serwera backendu Codemate uruchomionego za pomocą `serve` lub `web`.
+
+```bash
+codemate attach [url]
+```
+
+Pozwala to połączyć TUI ze zdalnym backendem Codemate. Na przykład:
+
+```bash
+# Start the backend server for web/mobile access
+codemate web --port 4096 --hostname 0.0.0.0
+
+# In another terminal, attach the TUI to the running backend
+codemate attach http://10.20.30.40:4096
+```
+
+#### Flagi
+
+| Flaga       | Skrót | Opis                                    |
+| ----------- | ----- | --------------------------------------- |
+| `--dir`     |       | Katalog roboczy, w którym uruchomić TUI |
+| `--session` | `-s`  | Identyfikator sesji do kontynuowania    |
+
+---
+
+#### create
+
+Utwórz nowego agenta z niestandardową konfiguracją.
+
+```bash
+codemate agent create
+```
+
+To polecenie poprowadzi Cię przez proces tworzenia nowego agenta z niestandardowym promptem systemowym i konfiguracją narzędzi.
+
+---
+
+#### list
+
+Wyświetl listę wszystkich agentów.
+
+```bash
+codemate agent list
+```
+
+---
+
+### auth
+
+Zarządzaj danymi uwierzytelniającymi i logowaniem dla dostawców.
+
+```bash
+codemate auth [command]
+```
+
+---
+
+#### login
+
+Codemate integruje się z wieloma dostawcami. Możesz użyć `codemate auth login`, aby skonfigurować klucz API dla dowolnego obsługiwanego dostawcy. Klucze są bezpiecznie przechowywane w `~/.local/share/codemate/auth.json`.
+
+```bash
+codemate auth login
+```
+
+Podczas uruchamiania Codemate ładuje dostawców z pliku poświadczeń, a także ze zmiennych środowiskowych lub pliku `.env` w Twoim projekcie.
+
+---
+
+#### list
+
+Wyświetl listę wszystkich uwierzytelnionych dostawców przechowywanych w pliku poświadczeń.
+
+```bash
+codemate auth list
+```
+
+Lub skrócona wersja:
+
+```bash
+codemate auth ls
+```
+
+---
+
+#### logout
+
+Wyloguj się z dostawcy, usuwając go z pliku poświadczeń.
+
+```bash
+codemate auth logout
+```
+
+---
+
+### github
+
+Zarządzaj agentem GitHub w celu automatyzacji repozytorium.
+
+```bash
+codemate github [command]
+```
+
+---
+
+#### install
+
+Zainstaluj agenta GitHub w swoim repozytorium.
+
+```bash
+codemate github install
+```
+
+Spowoduje to utworzenie pliku workflow GitHub Actions i poprowadzi Cię przez proces konfiguracji. [Dowiedz się więcej](/docs/github).
+
+---
+
+#### run
+
+Uruchom agenta na GitHubie. Zwykle używane w GitHub Actions.
+
+```bash
+codemate github run
+```
+
+##### Flagi
+
+| Flaga     | Opis                                     |
+| --------- | ---------------------------------------- |
+| `--event` | Zdarzenie GitHub, które wyzwoliło agenta |
+| `--token` | Osobisty token dostępu GitHub            |
+
+---
+
+### mcp
+
+Zarządzaj serwerami Model Context Protocol (MCP).
+
+```bash
+codemate mcp [command]
+```
+
+---
+
+#### add
+
+Dodaj serwer MCP do swojej konfiguracji.
+
+```bash
+codemate mcp add
+```
+
+To polecenie poprowadzi Cię przez proces dodawania lokalnego lub zdalnego serwera MCP.
+
+---
+
+#### list
+
+Wyświetl listę wszystkich skonfigurowanych serwerów MCP i ich status.
+
+```bash
+codemate mcp list
+```
+
+Lub skrócona wersja:
+
+```bash
+codemate mcp ls
+```
+
+---
+
+#### auth
+
+Uwierzytelnij się w serwerze MCP z włączoną funkcją OAuth.
+
+```bash
+codemate mcp auth [name]
+```
+
+Jeśli nie podasz nazwy serwera, zostaniesz poproszony o wybranie jednego z serwerów wymagających uwierzytelnienia.
+
+Możesz także wyświetlić listę serwerów obsługujących OAuth i ich status uwierzytelnienia.
+
+```bash
+codemate mcp auth list
+```
+
+Lub skrócona wersja:
+
+```bash
+codemate mcp auth ls
+```
+
+---
+
+#### logout
+
+Usuń tokeny OAuth dla serwera MCP.
+
+```bash
+codemate mcp logout [name]
+```
+
+---
+
+#### debug
+
+Debuguj problemy z połączeniem OAuth dla serwera MCP.
+
+```bash
+codemate mcp debug <name>
+```
+
+---
+
+### models
+
+Wyświetl listę modeli ze wszystkich skonfigurowanych dostawców.
+
+```bash
+codemate models [provider]
+```
+
+Pokazuje modele dostępne do użycia w `provider/model`.
+
+Jest to identyfikator modelu, którego używasz w [konfiguracji](/docs/config).
+
+Opcjonalnie możesz podać identyfikator dostawcy, aby filtrować modele według tego dostawcy.
+
+```bash
+codemate models anthropic
+```
+
+#### Flagi
+
+| Flaga       | Opis                                                                            |
+| ----------- | ------------------------------------------------------------------------------- |
+| `--refresh` | Odśwież pamięć podręczną modeli                                                 |
+| `--verbose` | Bardziej szczegółowe dane wyjściowe modelu (zawiera metadane, takie jak koszty) |
+
+Użyj flagi `--refresh`, aby zaktualizować listę modeli w pamięci podręcznej. Jest to przydatne, gdy dostawca dodał nowe modele, które chcesz zobaczyć w Codemate.
+
+```bash
+codemate models --refresh
+```
+
+---
+
+### run
+
+Uruchom Codemate w trybie nieinteraktywnym, przekazując bezpośrednio prompt.
+
+```bash
+codemate run [message..]
+```
+
+Jest to przydatne do tworzenia skryptów, automatyzacji lub gdy chcesz wysłać szybkie zapytanie bez uruchamiania TUI. Na przykład:
+
+```bash "codemate run"
+codemate run Explain the use of context in Go
+```
+
+Można również użyć tego z działającym `codemate serve`, aby uniknąć zimnego startu serwera MCP przy każdym uruchomieniu:
+
+```bash
+# Start a headless server in one terminal
+codemate serve
+
+# In another terminal, run commands that attach to it
+codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
+```
+
+#### Flagi
+
+| Flaga        | Skrót | Opis                                                                    |
+| ------------ | ----- | ----------------------------------------------------------------------- |
+| `--command`  |       | Polecenie do uruchomienia, reszta to argumenty                          |
+| `--continue` | `-c`  | Kontynuuj ostatnią sesję                                                |
+| `--session`  | `-s`  | Identyfikator sesji do kontynuowania                                    |
+| `--fork`     |       | Sklonuj sesję podczas kontynuacji (użyj z `--continue` lub `--session`) |
+| `--share`    |       | Udostępnij sesję po zakończeniu                                         |
+| `--model`    | `-m`  | Model do użycia w formacie dostawca/model                               |
+| `--agent`    |       | Agent do użycia                                                         |
+| `--file`     | `-f`  | Pliki do załączenia do wiadomości                                       |
+| `--format`   |       | Format wyjściowy: `default` (sformatowany) lub `json` (surowy JSON)     |
+| `--title`    |       | Tytuł sesji (jeśli nie podano, zostanie wygenerowany z promptu)         |
+| `--attach`   |       | Dołącz do działającego serwera Codemate (np. http://localhost:4096)     |
+| `--port`     |       | Port dla serwera lokalnego (domyślnie losowy)                           |
+
+---
+
+### serve
+
+Uruchom serwer Codemate (bez interfejsu) w celu uzyskania dostępu do API. Pełny opis API HTTP znajduje się w [dokumentacji serwera](/docs/server).
+
+```bash
+codemate serve
+```
+
+Uruchamia to serwer HTTP, który zapewnia dostęp do API Codemate bez interfejsu TUI. Ustaw `CODEMATE_SERVER_PASSWORD`, aby włączyć podstawowe uwierzytelnianie HTTP (domyślna nazwa użytkownika to `codemate`).
+
+#### Flagi
+
+| Flaga        | Opis                                       |
+| ------------ | ------------------------------------------ |
+| `--port`     | Port do nasłuchiwania                      |
+| `--hostname` | Nazwa hosta, do której należy się powiązać |
+| `--mdns`     | Włącz wykrywanie mDNS                      |
+| `--cors`     | Dodatkowe dozwolone źródła CORS            |
+
+---
+
+### session
+
+Zarządzaj sesjami Codemate.
+
+```bash
+codemate session [command]
+```
+
+---
+
+#### list
+
+Lista wszystkich sesji Codemate.
+
+```bash
+codemate session list
+```
+
+##### Flagi
+
+| Flaga         | Skrót | Opis                                       |
+| ------------- | ----- | ------------------------------------------ |
+| `--max-count` | `-n`  | Ogranicz do ostatnich N sesji              |
+| `--format`    |       | Format wyjściowy: tabela lub json (tabela) |
+
+---
+
+### stats
+
+Pokaż statystyki wykorzystania tokenów i sesji Codemate.
+
+```bash
+codemate stats
+```
+
+#### Flagi
+
+| Flaga       | Opis                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------- |
+| `--days`    | Pokaż statystyki z ostatnich N dni (domyślnie: cały czas)                             |
+| `--tools`   | Pokaż użycie poszczególnych narzędzi (domyślnie: wszystkie)                           |
+| `--models`  | Pokaż podział na modele (domyślnie ukryty). Podaj liczbę, aby pokazać N najczęstszych |
+| `--project` | Filtruj według projektu (domyślnie: wszystkie projekty, pusty ciąg: bieżący projekt)  |
+
+---
+
+### export
+
+Eksportuj dane sesji jako JSON.
+
+```bash
+codemate export [sessionID]
+```
+
+Jeśli nie podasz identyfikatora sesji, zostaniesz poproszony o wybranie jednej z ostatnich sesji.
+
+---
+
+### import
+
+Importuj dane sesji z pliku JSON lub adresu URL udostępniania Codemate.
+
+```bash
+codemate import <file>
+```
+
+Możesz importować z pliku lokalnego lub adresu URL.
+
+```bash
+codemate import session.json
+codemate import https://opncd.ai/s/abc123
+```
+
+---
+
+### web
+
+Uruchom serwer Codemate z interfejsem internetowym.
+
+```bash
+codemate web
+```
+
+Uruchamia to serwer HTTP i udostępnia Codemate przez interfejs przeglądarkowy. Ustaw `CODEMATE_SERVER_PASSWORD`, aby włączyć podstawowe uwierzytelnianie HTTP (domyślna nazwa użytkownika to `codemate`).
+
+#### Flagi
+
+| Flaga        | Opis                                       |
+| ------------ | ------------------------------------------ |
+| `--port`     | Port do nasłuchiwania                      |
+| `--hostname` | Nazwa hosta, do której należy się powiązać |
+| `--mdns`     | Włącz wykrywanie mDNS                      |
+| `--cors`     | Dodatkowe dozwolone źródła CORS            |
+
+---
+
+### acp
+
+Uruchom serwer ACP (Agent Client Protocol).
+
+```bash
+codemate acp
+```
+
+Uruchamia serwer ACP, który komunikuje się przez stdin/stdout przy użyciu JSON-RPC.
+
+#### Flagi
+
+| Flaga        | Opis                                       |
+| ------------ | ------------------------------------------ |
+| `--cwd`      | Katalog roboczy                            |
+| `--port`     | Port do nasłuchiwania                      |
+| `--hostname` | Nazwa hosta, do której należy się powiązać |
+
+---
+
+### uninstall
+
+Odinstaluj Codemate i usuń wszystkie powiązane pliki.
+
+```bash
+codemate uninstall
+```
+
+#### Flagi
+
+| Flaga           | Skrót | Opis                          |
+| --------------- | ----- | ----------------------------- |
+| `--keep-config` | `-c`  | Zachowaj pliki konfiguracyjne |
+| `--keep-data`   | `-d`  | Zachowaj dane sesji i migawki |
+| `--dry-run`     |       | Pokaż co zostanie usunięte    |
+| `--force`       | `-f`  | Pomiń monity o potwierdzenie  |
+
+---
+
+### upgrade
+
+Aktualizuj Codemate do najnowszej lub określonej wersji.
+
+```bash
+codemate upgrade [target]
+```
+
+Aby zaktualizować do najnowszej wersji:
+
+```bash
+codemate upgrade
+```
+
+Aby zaktualizować do konkretnej wersji:
+
+```bash
+codemate upgrade v0.1.48
+```
+
+#### Flagi
+
+| Flaga      | Skrót | Opis                                                |
+| ---------- | ----- | --------------------------------------------------- |
+| `--method` | `-m`  | Wymuś metodę instalacji: curl, npm, pnpm, bun, brew |
+
+---
+
+## Flagi globalne
+
+Interfejs CLI Codemate przyjmuje następujące flagi globalne dla każdego polecenia.
+
+| Flaga          | Skrót | Opis                                        |
+| -------------- | ----- | ------------------------------------------- |
+| `--help`       | `-h`  | Wyświetl pomoc                              |
+| `--version`    | `-v`  | Wydrukuj numer wersji                       |
+| `--print-logs` |       | Drukuj logi na stderr                       |
+| `--log-level`  |       | Poziom logowania (DEBUG, INFO, WARN, ERROR) |
+
+---
+
+## Zmienne środowiskowe
+
+Codemate można skonfigurować za pomocą zmiennych środowiskowych.
+
+| Zmienna                               | Typ     | Opis                                                       |
+| ------------------------------------- | ------- | ---------------------------------------------------------- |
+| `CODEMATE_AUTO_SHARE`                 | boolean | Automatycznie udostępniaj sesje                            |
+| `CODEMATE_GIT_BASH_PATH`              | string  | Ścieżka do pliku wykonywalnego Git Bash w systemie Windows |
+| `CODEMATE_CONFIG`                     | string  | Ścieżka do pliku konfiguracyjnego                          |
+| `CODEMATE_TUI_CONFIG`                 | string  | Ścieżka do pliku konfiguracyjnego TUI                      |
+| `CODEMATE_CONFIG_DIR`                 | string  | Ścieżka do katalogu konfiguracyjnego                       |
+| `CODEMATE_CONFIG_CONTENT`             | string  | Treść konfiguracji JSON (inline)                           |
+| `CODEMATE_DISABLE_AUTOUPDATE`         | boolean | Wyłącz automatyczne sprawdzanie aktualizacji               |
+| `CODEMATE_DISABLE_PRUNE`              | boolean | Wyłącz czyszczenie starych wyników (pruning)               |
+| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolean | Wyłącz automatyczne ustawianie tytułu terminala            |
+| `CODEMATE_PERMISSION`                 | string  | Konfiguracja uprawnień w JSON (inline)                     |
+| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolean | Wyłącz domyślne wtyczki                                    |
+| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolean | Wyłącz automatyczne pobieranie serwerów LSP                |
+| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Włącz modele eksperymentalne                               |
+| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolean | Wyłącz automatyczne kompaktowanie kontekstu                |
+| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolean | Wyłącz integrację z `.claude` (prompt + skills)            |
+| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Wyłącz czytanie `~/.claude/CLAUDE.md`                      |
+| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Wyłącz ładowanie `.claude/skills`                          |
+| `CODEMATE_DISABLE_MODELS_FETCH`       | boolean | Wyłącz pobieranie modeli ze źródeł zewnętrznych            |
+| `CODEMATE_FAKE_VCS`                   | string  | Fałszywy dostawca VCS do celów testowych                   |
+| `CODEMATE_CLIENT`                     | string  | Identyfikator klienta (domyślnie `cli`)                    |
+| `CODEMATE_ENABLE_EXA`                 | boolean | Włącz narzędzie wyszukiwania internetowego Exa             |
+| `CODEMATE_SERVER_PASSWORD`            | string  | Włącz uwierzytelnianie podstawowe dla `serve`/`web`        |
+| `CODEMATE_SERVER_USERNAME`            | string  | Nazwa użytkownika do autoryzacji (domyślnie `codemate`)    |
+| `CODEMATE_MODELS_URL`                 | string  | Niestandardowy adres URL do pobierania konfiguracji modeli |
+
+---
+
+### Eksperymentalne
+
+Te zmienne włączają funkcje eksperymentalne, które mogą ulec zmianie lub zostać usunięte.
+
+| Zmienna                                         | Typ     | Opis                                         |
+| ----------------------------------------------- | ------- | -------------------------------------------- |
+| `CODEMATE_EXPERIMENTAL`                         | boolean | Włącz wszystkie funkcje eksperymentalne      |
+| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Włącz wykrywanie ikon                        |
+| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Wyłącz kopiowanie przy zaznaczaniu w TUI     |
+| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | Domyślny limit czasu dla narzędzia bash w ms |
+| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | Maksymalne tokeny wyjściowe dla LLM          |
+| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolean | Włącz obserwatora plików dla całego katalogu |
+| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolean | Włącz formater oxfmt                         |
+| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolean | Włącz eksperymentalne narzędzie LSP          |
+| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Wyłącz obserwatora plików                    |
+| `CODEMATE_EXPERIMENTAL_EXA`                     | boolean | Włącz funkcje eksperymentalne Exa            |
+| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolean | Włącz TY LSP dla plików python               |
+| `CODEMATE_EXPERIMENTAL_MARKDOWN`                | boolean | Włącz funkcje eksperymentalne Markdown       |
+| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolean | Włącz tryb planowania                        |

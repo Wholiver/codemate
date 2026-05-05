@@ -1,0 +1,3 @@
+Merge additional field definitions into an existing `fields.yaml`.
+
+Use this when the current research schema needs more fields or categories. The tool auto-locates `fields.yaml` unless you provide an explicit path, updates matching field names, and rewrites the YAML in place.

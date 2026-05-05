@@ -1,0 +1,72 @@
+Use this tool to estimate task difficulty, expected completion time, whether search is required for accuracy, and planned steps before executing any non-trivial task.
+
+This tool forces you to think before acting, reducing wasted effort and wrong paths.
+
+## When to Use This Tool
+
+Use this tool proactively in these scenarios:
+
+1. Unfamiliar territory - New libraries, unknown APIs, unclear error messages
+2. Complex multi-step tasks - Tasks requiring 3+ distinct steps
+3. Expensive operations - Long-running builds, large refactors, brute-force searches
+4. High-risk changes - Database migrations, security configs, production deployments
+5. Ambiguous requirements - When multiple valid approaches exist
+
+## When NOT to Use This Tool
+
+Skip using this tool when:
+1. The task is a simple question or single-step operation
+2. You are reading files or running a single command
+3. The task is purely conversational or informational
+4. You already have a clear, obvious path forward
+
+## Required Assessment
+
+- **difficulty**: `easy`, `medium`, or `hard`, based on task scope, risk, and uncertainty.
+- **estimated_minutes**: Realistic minute estimate to finish the task.
+- **needs_search_for_accuracy**: `true` when external searching is needed for precise/latest facts or unclear tool behavior.
+
+## Execution Branching Rules (After Planning)
+
+1. If `difficulty=easy` and `needs_search_for_accuracy=false`: execute directly.
+2. If `difficulty=medium` or `difficulty=hard`: do research first, then implementation.
+3. If `needs_search_for_accuracy=true`: include internet/web search before major implementation.
+4. For complex tasks, follow: research -> implementation -> verification.
+
+## Step Types
+
+- **action**: A concrete operation (edit file, run command, create resource)
+- **research**: An investigation step (search codebase, read docs, check API)
+- **verification**: A confirmation step (run tests, check output, validate result)
+
+## Examples
+
+<example>
+User: Add OAuth2 authentication to the API
+Assistant: Let me plan this out first.
+*Calls planner with difficulty: hard, estimated_minutes: 45, needs_search_for_accuracy: true, reasoning: "OAuth2 implementation varies by provider, and precise provider behavior must be verified", steps: [research: check existing auth code, research: read OAuth2 provider docs, action: implement token endpoint, action: add middleware, verification: test auth flow]*
+
+<reasoning>
+OAuth2 is a complex multi-step feature with external dependencies. The task is hard, likely longer, and requires search for accuracy before coding.
+</reasoning>
+</example>
+
+<example>
+User: Fix the typo in README.md
+Assistant: Sure, fixing it now.
+*Does NOT call planner - single trivial step*
+
+<reasoning>
+This is a single trivial step. Planning would add overhead with no benefit.
+</reasoning>
+</example>
+
+<example>
+User: Migrate the database from SQLite to PostgreSQL
+Assistant: Let me plan this carefully.
+*Calls planner with difficulty: hard, estimated_minutes: 120, needs_search_for_accuracy: false, reasoning: "Database migration is high-risk and expensive. Validate with a small subset first", steps: [research: check current schema complexity, action: create migration script for one table, verification: test migration on subset, action: run full migration, verification: validate data integrity]*
+
+<reasoning>
+Database migration is high-risk and expensive. Feasibility-first ensures we validate the approach before committing to the full migration.
+</reasoning>
+</example>

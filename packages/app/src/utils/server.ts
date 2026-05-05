@@ -1,0 +1,25 @@
+import { createCodemateClient } from "@codemate-ai/sdk/v2/client"
+import type { ServerConnection } from "@/context/server"
+
+export function createSdkForServer({
+  server,
+  ...config
+}: Omit<NonNullable<Parameters<typeof createCodemateClient>[0]>, "baseUrl"> & {
+  server: ServerConnection.HttpBase
+}) {
+  const auth = (() => {
+    if (!server.password) return
+    return {
+      Authorization: `Basic ${btoa(`${server.username ?? "codemate"}:${server.password}`)}`,
+    }
+  })()
+
+  return createCodemateClient({
+    ...config,
+    headers: {
+      ...(config.headers instanceof Headers ? Object.fromEntries(config.headers.entries()) : config.headers),
+      ...auth,
+    },
+    baseUrl: server.url,
+  })
+}
