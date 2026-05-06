@@ -1,14 +1,15 @@
 <pre align="center">
- ███   ███  ████  █████ █   █  ███  █████ █████ 
-█     █   █ █   █ █     ██ ██ █   █   █   █     
-█     █   █ █   █ ████  █ █ █ █████   █   ████  
-█     █   █ █   █ █     █   █ █   █   █   █     
- ███   ███  ████  █████ █   █ █   █   █   █████ 
+ ███   ███  ████  █████ █   █  ███  █████ █████
+█     █   █ █   █ █     ██ ██ █   █   █   █
+█     █   █ █   █ ████  █ █ █ █████   █   ████
+█     █   █ █   █ █     █   █ █   █   █   █
+ ███   ███  ████  █████ █   █ █   █   █   █████
 </pre>
-<p align="center">开源的 AI Coding Agent。</p>
+
+<p align="center"><strong>开源 AI Coding Agent：超长期记忆 + 自学习 + 自检 + 深度搜索。</strong></p>
+
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/codemate_agent"><img alt="npm" src="https://img.shields.io/npm/v/codemate_agent?style=flat-square" /></a>
   <a href="https://github.com/Wholiver/codemate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
 
@@ -21,89 +22,144 @@
 
 ---
 
-### 安装
+## 一眼看懂 Codemate
+
+Codemate 不是“只会调模型的命令行壳”。它是一个完整 Agent 运行时，核心是四件事：
+
+- **Memory 超长期记忆**（跨会话持续可用）
+- **Lessons 自学习**（做完任务后沉淀经验）
+- **Self-check 自检**（最终回复前做验证）
+- **Deep Research 深度搜索**（复杂问题走研究流程）
+
+如果你要的是“越用越懂项目”的 Agent，而不是一次性答题器，Codemate 就是为这个目标设计的。
+
+## 你做出的核心功能（重点）
+
+### 1）Memory：超长期记忆系统
+
+Memory 在 Codemate 里是核心模块（`packages/codemate/src/memory/*`），不是附加笔记。
+
+- 记忆数据天然带有 **domain / path / version** 结构
+- 工具层直接提供：
+  - `memory_create`
+  - `memory_search`
+  - `memory_read`
+  - `memory_list`
+- `memory_search` 支持三种模式：
+  - `keyword`（关键词）
+  - `semantic`（语义）
+  - `hybrid`（推荐，混合）
+- 记忆生命周期具备：
+  - vitality（活性）评分
+  - 衰减与清理
+  - 检索排序信号
+- 对于“有持续价值”的任务，系统提示会推动写入 memory，确保上下文可以跨会话复用。
+
+用户能直接感知到的价值：
+
+- 上周定过的策略、踩过的坑、偏好配置，不会每次都从头再讲。
+- 记忆不是聊天记录，而是可检索、可演化的项目知识。
+
+### 2）Lessons：自学习闭环
+
+Codemate 把“学习”做成了显式机制。
+
+- lessons 文件位置：`.codemate/lessons.md`
+- 通过 `lesson_write` 工具更新
+- 系统会把 lessons 重新注入上下文（`<project-lessons>`）
+- lessons 的内容重点是：
+  - 遇到的错误与规避方式
+  - 走过的弯路与避免复发
+  - 关键发现与最终决策
+
+用户能直接感知到的价值：
+
+- 同类错误越来越少。
+- Agent 会逐步形成“这个仓库专属”的工作经验。
+
+### 3）Self-check：结果前自检
+
+Codemate 内置 `selfcheck` 工具（`packages/codemate/src/tool/selfcheck.ts`）。
+
+- JS/TS 默认检查：
+  - `typecheck`
+  - `lint`
+  - `test`
+- 非 JS/TS 可传自定义校验命令：
+  - 例如 `pytest`、`go test ./...`、`cargo test`
+- 失败后不是一句“失败了”，而是进入修复闭环：
+  - 记录失败上下文
+  - 更新 lessons/changelog
+  - 补充研究并再次验证
+
+用户能直接感知到的价值：
+
+- 明显减少“看起来完成了，但其实没验证过”的交付。
+- 在复杂任务里更稳，不容易无声失败。
+
+### 4）Deep Research：深度搜索能力
+
+Codemate 有完整 research 工具链，而不是只做一次浅层搜索。
+
+- 研究相关工具：
+  - `research`
+  - `research-add-items`
+  - `research-add-fields`
+  - `research-deep`
+  - `research-report`
+- `research-deep` 支持结构化研究流程：
+  - 基于 outline 的多项研究
+  - 字段化提取
+  - 不确定性标记
+  - 面向来源交叉验证的采集方式
+- 配合 `websearch` / `webfetch`（以及可选 Exa 路径）做信息闭环。
+
+用户能直接感知到的价值：
+
+- 面对新框架、第三方 API、迁移方案这类高不确定任务时，正确率和可解释性更高。
+- 少拍脑袋，多证据链。
+
+## 真实任务是怎么跑起来的
+
+1. 理解任务目标与约束
+2. 拉取相关长期记忆
+3. 对不确定问题进行深度研究
+4. 执行改动
+5. 运行 self-check
+6. 回写 lessons + memory，让下一次更聪明
+
+这套流程的核心不是“回答一次问题”，而是**持续进化的项目协作能力**。
+
+## 对比（给新用户快速判断）
+
+| 维度 | 与 OPENCODE 对比 | 与 Claude Code 对比 |
+| --- | --- | --- |
+| 运行时形态 | 当前活跃能力集中在 `packages/codemate/src/*`，核心模块收拢 | 完整开源，运行时可审计、可改造 |
+| 记忆能力 | 内建持久记忆 + 检索 + 生命周期治理 | 跨会话项目上下文连续性更强 |
+| 学习能力 | 原生 lessons 闭环（`.codemate/lessons.md` + `lesson_write`） | 项目知识可以制度化沉淀，而非一次性对话 |
+| 结果可靠性 | 一等公民 selfcheck + 失败后反思修复流程 | 最终输出前的可控验证能力更强 |
+| 搜索深度 | `research-*` + `websearch/webfetch` 组合成深度研究链路 | 更适合高不确定性工程决策场景 |
+| 模型策略 | provider-agnostic，不绑定单一供应商 | 模型选择与成本策略更可控 |
+
+## 安装（JSR）
 
 ```bash
-# npm（推荐）
-npm i -g codemate_agent@latest
+# npm / bun / 旧版 pnpm/yarn
+npx jsr add @codemate/codemate
 
-# 软件包管理器
-npm i -g codemate_agent@latest     # 也可使用 bun/pnpm/yarn
-scoop install codemate             # Windows
-choco install codemate             # Windows
-brew install anomalyco/tap/codemate # macOS 和 Linux（推荐，始终保持最新）
-brew install codemate              # macOS 和 Linux（官方 brew formula，更新频率较低）
-sudo pacman -S codemate            # Arch Linux (Stable)
-paru -S codemate-bin               # Arch Linux (Latest from AUR)
-mise use -g codemate               # 任意系统
-nix run nixpkgs#codemate           # 或用 github:anomalyco/codemate 获取最新 dev 分支
+# 或
+bunx jsr add @codemate/codemate
+pnpm dlx jsr add @codemate/codemate
+yarn dlx jsr add @codemate/codemate
 ```
 
-> [!TIP]
-> 安装前请先移除 0.1.x 之前的旧版本。
+- JSR 包地址：https://jsr.io/@codemate/codemate
+- 文档：https://codemate.ai/docs
 
-### 桌面应用程序 (BETA)
+## 参与贡献
 
-Codemate 的安装包发布在 npm：[codemate_agent](https://www.npmjs.com/package/codemate_agent)。桌面端二进制可从 [发布页 (releases page)](https://github.com/Wholiver/codemate/releases) 下载。
-
-| 平台                  | 下载文件                              |
-| --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `codemate-desktop-darwin-aarch64.dmg` |
-| macOS (Intel)         | `codemate-desktop-darwin-x64.dmg`     |
-| Windows               | `codemate-desktop-windows-x64.exe`    |
-| Linux                 | `.deb`、`.rpm` 或 AppImage            |
-
-```bash
-# macOS (Homebrew Cask)
-brew install --cask codemate-desktop
-# Windows (Scoop)
-scoop bucket add extras; scoop install extras/codemate-desktop
-```
-
-#### 安装目录（npm）
-
-使用 npm 全局安装时，可通过 npm prefix 控制二进制安装目录。
-
-```bash
-# 示例
-npm_config_prefix=/usr/local npm i -g codemate_agent@latest
-npm_config_prefix=$HOME/.local npm i -g codemate_agent@latest
-```
-
-### Agents
-
-Codemate 内置两种 Agent，可用 `Tab` 键快速切换：
-
-- **build** - 默认模式，具备完整权限，适合开发工作
-- **plan** - 只读模式，适合代码分析与探索
-  - 默认拒绝修改文件
-  - 运行 bash 命令前会询问
-  - 便于探索未知代码库或规划改动
-
-另外还包含一个 **general** 子 Agent，用于复杂搜索和多步任务，内部使用，也可在消息中输入 `@general` 调用。
-
-了解更多 [Agents](https://codemate.ai/docs/agents) 相关信息。
-
-### 文档
-
-更多配置说明请查看我们的 [**官方文档**](https://codemate.ai/docs)。
-
-### 参与贡献
-
-如有兴趣贡献代码，请在提交 PR 前阅读 [贡献指南 (Contributing Docs)](./CONTRIBUTING.md)。
-
-### 基于 Codemate 进行开发
-
-如果你在项目名中使用了 “codemate”（如 “codemate-dashboard” 或 “codemate-mobile”），请在 README 里注明该项目不是 Codemate 团队官方开发，且不存在隶属关系。
-
-### 常见问题 (FAQ)
-
-#### 这和 OPENCODE、Claude Code 有什么不同？
-
-| 与 OPENCODE 对比 | 与 Claude Code 对比 |
-| --- | --- |
-| - **当前代码状态**：历史上的 `packages/opencode/*` 大量文档/测试已移除，当前活跃运行时代码主要集中在 `packages/codemate/src/*`。<br>- **能力面**：现有核心模块覆盖 `agent`、`session`、`tool`、`mcp`、`lsp`、`memory`、`server`、`cli`、`acp`，是一个集成度较高的 Agent 运行时。<br>- **多界面共栈**：TUI/CLI/Web/Server 仍复用同一套核心运行时，跨入口行为与上下文更容易保持一致。<br>- **插件现状**：插件体系正在重构期（例如旧入口发生变化），可扩展性强，但接口仍在快速演进。<br>- **实际差异**：若与早期 OPENCODE 快照对比，今天最大的变化是“能力收拢到一个 codemate runtime”，而不是分散在多套并行包结构里。 | - **开源可审计**：Codemate 仍是完整开源，核心行为可以直接在仓库中定位与审查。<br>- **模型策略**：保持 provider-agnostic，可接 Claude/OpenAI/Google/本地模型，不绑定单一供应商。<br>- **内建基础设施**：MCP、LSP、Memory、Session 在运行时中是一等模块，不只是外部壳层。<br>- **协议集成**：仓库内置 ACP 实现（`src/acp/*`），更利于接入更广泛的 Agent 生态。<br>- **取舍点**：项目迭代速度快，部分 API/文档会变化；以当前分支代码与 docs 为准最稳妥。 |
+提交 PR 前请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ---
 
-**加入我们的社区** [飞书](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=738j8655-cd59-4633-a30a-1124e0096789&qr_code=true) | [X.com](https://x.com/codemate)
+**社区**：[Discord](https://discord.gg/codemate) · [X](https://x.com/codemate)
