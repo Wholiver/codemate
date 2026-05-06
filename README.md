@@ -69,15 +69,11 @@ If you are working on a project that's related to Codemate and is using "codemat
 
 ### FAQ
 
-#### How is this different from Claude Code?
+#### How is this different from OPENCODE and Claude Code?
 
-It's very similar to Claude Code in terms of capability. Here are the key differences:
-
-- 100% open source
-- Not coupled to any provider. Although we recommend the models we provide through [Codemate Zen](https://codemate.ai/zen), Codemate can be used with Claude, OpenAI, Google, or even local models. As models evolve, the gaps between them will close and pricing will drop, so being provider-agnostic is important.
-- Out-of-the-box LSP support
-- A focus on TUI. Codemate is built by neovim users and the creators of [terminal.shop](https://terminal.shop); we are going to push the limits of what's possible in the terminal.
-- A client/server architecture. This, for example, can allow Codemate to run on your computer while you drive it remotely from a mobile app, meaning that the TUI frontend is just one of the possible clients.
+| Compared with OPENCODE | Compared with Claude Code |
+| --- | --- |
+| - Client/server architecture with multiple clients.<br>- Strong terminal-first (TUI) focus by the [terminal.shop](https://terminal.shop) team.<br>- Built-in long-term memory and self-learning loops. | - 100% open source.<br>- Provider-agnostic: use Claude, OpenAI, Google, or local models (and [Codemate Zen](https://codemate.ai/zen)).<br>- Out-of-the-box LSP support. |
 
 ---
 
