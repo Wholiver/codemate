@@ -5,10 +5,9 @@
 █     █   █ █   █ █     █   █ █   █   █   █     
  ███   ███  ████  █████ █   █ █   █   █   █████ 
 </pre>
-<p align="center"><strong><font size="4">The AI coding agent that gets smarter — right inside your project.</font></strong></p>
+<p align="center">The open source AI coding agent with long-term memory, self-learning, and self-check.</p>
 <p align="center">
   <a href="https://codemate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
-  <a href="https://www.npmjs.com/package/codemate_agent"><img alt="npm" src="https://img.shields.io/npm/v/codemate_agent?style=flat-square" /></a>
   <a href="https://github.com/Wholiver/codemate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
 
@@ -17,87 +16,44 @@
   <a href="README.zh.md">简体中文</a>
 </p>
 
-<p align="center">
-  <a href="https://codemate.ai">
-    <img src="packages/web/src/assets/lander/screenshot.png" alt="Codemate Terminal UI" width="90%">
-  </a>
-</p>
+[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
 
 ---
 
-Most AI coding tools start from scratch every session. Codemate doesn't. It builds a **living project brain** — memory, lessons, and history that compound over time, right inside your project's SQLite database. The longer you use it in a project, the more it understands your codebase, your patterns, and your conventions.
+### Why Codemate
 
-### How Codemate Gets Smarter Inside Your Project
+- **Ultra long-term memory**: Codemate keeps durable project memory across sessions so it can remember your codebase context, preferences, and past fixes.
+- **Self-learning improvement loop**: Every run can feed lessons and changelogs back into future behavior, so the agent gets better as you keep using it.
+- **Built-in self-check**: Before finishing tasks, Codemate can run structured self-check flows to verify outcomes and reduce silent mistakes.
 
-#### 1. Project Memory — Always There, Always Relevant
+### Core Workflow
 
-Every piece of knowledge Codemate learns about your project is stored persistently in SQLite. It survives sessions, restarts, and even machine reboots. The memory system doesn't just store facts — it manages them:
-
-- **Vitality scoring** — Frequently accessed memories stay prominent (vitality score 0→1). Rarely used ones naturally decay toward 0. The system knows what matters to your project.
-- **Version chains** — When memory content changes, it creates a new version rather than overwriting. History is preserved. Old versions can be referenced when needed.
-- **Hybrid search** — Combines keyword matching and LSH-based semantic embeddings. Intent-aware: factual queries weight keywords higher; exploratory queries weight semantics higher. Alias system lets you reference the same memory by different names.
-- **Automatic consolidation** — If multiple fragments exist for the same topic, Codemate merges them automatically. No duplicate noise.
-- **Lifecycle management** — Memories decay over time (30-day half-life if unused). Stale, low-vitality entries are cleaned up. The system stays lean and relevant.
-
-#### 2. Lessons — The Feedback Loop
-
-After each task, Codemate writes lessons to `.codemate/lessons.md`. These are loaded as context at the **start of every new task** — so it immediately knows your project's conventions, gotchas, and patterns before it begins:
-
-> "This project uses feature flags for all new features."
-> "Never commit directly to main — use the PR workflow."
-> "The database schema is the source of truth, not the ORM models."
-
-Lessons accumulate. They are the explicit, human-readable record of what works and what doesn't in your project.
-
-#### 3. Changelog — History You Can Search
-
-Every significant change is recorded in a project-scoped changelog with timestamps, changed files, and summaries. Before working on a new task, Codemate can search this history to understand recent context — what was changed, by whom, and why.
-
-#### 4. The Compound Effect
-
-Together, these systems feed into Codemate's context window at every task:
-
-```
-New task starts
-  → Load lessons from .codemate/lessons.md  (what we know works)
-  → Load recent changelog                   (what changed recently)
-  → Search project memory                   (everything else we know)
-  → Agent builds context from all of this
-  → Agent executes task
-  → Agent writes new lessons, updates memory, appends to changelog
-```
-
-After 10 sessions, Codemate knows your project structure, your team's conventions, the patterns that caused bugs before, and the patterns that work well. After 50 sessions, it's a genuine project expert.
-
-### Other Features
-
-- **Two built-in agents** — switch with `Tab`: `build` (default, full-access) and `plan` (read-only, asks before bash)
-- **Provider-agnostic** — works with Claude, OpenAI, Google, or local models via [Codemate Zen](https://codemate.ai/zen)
-- **Built-in LSP support** — code intelligence out of the box
-- **Client/server architecture** — run the backend headless, drive it from any frontend (TUI, web, desktop)
-- **Plugin system** — extend via `@codemate-ai/plugin`
-- **100% open source**
+1. Plan the task with difficulty, time, and research needs.
+2. Execute with tool use and context-aware memory.
+3. Self-check results, then reflect into memory/lessons/changelog.
 
 ### Installation
 
 ```bash
-# npm (recommended)
-npm i -g codemate_agent@latest
-
-# Package managers
-npm i -g codemate_agent@latest        # or bun/pnpm/yarn
-scoop install codemate             # Windows
-choco install codemate             # Windows
-brew install anomalyco/tap/codemate # macOS and Linux (recommended, always up to date)
-brew install codemate              # macOS and Linux (official brew formula, updated less)
-sudo pacman -S codemate            # Arch Linux (Stable)
-paru -S codemate-bin               # Arch Linux (Latest from AUR)
-mise use -g codemate               # Any OS
-nix run nixpkgs#codemate           # or github:anomalyco/codemate for latest dev branch
+npx jsr add @codemate/codemate
 ```
 
-> [!TIP]
-> Remove versions older than 0.1.x before installing.
+JSR download: https://jsr.io/@codemate/codemate
+
+### Agents
+
+Codemate includes two built-in agents you can switch between with the `Tab` key.
+
+- **build** - Default, full-access agent for development work
+- **plan** - Read-only agent for analysis and code exploration
+  - Denies file edits by default
+  - Asks permission before running bash commands
+  - Ideal for exploring unfamiliar codebases or planning changes
+
+Also included is a **general** subagent for complex searches and multistep tasks.
+This is used internally and can be invoked using `@general` in messages.
+
+Learn more about [agents](https://codemate.ai/docs/agents).
 
 ### Documentation
 
@@ -105,7 +61,11 @@ For more info on how to configure Codemate, [**head over to our docs**](https://
 
 ### Contributing
 
-If you are interested in contributing to Codemate, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
+If you're interested in contributing to Codemate, please read our [contributing docs](./CONTRIBUTING.md) before submitting a pull request.
+
+### Building on Codemate
+
+If you are working on a project that's related to Codemate and is using "codemate" as part of its name, for example "codemate-dashboard" or "codemate-mobile", please add a note to your README to clarify that it is not built by the Codemate team and is not affiliated with us in any way.
 
 ### FAQ
 
