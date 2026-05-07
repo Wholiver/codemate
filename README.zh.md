@@ -22,124 +22,157 @@
 
 ---
 
-## 一眼看懂 Codemate
+## 快速导航
 
-Codemate 不是“只会调模型的命令行壳”。它是一个完整 Agent 运行时，核心是四件事：
+- [30 秒看懂价值](#30-秒看懂价值)
+- [核心功能](#核心功能)
+- [架构速览](#架构速览)
+- [工作流闭环](#工作流闭环)
+- [对比（给新用户快速判断）](#对比给新用户快速判断)
+- [安装（JSR）](#安装jsr)
 
-- **Memory 超长期记忆**（跨会话持续可用）
-- **Lessons 自学习**（做完任务后沉淀经验）
-- **Self-check 自检**（最终回复前做验证）
-- **Deep Research 深度搜索**（复杂问题走研究流程）
+## 30 秒看懂价值
 
-如果你要的是“越用越懂项目”的 Agent，而不是一次性答题器，Codemate 就是为这个目标设计的。
+Codemate 不是一次性问答工具，而是持续进化的工程 Agent 运行时。
 
-## 你做出的核心功能（重点）
+| 支柱 | 内建能力 | 在真实工作里的价值 |
+| --- | --- | --- |
+| Memory | 持久记忆 + 可检索结构 | 跨会话保留架构决策、偏好和排障经验 |
+| Lessons | `.codemate/lessons.md` + `lesson_write` | 把错误与发现沉淀为可复用项目知识 |
+| Self-check | `selfcheck`（默认 + 自定义验证） | 在交付前拦截“看似完成但未验证” |
+| Deep Research | `research-*` + `websearch` + `webfetch` | 在高不确定任务中提供带来源依据的研究能力 |
+| 一体化运行时 | MCP + LSP + ACP 同栈集成 | 让 CLI/TUI/Web 行为更一致，降低集成摩擦 |
 
-### 1）Memory：超长期记忆系统
+这意味着：
 
-Memory 在 Codemate 里是核心模块（`packages/codemate/src/memory/*`），不是附加笔记。
+- Agent 会随着你的项目持续变强。
+- 高上下文任务不再每次从零开始。
+- 结果可靠性来自内建验证闭环，而不是运气。
 
-- 记忆数据天然带有 **domain / path / version** 结构
-- 工具层直接提供：
+## 核心功能
+
+### Memory：超长期记忆系统
+
+核心模块：`packages/codemate/src/memory/*`
+
+- 结构化记忆模型：`domain / path / version`
+- 记忆工具：
   - `memory_create`
   - `memory_search`
   - `memory_read`
   - `memory_list`
-- `memory_search` 支持三种模式：
-  - `keyword`（关键词）
-  - `semantic`（语义）
-  - `hybrid`（推荐，混合）
-- 记忆生命周期具备：
+- 检索模式：
+  - `keyword`
+  - `semantic`
+  - `hybrid`（推荐）
+- 生命周期治理：
   - vitality（活性）评分
   - 衰减与清理
-  - 检索排序信号
-- 对于“有持续价值”的任务，系统提示会推动写入 memory，确保上下文可以跨会话复用。
+  - 去重与排序
 
-用户能直接感知到的价值：
+为什么重要：
 
-- 上周定过的策略、踩过的坑、偏好配置，不会每次都从头再讲。
-- 记忆不是聊天记录，而是可检索、可演化的项目知识。
+- 关键实现上下文可以跨长期项目保留。
+- 架构讨论和排障经验会变成可复用资产。
 
-### 2）Lessons：自学习闭环
+### Lessons：内建自学习闭环
 
-Codemate 把“学习”做成了显式机制。
+核心文件：`.codemate/lessons.md`  
+写入工具：`lesson_write`
 
-- lessons 文件位置：`.codemate/lessons.md`
-- 通过 `lesson_write` 工具更新
-- 系统会把 lessons 重新注入上下文（`<project-lessons>`）
-- lessons 的内容重点是：
-  - 遇到的错误与规避方式
-  - 走过的弯路与避免复发
-  - 关键发现与最终决策
+- 有意义的执行后写入 lessons。
+- 通过 `<project-lessons>` 回灌上下文。
+- 条目聚焦：
+  - 错误与预防
+  - 弯路与原因
+  - 发现与最终决策
 
-用户能直接感知到的价值：
+为什么重要：
 
-- 同类错误越来越少。
-- Agent 会逐步形成“这个仓库专属”的工作经验。
+- 同类错误会越来越少。
+- 团队工程习惯被显式沉淀并复用。
 
-### 3）Self-check：结果前自检
+### Self-check：结果前自检
 
-Codemate 内置 `selfcheck` 工具（`packages/codemate/src/tool/selfcheck.ts`）。
+工具：`packages/codemate/src/tool/selfcheck.ts`
 
 - JS/TS 默认检查：
   - `typecheck`
   - `lint`
   - `test`
-- 非 JS/TS 可传自定义校验命令：
-  - 例如 `pytest`、`go test ./...`、`cargo test`
-- 失败后不是一句“失败了”，而是进入修复闭环：
+- 非 JS/TS 支持自定义校验：
+  - `pytest`
+  - `go test ./...`
+  - `cargo test`
+- 失败后闭环：
   - 记录失败上下文
   - 更新 lessons/changelog
   - 补充研究并再次验证
 
-用户能直接感知到的价值：
+为什么重要：
 
-- 明显减少“看起来完成了，但其实没验证过”的交付。
-- 在复杂任务里更稳，不容易无声失败。
+- 减少无声回归风险。
+- 多步骤复杂改动的交付信心更高。
 
-### 4）Deep Research：深度搜索能力
+### Deep Research：深度研究工作流
 
-Codemate 有完整 research 工具链，而不是只做一次浅层搜索。
+研究工具链：
 
-- 研究相关工具：
-  - `research`
-  - `research-add-items`
-  - `research-add-fields`
-  - `research-deep`
-  - `research-report`
-- `research-deep` 支持结构化研究流程：
-  - 基于 outline 的多项研究
-  - 字段化提取
-  - 不确定性标记
-  - 面向来源交叉验证的采集方式
-- 配合 `websearch` / `webfetch`（以及可选 Exa 路径）做信息闭环。
+- `research`
+- `research-add-items`
+- `research-add-fields`
+- `research-deep`
+- `research-report`
 
-用户能直接感知到的价值：
+`research-deep` 支持：
 
-- 面对新框架、第三方 API、迁移方案这类高不确定任务时，正确率和可解释性更高。
-- 少拍脑袋，多证据链。
+- 多项研究大纲
+- 字段化提取
+- 不确定性标记
+- 面向引用的采集流程
 
-## 真实任务是怎么跑起来的
+配合 `websearch` 与 `webfetch`，Codemate 可以进行深度研究，而不是单次浅层搜索。
 
-1. 理解任务目标与约束
-2. 拉取相关长期记忆
-3. 对不确定问题进行深度研究
-4. 执行改动
-5. 运行 self-check
-6. 回写 lessons + memory，让下一次更聪明
+为什么重要：
 
-这套流程的核心不是“回答一次问题”，而是**持续进化的项目协作能力**。
+- 对新框架、第三方 API、迁移决策更稳。
+- 降低“拍脑袋改代码”的风险。
+
+## 架构速览
+
+```text
+用户请求
+   -> 规划 / 会话循环
+      -> Memory（create/search/read/list）
+      -> Research（research-*）
+      -> Tool Execution（代码、shell、MCP）
+      -> Self-check（验证）
+      -> Lessons 回写（.codemate/lessons.md）
+```
+
+这些系统被统一在一个连续改进循环里，每次执行都会增强下一次执行质量。
+
+## 工作流闭环
+
+1. 理解目标与约束。
+2. 拉取相关长期记忆。
+3. 高不确定问题执行深度研究。
+4. 用项目感知工具实施改动。
+5. 运行 self-check。
+6. 回写 lessons 和 memory。
+
+核心不是“回答一次”，而是持续进化的项目协作能力。
 
 ## 对比（给新用户快速判断）
 
 | 维度 | 与 OPENCODE 对比 | 与 Claude Code 对比 |
 | --- | --- | --- |
-| 运行时形态 | 当前活跃能力集中在 `packages/codemate/src/*`，核心模块收拢 | 完整开源，运行时可审计、可改造 |
-| 记忆能力 | 内建持久记忆 + 检索 + 生命周期治理 | 跨会话项目上下文连续性更强 |
-| 学习能力 | 原生 lessons 闭环（`.codemate/lessons.md` + `lesson_write`） | 项目知识可以制度化沉淀，而非一次性对话 |
-| 结果可靠性 | 一等公民 selfcheck + 失败后反思修复流程 | 最终输出前的可控验证能力更强 |
-| 搜索深度 | `research-*` + `websearch/webfetch` 组合成深度研究链路 | 更适合高不确定性工程决策场景 |
-| 模型策略 | provider-agnostic，不绑定单一供应商 | 模型选择与成本策略更可控 |
+| 运行时形态 | 活跃运行时集中在 `packages/codemate/src/*`，子系统整合更紧 | 完整开源，端到端可审计、可改造 |
+| 记忆能力 | 内建持久记忆 + 检索 + 生命周期治理（不止对话历史） | 跨会话项目连续性更强 |
+| 学习能力 | 原生 lessons 闭环（`.codemate/lessons.md` + `lesson_write`） | 项目知识更易制度化沉淀 |
+| 结果可靠性 | 一等公民 self-check + 失败后修复流程 | 最终输出前验证路径更可控 |
+| 研究深度 | `research-*` + `websearch` + `webfetch` 深度组合 | 更适合高不确定、决策密集型工程任务 |
+| 模型策略 | provider-agnostic，不绑定单一供应商 | 模型与成本策略可控性更高 |
 
 ## 安装（JSR）
 
