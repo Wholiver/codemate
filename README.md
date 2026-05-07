@@ -88,52 +88,44 @@ Why this matters:
 
 ## Architecture At A Glance
 
-- **Input Layer**
-  - User request
-  - Project context: repo/files/runtime state
-  - Session history
-
-- **Planning Layer**
-  - Goal decomposition
-  - Constraint detection
-  - Execution strategy selection
-
-- **Knowledge Layer**
-  - Memory System
-    - write: `memory_create`
-    - retrieve: `memory_search` / `memory_read` / `memory_list`
-    - retrieval modes: `keyword` / `semantic` / `hybrid`
-  - Lessons System
-    - store: `.codemate/lessons.md`
-    - write: `lesson_write`
-    - load: `project-lessons`
-
-- **Research Layer**
-  - `research`
-  - `research-add-items`
-  - `research-add-fields`
-  - `research-deep`
-  - `research-report`
-  - `websearch` / `webfetch`
-
-- **Execution Layer**
-  - Code edits
-  - Shell commands
-  - Tool and MCP calls
-
-- **Verification Layer**
-  - `selfcheck`
-  - default checks: `typecheck` / `lint` / `test`
-  - custom checks: `pytest` / `go test` / `cargo test` ...
-
-- **Feedback Loop**
-  - Record failures and fixes
-  - Update lessons and memory
-  - Improve next run quality
-
-Flow:
-
-`Input -> Planning -> Knowledge -> Research -> Execution -> Verification -> Feedback -> Planning`
+```text
+Codemate Runtime
+├─ 1. Input Layer
+│  ├─ User request
+│  ├─ Project context (repo/files/runtime state)
+│  └─ Session history
+├─ 2. Planning Layer
+│  ├─ Goal decomposition
+│  ├─ Constraint detection
+│  └─ Execution strategy selection
+├─ 3. Knowledge Layer
+│  ├─ Memory System
+│  │  ├─ write: memory_create
+│  │  ├─ retrieve: memory_search / memory_read / memory_list
+│  │  └─ retrieval modes: keyword / semantic / hybrid
+│  └─ Lessons System
+│     ├─ store: .codemate/lessons.md
+│     ├─ write: lesson_write
+│     └─ load: <project-lessons>
+├─ 4. Research Layer
+│  ├─ research
+│  ├─ research-add-items
+│  ├─ research-add-fields
+│  ├─ research-deep
+│  └─ research-report (+ websearch / webfetch)
+├─ 5. Execution Layer
+│  ├─ code edits
+│  ├─ shell commands
+│  └─ tool/MCP calls
+├─ 6. Verification Layer
+│  ├─ selfcheck
+│  ├─ default checks: typecheck / lint / test
+│  └─ custom checks: pytest / go test / cargo test ...
+└─ 7. Feedback Loop
+   ├─ record failures and fixes
+   ├─ update lessons and memory
+   └─ improve next run quality
+```
 
 Codemate is designed as a compounding loop: each run can improve the next run.
 
