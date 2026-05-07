@@ -38,30 +38,19 @@ Codemate is built for teams that need reliable output over many sessions, not on
 | Deep research | `research-*` + `websearch` + `webfetch` | Better decisions under uncertainty |
 | Unified runtime | MCP + LSP + ACP in one core | Consistent behavior across CLI/TUI/Web |
 
-## What You Get On Day 1
-
-| Outcome | How Codemate achieves it |
-| --- | --- |
-| Fewer repeated mistakes | Lessons are written after execution and loaded back into context |
-| Better project continuity | Memory stores durable context beyond chat history |
-| Safer delivery | Self-check runs before final handoff |
-| Stronger technical decisions | Deep research toolchain gathers and structures evidence |
-
 ## Core Features
 
 ### 1) Memory: Ultra-Long Project Memory
 
 Module: `packages/codemate/src/memory/*`
 
-- Structured record model: `domain / path / version`
+- Structured memory model: `domain / path / version`
 - Tools: `memory_create`, `memory_search`, `memory_read`, `memory_list`
-- Retrieval modes: `keyword`, `semantic`, `hybrid`
-- Lifecycle: vitality scoring, cleanup/decay, dedup and ranking
+- Retrieval: `keyword`, `semantic`, `hybrid`
 
 Why this matters:
 
-- Architecture decisions and debugging wins remain searchable months later.
-- High-context tasks stop restarting from zero.
+- Project context stays available across conversations and tasks.
 
 ### 2) Lessons: Built-In Self-Learning
 
@@ -69,74 +58,76 @@ Core file: `.codemate/lessons.md`
 Write tool: `lesson_write`
 
 - Lessons are written after meaningful execution.
-- Lessons are injected back into future sessions via `<project-lessons>`.
-- Typical lesson payload:
-  - failure mode and prevention
-  - dead ends and why they failed
-  - key discovery and final decision
+- Lessons are injected into future sessions via `<project-lessons>`.
+- Focus: failure patterns, detours, and final decisions.
 
 Why this matters:
 
-- The agent adapts to your team style over time.
-- Known pitfalls become explicit and avoidable.
+- The same mistakes are less likely to repeat in the same project.
 
 ### 3) Self-check: Verification Before Final Output
 
 Tool: `packages/codemate/src/tool/selfcheck.ts`
 
 - Default JS/TS checks: `typecheck`, `lint`, `test`
-- Custom checks supported (example): `pytest`, `go test ./...`, `cargo test`
-- Failure loop: capture context -> update lessons/changelog -> re-research -> re-verify
+- Custom checks supported: `pytest`, `go test ./...`, `cargo test`
+- Failures trigger a fix-and-reverify loop.
 
 Why this matters:
 
-- Reliability is enforced as a workflow step, not left to chance.
-- Complex multi-file changes are safer to ship.
+- Output reliability is enforced before handoff.
 
 ### 4) Deep Research: Research-Native Workflow
 
-Toolchain:
-
-- `research`
-- `research-add-items`
-- `research-add-fields`
-- `research-deep`
-- `research-report`
-
-`research-deep` supports:
-
-- multi-item investigation plans
-- field-based extraction
-- uncertainty marking
-- source-oriented collection and reporting
+- Toolchain: `research`, `research-add-items`, `research-add-fields`, `research-deep`, `research-report`
+- Supports structured investigation, field extraction, uncertainty marking, and source-oriented reporting.
 
 Why this matters:
 
-- Better for migrations, vendor APIs, and fast-changing surfaces.
-- Reduces assumption-driven implementation risk.
+- Better decisions for migrations, vendor APIs, and fast-changing surfaces.
 
 ## Architecture At A Glance
 
 ```text
-User Request
-   -> Planner / Session Loop
-      -> Memory (create/search/read/list)
-      -> Research (research-*)
-      -> Tool Execution (code/shell/MCP)
-      -> Self-check (verify)
-      -> Lessons Write-back (.codemate/lessons.md)
+Codemate Runtime
+├─ 1. Input Layer
+│  ├─ User request
+│  ├─ Project context (repo/files/runtime state)
+│  └─ Session history
+├─ 2. Planning Layer
+│  ├─ Goal decomposition
+│  ├─ Constraint detection
+│  └─ Execution strategy selection
+├─ 3. Knowledge Layer
+│  ├─ Memory System
+│  │  ├─ write: memory_create
+│  │  ├─ retrieve: memory_search / memory_read / memory_list
+│  │  └─ retrieval modes: keyword / semantic / hybrid
+│  └─ Lessons System
+│     ├─ store: .codemate/lessons.md
+│     ├─ write: lesson_write
+│     └─ load: <project-lessons>
+├─ 4. Research Layer
+│  ├─ research
+│  ├─ research-add-items
+│  ├─ research-add-fields
+│  ├─ research-deep
+│  └─ research-report (+ websearch / webfetch)
+├─ 5. Execution Layer
+│  ├─ code edits
+│  ├─ shell commands
+│  └─ tool/MCP calls
+├─ 6. Verification Layer
+│  ├─ selfcheck
+│  ├─ default checks: typecheck / lint / test
+│  └─ custom checks: pytest / go test / cargo test ...
+└─ 7. Feedback Loop
+   ├─ record failures and fixes
+   ├─ update lessons and memory
+   └─ improve next run quality
 ```
 
 Codemate is designed as a compounding loop: each run can improve the next run.
-
-## Workflow Loop
-
-1. Understand the goal and constraints.
-2. Pull relevant memory.
-3. Run deep research for uncertain topics.
-4. Implement with project-aware tools.
-5. Run self-check.
-6. Persist lessons and memory updates.
 
 ## Comparison
 
