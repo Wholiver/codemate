@@ -88,43 +88,51 @@ Why this matters:
 
 ## Architecture At A Glance
 
-```text
-Codemate Runtime
-├─ 1. Input Layer
-│  ├─ User request
-│  ├─ Project context (repo/files/runtime state)
-│  └─ Session history
-├─ 2. Planning Layer
-│  ├─ Goal decomposition
-│  ├─ Constraint detection
-│  └─ Execution strategy selection
-├─ 3. Knowledge Layer
-│  ├─ Memory System
-│  │  ├─ write: memory_create
-│  │  ├─ retrieve: memory_search / memory_read / memory_list
-│  │  └─ retrieval modes: keyword / semantic / hybrid
-│  └─ Lessons System
-│     ├─ store: .codemate/lessons.md
-│     ├─ write: lesson_write
-│     └─ load: <project-lessons>
-├─ 4. Research Layer
-│  ├─ research
-│  ├─ research-add-items
-│  ├─ research-add-fields
-│  ├─ research-deep
-│  └─ research-report (+ websearch / webfetch)
-├─ 5. Execution Layer
-│  ├─ code edits
-│  ├─ shell commands
-│  └─ tool/MCP calls
-├─ 6. Verification Layer
-│  ├─ selfcheck
-│  ├─ default checks: typecheck / lint / test
-│  └─ custom checks: pytest / go test / cargo test ...
-└─ 7. Feedback Loop
-   ├─ record failures and fixes
-   ├─ update lessons and memory
-   └─ improve next run quality
+```mermaid
+flowchart TD
+  A[User Request] --> B[Input Layer]
+  B --> B1[Project Context<br/>repo/files/runtime state]
+  B --> B2[Session History]
+  B --> C[Planning Layer]
+
+  C --> C1[Goal Decomposition]
+  C --> C2[Constraint Detection]
+  C --> C3[Execution Strategy]
+  C --> D[Knowledge Layer]
+
+  D --> D1[Memory System]
+  D1 --> D1a[memory_create]
+  D1 --> D1b[memory_search / memory_read / memory_list]
+  D1 --> D1c[retrieval: keyword / semantic / hybrid]
+
+  D --> D2[Lessons System]
+  D2 --> D2a[store: .codemate/lessons.md]
+  D2 --> D2b[write: lesson_write]
+  D2 --> D2c[load: project-lessons]
+
+  D --> E[Research Layer]
+  E --> E1[research]
+  E --> E2[research-add-items]
+  E --> E3[research-add-fields]
+  E --> E4[research-deep]
+  E --> E5[research-report]
+  E --> E6[websearch / webfetch]
+
+  E --> F[Execution Layer]
+  F --> F1[Code Edits]
+  F --> F2[Shell Commands]
+  F --> F3[Tool and MCP Calls]
+
+  F --> G[Verification Layer]
+  G --> G1[selfcheck]
+  G --> G2[typecheck / lint / test]
+  G --> G3[custom checks: pytest / go test / cargo test]
+
+  G --> H[Feedback Loop]
+  H --> H1[Record failures and fixes]
+  H --> H2[Update lessons and memory]
+  H --> H3[Improve next run quality]
+  H --> C
 ```
 
 Codemate is designed as a compounding loop: each run can improve the next run.
