@@ -79,7 +79,7 @@ const QueryParameterSchemas = {
 
 const LegacyComponentDescriptions = {
   LogLevel: "Log level",
-  ServerConfig: "Server configuration for codemate serve and web commands",
+  ServerConfig: "Server configuration for codemate serve command",
   LayoutConfig: "@deprecated Always uses stretch layout.",
 } satisfies Record<string, string>
 
