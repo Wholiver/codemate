@@ -22,114 +22,127 @@
 
 ---
 
-## One-Glance Overview
+## Quick Navigation
 
-Codemate is not just "a CLI that calls a model". It is a runtime that combines:
+- [30-Second Value](#30-second-value)
+- [Core Features](#core-features)
+- [Workflow Loop](#workflow-loop)
+- [Comparison](#comparison)
+- [Install (JSR)](#install-jsr)
 
-- **Ultra-long memory** across sessions
-- **Project learning loops** through lessons
-- **Built-in self-check before final output**
-- **Deep web research workflow** for hard tasks
-- **Integrated MCP + LSP + ACP** in one core
+## 30-Second Value
 
-If you want an agent that gets better over time on your real project, this is what Codemate is optimized for.
+Codemate is an agent runtime focused on **continuity and reliability**, not just one-shot answers.
 
-## Core Capabilities (What You Built)
+| Pillar | Built-in capability | Why it matters |
+| --- | --- | --- |
+| Memory | Persistent memory with searchable records | Keeps decisions, patterns, and user preferences across sessions |
+| Lessons | `.codemate/lessons.md` + `lesson_write` loop | Converts mistakes and discoveries into reusable project knowledge |
+| Self-check | `selfcheck` with default and custom verification | Catches "looks done but broken" before final output |
+| Deep research | `research-*` + `websearch`/`webfetch` | Produces stronger outcomes for high-uncertainty tasks |
+| Integrated runtime | MCP + LSP + ACP in one core | Reduces glue code and improves cross-interface consistency |
 
-### 1) Memory: Ultra-Long Project Memory
+If you want an agent that gets **smarter on your actual codebase over time**, this is the operating model.
 
-Memory is a first-class system in Codemate (`packages/codemate/src/memory/*`), not a bolt-on note pad.
+## Core Features
 
-- Persistent memory records with **domain/path/version**
-- Memory APIs exposed as tools:
+### Memory: Ultra-Long Project Memory
+
+First-class module: `packages/codemate/src/memory/*`
+
+- Structured memory records: `domain / path / version`
+- Tooling surface:
   - `memory_create`
   - `memory_search`
   - `memory_read`
   - `memory_list`
-- `memory_search` supports:
+- Retrieval modes:
   - `keyword`
   - `semantic`
   - `hybrid` (recommended)
-- Memory quality lifecycle includes:
+- Lifecycle signals:
   - vitality scoring
   - decay / cleanup
-  - dedup and retrieval ranking signals
-- Session prompts explicitly encourage durable writes for substantive work, so important context survives beyond one chat.
+  - dedup and ranking support
 
-What this means for users:
+User impact:
 
-- "Don’t forget what we decided last week" is practical, not aspirational.
-- Architecture choices, debugging outcomes, and user preferences are reusable context.
+- Keeps architecture decisions and debugging wins available for future tasks.
+- Turns "we already solved this" into reusable context instead of manual recall.
 
-### 2) Lessons: Built-In Self-Learning
+### Lessons: Built-In Self-Learning
 
-Codemate treats learning as an operational loop, not an afterthought.
+Core file: `.codemate/lessons.md`  
+Write tool: `lesson_write`
 
-- Project lessons are stored in `.codemate/lessons.md`
-- `lesson_write` updates lessons after meaningful task execution
-- Lessons are loaded back into context via `<project-lessons>` prompt injection
-- Lesson guidance focuses on:
-  - errors and how to avoid them
-  - wrong paths / detours and how to avoid repeat
-  - key discoveries and final decisions
+- Lessons are written after meaningful execution.
+- Lessons are reloaded into context via `<project-lessons>`.
+- Lesson entries focus on:
+  - errors and prevention
+  - detours and avoidance
+  - discoveries and final decisions
 
-What this means for users:
+User impact:
 
-- Repeated mistakes drop over time.
-- Team-specific patterns become institutional knowledge inside the agent flow.
+- Reduces repeated mistakes.
+- Captures team-specific engineering habits inside the agent loop.
 
-### 3) Self-Check: Verification Before Final Answer
+### Self-check: Verification Before Final Answer
 
-Codemate includes a dedicated `selfcheck` tool (`packages/codemate/src/tool/selfcheck.ts`).
+Tool: `packages/codemate/src/tool/selfcheck.ts`
 
 - Default JS/TS checks:
   - `typecheck`
   - `lint`
   - `test`
-- Custom verification commands are supported for non-JS stacks
-  - examples: `pytest`, `go test ./...`, `cargo test`
-- Failure handling is designed as a loop:
-  - record durable failure context
+- Custom verification commands for non-JS stacks:
+  - `pytest`
+  - `go test ./...`
+  - `cargo test`
+- On failure, the loop is explicit:
+  - record failure context
   - update lessons/changelog
-  - re-run research and validate again
+  - re-research and re-verify
 
-What this means for users:
+User impact:
 
-- Fewer "looks done but actually broken" outcomes.
-- Better reliability when tasks get complex.
+- Fewer silent regressions.
+- Better delivery quality under complex task conditions.
 
-### 4) Deep Search: Research-Native Workflow
+### Deep Research: Research-Native Workflow
 
-Codemate ships a research pipeline instead of generic "search once" behavior.
+Tools:
 
-- Dedicated deep research tools:
-  - `research`
-  - `research-add-items`
-  - `research-add-fields`
-  - `research-deep`
-  - `research-report`
-- `research-deep` is designed for structured investigation:
-  - multi-item outlines
-  - field-driven extraction
-  - uncertainty marking
-  - citation-oriented collection flow
-- Web data collection tools (`websearch`, `webfetch`, optional Exa path) are part of the runtime tool surface.
+- `research`
+- `research-add-items`
+- `research-add-fields`
+- `research-deep`
+- `research-report`
 
-What this means for users:
+`research-deep` supports structured investigation:
 
-- Better results on ambiguous tasks (new APIs, vendor behavior, migration risks, integration decisions).
-- More traceable reasoning versus ad-hoc guessing.
+- multi-item outlines
+- field-driven extraction
+- uncertainty marking
+- citation-oriented collection flow
 
-## How a Real Task Flows
+Combined with `websearch` and `webfetch`, this gives Codemate a practical research pipeline instead of shallow "search once" behavior.
+
+User impact:
+
+- Better decisions for evolving APIs, migrations, and vendor-specific behavior.
+- More traceable reasoning and fewer assumption-based fixes.
+
+## Workflow Loop
 
 1. Understand goal and constraints
-2. Pull relevant long-term memory
-3. Do deep research when facts may be stale or uncertain
+2. Retrieve relevant memory
+3. Run deep research when needed
 4. Implement with project-aware tools
 5. Run self-check
-6. Write back lessons + memory so the next task starts smarter
+6. Persist lessons and memory updates
 
-This is the key difference: **Codemate is designed as a continuous improvement loop, not a one-shot responder.**
+**Codemate is built as a continuous improvement loop, not a single-turn responder.**
 
 ## Comparison
 
