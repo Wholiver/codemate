@@ -30,15 +30,18 @@
 
 Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.
 
-| Pillar | Built-in capability | What changes in real work |
-| --- | --- | --- |
-| Memory | Persistent memory with structured retrieval | Decisions, patterns, and fixes survive across sessions |
-| Lessons | `.codemate/lessons.md` + `lesson_write` loop | Mistakes become reusable team knowledge |
-| Self-check | `selfcheck` with default + custom checks | Fewer "looks done" failures |
-| Deep research | `research-*` + `websearch` + `webfetch` | Better decisions under uncertainty |
-| Unified runtime | MCP + LSP + ACP in one core | Consistent behavior across CLI/TUI/Web |
+| Pillar          | Built-in capability                          | What changes in real work                              |
+| --------------- | -------------------------------------------- | ------------------------------------------------------ |
+| Memory          | Persistent memory with structured retrieval  | Decisions, patterns, and fixes survive across sessions |
+| Lessons         | `.codemate/lessons.md` + `lesson_write` loop | Mistakes become reusable team knowledge                |
+| Self-check      | `selfcheck` with default + custom checks     | Fewer "looks done" failures                            |
+| Deep research   | `research-*` + `websearch` + `webfetch`      | Better decisions under uncertainty                     |
+| Unified runtime | MCP + LSP + ACP in one core                  | Consistent behavior across CLI/TUI/Web                 |
 
 ## Install (JSR)
+
+> [!IMPORTANT]
+> For repository development, use Bun `1.3.13` (exact version expected by this monorepo).
 
 ```bash
 # npm / bun / older pnpm/yarn
@@ -54,6 +57,9 @@ yarn dlx jsr add @codemate/codemate
 - Docs: https://codemate.ai/docs
 
 ## Architecture At A Glance
+
+> [!IMPORTANT]
+> The default branch is `dev` (not `main`). Use `dev` / `origin/dev` for diffs and PR targets.
 
 ```text
 Codemate Runtime
@@ -146,16 +152,19 @@ Why this matters:
 
 ## Comparison
 
-| Dimension | Compared with OPENCODE | Compared with Claude Code |
-| --- | --- | --- |
-| Runtime shape | Active runtime is consolidated in `packages/codemate/src/*` with integrated subsystems | Fully open-source runtime that can be inspected and modified end-to-end |
-| Memory model | Built-in persistent memory + retrieval + lifecycle | Stronger project continuity across sessions |
-| Learning loop | Native lessons workflow (`.codemate/lessons.md` + `lesson_write`) | More explicit institutional learning in daily workflows |
-| Verification | First-class self-check tool with structured failure loops | More controllable verification path before final output |
-| Research depth | Dedicated research toolchain (`research-*`, `websearch`, `webfetch`) | Better fit for high-uncertainty engineering decisions |
-| Model strategy | Provider-agnostic by design | Not tied to a single vendor path |
+| Dimension      | Compared with OPENCODE                                                                 | Compared with Claude Code                                               |
+| -------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Runtime shape  | Active runtime is consolidated in `packages/codemate/src/*` with integrated subsystems | Fully open-source runtime that can be inspected and modified end-to-end |
+| Memory model   | Built-in persistent memory + retrieval + lifecycle                                     | Stronger project continuity across sessions                             |
+| Learning loop  | Native lessons workflow (`.codemate/lessons.md` + `lesson_write`)                      | More explicit institutional learning in daily workflows                 |
+| Verification   | First-class self-check tool with structured failure loops                              | More controllable verification path before final output                 |
+| Research depth | Dedicated research toolchain (`research-*`, `websearch`, `webfetch`)                   | Better fit for high-uncertainty engineering decisions                   |
+| Model strategy | Provider-agnostic by design                                                            | Not tied to a single vendor path                                        |
 
 ## Contributing
+
+> [!IMPORTANT]
+> Before pushing changes, run checks from package directories (do not run tests from repo root).
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
 
