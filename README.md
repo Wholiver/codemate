@@ -16,6 +16,8 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev)](https://github.com/Wholiver/codemate/actions/workflows/publish.yml)
 [![JSR](https://img.shields.io/badge/JSR-@codemate/codemate-00bcd4?style=flat-square)](https://jsr.io/@codemate/codemate)
 
+_Built on top of OPENCODE, with sincere thanks to the OPENCODE team and community._
+
 <sub><a href="README.md">English</a> · <a href="README.zh.md">简体中文</a></sub>
 
 </div>
@@ -29,7 +31,6 @@
 ## 30-Second Value
 
 Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.
-Codemate is developed based on OPENCODE.
 
 | Pillar          | Built-in capability                          | What changes in real work                              |
 | --------------- | -------------------------------------------- | ------------------------------------------------------ |
