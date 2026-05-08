@@ -1,162 +1,164 @@
+<pre align="center">
+  ____ ___  ____  _____ __  __    _  _____ _____
+ / ___/ _ \|  _ \| ____|  \/  |  / \|_   _| ____|
+| |  | | | | | | |  _| | |\/| | / _ \ | | |  _|
+| |__| |_| | |_| | |___| |  | |/ ___ \| | | |___
+ \____\___/|____/|_____|_|  |_/_/   \_\_| |_____|
+</pre>
+
 <div align="center">
-  <img src="./packages/identity/mark.svg" alt="Codemate logo" width="72" />
 
-# Codemate
+### Open-source coding agent for long-horizon engineering
 
-**Open-source coding agent for long-horizon engineering work**
+**Memory-first. Learning-enabled. Verification-driven. Research-native.**
 
-[![Build status](https://img.shields.io/github/actions/workflow/status/anomalyco/codemate/publish.yml?style=flat-square&branch=dev)](https://github.com/anomalyco/codemate/actions/workflows/publish.yml)
 [![Discord](https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord)](https://codemate.ai/discord)
+[![Build status](https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev)](https://github.com/Wholiver/codemate/actions/workflows/publish.yml)
 [![JSR](https://img.shields.io/badge/JSR-@codemate/codemate-00bcd4?style=flat-square)](https://jsr.io/@codemate/codemate)
 
-[Website](https://codemate.ai) • [Docs](https://codemate.ai/docs) • [Discord](https://discord.gg/codemate)
+<sub><a href="README.md">English</a> · <a href="README.zh.md">简体中文</a></sub>
 
 </div>
 
-[![Codemate UI and terminal preview](./packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
+[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
 
-Codemate is a Bun-powered monorepo for an AI coding agent with a CLI/TUI runtime, shared web UI, desktop apps, SDKs, and plugin tooling.
+---
 
-## Why Codemate
+<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-jsr">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
 
-- Persistent project memory and lessons across sessions
-- Built-in verification loops (`typecheck`, `lint`, `test`)
-- Research-oriented workflows for uncertain tasks
-- Provider-agnostic runtime with MCP/LSP/ACP integrations
-- Fully inspectable and hackable open-source codebase
+## 30-Second Value
 
-## Monorepo Structure
+Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.
 
-| Package                     | Purpose                                          |
-| --------------------------- | ------------------------------------------------ |
-| `packages/codemate`         | Core runtime: CLI, server, TUI, agent logic      |
-| `packages/app`              | Shared web UI (SolidJS + Vite + Tailwind v4)     |
-| `packages/core`             | Shared utilities and Effect-based infrastructure |
-| `packages/sdk/js`           | TypeScript SDK generated from OpenAPI            |
-| `packages/plugin`           | Plugin SDK (`@codemate-ai/plugin`)               |
-| `packages/ui`               | Shared SolidJS component library                 |
-| `packages/desktop`          | Tauri desktop wrapper for `packages/app`         |
-| `packages/desktop-electron` | Electron desktop wrapper for `packages/app`      |
-| `packages/console/*`        | Console web app and backend                      |
-| `packages/web`              | Marketing site (Astro)                           |
+| Pillar | Built-in capability | What changes in real work |
+| --- | --- | --- |
+| Memory | Persistent memory with structured retrieval | Decisions, patterns, and fixes survive across sessions |
+| Lessons | `.codemate/lessons.md` + `lesson_write` loop | Mistakes become reusable team knowledge |
+| Self-check | `selfcheck` with default + custom checks | Fewer "looks done" failures |
+| Deep research | `research-*` + `websearch` + `webfetch` | Better decisions under uncertainty |
+| Unified runtime | MCP + LSP + ACP in one core | Consistent behavior across CLI/TUI/Web |
 
-## Quick Start
-
-> [!IMPORTANT]
-> Use Bun `1.3.13` (the repo expects an exact Bun version).
+## Install (JSR)
 
 ```bash
-# 1) Install dependencies
-bun install
+# npm / bun / older pnpm/yarn
+npx jsr add @codemate/codemate
 
-# 2) Run Codemate locally (CLI/server runtime)
-bun dev
+# or
+bunx jsr add @codemate/codemate
+pnpm dlx jsr add @codemate/codemate
+yarn dlx jsr add @codemate/codemate
 ```
 
-Useful variants:
+- Package: https://jsr.io/@codemate/codemate
+- Docs: https://codemate.ai/docs
 
-```bash
-# Run against current directory
-bun dev .
+## Architecture At A Glance
 
-# Headless API server (port 4096)
-bun dev serve
-
-# Web UI dev server
-bun run --cwd packages/app dev
+```text
+Codemate Runtime
+├─ 1. Input Layer
+│  ├─ User request
+│  ├─ Project context (repo/files/runtime state)
+│  └─ Session history
+├─ 2. Planning Layer
+│  ├─ Goal decomposition
+│  ├─ Constraint detection
+│  └─ Execution strategy selection
+├─ 3. Knowledge Layer
+│  ├─ Memory System
+│  │  ├─ write: memory_create
+│  │  ├─ retrieve: memory_search / memory_read / memory_list
+│  │  └─ retrieval modes: keyword / semantic / hybrid
+│  └─ Lessons System
+│     ├─ store: .codemate/lessons.md
+│     ├─ write: lesson_write
+│     └─ load: <project-lessons>
+├─ 4. Research Layer
+│  ├─ research
+│  ├─ research-add-items
+│  ├─ research-add-fields
+│  ├─ research-deep
+│  └─ research-report (+ websearch / webfetch)
+├─ 5. Execution Layer
+│  ├─ code edits
+│  ├─ shell commands
+│  └─ tool/MCP calls
+├─ 6. Verification Layer
+│  ├─ selfcheck
+│  ├─ default checks: typecheck / lint / test
+│  └─ custom checks: pytest / go test / cargo test ...
+└─ 7. Feedback Loop
+   ├─ record failures and fixes
+   ├─ update lessons and memory
+   └─ improve next run quality
 ```
 
-> [!IMPORTANT]
-> Default branch is `dev` (not `main`). Use `dev` / `origin/dev` for diffs and PR targets.
+Codemate is designed as a compounding loop: each run can improve the next run.
 
-## Local Development Workflow
+## Core Features
 
-```bash
-# Lint
-bun lint
+### 1) Memory: Ultra-Long Project Memory
 
-# Typecheck (tsgo via turbo)
-bun typecheck
+Module: `packages/codemate/src/memory/*`
 
-# Format
-bun run prettier --write .
-```
+- Structured memory model: `domain / path / version`
+- Tools: `memory_create`, `memory_search`, `memory_read`, `memory_list`
+- Retrieval: `keyword`, `semantic`, `hybrid`
 
-> [!IMPORTANT]
-> Recommended command order is `bun install` -> `bun typecheck` -> package-level tests.
+Why this matters:
 
-> [!IMPORTANT]
-> Do not run tests from the repo root (guarded by `bunfig.toml`).
+- Project context stays available across conversations and tasks.
 
-```bash
-# Package-level tests
-bun --cwd packages/codemate test
-bun --cwd packages/app test:unit
-bun --cwd packages/app test:e2e:local
-bun --cwd packages/core test
+### 2) Lessons: Built-In Self-Learning
 
-# Full CI-style test run
-bun turbo test:ci
-```
+Core file: `.codemate/lessons.md`  
+Write tool: `lesson_write`
 
-## Build and Generation
+- Lessons are written after meaningful execution.
+- Lessons are injected into future sessions via `<project-lessons>`.
+- Focus: failure patterns, detours, and final decisions.
 
-```bash
-# Build standalone executable for current platform
-./packages/codemate/script/build.ts --single
+Why this matters:
 
-# Regenerate JavaScript SDK only
-./packages/sdk/js/script/build.ts
+- The same mistakes are less likely to repeat in the same project.
 
-# Regenerate SDK + OpenAPI + model snapshot + formatting
-./script/generate.ts
-```
+### 3) Self-check: Verification Before Final Output
 
-> [!NOTE]
-> Generated artifacts should not be edited by hand (for example files under `packages/sdk/js/src/gen` and `packages/sdk/js/src/v2/gen`).
+Tool: `packages/codemate/src/tool/selfcheck.ts`
 
-> [!IMPORTANT]
-> If generated files change, commit only regenerated output from scripts. Do not hand-edit generated sources.
+- Default JS/TS checks: `typecheck`, `lint`, `test`
+- Custom checks supported: `pytest`, `go test ./...`, `cargo test`
+- Failures trigger a fix-and-reverify loop.
 
-## Database Migrations
+Why this matters:
 
-```bash
-bun --cwd packages/codemate run db generate --name <slug>
-```
+- Output reliability is enforced before handoff.
 
-> [!IMPORTANT]
-> Migration files are generated artifacts. Create/update them via command, not manual edits.
+### 4) Deep Research: Research-Native Workflow
 
-Drizzle migrations are created under:
+- Toolchain: `research`, `research-add-items`, `research-add-fields`, `research-deep`, `research-report`
+- Supports structured investigation, field extraction, uncertainty marking, and source-oriented reporting.
 
-- `packages/codemate/migration/<timestamp>_<slug>/migration.sql`
-- `packages/codemate/migration/<timestamp>_<slug>/snapshot.json`
+Why this matters:
 
-## Architecture Notes
+- Better decisions for migrations, vendor APIs, and fast-changing surfaces.
 
-- Runtime stack: Effect v4 beta + Hono + Drizzle/SQLite
-- Conditional imports for runtime surfaces:
-  - `#db` (Bun/Node DB adapter)
-  - `#pty` (Bun/Node PTY adapter)
-  - `#hono` (Bun/Node server adapter)
-- Default branch: `dev`
+## Comparison
 
-## Releases and CI
+| Dimension | Compared with OPENCODE | Compared with Claude Code |
+| --- | --- | --- |
+| Runtime shape | Active runtime is consolidated in `packages/codemate/src/*` with integrated subsystems | Fully open-source runtime that can be inspected and modified end-to-end |
+| Memory model | Built-in persistent memory + retrieval + lifecycle | Stronger project continuity across sessions |
+| Learning loop | Native lessons workflow (`.codemate/lessons.md` + `lesson_write`) | More explicit institutional learning in daily workflows |
+| Verification | First-class self-check tool with structured failure loops | More controllable verification path before final output |
+| Research depth | Dedicated research toolchain (`research-*`, `websearch`, `webfetch`) | Better fit for high-uncertainty engineering decisions |
+| Model strategy | Provider-agnostic by design | Not tied to a single vendor path |
 
-Main workflows in `.github/workflows`:
+## Contributing
 
-- `test.yml` for unit and e2e checks
-- `typecheck.yml` for cross-package typechecking
-- `generate.yml` for generated artifacts refresh
-- `publish.yml` for CLI and desktop release artifacts
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
 
-> [!IMPORTANT]
-> CI and pre-push hooks enforce typecheck; keep local changes in a passing state before pushing.
+---
 
-## Troubleshooting
-
-- If `bun typecheck` fails after dependency changes, run `bun install` again and retry.
-- If desktop/web dev does not boot, run the package-specific dev commands from **Quick Start**.
-- If generated files drift, run `./script/generate.ts` and re-check.
-
-For deeper docs and product usage guides, see [codemate.ai/docs](https://codemate.ai/docs).
+**Community**: [Discord](https://discord.gg/codemate) · [X](https://x.com/codemate)
