@@ -103,55 +103,35 @@ Codemate is designed as a compounding loop: each run can improve the next run.
 
 ### 1) Memory: Ultra-Long Project Memory
 
-- Keeps important project context available across sessions, not just within one chat.
-- Recalls earlier decisions, constraints, and conventions when related tasks appear again.
+Keep critical project context available across sessions.
 
-Example:
-
-- A team decides "SQLite for local mode, Postgres for cloud". One week later, a migration task reuses that decision and avoids inconsistent changes.
-
-Why this matters:
-
-- Less re-explaining and fewer repeated mistakes in long-running projects.
+- Use it when: work spans days or weeks and decisions need to stay consistent.
+- Example: A team sets "SQLite for local mode, Postgres for cloud". A week later, migration work follows the same rule automatically.
+- Value: Less repeated explanation and fewer regressions from forgotten context.
 
 ### 2) Lessons: Built-In Self-Learning
 
-- Captures what failed, what fixed it, and what to do differently next time.
-- Reuses those lessons in future work on the same project.
+Turn mistakes and fixes into reusable team knowledge.
 
-Example:
-
-- A release fails because an environment variable is missing. In the next deployment task, Codemate includes an env preflight checklist before building.
-
-Why this matters:
-
-- Learning compounds at the project level instead of resetting every session.
+- Use it when: your team wants fewer repeated incidents across similar tasks.
+- Example: A release fails due to a missing env variable. The next release flow includes an env preflight checklist before build.
+- Value: Learning compounds at the project level instead of resetting every session.
 
 ### 3) Self-check: Verification Before Final Output
 
-- Runs verification before handoff and loops until the result is stable.
-- Adapts checks to the project's quality bar and stack.
+Verify before handoff, then fix and re-check until stable.
 
-Example:
-
-- During a refactor, it runs typecheck, lint, and tests. If lint fails, it fixes issues and reruns checks before reporting completion.
-
-Why this matters:
-
-- Fewer "looks done, but breaks in CI" outcomes.
+- Use it when: changes touch reliability-sensitive code paths.
+- Example: During a refactor, it runs typecheck, lint, and tests; if lint fails, it fixes issues and re-runs checks before completion.
+- Value: Fewer "looks done, but breaks in CI" outcomes.
 
 ### 4) Deep Research: Research-Native Workflow
 
-- Supports structured investigation when requirements are ambiguous or fast-changing.
-- Compares options, tracks evidence, and summarizes tradeoffs clearly.
+Investigate uncertain decisions with a structured research flow.
 
-Example:
-
-- When choosing between two API vendors, it compares pricing, rate limits, migration cost, and risks, then produces a decision brief.
-
-Why this matters:
-
-- Better decisions in migrations, vendor selection, and uncertain technical areas.
+- Use it when: requirements are ambiguous or external APIs and policies change quickly.
+- Example: For two API vendors, it compares pricing, rate limits, migration cost, and risk, then outputs a decision brief.
+- Value: Better decisions in migrations, vendor selection, and other high-uncertainty areas.
 
 ## Comparison
 
