@@ -103,49 +103,55 @@ Codemate is designed as a compounding loop: each run can improve the next run.
 
 ### 1) Memory: Ultra-Long Project Memory
 
-Module: `packages/codemate/src/memory/*`
+- Keeps important project context available across sessions, not just within one chat.
+- Recalls earlier decisions, constraints, and conventions when related tasks appear again.
 
-- Structured memory model: `domain / path / version`
-- Tools: `memory_create`, `memory_search`, `memory_read`, `memory_list`
-- Retrieval: `keyword`, `semantic`, `hybrid`
+Example:
+
+- A team decides "SQLite for local mode, Postgres for cloud". One week later, a migration task reuses that decision and avoids inconsistent changes.
 
 Why this matters:
 
-- Project context stays available across conversations and tasks.
+- Less re-explaining and fewer repeated mistakes in long-running projects.
 
 ### 2) Lessons: Built-In Self-Learning
 
-Core file: `.codemate/lessons.md`  
-Write tool: `lesson_write`
+- Captures what failed, what fixed it, and what to do differently next time.
+- Reuses those lessons in future work on the same project.
 
-- Lessons are written after meaningful execution.
-- Lessons are injected into future sessions via `<project-lessons>`.
-- Focus: failure patterns, detours, and final decisions.
+Example:
+
+- A release fails because an environment variable is missing. In the next deployment task, Codemate includes an env preflight checklist before building.
 
 Why this matters:
 
-- The same mistakes are less likely to repeat in the same project.
+- Learning compounds at the project level instead of resetting every session.
 
 ### 3) Self-check: Verification Before Final Output
 
-Tool: `packages/codemate/src/tool/selfcheck.ts`
+- Runs verification before handoff and loops until the result is stable.
+- Adapts checks to the project's quality bar and stack.
 
-- Default JS/TS checks: `typecheck`, `lint`, `test`
-- Custom checks supported: `pytest`, `go test ./...`, `cargo test`
-- Failures trigger a fix-and-reverify loop.
+Example:
+
+- During a refactor, it runs typecheck, lint, and tests. If lint fails, it fixes issues and reruns checks before reporting completion.
 
 Why this matters:
 
-- Output reliability is enforced before handoff.
+- Fewer "looks done, but breaks in CI" outcomes.
 
 ### 4) Deep Research: Research-Native Workflow
 
-- Toolchain: `research`, `research-add-items`, `research-add-fields`, `research-deep`, `research-report`
-- Supports structured investigation, field extraction, uncertainty marking, and source-oriented reporting.
+- Supports structured investigation when requirements are ambiguous or fast-changing.
+- Compares options, tracks evidence, and summarizes tradeoffs clearly.
+
+Example:
+
+- When choosing between two API vendors, it compares pricing, rate limits, migration cost, and risks, then produces a decision brief.
 
 Why this matters:
 
-- Better decisions for migrations, vendor APIs, and fast-changing surfaces.
+- Better decisions in migrations, vendor selection, and uncertain technical areas.
 
 ## Comparison
 
