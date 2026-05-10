@@ -21,7 +21,7 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 ---
 
-<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-jsr">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
+<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-cli">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
 
 ## 30-Second Value
 
@@ -35,23 +35,38 @@ Codemate is built for teams that need reliable output over many sessions, not on
 | Deep research   | `research-*` + `websearch` + `webfetch`      | Better decisions under uncertainty                     |
 | Unified runtime | MCP + LSP + ACP in one core                  | Consistent behavior across terminal and automation flows |
 
-## Install (JSR)
+<a id="install-cli"></a>
+
+## Install CLI
+
+> [!IMPORTANT]
+> To run the `codemate` command, install the CLI package `codemate-ai`.
 
 > [!IMPORTANT]
 > For repository development, use Bun `1.3.13` (exact version expected by this monorepo).
 
 ```bash
-# npm / bun / older pnpm/yarn
-npx jsr add @codemate/codemate
+# one-off run
+npx codemate-ai
 
-# or
-bunx jsr add @codemate/codemate
-pnpm dlx jsr add @codemate/codemate
-yarn dlx jsr add @codemate/codemate
+# global install
+npm install -g codemate-ai
+bun install -g codemate-ai
+pnpm install -g codemate-ai
+yarn global add codemate-ai
 ```
 
-- Package: https://jsr.io/@codemate/codemate
 - Docs: https://codemate.ai/docs
+
+## Install SDK (JSR)
+
+`@codemate/codemate` on JSR is the SDK package for integrations and does not install the `codemate` CLI command.
+
+```bash
+npx jsr add @codemate/codemate
+```
+
+- SDK package: https://jsr.io/@codemate/codemate
 
 ## Architecture At A Glance
 
