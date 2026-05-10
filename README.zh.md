@@ -17,6 +17,8 @@ _基于 OPENCODE 构建，向 OPENCODE 团队与社区致以诚挚感谢。_
 
 </div>
 
+[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
+
 ---
 
 <p align="center"><strong>快速浏览：</strong> <a href="#30-秒价值">30 秒价值</a> · <a href="#安装-jsr">安装</a> · <a href="#架构总览">架构</a> · <a href="#核心能力">核心能力</a> · <a href="#对比">对比</a></p>

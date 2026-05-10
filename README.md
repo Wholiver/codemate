@@ -17,6 +17,8 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 </div>
 
+[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
+
 ---
 
 <p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-jsr">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
