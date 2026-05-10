@@ -1,4 +1,4 @@
-import launch from "cross-spawn"
+import { spawn } from "node:child_process"
 import { type Config } from "./gen/types.gen.js"
 import { stop, bindAbort } from "../process.js"
 
@@ -32,7 +32,7 @@ export async function createCodemateServer(options?: ServerOptions) {
   const args = [`serve`, `--hostname=${options.hostname}`, `--port=${options.port}`]
   if (options.config?.logLevel) args.push(`--log-level=${options.config.logLevel}`)
 
-  const proc = launch(`codemate`, args, {
+  const proc = spawn(`codemate`, args, {
     env: {
       ...process.env,
       CODEMATE_CONFIG_CONTENT: JSON.stringify(options.config ?? {}),
@@ -115,7 +115,7 @@ export function createCodemateTui(options?: TuiOptions) {
     args.push(`--agent=${options.agent}`)
   }
 
-  const proc = launch(`codemate`, args, {
+  const proc = spawn(`codemate`, args, {
     stdio: "inherit",
     env: {
       ...process.env,

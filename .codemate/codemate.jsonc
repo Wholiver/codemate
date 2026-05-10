@@ -1,0 +1,8 @@
+{
+  "$schema": "https://codemate.ai/config.json",
+  "permission": {
+    "planner": "allow",
+    "tool_search": "allow",
+    "tool_search_regex": "allow"
+  }
+}
