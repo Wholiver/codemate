@@ -110,37 +110,41 @@ Codemate is designed as a compounding loop: each run can improve the next run.
 
 ## Core Features
 
-### 1) Memory: Ultra-Long Project Memory
+### 1) Memory: Keep Project Context Across Sessions
 
-Keep critical project context available across sessions.
+Memory keeps important decisions and constraints reusable, even when work is spread across days, weeks, or different contributors.
 
-- Use it when: work spans days or weeks and decisions need to stay consistent.
-- Example: A team sets "SQLite for local mode, Postgres for cloud". A week later, migration work follows the same rule automatically.
-- Value: Less repeated explanation and fewer regressions from forgotten context.
+- What it does: Stores structured project memory, retrieves by keyword/semantic/hybrid search, and lets new memory versions replace outdated ones cleanly.
+- When to use it: Multi-step migrations, long bug investigations, or any work where "why we chose this" matters later.
+- Example: Your team decides "Auth uses short-lived access tokens + rotating refresh tokens." Two weeks later, a new feature and a security fix both follow that same policy without re-explaining it in each prompt.
+- Why it matters: Less repeated context loading, fewer contradictory changes, and better continuity across handoffs.
 
-### 2) Lessons: Built-In Self-Learning
+### 2) Lessons: Turn Incidents Into Reusable Team Practice
 
-Turn mistakes and fixes into reusable team knowledge.
+Lessons are project-level learnings persisted in `.codemate/lessons.md`, so failures become guidance instead of repeating.
 
-- Use it when: your team wants fewer repeated incidents across similar tasks.
-- Example: A release fails due to a missing env variable. The next release flow includes an env preflight checklist before build.
-- Value: Learning compounds at the project level instead of resetting every session.
+- What it does: Captures actionable lessons from failed runs, merges/refines them with `lesson_write`, and loads them back into future sessions as project context.
+- When to use it: Release pipelines, recurring operational tasks, or any workflow where the same mistakes can happen again.
+- Example: A deploy fails because a migration step was skipped. The team records a lesson: "Run schema check before deploy." Future release tasks now include that guardrail automatically.
+- Why it matters: Your process improves run by run, not just person by person.
 
-### 3) Self-check: Verification Before Final Output
+### 3) Self-check: Verify Before You Ship
 
-Verify before handoff, then fix and re-check until stable.
+Self-check is a built-in verification gate that runs checks, reports failures clearly, and supports fix-and-rerun loops before final output.
 
-- Use it when: changes touch reliability-sensitive code paths.
-- Example: During a refactor, it runs typecheck, lint, and tests; if lint fails, it fixes issues and re-runs checks before completion.
-- Value: Fewer "looks done, but breaks in CI" outcomes.
+- What it does: Runs default JS/TS checks (typecheck, lint, test where applicable) and also supports custom command checks for other stacks (`pytest`, `go test`, `cargo test`, etc.).
+- When to use it: Refactors, dependency upgrades, CI-sensitive paths, or any change where "probably works" is not enough.
+- Example: A TypeScript refactor passes local smoke testing, but `selfcheck` catches a lint rule regression and one failing unit test. Both are fixed before handoff, avoiding a broken PR cycle.
+- Why it matters: Fewer "done locally, failed in CI" surprises and more reliable delivery quality.
 
-### 4) Deep Research: Research-Native Workflow
+### 4) Deep Research: Structured Decisions Under Uncertainty
 
-Investigate uncertain decisions with a structured research flow.
+Deep Research provides a step-by-step research workflow, from defining questions to producing a decision-ready report.
 
-- Use it when: requirements are ambiguous or external APIs and policies change quickly.
-- Example: For two API vendors, it compares pricing, rate limits, migration cost, and risk, then outputs a decision brief.
-- Value: Better decisions in migrations, vendor selection, and other high-uncertainty areas.
+- What it does: Creates research outlines, adds items/fields, runs deeper research tasks, and compiles a report with source-backed findings and uncertainty handling.
+- When to use it: Vendor selection, architecture tradeoffs, compliance/policy interpretation, or fast-changing external dependencies.
+- Example: Before choosing a vector database, the team compares ingestion throughput, region availability, pricing model, and migration risk, then receives a structured report with evidence and explicit unknowns.
+- Why it matters: Better decisions when stakes are high and information is incomplete.
 
 ## Comparison
 
