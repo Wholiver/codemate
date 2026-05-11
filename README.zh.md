@@ -28,15 +28,16 @@ _基于 OPENCODE 构建，向 OPENCODE 团队与社区致以诚挚感谢。_
 
 ## 30 秒价值
 
-Codemate 面向的是需要在多轮会话中持续产出稳定结果的团队，而不仅仅是一次会话里的“聪明回答”。
+Codemate 不是“一次对话工具”，而是一个会把每次工程执行沉淀成下次上下文的运行时。
 
-| 支柱         | 内置能力                                      | 在实际工作中的变化                       |
-| ------------ | --------------------------------------------- | ---------------------------------------- |
-| 记忆         | 持久化记忆与结构化检索                        | 决策、模式和修复可跨会话延续             |
-| 经验         | `.codemate/lessons.md` + `lesson_write` 回路 | 错误沉淀为可复用的团队知识               |
-| 自检         | `selfcheck`（默认检查 + 自定义检查）         | 降低“看起来完成了”但实际上失败的情况     |
-| 深度研究     | `research-*` + `websearch` + `webfetch`      | 在不确定场景下做出更可靠决策             |
-| 统一运行时   | MCP + LSP + ACP 一体化                        | 终端与自动化流程中的行为一致             |
+| 30 秒看点          | 系统在背后做什么                                                     | 你会直接感受到什么                       |
+| ------------------ | -------------------------------------------------------------------- | ---------------------------------------- |
+| 会话可持续推进     | `SessionPrompt` 驱动循环，按状态持续调度模型与工具                  | 任务不会停在“回答一句话”，而是推进到收口 |
+| 工程上下文可复用   | 每轮自动注入 `memory`、`project-changelog`、`project-lessons` 上下文 | 不必反复解释历史决策与踩坑点             |
+| 改动有证据链       | Snapshot 对比生成 patch，并落 changelog 与会话摘要                  | 变更来源、影响文件和决策路径都可追踪     |
+| 交付前有验证关口   | `selfcheck` 统一执行验证（默认 JS/TS + 可扩展自定义命令）           | 降低“本地看起来 OK，提交后失败”的风险    |
+| 长上下文不易崩溃   | 上下文超限时自动 compaction，保留关键 tail 并续跑                   | 长任务更稳定，不容易因上下文过长中断     |
+| 高不确定问题可研究 | `research-*` 形成“问题拆解 → 证据收集 → 报告输出”流程              | 选型、迁移、政策类决策更稳、更可解释     |
 
 <a id="install-global-cli"></a>
 
@@ -67,46 +68,35 @@ bun dev
 > [!IMPORTANT]
 > 默认分支是 `dev`（不是 `main`）。做 diff 和 PR 目标分支时请使用 `dev` / `origin/dev`。
 
+Codemate 的核心不是单次模型调用，而是“带状态的会话运行时”。下面是一次标准回合的真实链路：
+
 ```text
-Codemate Runtime
-├─ 1. 输入层
-│  ├─ 用户请求
-│  ├─ 项目上下文（仓库/文件/运行状态）
-│  └─ 会话历史
-├─ 2. 规划层
-│  ├─ 目标拆解
-│  ├─ 约束检测
-│  └─ 执行策略选择
-├─ 3. 知识层
-│  ├─ Memory 系统
-│  │  ├─ 写入：memory_create
-│  │  ├─ 检索：memory_search / memory_read / memory_list
-│  │  └─ 检索模式：keyword / semantic / hybrid
-│  └─ Lessons 系统
-│     ├─ 存储：.codemate/lessons.md
-│     ├─ 写入：lesson_write
-│     └─ 加载：<project-lessons>
-├─ 4. 研究层
-│  ├─ research
-│  ├─ research-add-items
-│  ├─ research-add-fields
-│  ├─ research-deep
-│  └─ research-report（配合 websearch / webfetch）
-├─ 5. 执行层
-│  ├─ 代码修改
-│  ├─ Shell 命令
-│  └─ 工具 / MCP 调用
-├─ 6. 验证层
-│  ├─ selfcheck
-│  ├─ 默认检查：typecheck / lint / test
-│  └─ 自定义检查：pytest / go test / cargo test ...
-└─ 7. 反馈闭环
-   ├─ 记录失败与修复
-   ├─ 更新 lessons 和 memory
-   └─ 提升下一轮质量
+User input
+  -> SessionPrompt.run (会话主循环)
+  -> Context Assembly
+       (system + instructions + history + memory + changelog + lessons)
+  -> LLM.stream
+       -> SessionProcessor 消费事件流
+          (reasoning / text / tool-call / tool-result / step-finish)
+       -> ToolRegistry 分发工具
+          (builtin + MCP + plugin, 含权限与防 doom-loop)
+  -> Snapshot/Patch + SessionSummary + Changelog
+  -> Self-check & 经验沉淀提醒
+       (selfcheck / memory_create / lesson_write / changelog_append)
+  -> 若超限: SessionCompaction
+       (摘要压缩 + 保留近期上下文 + 自动续跑)
 ```
 
-Codemate 被设计为可复利的闭环：每一次运行都可以提升下一次运行质量。
+| 子系统               | 关键职责                                               | 关键模块（示例）                          |
+| -------------------- | ------------------------------------------------------ | ----------------------------------------- |
+| 会话编排层           | 驱动消息循环、调度模型、注入提醒、处理中断与续跑       | `session/prompt.ts`                       |
+| 事件处理层           | 接收流式事件并落盘为可回放的 message parts             | `session/processor.ts`、`session/message-v2.ts` |
+| 工具与协议层         | 聚合内置工具、MCP 工具、插件工具，并统一权限门控       | `tool/registry.ts`、`mcp/index.ts`、`acp/agent.ts` |
+| 项目记忆与经验层     | 提供检索记忆、变更日志、项目 lessons，并自动注入上下文 | `memory/*`、`changelog/*`、`lesson/context.ts` |
+| 验证与恢复层         | 在交付前执行验证；失败后进入反思与再研究流程           | `tool/selfcheck.ts`、`session/system.ts` |
+| 长上下文稳定层       | 上下文超限时做 compaction，并清理历史大输出            | `session/compaction.ts`                   |
+
+这套设计的目标是：每一轮不仅“完成任务”，还会让下一轮更快、更稳、更少重复犯错。
 
 ## 核心能力
 

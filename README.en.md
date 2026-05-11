@@ -28,15 +28,16 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 ## 30-Second Value
 
-Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.
+Codemate is not a one-shot chat tool. It is a runtime that turns each engineering run into context for the next run.
 
-| Pillar          | Built-in capability                          | What changes in real work                              |
-| --------------- | -------------------------------------------- | ------------------------------------------------------ |
-| Memory          | Persistent memory with structured retrieval  | Decisions, patterns, and fixes survive across sessions |
-| Lessons         | `.codemate/lessons.md` + `lesson_write` loop | Mistakes become reusable team knowledge                |
-| Self-check      | `selfcheck` with default + custom checks     | Fewer "looks done" failures                            |
-| Deep research   | `research-*` + `websearch` + `webfetch`      | Better decisions under uncertainty                     |
-| Unified runtime | MCP + LSP + ACP in one core                  | Consistent behavior across terminal and automation flows |
+| 30-second signal      | What the system actually does                                            | What you feel in day-to-day work                |
+| --------------------- | ------------------------------------------------------------------------ | ----------------------------------------------- |
+| Sessions keep moving  | `SessionPrompt` runs a stateful loop across model calls and tool actions | Work advances to closure, not just one response |
+| Context compounds     | Each turn injects `memory`, `project-changelog`, and `project-lessons`  | Less repeated onboarding and fewer context gaps |
+| Changes are traceable | Snapshot diffs produce patch parts, summaries, and changelog entries     | You can audit what changed and why              |
+| Verification is built in | `selfcheck` provides a unified verification gate (default + custom commands) | Fewer "works locally, breaks in CI" outcomes |
+| Long runs stay stable | Overflow triggers automatic compaction with recent-tail preservation      | Large sessions fail less often from context size |
+| Uncertain work is structured | `research-*` turns ambiguity into a research pipeline and report         | Better migration/vendor/policy decisions         |
 
 <a id="install-global-cli"></a>
 
@@ -67,46 +68,35 @@ bun dev
 > [!IMPORTANT]
 > The default branch is `dev` (not `main`). Use `dev` / `origin/dev` for diffs and PR targets.
 
+Codemate is not centered on a single model call. It runs a stateful session runtime with explicit event, tool, and recovery stages:
+
 ```text
-Codemate Runtime
-├─ 1. Input Layer
-│  ├─ User request
-│  ├─ Project context (repo/files/runtime state)
-│  └─ Session history
-├─ 2. Planning Layer
-│  ├─ Goal decomposition
-│  ├─ Constraint detection
-│  └─ Execution strategy selection
-├─ 3. Knowledge Layer
-│  ├─ Memory System
-│  │  ├─ write: memory_create
-│  │  ├─ retrieve: memory_search / memory_read / memory_list
-│  │  └─ retrieval modes: keyword / semantic / hybrid
-│  └─ Lessons System
-│     ├─ store: .codemate/lessons.md
-│     ├─ write: lesson_write
-│     └─ load: <project-lessons>
-├─ 4. Research Layer
-│  ├─ research
-│  ├─ research-add-items
-│  ├─ research-add-fields
-│  ├─ research-deep
-│  └─ research-report (+ websearch / webfetch)
-├─ 5. Execution Layer
-│  ├─ code edits
-│  ├─ shell commands
-│  └─ tool/MCP calls
-├─ 6. Verification Layer
-│  ├─ selfcheck
-│  ├─ default checks: typecheck / lint / test
-│  └─ custom checks: pytest / go test / cargo test ...
-└─ 7. Feedback Loop
-   ├─ record failures and fixes
-   ├─ update lessons and memory
-   └─ improve next run quality
+User input
+  -> SessionPrompt.run (main session loop)
+  -> Context Assembly
+       (system + instructions + history + memory + changelog + lessons)
+  -> LLM.stream
+       -> SessionProcessor consumes stream events
+          (reasoning / text / tool-call / tool-result / step-finish)
+       -> ToolRegistry routes tool calls
+          (builtin + MCP + plugin, with permission and doom-loop guards)
+  -> Snapshot/Patch + SessionSummary + Changelog
+  -> Verification & persistence reminders
+       (selfcheck / memory_create / lesson_write / changelog_append)
+  -> If overflow: SessionCompaction
+       (summary compaction + recent-tail preservation + auto-continue)
 ```
 
-Codemate is designed as a compounding loop: each run can improve the next run.
+| Subsystem               | Responsibility                                        | Key modules (examples)                    |
+| ----------------------- | ----------------------------------------------------- | ----------------------------------------- |
+| Session orchestration   | Runs turn loop, model scheduling, reminders, and flow control | `session/prompt.ts`                  |
+| Event processing        | Persists stream events into replayable message parts  | `session/processor.ts`, `session/message-v2.ts` |
+| Tool and protocol plane | Aggregates builtin, MCP, and plugin tools with unified permission gating | `tool/registry.ts`, `mcp/index.ts`, `acp/agent.ts` |
+| Memory and learning plane | Supplies searchable memory, changelog, and lessons context | `memory/*`, `changelog/*`, `lesson/context.ts` |
+| Verification and recovery | Applies pre-handoff checks and failure reflection flow | `tool/selfcheck.ts`, `session/system.ts` |
+| Long-context stability  | Handles overflow compaction and historical output pruning | `session/compaction.ts`                  |
+
+The goal is compounding reliability: each run should make the next run faster, safer, and less repetitive.
 
 ## Core Features
 
