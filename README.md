@@ -161,5 +161,3 @@ Investigate uncertain decisions with a structured research flow.
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
 
 ---
-
-**Community**: [Discord](https://discord.gg/codemate) · [X](https://x.com/codemate)
