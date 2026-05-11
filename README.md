@@ -23,6 +23,9 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 <p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-global-cli">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
 
+> [!WARNING]
+> Codemate is currently in **beta**. APIs, behavior, and package details may change before stable release.
+
 ## 30-Second Value
 
 Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.

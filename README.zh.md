@@ -23,6 +23,9 @@ _基于 OPENCODE 构建，向 OPENCODE 团队与社区致以诚挚感谢。_
 
 <p align="center"><strong>快速浏览：</strong> <a href="#30-秒价值">30 秒价值</a> · <a href="#install-global-cli">安装</a> · <a href="#架构总览">架构</a> · <a href="#核心能力">核心能力</a> · <a href="#对比">对比</a></p>
 
+> [!WARNING]
+> Codemate 当前处于 **Beta** 阶段，API、行为与包细节在正式稳定版前可能调整。
+
 ## 30 秒价值
 
 Codemate 面向的是需要在多轮会话中持续产出稳定结果的团队，而不仅仅是一次会话里的“聪明回答”。
