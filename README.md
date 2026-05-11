@@ -159,5 +159,6 @@ Investigate uncertain decisions with a structured research flow.
 > Before pushing changes, run checks from package directories (do not run tests from repo root).
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
+Chinese version: [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md).
 
 ---
