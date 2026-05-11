@@ -53,14 +53,6 @@ codemate --help
 - Global `codemate` command package: https://www.npmjs.com/package/codemate-agent
 - Docs: https://codemate.ai/docs
 
-## SDK (Optional, JSR)
-
-```bash
-npx jsr add @codemate/codemate
-```
-
-- SDK package: https://jsr.io/@codemate/codemate
-
 ## Run CLI For Testing
 
 ```bash

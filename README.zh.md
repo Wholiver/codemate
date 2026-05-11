@@ -53,14 +53,6 @@ codemate --help
 - 全局 `codemate` 命令包：https://www.npmjs.com/package/codemate-agent
 - 文档：https://codemate.ai/docs
 
-## SDK（可选，JSR）
-
-```bash
-npx jsr add @codemate/codemate
-```
-
-- SDK 包地址：https://jsr.io/@codemate/codemate
-
 ## CLI 测试运行（仓库方式）
 
 ```bash
