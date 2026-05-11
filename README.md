@@ -4,16 +4,16 @@
 
 <div align="center">
 
-### Open-source coding agent for long-horizon engineering
+### 面向长周期工程的开源编程代理
 
-**Memory-first. Learning-enabled. Verification-driven. Research-native.**
+**记忆优先。学习增强。验证驱动。研究原生。**
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev)](https://github.com/Wholiver/codemate/actions/workflows/publish.yml)
 [![JSR](https://img.shields.io/badge/JSR-@codemate/codemate-00bcd4?style=flat-square)](https://jsr.io/@codemate/codemate)
 
-_Built on top of OPENCODE, with sincere thanks to the OPENCODE team and community._
+_基于 OPENCODE 构建，向 OPENCODE 团队与社区致以诚挚感谢。_
 
-<sub><a href="README.md">English</a> · <a href="README.zh.md">简体中文</a></sub>
+<sub><a href="README.en.md">English</a> · <a href="README.md">简体中文</a></sub>
 
 </div>
 
@@ -21,39 +21,39 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 ---
 
-<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-global-cli">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
+<p align="center"><strong>快速浏览：</strong> <a href="#30-秒价值">30 秒价值</a> · <a href="#install-global-cli">安装</a> · <a href="#架构总览">架构</a> · <a href="#核心能力">核心能力</a> · <a href="#对比">对比</a></p>
 
 > [!WARNING]
-> Codemate is currently in **beta**. APIs, behavior, and package details may change before stable release.
+> Codemate 当前处于 **Beta** 阶段，API、行为与包细节在正式稳定版前可能调整。
 
-## 30-Second Value
+## 30 秒价值
 
-Codemate is built for teams that need reliable output over many sessions, not only clever answers in one session.
+Codemate 面向的是需要在多轮会话中持续产出稳定结果的团队，而不仅仅是一次会话里的“聪明回答”。
 
-| Pillar          | Built-in capability                          | What changes in real work                              |
-| --------------- | -------------------------------------------- | ------------------------------------------------------ |
-| Memory          | Persistent memory with structured retrieval  | Decisions, patterns, and fixes survive across sessions |
-| Lessons         | `.codemate/lessons.md` + `lesson_write` loop | Mistakes become reusable team knowledge                |
-| Self-check      | `selfcheck` with default + custom checks     | Fewer "looks done" failures                            |
-| Deep research   | `research-*` + `websearch` + `webfetch`      | Better decisions under uncertainty                     |
-| Unified runtime | MCP + LSP + ACP in one core                  | Consistent behavior across terminal and automation flows |
+| 支柱         | 内置能力                                      | 在实际工作中的变化                       |
+| ------------ | --------------------------------------------- | ---------------------------------------- |
+| 记忆         | 持久化记忆与结构化检索                        | 决策、模式和修复可跨会话延续             |
+| 经验         | `.codemate/lessons.md` + `lesson_write` 回路 | 错误沉淀为可复用的团队知识               |
+| 自检         | `selfcheck`（默认检查 + 自定义检查）         | 降低“看起来完成了”但实际上失败的情况     |
+| 深度研究     | `research-*` + `websearch` + `webfetch`      | 在不确定场景下做出更可靠决策             |
+| 统一运行时   | MCP + LSP + ACP 一体化                        | 终端与自动化流程中的行为一致             |
 
 <a id="install-global-cli"></a>
 
-## Install (Global CLI)
+## 安装（全局 CLI）
 
 > [!IMPORTANT]
-> For repository development, use Bun `1.3.13` (exact version expected by this monorepo).
+> 参与仓库开发请使用 Bun `1.3.13`（本 monorepo 依赖精确版本）。
 
 ```bash
 npm install -g codemate-agent
 codemate --help
 ```
 
-- Global `codemate` command package: https://www.npmjs.com/package/codemate-agent
-- Docs: https://codemate.ai/docs
+- 全局 `codemate` 命令包：https://www.npmjs.com/package/codemate-agent
+- 文档：https://codemate.ai/docs
 
-## Run CLI For Testing
+## CLI 测试运行（仓库方式）
 
 ```bash
 git clone https://github.com/Wholiver/codemate.git
@@ -62,107 +62,107 @@ bun install
 bun dev
 ```
 
-## Architecture At A Glance
+## 架构总览
 
 > [!IMPORTANT]
-> The default branch is `dev` (not `main`). Use `dev` / `origin/dev` for diffs and PR targets.
+> 默认分支是 `dev`（不是 `main`）。做 diff 和 PR 目标分支时请使用 `dev` / `origin/dev`。
 
 ```text
 Codemate Runtime
-├─ 1. Input Layer
-│  ├─ User request
-│  ├─ Project context (repo/files/runtime state)
-│  └─ Session history
-├─ 2. Planning Layer
-│  ├─ Goal decomposition
-│  ├─ Constraint detection
-│  └─ Execution strategy selection
-├─ 3. Knowledge Layer
-│  ├─ Memory System
-│  │  ├─ write: memory_create
-│  │  ├─ retrieve: memory_search / memory_read / memory_list
-│  │  └─ retrieval modes: keyword / semantic / hybrid
-│  └─ Lessons System
-│     ├─ store: .codemate/lessons.md
-│     ├─ write: lesson_write
-│     └─ load: <project-lessons>
-├─ 4. Research Layer
+├─ 1. 输入层
+│  ├─ 用户请求
+│  ├─ 项目上下文（仓库/文件/运行状态）
+│  └─ 会话历史
+├─ 2. 规划层
+│  ├─ 目标拆解
+│  ├─ 约束检测
+│  └─ 执行策略选择
+├─ 3. 知识层
+│  ├─ Memory 系统
+│  │  ├─ 写入：memory_create
+│  │  ├─ 检索：memory_search / memory_read / memory_list
+│  │  └─ 检索模式：keyword / semantic / hybrid
+│  └─ Lessons 系统
+│     ├─ 存储：.codemate/lessons.md
+│     ├─ 写入：lesson_write
+│     └─ 加载：<project-lessons>
+├─ 4. 研究层
 │  ├─ research
 │  ├─ research-add-items
 │  ├─ research-add-fields
 │  ├─ research-deep
-│  └─ research-report (+ websearch / webfetch)
-├─ 5. Execution Layer
-│  ├─ code edits
-│  ├─ shell commands
-│  └─ tool/MCP calls
-├─ 6. Verification Layer
+│  └─ research-report（配合 websearch / webfetch）
+├─ 5. 执行层
+│  ├─ 代码修改
+│  ├─ Shell 命令
+│  └─ 工具 / MCP 调用
+├─ 6. 验证层
 │  ├─ selfcheck
-│  ├─ default checks: typecheck / lint / test
-│  └─ custom checks: pytest / go test / cargo test ...
-└─ 7. Feedback Loop
-   ├─ record failures and fixes
-   ├─ update lessons and memory
-   └─ improve next run quality
+│  ├─ 默认检查：typecheck / lint / test
+│  └─ 自定义检查：pytest / go test / cargo test ...
+└─ 7. 反馈闭环
+   ├─ 记录失败与修复
+   ├─ 更新 lessons 和 memory
+   └─ 提升下一轮质量
 ```
 
-Codemate is designed as a compounding loop: each run can improve the next run.
+Codemate 被设计为可复利的闭环：每一次运行都可以提升下一次运行质量。
 
-## Core Features
+## 核心能力
 
-### 1) Memory: Keep Project Context Across Sessions
+### 1) Memory：跨会话保留项目上下文
 
-Memory keeps important decisions and constraints reusable, even when work is spread across days, weeks, or different contributors.
+Memory 用来把关键决策和约束持续保存下来，即使任务跨天、跨周、跨成员，也能保持一致性。
 
-- What it does: Stores structured project memory, retrieves by keyword/semantic/hybrid search, and lets new memory versions replace outdated ones cleanly.
-- When to use it: Multi-step migrations, long bug investigations, or any work where "why we chose this" matters later.
-- Example: Your team decides "Auth uses short-lived access tokens + rotating refresh tokens." Two weeks later, a new feature and a security fix both follow that same policy without re-explaining it in each prompt.
-- Why it matters: Less repeated context loading, fewer contradictory changes, and better continuity across handoffs.
+- 它具体做什么：支持结构化记忆写入，支持 keyword/semantic/hybrid 检索，并通过版本更新让新规则平滑替换旧规则。
+- 什么时候用：多阶段迁移、长周期排障、多人接力开发这类“决策原因必须被记住”的场景。
+- 例子：团队确定“认证方案采用短期 access token + 可轮换 refresh token”。两周后新增功能和安全修复仍会遵循同一策略，不需要反复在提示里重申。
+- 价值：减少重复解释，降低上下文遗忘导致的冲突改动和回归。
 
-### 2) Lessons: Turn Incidents Into Reusable Team Practice
+### 2) Lessons：把事故沉淀为团队方法
 
-Lessons are project-level learnings persisted in `.codemate/lessons.md`, so failures become guidance instead of repeating.
+Lessons 会把失败和修复沉淀到 `.codemate/lessons.md`，让经验能在后续任务中被真正复用。
 
-- What it does: Captures actionable lessons from failed runs, merges/refines them with `lesson_write`, and loads them back into future sessions as project context.
-- When to use it: Release pipelines, recurring operational tasks, or any workflow where the same mistakes can happen again.
-- Example: A deploy fails because a migration step was skipped. The team records a lesson: "Run schema check before deploy." Future release tasks now include that guardrail automatically.
-- Why it matters: Your process improves run by run, not just person by person.
+- 它具体做什么：通过 `lesson_write` 持续记录并合并可执行经验，并在后续会话自动加载为项目上下文。
+- 什么时候用：发布流程、运维动作、重复性工程任务等容易“同样问题反复发生”的地方。
+- 例子：某次部署因漏执行数据库迁移而失败，团队写入经验“部署前必须做 schema 检查”。后续发布流程会自动带上这个前置守卫。
+- 价值：改进会在项目层面持续累计，而不是只停留在某个人的临时记忆里。
 
-### 3) Self-check: Verify Before You Ship
+### 3) Self-check：交付前先验证再收口
 
-Self-check is a built-in verification gate that runs checks, reports failures clearly, and supports fix-and-rerun loops before final output.
+Self-check 是内置验证关卡：先跑检查，再根据结果修复并复检，直到达到可交付状态。
 
-- What it does: Runs default JS/TS checks (typecheck, lint, test where applicable) and also supports custom command checks for other stacks (`pytest`, `go test`, `cargo test`, etc.).
-- When to use it: Refactors, dependency upgrades, CI-sensitive paths, or any change where "probably works" is not enough.
-- Example: A TypeScript refactor passes local smoke testing, but `selfcheck` catches a lint rule regression and one failing unit test. Both are fixed before handoff, avoiding a broken PR cycle.
-- Why it matters: Fewer "done locally, failed in CI" surprises and more reliable delivery quality.
+- 它具体做什么：默认支持 JS/TS 常见检查（typecheck、lint、test，按适用性执行），也支持自定义命令检查（如 `pytest`、`go test`、`cargo test`）。
+- 什么时候用：重构、依赖升级、CI 敏感路径或任何“不能只靠主观判断”的改动。
+- 例子：一次 TypeScript 重构本地看似可用，但 `selfcheck` 发现 lint 回归和一个单测失败；在交付前完成修复并复跑，避免把问题带进 PR/CI。
+- 价值：显著减少“本地看起来好了，CI 才暴雷”的交付风险。
 
-### 4) Deep Research: Structured Decisions Under Uncertainty
+### 4) 深度研究：在不确定中做结构化决策
 
-Deep Research provides a step-by-step research workflow, from defining questions to producing a decision-ready report.
+深度研究能力把“问题拆解 → 证据收集 → 报告输出”做成了完整流程，适合高不确定任务。
 
-- What it does: Creates research outlines, adds items/fields, runs deeper research tasks, and compiles a report with source-backed findings and uncertainty handling.
-- When to use it: Vendor selection, architecture tradeoffs, compliance/policy interpretation, or fast-changing external dependencies.
-- Example: Before choosing a vector database, the team compares ingestion throughput, region availability, pricing model, and migration risk, then receives a structured report with evidence and explicit unknowns.
-- Why it matters: Better decisions when stakes are high and information is incomplete.
+- 它具体做什么：先建立研究大纲，再补充研究项与字段，执行深度研究任务，最后产出带证据与不确定性说明的结构化报告。
+- 什么时候用：供应商选型、架构取舍、合规/政策解读、外部依赖变化频繁的决策任务。
+- 例子：在向量数据库选型时，对比写入吞吐、地域可用性、计费方式和迁移风险，最终得到可直接用于评审的决策报告，并明确哪些结论仍需补证据。
+- 价值：在信息不完整、成本高的决策上，减少拍脑袋，提升决策质量和可解释性。
 
-## Comparison
+## 对比
 
-| Dimension      | Compared with OPENCODE                                                                 | Compared with Claude Code                                               |
-| -------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Runtime shape  | Active runtime is consolidated in `packages/codemate/src/*` with integrated subsystems | Fully open-source runtime that can be inspected and modified end-to-end |
-| Memory model   | Built-in persistent memory + retrieval + lifecycle                                     | Stronger project continuity across sessions                             |
-| Learning loop  | Native lessons workflow (`.codemate/lessons.md` + `lesson_write`)                      | More explicit institutional learning in daily workflows                 |
-| Verification   | First-class self-check tool with structured failure loops                              | More controllable verification path before final output                 |
-| Research depth | Dedicated research toolchain (`research-*`, `websearch`, `webfetch`)                   | Better fit for high-uncertainty engineering decisions                   |
-| Model strategy | Provider-agnostic by design                                                            | Not tied to a single vendor path                                        |
+| 维度         | 与 OPENCODE 对比                                                     | 与 Claude Code 对比                             |
+| ------------ | -------------------------------------------------------------------- | ----------------------------------------------- |
+| 运行时形态   | 活跃运行时整合在 `packages/codemate/src/*`，子系统深度集成          | 运行时全开源，可端到端审查与修改                |
+| 记忆模型     | 内置持久化记忆 + 检索 + 生命周期                                     | 跨会话项目连续性更强                            |
+| 学习闭环     | 原生 lessons 工作流（`.codemate/lessons.md` + `lesson_write`）      | 在日常工程中具备更明确的组织化学习路径          |
+| 验证能力     | 一等公民的自检工具与结构化失败闭环                                   | 最终输出前的验证路径更可控                      |
+| 研究深度     | 专用研究工具链（`research-*`、`websearch`、`webfetch`）             | 更适合高不确定性的工程决策                      |
+| 模型策略     | 设计上与模型提供方解耦                                               | 不绑定单一供应商路线                            |
 
-## Contributing
+## 贡献
 
 > [!IMPORTANT]
-> Before pushing changes, run checks from package directories (do not run tests from repo root).
+> 推送前请在各 package 目录执行检查（不要在仓库根目录跑测试）。
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
-Chinese version: [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md).
+发起 PR 前请阅读 [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)。
+英文版本：[CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 ---

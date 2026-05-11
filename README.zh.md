@@ -13,7 +13,7 @@
 
 _基于 OPENCODE 构建，向 OPENCODE 团队与社区致以诚挚感谢。_
 
-<sub><a href="README.md">English</a> · <a href="README.zh.md">简体中文</a></sub>
+<sub><a href="README.en.md">English</a> · <a href="README.md">简体中文</a></sub>
 
 </div>
 
