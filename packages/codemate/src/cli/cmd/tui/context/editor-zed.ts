@@ -184,18 +184,25 @@ function isZedActiveEditorRow(row: ZedEditorRow): row is ZedActiveEditorRow {
 
 export function resolveZedDbPath() {
   const candidates = [
-    process.env.CODEMATE_ZED_DB,
+    process.env.codemate_ZED_DB,
     path.join(os.homedir(), "Library", "Application Support", "Zed", "db", "0-stable", "db.sqlite"),
     path.join(os.homedir(), ".local", "share", "zed", "db", "0-stable", "db.sqlite"),
   ].filter((item): item is string => Boolean(item))
 
-  return candidates.find((item) => Filesystem.stat(item)?.isFile())
+  return candidates.find((item) => isFile(item))
+}
+
+function isFile(item: string) {
+  try {
+    return Filesystem.stat(item)?.isFile() === true
+  } catch {
+    return false
+  }
 }
 
 function scoreZedWorkspace(workspacePaths: string | null, cwd: string) {
   return zedWorkspacePaths(workspacePaths).reduce((score, item) => {
-    if (pathContains(item, cwd)) return Math.max(score, 2)
-    if (pathContains(cwd, item)) return Math.max(score, 1)
+    if (pathContains(item, cwd)) return Math.max(score, path.resolve(item).length)
     return score
   }, 0)
 }

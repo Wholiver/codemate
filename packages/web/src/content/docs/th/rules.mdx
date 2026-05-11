@@ -68,7 +68,7 @@ codemate ยังรองรับการอ่านไฟล์ `AGENTS.md
 
 ### ความเข้ากันได้กับ Claude Code
 
-สำหรับผู้ใช้ที่ย้ายจาก Claude Code นั้น Codemate รองรับรูปแบบไฟล์ของ Claude Code เป็นทางเลือก:
+สำหรับผู้ใช้ที่ย้ายจาก Claude Code นั้น codemate รองรับรูปแบบไฟล์ของ Claude Code เป็นทางเลือก:
 
 - **กฎของโครงการ**: `CLAUDE.md` ในไดเรกทอรีโครงการของคุณ (ใช้หากไม่มี `AGENTS.md`)
 - **กฎสากล**: `~/.claude/CLAUDE.md` (ใช้หากไม่มี `~/.config/codemate/AGENTS.md`)
@@ -77,9 +77,9 @@ codemate ยังรองรับการอ่านไฟล์ `AGENTS.md
 หากต้องการปิดใช้งานความเข้ากันได้ของ Claude Code ให้ตั้งค่าหนึ่งในตัวแปรสภาพแวดล้อมเหล่านี้:
 
 ```bash
-export CODEMATE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export CODEMATE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export CODEMATE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export codemate_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export codemate_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export codemate_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---

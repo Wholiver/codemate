@@ -140,7 +140,7 @@ async function codemateFiles(input: { directories: string[]; cwd: string }) {
   for (const dir of unique(input.directories)) {
     files.push(...ConfigPaths.fileInDirectory(dir, "codemate"))
   }
-  if (Flag.CODEMATE_CONFIG) files.push(Flag.CODEMATE_CONFIG)
+  if (Flag.codemate_CONFIG) files.push(Flag.codemate_CONFIG)
 
   const existing = await Promise.all(
     unique(files).map(async (file) => {

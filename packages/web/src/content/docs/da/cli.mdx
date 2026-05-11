@@ -1,17 +1,17 @@
 ---
 title: CLI
-description: Codemate CLI muligheder og kommandoer.
+description: codemate CLI muligheder og kommandoer.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Codemate CLI starter som standard [TUI](/docs/tui), når den kører uden nogen argumenter.
+codemate CLI starter som standard [TUI](/docs/tui), når den kører uden nogen argumenter.
 
 ```bash
 codemate
 ```
 
-Men den accepterer også kommandoer som dokumenteret på denne side. Dette giver dig mulighed for at interagere med Codemate programmatisk.
+Men den accepterer også kommandoer som dokumenteret på denne side. Dette giver dig mulighed for at interagere med codemate programmatisk.
 
 ```bash
 codemate run "Explain how closures work in JavaScript"
@@ -21,7 +21,7 @@ codemate run "Explain how closures work in JavaScript"
 
 ### tui
 
-Start Codemate terminalbrugergrænsefladen.
+Start codemate terminalbrugergrænsefladen.
 
 ```bash
 codemate [project]
@@ -29,28 +29,28 @@ codemate [project]
 
 #### Flag
 
-| Flag         | Kort | Beskrivelse                                                                  |
-| ------------ | ---- | ---------------------------------------------------------------------------- |
-| `--continue` | `-c` | Fortsæt sidste session                                                       |
-| `--session`  | `-s` | Sessions-id for at fortsætte                                                 |
-| `--fork`     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`) |
-| `--prompt`   |      | Spørg om at bruge                                                            |
-| `--model`    | `-m` | Model til brug i form af provider/model                                      |
-| `--agent`    |      | Agent hos bruge                                                              |
-| `--port`     |      | Port at lytte på                                                             |
-| `--hostname` |      | Værtsnavn at lytte på                                                        |
+| Flag                                     | Kort | Beskrivelse                                                                  |
+| ---------------------------------------- | ---- | ---------------------------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt sidste session                                                       |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                 |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`) |
+| <nobr><code>{"--prompt"}</code></nobr>   |      | Spørg om at bruge                                                            |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Model til brug i form af provider/model                                      |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Agent hos bruge                                                              |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port at lytte på                                                             |
+| <nobr><code>{"--hostname"}</code></nobr> |      | Værtsnavn at lytte på                                                        |
 
 ---
 
 ## Kommandoer
 
-Codemate CLI har også følgende kommandoer.
+codemate CLI har også følgende kommandoer.
 
 ---
 
 ### agent
 
-Administrer agenter i Codemate.
+Administrer agenter i codemate.
 
 ```bash
 codemate agent [command]
@@ -60,13 +60,13 @@ codemate agent [command]
 
 ### attach
 
-Tilslut en terminal til en allerede kørende Codemate backend-server startet via `serve` eller `web` kommandoer.
+Tilslut en terminal til en allerede kørende codemate backend-server startet via `serve` eller `web` kommandoer.
 
 ```bash
 codemate attach [url]
 ```
 
-Dette gør det muligt at bruge TUI med en ekstern Codemate backend. For eksempel:
+Dette gør det muligt at bruge TUI med en ekstern codemate backend. For eksempel:
 
 ```bash
 # Start the backend server for web/mobile access
@@ -78,10 +78,14 @@ codemate attach http://10.20.30.40:4096
 
 #### Flag
 
-| Flag        | Kort | Beskrivelse                      |
-| ----------- | ---- | -------------------------------- |
-| `--dir`     |      | Arbejdsmappe til at starte TUI i |
-| `--session` | `-s` | Sessions-id for at fortsætte     |
+| Flag                                     | Kort | Beskrivelse                                                                       |
+| ---------------------------------------- | ---- | --------------------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Arbejdsmappe til at starte TUI i                                                  |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt den seneste session                                                       |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                      |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)      |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `codemate_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `codemate_SERVER_USERNAME` eller `codemate`) |
 
 ---
 
@@ -119,13 +123,13 @@ codemate auth [command]
 
 #### login
 
-Codemate drives af udbyderlisten på [Models.dev](https://models.dev), så du kan bruge `codemate auth login` til at konfigurere API-nøgler for enhver udbyder, du vil bruge. Dette er gemt i `~/.local/share/codemate/auth.json`.
+codemate drives af udbyderlisten på [Models.dev](https://models.dev), så du kan bruge `codemate auth login` til at konfigurere API-nøgler for enhver udbyder, du vil bruge. Dette er gemt i `~/.local/share/codemate/auth.json`.
 
 ```bash
 codemate auth login
 ```
 
-Når Codemate starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis der er nogen nøgler defineret i dine miljøer eller en `.env` fil i dit projekt.
+Når codemate starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis der er nogen nøgler defineret i dine miljøer eller en `.env` fil i dit projekt.
 
 ---
 
@@ -187,10 +191,10 @@ codemate github run
 
 ##### Flag
 
-| Flag      | Beskrivelse                                    |
-| --------- | ---------------------------------------------- |
-| `--event` | GitHub mock begivenhed for at køre agenten for |
-| `--token` | GitHub personlig adgangstoken                  |
+| Flag                                  | Beskrivelse                                    |
+| ------------------------------------- | ---------------------------------------------- |
+| <nobr><code>{"--event"}</code></nobr> | GitHub mock begivenhed for at køre agenten for |
+| <nobr><code>{"--token"}</code></nobr> | GitHub personlig adgangstoken                  |
 
 ---
 
@@ -296,12 +300,12 @@ codemate models anthropic
 
 #### Flag
 
-| Flag        | Beskrivelse                                                             |
-| ----------- | ----------------------------------------------------------------------- |
-| `--refresh` | Opdater modelcachen fra models.dev                                      |
-| `--verbose` | Brug mere detaljeret modeloutput (inkluderer metadata som omkostninger) |
+| Flag                                    | Beskrivelse                                                             |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | Opdater modelcachen fra models.dev                                      |
+| <nobr><code>{"--verbose"}</code></nobr> | Brug mere detaljeret modeloutput (inkluderer metadata som omkostninger) |
 
-Brug flaget `--refresh` til at opdatere den cachelagrede modelliste. Dette er nyttigt, når nye modeller er blevet tilføjet til en udbyder, og du vil se dem i Codemate.
+Brug flaget `--refresh` til at opdatere den cachelagrede modelliste. Dette er nyttigt, når nye modeller er blevet tilføjet til en udbyder, og du vil se dem i codemate.
 
 ```bash
 codemate models --refresh
@@ -335,47 +339,52 @@ codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 #### Flag
 
-| Flag         | Kort | Beskrivelse                                                                         |
-| ------------ | ---- | ----------------------------------------------------------------------------------- |
-| `--command`  |      | Kommandoen til at køre, brug besked til args                                        |
-| `--continue` | `-c` | Fortsæt sidste session                                                              |
-| `--session`  | `-s` | Sessions-id for at fortsætte                                                        |
-| `--fork`     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)        |
-| `--share`    |      | Del sessionen                                                                       |
-| `--model`    | `-m` | Model til brug i form af provider/model                                             |
-| `--agent`    |      | Agent til brug                                                                      |
-| `--file`     | `-f` | Fil(er), der skal vedhæftes til meddelelsen                                         |
-| `--format`   |      | Format: standard (formateret) eller json (rå JSON hændelser)                        |
-| `--title`    |      | Titel for sessionen (bruger trunkeret prompt, hvis der ikke er angivet nogen værdi) |
-| `--attach`   |      | Tilslut til en kørende codemate-server (f.eks. http://localhost:4096)               |
-| `--port`     |      | Port til den lokale server (standard til vilkårlig port)                            |
+| Flag                                     | Kort | Beskrivelse                                                                         |
+| ---------------------------------------- | ---- | ----------------------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |      | Kommandoen til at køre, brug besked til args                                        |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt sidste session                                                              |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                        |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)        |
+| <nobr><code>{"--share"}</code></nobr>    |      | Del sessionen                                                                       |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Model til brug i form af provider/model                                             |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Agent til brug                                                                      |
+| <nobr><code>{"--file"}</code></nobr>     | `-f` | Fil(er), der skal vedhæftes til meddelelsen                                         |
+| <nobr><code>{"--format"}</code></nobr>   |      | Format: standard (formateret) eller json (rå JSON hændelser)                        |
+| <nobr><code>{"--title"}</code></nobr>    |      | Titel for sessionen (bruger trunkeret prompt, hvis der ikke er angivet nogen værdi) |
+| <nobr><code>{"--attach"}</code></nobr>   |      | Tilslut til en kørende codemate-server (f.eks. http://localhost:4096)               |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `codemate_SERVER_PASSWORD`)                   |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `codemate_SERVER_USERNAME` eller `codemate`)   |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Mappe at køre i, eller sti på fjernserveren ved tilkobling                          |
+| <nobr><code>{"--variant"}</code></nobr>  |      | Modelvariant (udbyder-specifik ræsonneringsindsats)                                 |
+| <nobr><code>{"--thinking"}</code></nobr> |      | Vis tænkeblokke                                                                     |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port til den lokale server (standard til vilkårlig port)                            |
 
 ---
 
 ### serve
 
-Start en hovedløs Codemate-server til API-adgang. Tjek [server docs](/docs/server) for den fulde HTTP-grænseflade.
+Start en hovedløs codemate-server til API-adgang. Tjek [server docs](/docs/server) for den fulde HTTP-grænseflade.
 
 ```bash
 codemate serve
 ```
 
-Dette starter en HTTP-server, der giver API-adgang til codemate-funktionalitet uden TUI-grænsefladen. Indstil `CODEMATE_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `codemate`).
+Dette starter en HTTP-server, der giver API-adgang til codemate-funktionalitet uden TUI-grænsefladen. Indstil `codemate_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `codemate`).
 
 #### Flag
 
-| Flag         | Beskrivelse                                      |
-| ------------ | ------------------------------------------------ |
-| `--port`     | Port at lytte på                                 |
-| `--hostname` | Værtsnavn at lytte på                            |
-| `--mdns`     | Aktiver mDNS-opdagelse                           |
-| `--cors`     | Yderligere browseroprindelse til at tillade CORS |
+| Flag                                     | Beskrivelse                                      |
+| ---------------------------------------- | ------------------------------------------------ |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på                                 |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | Aktiver mDNS-opdagelse                           |
+| <nobr><code>{"--cors"}</code></nobr>     | Yderligere browseroprindelse til at tillade CORS |
 
 ---
 
 ### session
 
-Administrator Codemate sessionsholder.
+Administrator codemate sessionsholder.
 
 ```bash
 codemate session [command]
@@ -385,7 +394,7 @@ codemate session [command]
 
 #### list
 
-Liste over alle Codemate sessioner.
+Liste over alle codemate sessioner.
 
 ```bash
 codemate session list
@@ -393,16 +402,16 @@ codemate session list
 
 ##### Flag
 
-| Flag          | Kort | Beskrivelse                            |
-| ------------- | ---- | -------------------------------------- |
-| `--max-count` | `-n` | Begræns til N seneste sessioner        |
-| `--format`    |      | Outputformat: tabel eller json (tabel) |
+| Flag                                      | Kort | Beskrivelse                            |
+| ----------------------------------------- | ---- | -------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n` | Begræns til N seneste sessioner        |
+| <nobr><code>{"--format"}</code></nobr>    |      | Outputformat: tabel eller json (tabel) |
 
 ---
 
 ### stats
 
-Vis tokenbrug og omkostningsstatistikker for dine Codemate-sessioner.
+Vis tokenbrug og omkostningsstatistikker for dine codemate-sessioner.
 
 ```bash
 codemate stats
@@ -410,12 +419,12 @@ codemate stats
 
 #### Flag
 
-| Flag        | Beskrivelse                                                                 |
-| ----------- | --------------------------------------------------------------------------- |
-| `--days`    | Vis statistik for de sidste N dage (hele tiden)                             |
-| `--tools`   | Antal værktøjer, der skal vises (alle)                                      |
-| `--models`  | Vis modelbrugsopdeling (skjult som standard). Send et tal for at vise top N |
-| `--project` | Filtre efter projekt (alle projekter, tom streng: nuværende projekt)        |
+| Flag                                    | Beskrivelse                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| <nobr><code>{"--days"}</code></nobr>    | Vis statistik for de sidste N dage (hele tiden)                             |
+| <nobr><code>{"--tools"}</code></nobr>   | Antal værktøjer, der skal vises (alle)                                      |
+| <nobr><code>{"--models"}</code></nobr>  | Vis modelbrugsopdeling (skjult som standard). Send et tal for at vise top N |
+| <nobr><code>{"--project"}</code></nobr> | Filtre efter projekt (alle projekter, tom streng: nuværende projekt)        |
 
 ---
 
@@ -433,13 +442,13 @@ Hvis du ikke angiver et sessions-id, bliver du bedt om at vælge mellem tilgæng
 
 ### import
 
-Importer sessionsdata fra en JSON fil eller Codemate del URL.
+Importer sessionsdata fra en JSON fil eller codemate del URL.
 
 ```bash
 codemate import <file>
 ```
 
-Du kan importere fra en lokal fil eller en Codemate share URL.
+Du kan importere fra en lokal fil eller en codemate share URL.
 
 ```bash
 codemate import session.json
@@ -450,22 +459,22 @@ codemate import https://opncd.ai/s/abc123
 
 ### web
 
-Start en hovedløs Codemate-server med en webgrænseflade.
+Start en hovedløs codemate-server med en webgrænseflade.
 
 ```bash
 codemate web
 ```
 
-Dette starter en HTTP-server og åbner en webbrowser for at få adgang til Codemate via en webgrænseflade. Indstil `CODEMATE_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `codemate`).
+Dette starter en HTTP-server og åbner en webbrowser for at få adgang til codemate via en webgrænseflade. Indstil `codemate_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `codemate`).
 
 #### Flag
 
-| Flag         | Beskrivelse                                      |
-| ------------ | ------------------------------------------------ |
-| `--port`     | Port at lytte på                                 |
-| `--hostname` | Værtsnavn at lytte på                            |
-| `--mdns`     | Aktiver mDNS-opdagelse                           |
-| `--cors`     | Yderligere browseroprindelse til at tillade CORS |
+| Flag                                     | Beskrivelse                                      |
+| ---------------------------------------- | ------------------------------------------------ |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på                                 |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | Aktiver mDNS-opdagelse                           |
+| <nobr><code>{"--cors"}</code></nobr>     | Yderligere browseroprindelse til at tillade CORS |
 
 ---
 
@@ -481,17 +490,17 @@ Denne kommando starter en ACP-server, der kommunikerer via stdin/stdout ved hjæ
 
 #### Flag
 
-| Flag         | Beskrivelse           |
-| ------------ | --------------------- |
-| `--cwd`      | Arbejdsmappe          |
-| `--port`     | Port at lytte på      |
-| `--hostname` | Værtsnavn at lytte på |
+| Flag                                     | Beskrivelse           |
+| ---------------------------------------- | --------------------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | Arbejdsmappe          |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på      |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på |
 
 ---
 
 ### uninstall
 
-Afinstaller Codemate og fjern alle relaterede filer.
+Afinstaller codemate og fjern alle relaterede filer.
 
 ```bash
 codemate uninstall
@@ -499,18 +508,18 @@ codemate uninstall
 
 #### Flag
 
-| Flag            | Kort | Beskrivelse                                      |
-| --------------- | ---- | ------------------------------------------------ |
-| `--keep-config` | `-c` | Se konfigurationsfiler                           |
-| `--keep-data`   | `-d` | Gem sessionsdata og snapshots                    |
-| `--dry-run`     |      | Vis, hvad der ville blive fjernet uden at fjerne |
-| `--force`       | `-f` | Spring bekræftelsesspørgsmål over                |
+| Flag                                        | Kort | Beskrivelse                                      |
+| ------------------------------------------- | ---- | ------------------------------------------------ |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c` | Se konfigurationsfiler                           |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d` | Gem sessionsdata og snapshots                    |
+| <nobr><code>{"--dry-run"}</code></nobr>     |      | Vis, hvad der ville blive fjernet uden at fjerne |
+| <nobr><code>{"--force"}</code></nobr>       | `-f` | Spring bekræftelsesspørgsmål over                |
 
 ---
 
 ### upgrade
 
-Opdaterer Codemate til den nyeste version eller en specifik version.
+Opdaterer codemate til den nyeste version eller en specifik version.
 
 ```bash
 codemate upgrade [target]
@@ -530,9 +539,9 @@ codemate upgrade v0.1.48
 
 #### upgrade
 
-| Flag       | Kort | Beskrivelse                                                      |
-| ---------- | ---- | ---------------------------------------------------------------- |
-| `--method` | `-m` | Installationsmetoden, der blev brugt; curl, npm, pnpm, bun, brew |
+| Flag                                   | Kort | Beskrivelse                                                      |
+| -------------------------------------- | ---- | ---------------------------------------------------------------- |
+| <nobr><code>{"--method"}</code></nobr> | `-m` | Installationsmetoden, der blev brugt; curl, npm, pnpm, bun, brew |
 
 ---
 
@@ -540,45 +549,45 @@ codemate upgrade v0.1.48
 
 codemate CLI tager følgende globale flag.
 
-| Flag           | Kort | Beskrivelse                          |
-| -------------- | ---- | ------------------------------------ |
-| `--help`       | `-h` | Vis hjælp                            |
-| `--version`    | `-v` | Udskriftsversionsnummer              |
-| `--print-logs` |      | Udskriv logfiler til stderr          |
-| `--log-level`  |      | Logniveau (DEBUG, INFO, WARN, ERROR) |
+| Flag                                       | Kort | Beskrivelse                          |
+| ------------------------------------------ | ---- | ------------------------------------ |
+| <nobr><code>{"--help"}</code></nobr>       | `-h` | Vis hjælp                            |
+| <nobr><code>{"--version"}</code></nobr>    | `-v` | Udskriftsversionsnummer              |
+| <nobr><code>{"--print-logs"}</code></nobr> |      | Udskriv logfiler til stderr          |
+| <nobr><code>{"--log-level"}</code></nobr>  |      | Logniveau (DEBUG, INFO, WARN, ERROR) |
 
 ---
 
 ## Miljøvariabler
 
-Codemate kan konfigureres ved hjælp af miljøvariabler.
+codemate kan konfigureres ved hjælp af miljøvariabler.
 
 | Variabel                              | Skriv   | Beskrivelse                                                           |
 | ------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `CODEMATE_AUTO_SHARE`                 | boolean | Del automatisk session                                                |
-| `CODEMATE_GIT_BASH_PATH`              | string  | Sti til Git Bash eksekverbar på Windows                               |
-| `CODEMATE_CONFIG`                     | string  | Sti til konfigurationsfil                                             |
-| `CODEMATE_TUI_CONFIG`                 | string  | Sti til TUI-konfigurationsfil                                         |
-| `CODEMATE_CONFIG_DIR`                 | string  | Sti til konfigurationsmappe                                           |
-| `CODEMATE_CONFIG_CONTENT`             | string  | Indbygget json-konfigurationsindhold                                  |
-| `CODEMATE_DISABLE_AUTOUPDATE`         | boolean | Deaktiver automatisk opdateringskontrol                               |
-| `CODEMATE_DISABLE_PRUNE`              | boolean | Deaktiver beskæring af gamle data                                     |
-| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolean | Deaktiver automatisk opdatering af terminaltitel                      |
-| `CODEMATE_PERMISSION`                 | string  | Indbygget json-tilladelseskonfiguration                               |
-| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolean | Deaktiver standard plugins                                            |
-| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolean | Deaktiver automatisk LSP-serverdownloads                              |
-| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolean | Aktive eksperimentelle modeller                                       |
-| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolean | Deaktiver automatisk kontekstkomprimering                             |
-| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolean | Deaktiver læsning fra `.claude` (prompt + færdigheder)                |
-| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Deaktiver læsning `~/.claude/CLAUDE.md`                               |
-| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Deaktiver indlæsning af `.claude/skills`                              |
-| `CODEMATE_DISABLE_MODELS_FETCH`       | boolean | Deaktivering af modeller fra eksterne kilder                          |
-| `CODEMATE_FAKE_VCS`                   | string  | Falsk VCS-udbyder til testformål                                      |
-| `CODEMATE_CLIENT`                     | string  | Klient-id (standard til `cli`)                                        |
-| `CODEMATE_ENABLE_EXA`                 | boolean | Aktiver Exa-websøgeværktøjer                                          |
-| `CODEMATE_SERVER_PASSWORD`            | string  | Aktiver grundlæggende godkendelse for `serve`/`web`                   |
-| `CODEMATE_SERVER_USERNAME`            | string  | Tilsidesæt grundlæggende godkendelsesbrugernavn (standard `codemate`) |
-| `CODEMATE_MODELS_URL`                 | string  | Brugerdefineret URL til hentning af modelkonfiguration                |
+| `codemate_AUTO_SHARE`                 | boolean | Del automatisk session                                                |
+| `codemate_GIT_BASH_PATH`              | string  | Sti til Git Bash eksekverbar på Windows                               |
+| `codemate_CONFIG`                     | string  | Sti til konfigurationsfil                                             |
+| `codemate_TUI_CONFIG`                 | string  | Sti til TUI-konfigurationsfil                                         |
+| `codemate_CONFIG_DIR`                 | string  | Sti til konfigurationsmappe                                           |
+| `codemate_CONFIG_CONTENT`             | string  | Indbygget json-konfigurationsindhold                                  |
+| `codemate_DISABLE_AUTOUPDATE`         | boolean | Deaktiver automatisk opdateringskontrol                               |
+| `codemate_DISABLE_PRUNE`              | boolean | Deaktiver beskæring af gamle data                                     |
+| `codemate_DISABLE_TERMINAL_TITLE`     | boolean | Deaktiver automatisk opdatering af terminaltitel                      |
+| `codemate_PERMISSION`                 | string  | Indbygget json-tilladelseskonfiguration                               |
+| `codemate_DISABLE_DEFAULT_PLUGINS`    | boolean | Deaktiver standard plugins                                            |
+| `codemate_DISABLE_LSP_DOWNLOAD`       | boolean | Deaktiver automatisk LSP-serverdownloads                              |
+| `codemate_ENABLE_EXPERIMENTAL_MODELS` | boolean | Aktive eksperimentelle modeller                                       |
+| `codemate_DISABLE_AUTOCOMPACT`        | boolean | Deaktiver automatisk kontekstkomprimering                             |
+| `codemate_DISABLE_CLAUDE_CODE`        | boolean | Deaktiver læsning fra `.claude` (prompt + færdigheder)                |
+| `codemate_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Deaktiver læsning `~/.claude/CLAUDE.md`                               |
+| `codemate_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Deaktiver indlæsning af `.claude/skills`                              |
+| `codemate_DISABLE_MODELS_FETCH`       | boolean | Deaktivering af modeller fra eksterne kilder                          |
+| `codemate_FAKE_VCS`                   | string  | Falsk VCS-udbyder til testformål                                      |
+| `codemate_CLIENT`                     | string  | Klient-id (standard til `cli`)                                        |
+| `codemate_ENABLE_EXA`                 | boolean | Aktiver Exa-websøgeværktøjer                                          |
+| `codemate_SERVER_PASSWORD`            | string  | Aktiver grundlæggende godkendelse for `serve`/`web`                   |
+| `codemate_SERVER_USERNAME`            | string  | Tilsidesæt grundlæggende godkendelsesbrugernavn (standard `codemate`) |
+| `codemate_MODELS_URL`                 | string  | Brugerdefineret URL til hentning af modelkonfiguration                |
 
 ---
 
@@ -588,16 +597,16 @@ Disse miljøvariabler muliggør eksperimentelle funktioner, der kan ændres elle
 
 | Variabel                                        | Skriv   | Beskrivelse                                |
 | ----------------------------------------------- | ------- | ------------------------------------------ |
-| `CODEMATE_EXPERIMENTAL`                         | boolean | Aktiver alle eksperimentelle funktioner    |
-| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Aktiver ikonopdagelse                      |
-| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Deaktiver kopi ved valg i TUI              |
-| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | nummer  | Standard timeout for bash-kommandoer i ms  |
-| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | nummer  | Maks. output-tokens for LLM-svar           |
-| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolean | Aktiver filovervågning for hele dir        |
-| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolean | Aktiver oxfmt formatter                    |
-| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolean | Aktive eksperimenter LSP værktøj           |
-| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Deaktiver filovervågning                   |
-| `CODEMATE_EXPERIMENTAL_EXA`                     | boolean | Aktive eksperimenter Exa-funktioner        |
-| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolean | Aktiver TY LSP for python-filer            |
-| `CODEMATE_EXPERIMENTAL_MARKDOWN`                | boolean | Aktive eksperimentelle markdown-funktioner |
-| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolean | Aktiver plantilstand                       |
+| `codemate_EXPERIMENTAL`                         | boolean | Aktiver alle eksperimentelle funktioner    |
+| `codemate_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Aktiver ikonopdagelse                      |
+| `codemate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Deaktiver kopi ved valg i TUI              |
+| `codemate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | nummer  | Standard timeout for bash-kommandoer i ms  |
+| `codemate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | nummer  | Maks. output-tokens for LLM-svar           |
+| `codemate_EXPERIMENTAL_FILEWATCHER`             | boolean | Aktiver filovervågning for hele dir        |
+| `codemate_EXPERIMENTAL_OXFMT`                   | boolean | Aktiver oxfmt formatter                    |
+| `codemate_EXPERIMENTAL_LSP_TOOL`                | boolean | Aktive eksperimenter LSP værktøj           |
+| `codemate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Deaktiver filovervågning                   |
+| `codemate_EXPERIMENTAL_EXA`                     | boolean | Aktive eksperimenter Exa-funktioner        |
+| `codemate_EXPERIMENTAL_LSP_TY`                  | boolean | Aktiver TY LSP for python-filer            |
+| `codemate_EXPERIMENTAL_MARKDOWN`                | boolean | Aktive eksperimentelle markdown-funktioner |
+| `codemate_EXPERIMENTAL_PLAN_MODE`               | boolean | Aktiver plantilstand                       |

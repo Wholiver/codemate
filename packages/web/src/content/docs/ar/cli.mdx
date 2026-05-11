@@ -1,17 +1,17 @@
 ---
 title: CLI
-description: أوامر وخيارات CLI في Codemate.
+description: أوامر وخيارات CLI في codemate.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-يبدأ CLI الخاص بـ Codemate افتراضيا واجهة [TUI](/docs/tui) عند تشغيله بدون أي معاملات.
+يبدأ CLI الخاص بـ codemate افتراضيا واجهة [TUI](/docs/tui) عند تشغيله بدون أي معاملات.
 
 ```bash
 codemate
 ```
 
-كما يدعم أيضا أوامر موثقة في هذه الصفحة، ما يتيح لك التفاعل مع Codemate برمجيا.
+كما يدعم أيضا أوامر موثقة في هذه الصفحة، ما يتيح لك التفاعل مع codemate برمجيا.
 
 ```bash
 codemate run "Explain how closures work in JavaScript"
@@ -21,7 +21,7 @@ codemate run "Explain how closures work in JavaScript"
 
 ### tui
 
-بدء واجهة المستخدم terminal (TUI) الخاصة بـ Codemate.
+بدء واجهة المستخدم terminal (TUI) الخاصة بـ codemate.
 
 ```bash
 codemate [project]
@@ -29,28 +29,28 @@ codemate [project]
 
 #### الخيارات
 
-| الخيار       | المختصر | الوصف                                                             |
-| ------------ | ------- | ----------------------------------------------------------------- |
-| `--continue` | `-c`    | متابعة الجلسة الأخيرة                                             |
-| `--session`  | `-s`    | معرّف الجلسة للمتابعة                                             |
-| `--fork`     |         | تفريع الجلسة عند المتابعة (يستخدم مع `--continue` أو `--session`) |
-| `--prompt`   |         | الموجّه المراد استخدامه                                           |
-| `--model`    | `-m`    | النموذج المراد استخدامه بصيغة provider/model                      |
-| `--agent`    |         | الوكيل المراد استخدامه                                            |
-| `--port`     |         | المنفذ الذي يتم الاستماع عليه                                     |
-| `--hostname` |         | اسم المضيف الذي يتم الاستماع عليه                                 |
+| الخيار                                   | المختصر | الوصف                                                             |
+| ---------------------------------------- | ------- | ----------------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c`    | متابعة الجلسة الأخيرة                                             |
+| <nobr><code>{"--session"}</code></nobr>  | `-s`    | معرّف الجلسة للمتابعة                                             |
+| <nobr><code>{"--fork"}</code></nobr>     |         | تفريع الجلسة عند المتابعة (يستخدم مع `--continue` أو `--session`) |
+| <nobr><code>{"--prompt"}</code></nobr>   |         | الموجّه المراد استخدامه                                           |
+| <nobr><code>{"--model"}</code></nobr>    | `-m`    | النموذج المراد استخدامه بصيغة provider/model                      |
+| <nobr><code>{"--agent"}</code></nobr>    |         | الوكيل المراد استخدامه                                            |
+| <nobr><code>{"--port"}</code></nobr>     |         | المنفذ الذي يتم الاستماع عليه                                     |
+| <nobr><code>{"--hostname"}</code></nobr> |         | اسم المضيف الذي يتم الاستماع عليه                                 |
 
 ---
 
 ## الأوامر
 
-يتضمن CLI الخاص بـ Codemate أيضا الأوامر التالية.
+يتضمن CLI الخاص بـ codemate أيضا الأوامر التالية.
 
 ---
 
 ### agent
 
-إدارة وكلاء Codemate.
+إدارة وكلاء codemate.
 
 ```bash
 codemate agent [command]
@@ -60,13 +60,13 @@ codemate agent [command]
 
 ### attach
 
-إرفاق terminal بخادم الواجهة الخلفية لـ Codemate قيد التشغيل بالفعل، والذي تم تشغيله عبر الأمرين `serve` أو `web`.
+إرفاق terminal بخادم الواجهة الخلفية لـ codemate قيد التشغيل بالفعل، والذي تم تشغيله عبر الأمرين `serve` أو `web`.
 
 ```bash
 codemate attach [url]
 ```
 
-يتيح ذلك استخدام واجهة TUI مع واجهة خلفية لـ Codemate تعمل عن بعد. على سبيل المثال:
+يتيح ذلك استخدام واجهة TUI مع واجهة خلفية لـ codemate تعمل عن بعد. على سبيل المثال:
 
 ```bash
 # ابدأ خادم الواجهة الخلفية للوصول عبر الويب/الجوال
@@ -78,10 +78,14 @@ codemate attach http://10.20.30.40:4096
 
 #### الرايات
 
-| الراية      | المختصر | الوصف                               |
-| ----------- | ------- | ----------------------------------- |
-| `--dir`     |         | دليل العمل الذي ستبدأ منه واجهة TUI |
-| `--session` | `-s`    | معرّف الجلسة للمتابعة               |
+| الراية                                   | المختصر | الوصف                                                                             |
+| ---------------------------------------- | ------- | --------------------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |         | دليل العمل الذي ستبدأ منه واجهة TUI                                               |
+| <nobr><code>{"--continue"}</code></nobr> | `-c`    | متابعة آخر جلسة                                                                   |
+| <nobr><code>{"--session"}</code></nobr>  | `-s`    | معرّف الجلسة للمتابعة                                                             |
+| <nobr><code>{"--fork"}</code></nobr>     |         | تفريع الجلسة عند المتابعة (استخدمه مع `--continue` أو `--session`)                |
+| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `codemate_SERVER_PASSWORD`)                |
+| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `codemate_SERVER_USERNAME` أو `codemate`) |
 
 ---
 
@@ -119,13 +123,13 @@ codemate auth [command]
 
 #### login
 
-يعتمد Codemate على قائمة المزودين في [Models.dev](https://models.dev)، لذا يمكنك استخدام `codemate auth login` لتهيئة مفاتيح API لأي مزود ترغب باستخدامه. يتم حفظ ذلك في `~/.local/share/codemate/auth.json`.
+يعتمد codemate على قائمة المزودين في [Models.dev](https://models.dev)، لذا يمكنك استخدام `codemate auth login` لتهيئة مفاتيح API لأي مزود ترغب باستخدامه. يتم حفظ ذلك في `~/.local/share/codemate/auth.json`.
 
 ```bash
 codemate auth login
 ```
 
-عند تشغيل Codemate يقوم بتحميل المزودين من ملف بيانات الاعتماد، وكذلك أي مفاتيح معرّفة في متغيرات البيئة لديك أو في ملف `.env` ضمن مشروعك.
+عند تشغيل codemate يقوم بتحميل المزودين من ملف بيانات الاعتماد، وكذلك أي مفاتيح معرّفة في متغيرات البيئة لديك أو في ملف `.env` ضمن مشروعك.
 
 ---
 
@@ -187,10 +191,10 @@ codemate github run
 
 ##### الرايات
 
-| الراية    | الوصف                                |
-| --------- | ------------------------------------ |
-| `--event` | حدث GitHub مُحاكى لتشغيل الوكيل عليه |
-| `--token` | رمز وصول شخصي لـ GitHub              |
+| الراية                                | الوصف                                |
+| ------------------------------------- | ------------------------------------ |
+| <nobr><code>{"--event"}</code></nobr> | حدث GitHub مُحاكى لتشغيل الوكيل عليه |
+| <nobr><code>{"--token"}</code></nobr> | رمز وصول شخصي لـ GitHub              |
 
 ---
 
@@ -296,12 +300,12 @@ codemate models anthropic
 
 #### الرايات
 
-| الراية      | الوصف                                                         |
-| ----------- | ------------------------------------------------------------- |
-| `--refresh` | تحديث ذاكرة التخزين المؤقت للنماذج من models.dev              |
-| `--verbose` | استخدام مخرجات أكثر تفصيلا للنماذج (تشمل بيانات مثل التكاليف) |
+| الراية                                  | الوصف                                                         |
+| --------------------------------------- | ------------------------------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | تحديث ذاكرة التخزين المؤقت للنماذج من models.dev              |
+| <nobr><code>{"--verbose"}</code></nobr> | استخدام مخرجات أكثر تفصيلا للنماذج (تشمل بيانات مثل التكاليف) |
 
-استخدم الراية `--refresh` لتحديث قائمة النماذج المخزنة مؤقتا. يفيد ذلك عند إضافة نماذج جديدة إلى مزود وتريد رؤيتها في Codemate.
+استخدم الراية `--refresh` لتحديث قائمة النماذج المخزنة مؤقتا. يفيد ذلك عند إضافة نماذج جديدة إلى مزود وتريد رؤيتها في codemate.
 
 ```bash
 codemate models --refresh
@@ -335,47 +339,52 @@ codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 #### الرايات
 
-| الراية       | المختصر | الوصف                                                             |
-| ------------ | ------- | ----------------------------------------------------------------- |
-| `--command`  |         | الأمر المراد تشغيله؛ استخدم الرسالة كوسائط                        |
-| `--continue` | `-c`    | متابعة الجلسة الأخيرة                                             |
-| `--session`  | `-s`    | معرّف الجلسة للمتابعة                                             |
-| `--fork`     |         | تفريع الجلسة عند المتابعة (يستخدم مع `--continue` أو `--session`) |
-| `--share`    |         | مشاركة الجلسة                                                     |
-| `--model`    | `-m`    | النموذج المراد استخدامه بصيغة provider/model                      |
-| `--agent`    |         | الوكيل المراد استخدامه                                            |
-| `--file`     | `-f`    | ملف/ملفات لإرفاقها بالرسالة                                       |
-| `--format`   |         | التنسيق: default (منسق) أو json (أحداث JSON خام)                  |
-| `--title`    |         | عنوان للجلسة (يستخدم موجهًا مقتطعًا إن لم تُحدَّد قيمة)           |
-| `--attach`   |         | الإرفاق بخادم codemate قيد التشغيل (مثل http://localhost:4096)    |
-| `--port`     |         | منفذ الخادم المحلي (الافتراضي منفذ عشوائي)                        |
+| الراية                                   | المختصر | الوصف                                                                             |
+| ---------------------------------------- | ------- | --------------------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |         | الأمر المراد تشغيله؛ استخدم الرسالة كوسائط                                        |
+| <nobr><code>{"--continue"}</code></nobr> | `-c`    | متابعة الجلسة الأخيرة                                                             |
+| <nobr><code>{"--session"}</code></nobr>  | `-s`    | معرّف الجلسة للمتابعة                                                             |
+| <nobr><code>{"--fork"}</code></nobr>     |         | تفريع الجلسة عند المتابعة (يستخدم مع `--continue` أو `--session`)                 |
+| <nobr><code>{"--share"}</code></nobr>    |         | مشاركة الجلسة                                                                     |
+| <nobr><code>{"--model"}</code></nobr>    | `-m`    | النموذج المراد استخدامه بصيغة provider/model                                      |
+| <nobr><code>{"--agent"}</code></nobr>    |         | الوكيل المراد استخدامه                                                            |
+| <nobr><code>{"--file"}</code></nobr>     | `-f`    | ملف/ملفات لإرفاقها بالرسالة                                                       |
+| <nobr><code>{"--format"}</code></nobr>   |         | التنسيق: default (منسق) أو json (أحداث JSON خام)                                  |
+| <nobr><code>{"--title"}</code></nobr>    |         | عنوان للجلسة (يستخدم موجهًا مقتطعًا إن لم تُحدَّد قيمة)                           |
+| <nobr><code>{"--attach"}</code></nobr>   |         | الإرفاق بخادم codemate قيد التشغيل (مثل http://localhost:4096)                    |
+| <nobr><code>{"--password"}</code></nobr> | `-p`    | كلمة مرور المصادقة الأساسية (الافتراضي `codemate_SERVER_PASSWORD`)                |
+| <nobr><code>{"--username"}</code></nobr> | `-u`    | اسم مستخدم المصادقة الأساسية (الافتراضي `codemate_SERVER_USERNAME` أو `codemate`) |
+| <nobr><code>{"--dir"}</code></nobr>      |         | دليل التشغيل، أو المسار على الخادم البعيد عند الإرفاق                             |
+| <nobr><code>{"--variant"}</code></nobr>  |         | متغير النموذج (جهد الاستدلال الخاص بالمزود)                                       |
+| <nobr><code>{"--thinking"}</code></nobr> |         | عرض كتل التفكير                                                                   |
+| <nobr><code>{"--port"}</code></nobr>     |         | منفذ الخادم المحلي (الافتراضي منفذ عشوائي)                                        |
 
 ---
 
 ### serve
 
-بدء خادم Codemate بدون واجهة للوصول عبر API. راجع [توثيق الخادم](/docs/server) لواجهة HTTP الكاملة.
+بدء خادم codemate بدون واجهة للوصول عبر API. راجع [توثيق الخادم](/docs/server) لواجهة HTTP الكاملة.
 
 ```bash
 codemate serve
 ```
 
-يشغّل هذا خادم HTTP يوفّر وصولا عبر API لوظائف codemate دون واجهة TUI. اضبط `CODEMATE_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `codemate`).
+يشغّل هذا خادم HTTP يوفّر وصولا عبر API لوظائف codemate دون واجهة TUI. اضبط `codemate_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `codemate`).
 
 #### الرايات
 
-| الراية       | الوصف                                     |
-| ------------ | ----------------------------------------- |
-| `--port`     | المنفذ الذي يتم الاستماع عليه             |
-| `--hostname` | اسم المضيف الذي يتم الاستماع عليه         |
-| `--mdns`     | تفعيل اكتشاف mDNS                         |
-| `--cors`     | أصول/منشأات إضافية للمتصفح للسماح بـ CORS |
+| الراية                                   | الوصف                                     |
+| ---------------------------------------- | ----------------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | المنفذ الذي يتم الاستماع عليه             |
+| <nobr><code>{"--hostname"}</code></nobr> | اسم المضيف الذي يتم الاستماع عليه         |
+| <nobr><code>{"--mdns"}</code></nobr>     | تفعيل اكتشاف mDNS                         |
+| <nobr><code>{"--cors"}</code></nobr>     | أصول/منشأات إضافية للمتصفح للسماح بـ CORS |
 
 ---
 
 ### session
 
-إدارة جلسات Codemate.
+إدارة جلسات codemate.
 
 ```bash
 codemate session [command]
@@ -385,7 +394,7 @@ codemate session [command]
 
 #### list
 
-عرض جميع جلسات Codemate.
+عرض جميع جلسات codemate.
 
 ```bash
 codemate session list
@@ -393,16 +402,16 @@ codemate session list
 
 ##### الرايات
 
-| الراية        | المختصر | الوصف                                 |
-| ------------- | ------- | ------------------------------------- |
-| `--max-count` | `-n`    | حصر النتائج في أحدث N جلسات           |
-| `--format`    |         | تنسيق المخرجات: table أو json (table) |
+| الراية                                    | المختصر | الوصف                                 |
+| ----------------------------------------- | ------- | ------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n`    | حصر النتائج في أحدث N جلسات           |
+| <nobr><code>{"--format"}</code></nobr>    |         | تنسيق المخرجات: table أو json (table) |
 
 ---
 
 ### stats
 
-عرض إحصاءات استخدام الرموز والتكلفة لجلسات Codemate لديك.
+عرض إحصاءات استخدام الرموز والتكلفة لجلسات codemate لديك.
 
 ```bash
 codemate stats
@@ -410,12 +419,12 @@ codemate stats
 
 #### الرايات
 
-| الراية      | الوصف                                                                     |
-| ----------- | ------------------------------------------------------------------------- |
-| `--days`    | عرض الإحصاءات لآخر N يومًا (الافتراضي: كل الوقت)                          |
-| `--tools`   | عدد الأدوات المطلوب عرضها (الافتراضي: الكل)                               |
-| `--models`  | عرض تفصيل استخدام النماذج (مخفي افتراضيا). مرّر رقمًا لعرض أعلى N         |
-| `--project` | التصفية حسب المشروع (الافتراضي: كل المشاريع، سلسلة فارغة: المشروع الحالي) |
+| الراية                                  | الوصف                                                                     |
+| --------------------------------------- | ------------------------------------------------------------------------- |
+| <nobr><code>{"--days"}</code></nobr>    | عرض الإحصاءات لآخر N يومًا (الافتراضي: كل الوقت)                          |
+| <nobr><code>{"--tools"}</code></nobr>   | عدد الأدوات المطلوب عرضها (الافتراضي: الكل)                               |
+| <nobr><code>{"--models"}</code></nobr>  | عرض تفصيل استخدام النماذج (مخفي افتراضيا). مرّر رقمًا لعرض أعلى N         |
+| <nobr><code>{"--project"}</code></nobr> | التصفية حسب المشروع (الافتراضي: كل المشاريع، سلسلة فارغة: المشروع الحالي) |
 
 ---
 
@@ -433,13 +442,13 @@ codemate export [sessionID]
 
 ### import
 
-استيراد بيانات الجلسة من ملف JSON أو رابط مشاركة Codemate.
+استيراد بيانات الجلسة من ملف JSON أو رابط مشاركة codemate.
 
 ```bash
 codemate import <file>
 ```
 
-يمكنك الاستيراد من ملف محلي أو من رابط مشاركة Codemate.
+يمكنك الاستيراد من ملف محلي أو من رابط مشاركة codemate.
 
 ```bash
 codemate import session.json
@@ -450,22 +459,22 @@ codemate import https://opncd.ai/s/abc123
 
 ### web
 
-بدء خادم Codemate بدون واجهة مع واجهة ويب.
+بدء خادم codemate بدون واجهة مع واجهة ويب.
 
 ```bash
 codemate web
 ```
 
-يشغّل هذا خادم HTTP ويفتح متصفح ويب للوصول إلى Codemate عبر واجهة ويب. اضبط `CODEMATE_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `codemate`).
+يشغّل هذا خادم HTTP ويفتح متصفح ويب للوصول إلى codemate عبر واجهة ويب. اضبط `codemate_SERVER_PASSWORD` لتفعيل مصادقة HTTP الأساسية (اسم المستخدم الافتراضي `codemate`).
 
 #### الرايات
 
-| الراية       | الوصف                                     |
-| ------------ | ----------------------------------------- |
-| `--port`     | المنفذ الذي يتم الاستماع عليه             |
-| `--hostname` | اسم المضيف الذي يتم الاستماع عليه         |
-| `--mdns`     | تفعيل اكتشاف mDNS                         |
-| `--cors`     | أصول/منشأات إضافية للمتصفح للسماح بـ CORS |
+| الراية                                   | الوصف                                     |
+| ---------------------------------------- | ----------------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | المنفذ الذي يتم الاستماع عليه             |
+| <nobr><code>{"--hostname"}</code></nobr> | اسم المضيف الذي يتم الاستماع عليه         |
+| <nobr><code>{"--mdns"}</code></nobr>     | تفعيل اكتشاف mDNS                         |
+| <nobr><code>{"--cors"}</code></nobr>     | أصول/منشأات إضافية للمتصفح للسماح بـ CORS |
 
 ---
 
@@ -481,17 +490,17 @@ codemate acp
 
 #### الرايات
 
-| الراية       | الوصف                             |
-| ------------ | --------------------------------- |
-| `--cwd`      | دليل العمل                        |
-| `--port`     | المنفذ الذي يتم الاستماع عليه     |
-| `--hostname` | اسم المضيف الذي يتم الاستماع عليه |
+| الراية                                   | الوصف                             |
+| ---------------------------------------- | --------------------------------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | دليل العمل                        |
+| <nobr><code>{"--port"}</code></nobr>     | المنفذ الذي يتم الاستماع عليه     |
+| <nobr><code>{"--hostname"}</code></nobr> | اسم المضيف الذي يتم الاستماع عليه |
 
 ---
 
 ### uninstall
 
-إلغاء تثبيت Codemate وإزالة جميع الملفات ذات الصلة.
+إلغاء تثبيت codemate وإزالة جميع الملفات ذات الصلة.
 
 ```bash
 codemate uninstall
@@ -499,12 +508,12 @@ codemate uninstall
 
 #### الرايات
 
-| الراية          | المختصر | الوصف                               |
-| --------------- | ------- | ----------------------------------- |
-| `--keep-config` | `-c`    | الإبقاء على ملفات التهيئة           |
-| `--keep-data`   | `-d`    | الإبقاء على بيانات الجلسات واللقطات |
-| `--dry-run`     |         | عرض ما سيتم حذفه دون تنفيذ الحذف    |
-| `--force`       | `-f`    | تخطي مطالبات التأكيد                |
+| الراية                                      | المختصر | الوصف                               |
+| ------------------------------------------- | ------- | ----------------------------------- |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c`    | الإبقاء على ملفات التهيئة           |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d`    | الإبقاء على بيانات الجلسات واللقطات |
+| <nobr><code>{"--dry-run"}</code></nobr>     |         | عرض ما سيتم حذفه دون تنفيذ الحذف    |
+| <nobr><code>{"--force"}</code></nobr>       | `-f`    | تخطي مطالبات التأكيد                |
 
 ---
 
@@ -530,9 +539,9 @@ codemate upgrade v0.1.48
 
 #### الرايات
 
-| الراية     | المختصر | الوصف                                                       |
-| ---------- | ------- | ----------------------------------------------------------- |
-| `--method` | `-m`    | طريقة التثبيت المستخدمة: curl أو npm أو pnpm أو bun أو brew |
+| الراية                                 | المختصر | الوصف                                                       |
+| -------------------------------------- | ------- | ----------------------------------------------------------- |
+| <nobr><code>{"--method"}</code></nobr> | `-m`    | طريقة التثبيت المستخدمة: curl أو npm أو pnpm أو bun أو brew |
 
 ---
 
@@ -540,44 +549,44 @@ codemate upgrade v0.1.48
 
 يدعم سطر أوامر codemate الخيارات العامة التالية.
 
-| الراية         | المختصر | الوصف                                  |
-| -------------- | ------- | -------------------------------------- |
-| `--help`       | `-h`    | عرض المساعدة                           |
-| `--version`    | `-v`    | طباعة رقم الإصدار                      |
-| `--print-logs` |         | طباعة السجلات إلى stderr               |
-| `--log-level`  |         | مستوى السجل (DEBUG, INFO, WARN, ERROR) |
+| الراية                                     | المختصر | الوصف                                  |
+| ------------------------------------------ | ------- | -------------------------------------- |
+| <nobr><code>{"--help"}</code></nobr>       | `-h`    | عرض المساعدة                           |
+| <nobr><code>{"--version"}</code></nobr>    | `-v`    | طباعة رقم الإصدار                      |
+| <nobr><code>{"--print-logs"}</code></nobr> |         | طباعة السجلات إلى stderr               |
+| <nobr><code>{"--log-level"}</code></nobr>  |         | مستوى السجل (DEBUG, INFO, WARN, ERROR) |
 
 ---
 
 ## متغيرات البيئة
 
-يمكن تهيئة Codemate باستخدام متغيرات البيئة.
+يمكن تهيئة codemate باستخدام متغيرات البيئة.
 
 | المتغير                               | النوع   | الوصف                                                     |
 | ------------------------------------- | ------- | --------------------------------------------------------- |
-| `CODEMATE_AUTO_SHARE`                 | boolean | مشاركة الجلسات تلقائيا                                    |
-| `CODEMATE_GIT_BASH_PATH`              | string  | مسار ملف Git Bash التنفيذي على Windows                    |
-| `CODEMATE_CONFIG`                     | string  | مسار ملف التهيئة                                          |
-| `CODEMATE_CONFIG_DIR`                 | string  | مسار دليل التهيئة                                         |
-| `CODEMATE_CONFIG_CONTENT`             | string  | محتوى تهيئة JSON مُضمّن                                   |
-| `CODEMATE_DISABLE_AUTOUPDATE`         | boolean | تعطيل التحقق التلقائي من التحديثات                        |
-| `CODEMATE_DISABLE_PRUNE`              | boolean | تعطيل تنقية البيانات القديمة                              |
-| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolean | تعطيل تحديث عنوان terminal تلقائيا                        |
-| `CODEMATE_PERMISSION`                 | string  | تهيئة أذونات JSON مُضمّنة                                 |
-| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolean | تعطيل الإضافات الافتراضية                                 |
-| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolean | تعطيل تنزيل خوادم LSP تلقائيا                             |
-| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolean | تفعيل النماذج التجريبية                                   |
-| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolean | تعطيل ضغط السياق تلقائيا                                  |
-| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolean | تعطيل القراءة من `.claude` (الموجه + المهارات)            |
-| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | تعطيل قراءة `~/.claude/CLAUDE.md`                         |
-| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | تعطيل تحميل `.claude/skills`                              |
-| `CODEMATE_DISABLE_MODELS_FETCH`       | boolean | تعطيل جلب النماذج من مصادر بعيدة                          |
-| `CODEMATE_FAKE_VCS`                   | string  | مزود VCS وهمي لأغراض الاختبار                             |
-| `CODEMATE_CLIENT`                     | string  | معرّف العميل (الافتراضي `cli`)                            |
-| `CODEMATE_ENABLE_EXA`                 | boolean | تفعيل أدوات بحث الويب من Exa                              |
-| `CODEMATE_SERVER_PASSWORD`            | string  | تفعيل المصادقة الأساسية لخادمي `serve`/`web`              |
-| `CODEMATE_SERVER_USERNAME`            | string  | تجاوز اسم مستخدم المصادقة الأساسية (الافتراضي `codemate`) |
-| `CODEMATE_MODELS_URL`                 | string  | رابط مخصص لجلب تهيئة النماذج                              |
+| `codemate_AUTO_SHARE`                 | boolean | مشاركة الجلسات تلقائيا                                    |
+| `codemate_GIT_BASH_PATH`              | string  | مسار ملف Git Bash التنفيذي على Windows                    |
+| `codemate_CONFIG`                     | string  | مسار ملف التهيئة                                          |
+| `codemate_CONFIG_DIR`                 | string  | مسار دليل التهيئة                                         |
+| `codemate_CONFIG_CONTENT`             | string  | محتوى تهيئة JSON مُضمّن                                   |
+| `codemate_DISABLE_AUTOUPDATE`         | boolean | تعطيل التحقق التلقائي من التحديثات                        |
+| `codemate_DISABLE_PRUNE`              | boolean | تعطيل تنقية البيانات القديمة                              |
+| `codemate_DISABLE_TERMINAL_TITLE`     | boolean | تعطيل تحديث عنوان terminal تلقائيا                        |
+| `codemate_PERMISSION`                 | string  | تهيئة أذونات JSON مُضمّنة                                 |
+| `codemate_DISABLE_DEFAULT_PLUGINS`    | boolean | تعطيل الإضافات الافتراضية                                 |
+| `codemate_DISABLE_LSP_DOWNLOAD`       | boolean | تعطيل تنزيل خوادم LSP تلقائيا                             |
+| `codemate_ENABLE_EXPERIMENTAL_MODELS` | boolean | تفعيل النماذج التجريبية                                   |
+| `codemate_DISABLE_AUTOCOMPACT`        | boolean | تعطيل ضغط السياق تلقائيا                                  |
+| `codemate_DISABLE_CLAUDE_CODE`        | boolean | تعطيل القراءة من `.claude` (الموجه + المهارات)            |
+| `codemate_DISABLE_CLAUDE_CODE_PROMPT` | boolean | تعطيل قراءة `~/.claude/CLAUDE.md`                         |
+| `codemate_DISABLE_CLAUDE_CODE_SKILLS` | boolean | تعطيل تحميل `.claude/skills`                              |
+| `codemate_DISABLE_MODELS_FETCH`       | boolean | تعطيل جلب النماذج من مصادر بعيدة                          |
+| `codemate_FAKE_VCS`                   | string  | مزود VCS وهمي لأغراض الاختبار                             |
+| `codemate_CLIENT`                     | string  | معرّف العميل (الافتراضي `cli`)                            |
+| `codemate_ENABLE_EXA`                 | boolean | تفعيل أدوات بحث الويب من Exa                              |
+| `codemate_SERVER_PASSWORD`            | string  | تفعيل المصادقة الأساسية لخادمي `serve`/`web`              |
+| `codemate_SERVER_USERNAME`            | string  | تجاوز اسم مستخدم المصادقة الأساسية (الافتراضي `codemate`) |
+| `codemate_MODELS_URL`                 | string  | رابط مخصص لجلب تهيئة النماذج                              |
 
 ---
 
@@ -587,16 +596,16 @@ codemate upgrade v0.1.48
 
 | المتغير                                         | النوع   | الوصف                                       |
 | ----------------------------------------------- | ------- | ------------------------------------------- |
-| `CODEMATE_EXPERIMENTAL`                         | boolean | تفعيل جميع الميزات التجريبية                |
-| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | تفعيل اكتشاف الأيقونات                      |
-| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | تعطيل النسخ عند التحديد في TUI              |
-| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | المهلة الافتراضية لأوامر bash بالميلي ثانية |
-| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | الحد الأقصى لرموز المخرجات لاستجابات LLM    |
-| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolean | تفعيل مراقب الملفات لكامل الدليل            |
-| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolean | تفعيل مُنسّق oxfmt                          |
-| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolean | تفعيل أداة LSP تجريبية                      |
-| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | تعطيل مراقب الملفات                         |
-| `CODEMATE_EXPERIMENTAL_EXA`                     | boolean | تفعيل ميزات Exa التجريبية                   |
-| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolean | تمكين TY LSP لملفات python                  |
-| `CODEMATE_EXPERIMENTAL_MARKDOWN`                | boolean | تفعيل ميزات markdown تجريبية                |
-| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolean | تفعيل وضع الخطة                             |
+| `codemate_EXPERIMENTAL`                         | boolean | تفعيل جميع الميزات التجريبية                |
+| `codemate_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | تفعيل اكتشاف الأيقونات                      |
+| `codemate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | تعطيل النسخ عند التحديد في TUI              |
+| `codemate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | المهلة الافتراضية لأوامر bash بالميلي ثانية |
+| `codemate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | الحد الأقصى لرموز المخرجات لاستجابات LLM    |
+| `codemate_EXPERIMENTAL_FILEWATCHER`             | boolean | تفعيل مراقب الملفات لكامل الدليل            |
+| `codemate_EXPERIMENTAL_OXFMT`                   | boolean | تفعيل مُنسّق oxfmt                          |
+| `codemate_EXPERIMENTAL_LSP_TOOL`                | boolean | تفعيل أداة LSP تجريبية                      |
+| `codemate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | تعطيل مراقب الملفات                         |
+| `codemate_EXPERIMENTAL_EXA`                     | boolean | تفعيل ميزات Exa التجريبية                   |
+| `codemate_EXPERIMENTAL_LSP_TY`                  | boolean | تمكين TY LSP لملفات python                  |
+| `codemate_EXPERIMENTAL_MARKDOWN`                | boolean | تفعيل ميزات markdown تجريبية                |
+| `codemate_EXPERIMENTAL_PLAN_MODE`               | boolean | تفعيل وضع الخطة                             |

@@ -3,7 +3,7 @@ title: Feilsøking
 description: Vanlige problemer og hvordan de kan løses.
 ---
 
-For å feilsøke problemer med Codemate, start med å sjekke loggene og lokale data den lagrer på disken.
+For å feilsøke problemer med codemate, start med å sjekke loggene og lokale data den lagrer på disken.
 
 ---
 
@@ -22,7 +22,7 @@ Du kan angi loggnivået med kommandolinjealternativet `--log-level` for å få m
 
 ## Lagring
 
-Codemate lagrer øktdata og andre applikasjonsdata på disken på:
+codemate lagrer øktdata og andre applikasjonsdata på disken på:
 
 - **macOS/Linux**: `~/.local/share/codemate/`
 - **Windows**: Trykk `WIN+R` og lim inn `%USERPROFILE%\.local\share\codemate`
@@ -39,13 +39,13 @@ Denne katalogen inneholder:
 
 ## Skrivebordsapp
 
-Codemate Desktop kjører en lokal Codemate-server (`codemate-cli` sidevognen) i bakgrunnen. De fleste problemene er forårsaket av en plugin som fungerer dårlig, en ødelagt cache eller en dårlig serverinnstilling.
+codemate Desktop kjører en lokal codemate-server (`codemate-cli` sidevognen) i bakgrunnen. De fleste problemene er forårsaket av en plugin som fungerer dårlig, en ødelagt cache eller en dårlig serverinnstilling.
 
 ### Raske sjekker
 
 - Avslutt og start appen på nytt.
 - Hvis appen viser en feilskjerm, klikker du på **Start på nytt** og kopierer feildetaljene.
-- Bare macOS: `Codemate`-meny -> **Last nettvisning på nytt** (hjelper hvis UI er tom/frosset).
+- Bare macOS: `codemate`-meny -> **Last nettvisning på nytt** (hjelper hvis UI er tom/frosset).
 
 ---
 
@@ -72,7 +72,7 @@ Hvis du har konfigurert plugins, deaktiver dem midlertidig ved å fjerne nøkkel
 
 #### Sjekk plugin-kataloger
 
-Codemate kan også laste lokale plugins fra disken. Flytt disse midlertidig ut av veien (eller gi nytt navn til mappen) og start skrivebordsappen på nytt:
+codemate kan også laste lokale plugins fra disken. Flytt disse midlertidig ut av veien (eller gi nytt navn til mappen) og start skrivebordsappen på nytt:
 
 - **Globale plugins**
   - **macOS/Linux**: `~/.config/codemate/plugins/`
@@ -86,22 +86,22 @@ Hvis appen begynner å fungere igjen, aktiverer du plugins én om gangen for å 
 
 ### Tøm hurtigbufferen
 
-Hvis deaktivering av plugins ikke hjelper (eller en plugin-installasjon sitter fast), tøm hurtigbufferen slik at Codemate kan gjenoppbygge den.
+Hvis deaktivering av plugins ikke hjelper (eller en plugin-installasjon sitter fast), tøm hurtigbufferen slik at codemate kan gjenoppbygge den.
 
-1. Avslutt Codemate Desktop helt.
+1. Avslutt codemate Desktop helt.
 2. Slett hurtigbufferkatalogen:
 
 - **macOS**: Finder -> `Cmd+Shift+G` -> lim inn `~/.cache/codemate`
 - **Linux**: slett `~/.cache/codemate` (eller kjør `rm -rf ~/.cache/codemate`)
 - **Windows**: Trykk `WIN+R` og lim inn `%USERPROFILE%\.cache\codemate`
 
-3. Start Codemate Desktop på nytt.
+3. Start codemate Desktop på nytt.
 
 ---
 
 ### Løs problemer med servertilkobling
 
-Codemate Desktop kan enten starte sin egen lokale server (standard) eller koble til en server URL du har konfigurert.
+codemate Desktop kan enten starte sin egen lokale server (standard) eller koble til en server URL du har konfigurert.
 
 Hvis du ser en **"Tilkobling mislyktes"**-dialogboks (eller appen kommer aldri forbi splash-skjermen), se etter en tilpasset server URL.
 
@@ -115,9 +115,9 @@ Hvis `codemate.json(c)` inneholder en `server`-del, fjern den midlertidig og sta
 
 #### Sjekk miljøvariabler
 
-Hvis du har `CODEMATE_PORT` satt i miljøet ditt, vil skrivebordsappen prøve å bruke den porten for den lokale serveren.
+Hvis du har `codemate_PORT` satt i miljøet ditt, vil skrivebordsappen prøve å bruke den porten for den lokale serveren.
 
-- Deaktiver `CODEMATE_PORT` (eller velg en ledig port) og start på nytt.
+- Deaktiver `codemate_PORT` (eller velg en ledig port) og start på nytt.
 
 ---
 
@@ -132,21 +132,21 @@ På Linux kan noen Wayland-oppsett forårsake tomme vinduer eller kompositorfeil
 
 ### Windows: WebView2 kjøretid
 
-På Windows krever Codemate Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åpnes i et tomt vindu eller ikke starter, installer/oppdater WebView2 og prøv igjen.
+På Windows krever codemate Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åpnes i et tomt vindu eller ikke starter, installer/oppdater WebView2 og prøv igjen.
 
 ---
 
 ### Windows: Generelle ytelsesproblemer
 
-Hvis du opplever treg ytelse, problemer med filtilgang eller terminalproblemer på Windows, kan du prøve å bruke [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL gir et Linux-miljø som fungerer mer sømløst med funksjonene til Codemate.
+Hvis du opplever treg ytelse, problemer med filtilgang eller terminalproblemer på Windows, kan du prøve å bruke [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL gir et Linux-miljø som fungerer mer sømløst med funksjonene til codemate.
 
 ---
 
 ### Varsler vises ikke
 
-Codemate Desktop viser bare systemvarsler når:
+codemate Desktop viser bare systemvarsler når:
 
-- varsler er aktivert for Codemate i OS-innstillingene dine, og
+- varsler er aktivert for codemate i OS-innstillingene dine, og
 - appvinduet er ikke fokusert.
 
 ---
@@ -155,8 +155,8 @@ Codemate Desktop viser bare systemvarsler når:
 
 Hvis appen ikke starter og du ikke kan slette innstillingene fra UI-et, tilbakestill skrivebordsappens lagrede tilstand.
 
-1. Avslutt Codemate Desktop.
-2. Finn og slett disse filene (de finnes i Codemate Desktop-appens datakatalog):
+1. Avslutt codemate Desktop.
+2. Finn og slett disse filene (de finnes i codemate Desktop-appens datakatalog):
 
 - `codemate.settings.dat` (stasjonær standardserver URL)
 - `codemate.global.dat` og `codemate.workspace.*.dat` (UI tilstand som nylige servere/prosjekter)
@@ -177,7 +177,7 @@ Modeller skal refereres slik: `<providerId>/<modelId>`
 
 ### AI_APICallError og leverandørpakkeproblemer
 
-Hvis du støter på API-anropsfeil, kan dette skyldes utdaterte provider-pakker. Codemate installerer dynamisk provider-pakker (OpenAI, Anthropic, Google, etc.) etter behov og cacher dem lokalt.
+Hvis du støter på API-anropsfeil, kan dette skyldes utdaterte provider-pakker. codemate installerer dynamisk provider-pakker (OpenAI, Anthropic, Google, etc.) etter behov og cacher dem lokalt.
 
 For å løse problemer med leverandørpakke:
 
@@ -189,9 +189,9 @@ For å løse problemer med leverandørpakke:
 
    På Windows, trykk `WIN+R` og slett: `%USERPROFILE%\.cache\codemate`
 
-2. Start Codemate på nytt for å installere de nyeste provider-pakkene på nytt
+2. Start codemate på nytt for å installere de nyeste provider-pakkene på nytt
 
-Dette vil tvinge Codemate til å laste ned de nyeste versjonene av provider-pakkene, som ofte løser kompatibilitetsproblemer med modellparametere og API-endringer.
+Dette vil tvinge codemate til å laste ned de nyeste versjonene av provider-pakkene, som ofte løser kompatibilitetsproblemer med modellparametere og API-endringer.
 
 ---
 
@@ -222,4 +222,4 @@ Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 export DISPLAY=:99.0
 ```
 
-Codemate vil oppdage om du bruker Wayland og foretrekker `wl-clipboard`, ellers vil den prøve å finne utklippstavle-verktøy i rekkefølgen: `xclip` og `xsel`.
+codemate vil oppdage om du bruker Wayland og foretrekker `wl-clipboard`, ellers vil den prøve å finne utklippstavle-verktøy i rekkefølgen: `xclip` og `xsel`.

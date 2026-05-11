@@ -6,11 +6,15 @@ import SidebarLsp from "../feature-plugins/sidebar/lsp"
 import SidebarTodo from "../feature-plugins/sidebar/todo"
 import SidebarFiles from "../feature-plugins/sidebar/files"
 import SidebarFooter from "../feature-plugins/sidebar/footer"
+import SessionV2Debug from "../feature-plugins/system/session-v2"
+import WhichKey from "../feature-plugins/system/which-key"
 import type { TuiPlugin, TuiPluginModule } from "@codemate-ai/plugin/tui"
+import { Flag } from "@codemate-ai/core/flag/flag"
 
-export type InternalTuiPlugin = TuiPluginModule & {
+export type InternalTuiPlugin = Omit<TuiPluginModule, "id"> & {
   id: string
   tui: TuiPlugin
+  enabled?: boolean
 }
 
 export const INTERNAL_TUI_PLUGINS: InternalTuiPlugin[] = [
@@ -22,4 +26,6 @@ export const INTERNAL_TUI_PLUGINS: InternalTuiPlugin[] = [
   SidebarTodo,
   SidebarFiles,
   SidebarFooter,
+  WhichKey,
+  ...(Flag.codemate_EXPERIMENTAL_EVENT_SYSTEM ? [SessionV2Debug] : []),
 ]

@@ -1,11 +1,11 @@
 ---
 title: Web
-description: Bruke Codemate i nettleseren din.
+description: Bruke codemate i nettleseren din.
 ---
 
-Codemate kan kjøres som en nettapplikasjon i nettleseren din, og gir den samme kraftige AI-kodingsopplevelsen uten at du trenger en terminal.
+codemate kan kjøres som en nettapplikasjon i nettleseren din, og gir den samme kraftige AI-kodingsopplevelsen uten at du trenger en terminal.
 
-![Codemate Web - Ny økt](../../../assets/web/web-homepage-new-session.png)
+![codemate Web - Ny økt](../../../assets/web/web-homepage-new-session.png)
 
 ## Komme i gang
 
@@ -15,7 +15,7 @@ Start web-grensesnittet ved å kjøre:
 codemate web
 ```
 
-Dette starter en lokal server på `127.0.0.1` med en tilfeldig tilgjengelig port og åpner automatisk Codemate i standard nettleser.
+Dette starter en lokal server på `127.0.0.1` med en tilfeldig tilgjengelig port og åpner automatisk codemate i standard nettleser.
 
 ---
 
@@ -25,7 +25,7 @@ Du kan konfigurere webserveren ved å bruke kommandolinjeflagg eller i [konfigur
 
 ### Port
 
-Som standard velger Codemate en tilgjengelig port. Du kan spesifisere en port:
+Som standard velger codemate en tilgjengelig port. Du kan spesifisere en port:
 
 ```bash
 codemate web --port 4096
@@ -33,7 +33,7 @@ codemate web --port 4096
 
 ### Vertsnavn
 
-Som standard binder serveren seg til `127.0.0.1` (kun localhost). Slik gjør du Codemate tilgjengelig på nettverket ditt:
+Som standard binder serveren seg til `127.0.0.1` (kun localhost). Slik gjør du codemate tilgjengelig på nettverket ditt:
 
 ```bash
 codemate web --hostname 0.0.0.0
@@ -43,31 +43,31 @@ codemate web --hostname 0.0.0.0
 
 ### Autentisering
 
-For å beskytte tilgang, angi et passord ved hjelp av miljøvariabelen `CODEMATE_SERVER_PASSWORD`:
+For å beskytte tilgang, angi et passord ved hjelp av miljøvariabelen `codemate_SERVER_PASSWORD`:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-Brukernavnet er satt til `codemate` som standard, men kan endres med `CODEMATE_SERVER_USERNAME`.
+Brukernavnet er satt til `codemate` som standard, men kan endres med `codemate_SERVER_USERNAME`.
 
 ---
 
 ## Bruke webgrensesnittet
 
-Når den er startet, gir nettgrensesnittet tilgang til dine Codemate-økter.
+Når den er startet, gir nettgrensesnittet tilgang til dine codemate-økter.
 
 ### Sesjoner
 
 Se og administrer øktene dine fra hjemmesiden. Du kan se aktive økter og starte nye.
 
-![Codemate Web - Active Session](../../../assets/web/web-homepage-active-session.png)
+![codemate Web - Active Session](../../../assets/web/web-homepage-active-session.png)
 
 ### Serverstatus
 
 Klikk på "Se servere" for å se tilkoblede servere og deres status.
 
-![Codemate Web - Se servere](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web - Se servere](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

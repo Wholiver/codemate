@@ -1,17 +1,17 @@
 ---
 title: CLI
-description: Codemate CLI Optionen und Befehle.
+description: codemate CLI Optionen und Befehle.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Der Codemate CLI startet standardmäßig das [TUI](/docs/tui), wenn er ohne Argumente ausgeführt wird.
+Der codemate CLI startet standardmäßig das [TUI](/docs/tui), wenn er ohne Argumente ausgeführt wird.
 
 ```bash
 codemate
 ```
 
-Es akzeptiert aber auch Befehle, wie auf dieser Seite dokumentiert. Dadurch können Sie programmgesteuert mit Codemate interagieren.
+Es akzeptiert aber auch Befehle, wie auf dieser Seite dokumentiert. Dadurch können Sie programmgesteuert mit codemate interagieren.
 
 ```bash
 codemate run "Explain how closures work in JavaScript"
@@ -21,7 +21,7 @@ codemate run "Explain how closures work in JavaScript"
 
 ### tui
 
-Starten Sie die Terminalbenutzeroberfläche Codemate.
+Starten Sie die Terminalbenutzeroberfläche codemate.
 
 ```bash
 codemate [project]
@@ -29,28 +29,28 @@ codemate [project]
 
 #### Optionen
 
-| Flag         | Kurz | Beschreibung                                                           |
-| ------------ | ---- | ---------------------------------------------------------------------- |
-| `--continue` | `-c` | Setzen Sie die letzte Sitzung fort                                     |
-| `--session`  | `-s` | Session-ID zum Fortfahren                                              |
-| `--fork`     |      | Sitzung beim Fortsetzen verzweigen (mit `--continue` oder `--session`) |
-| `--prompt`   |      | Prompt zur Verwendung                                                  |
-| `--model`    | `-m` | Zu verwendendes Modell in der Form provider/model                      |
-| `--agent`    |      | Zu verwendender Agent                                                  |
-| `--port`     |      | Port zum Abhören                                                       |
-| `--hostname` |      | Hostname zum Abhören                                                   |
+| Flag                                     | Kurz | Beschreibung                                                           |
+| ---------------------------------------- | ---- | ---------------------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Setzen Sie die letzte Sitzung fort                                     |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Session-ID zum Fortfahren                                              |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Sitzung beim Fortsetzen verzweigen (mit `--continue` oder `--session`) |
+| <nobr><code>{"--prompt"}</code></nobr>   |      | Prompt zur Verwendung                                                  |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Zu verwendendes Modell in der Form provider/model                      |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Zu verwendender Agent                                                  |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port zum Abhören                                                       |
+| <nobr><code>{"--hostname"}</code></nobr> |      | Hostname zum Abhören                                                   |
 
 ---
 
 ## Befehle
 
-Der Codemate CLI verfügt außerdem über die folgenden Befehle.
+Der codemate CLI verfügt außerdem über die folgenden Befehle.
 
 ---
 
 ### agent
 
-Agenten für Codemate verwalten.
+Agenten für codemate verwalten.
 
 ```bash
 codemate agent [command]
@@ -60,13 +60,13 @@ codemate agent [command]
 
 ### attach
 
-Schließen Sie ein Terminal an einen bereits laufenden Codemate-Backend-Server an, der über die Befehle `serve` oder `web` gestartet wurde.
+Schließen Sie ein Terminal an einen bereits laufenden codemate-Backend-Server an, der über die Befehle `serve` oder `web` gestartet wurde.
 
 ```bash
 codemate attach [url]
 ```
 
-Dies ermöglicht die Verwendung von TUI mit einem Remote-Backend Codemate. Zum Beispiel:
+Dies ermöglicht die Verwendung von TUI mit einem Remote-Backend codemate. Zum Beispiel:
 
 ```bash
 # Start the backend server for web/mobile access
@@ -78,10 +78,14 @@ codemate attach http://10.20.30.40:4096
 
 #### Optionen
 
-| Flag        | Kurz | Beschreibung                              |
-| ----------- | ---- | ----------------------------------------- |
-| `--dir`     |      | Arbeitsverzeichnis zum Starten von TUI in |
-| `--session` | `-s` | Session-ID zum Fortfahren                 |
+| Flag                                     | Kurz | Beschreibung                                                                       |
+| ---------------------------------------- | ---- | ---------------------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Arbeitsverzeichnis zum Starten von TUI in                                          |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Letzte Sitzung fortsetzen                                                          |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Session-ID zum Fortfahren                                                          |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Sitzung beim Fortsetzen abzweigen (mit `--continue` oder `--session` verwenden)    |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `codemate_SERVER_PASSWORD`)                     |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `codemate_SERVER_USERNAME` oder `codemate`) |
 
 ---
 
@@ -119,13 +123,13 @@ codemate auth [command]
 
 #### login
 
-Codemate wird von der Anbieterliste bei [Models.dev](https://models.dev) unterstützt, sodass Sie `codemate auth login` verwenden können, um API-Schlüssel für jeden Anbieter zu konfigurieren, den Sie verwenden möchten. Dies wird in `~/.local/share/codemate/auth.json` gespeichert.
+codemate wird von der Anbieterliste bei [Models.dev](https://models.dev) unterstützt, sodass Sie `codemate auth login` verwenden können, um API-Schlüssel für jeden Anbieter zu konfigurieren, den Sie verwenden möchten. Dies wird in `~/.local/share/codemate/auth.json` gespeichert.
 
 ```bash
 codemate auth login
 ```
 
-Wenn Codemate startet, lädt es den Anbieter aus der Anmeldeinformationsdatei. Und ob in Ihren Umgebungen Schlüssel sind oder in Ihrem Projekt eine `.env`-Datei vorhanden ist.
+Wenn codemate startet, lädt es den Anbieter aus der Anmeldeinformationsdatei. Und ob in Ihren Umgebungen Schlüssel sind oder in Ihrem Projekt eine `.env`-Datei vorhanden ist.
 
 ---
 
@@ -187,10 +191,10 @@ codemate github run
 
 ##### Optionen
 
-| Flag      | Beschreibung                                        |
-| --------- | --------------------------------------------------- |
-| `--event` | GitHub Scheinereignis zum Ausführen des Agenten für |
-| `--token` | GitHub persönliches Zugriffstoken                   |
+| Flag                                  | Beschreibung                                        |
+| ------------------------------------- | --------------------------------------------------- |
+| <nobr><code>{"--event"}</code></nobr> | GitHub Scheinereignis zum Ausführen des Agenten für |
+| <nobr><code>{"--token"}</code></nobr> | GitHub persönliches Zugriffstoken                   |
 
 ---
 
@@ -296,12 +300,12 @@ codemate models anthropic
 
 #### Optionen
 
-| Flag        | Beschreibung                                                                          |
-| ----------- | ------------------------------------------------------------------------------------- |
-| `--refresh` | Aktualisieren Sie den Modellcache von models.dev                                      |
-| `--verbose` | Verwenden Sie eine ausführlichere Modellausgabe (einschließlich Metadaten wie Kosten) |
+| Flag                                    | Beschreibung                                                                          |
+| --------------------------------------- | ------------------------------------------------------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | Aktualisieren Sie den Modellcache von models.dev                                      |
+| <nobr><code>{"--verbose"}</code></nobr> | Verwenden Sie eine ausführlichere Modellausgabe (einschließlich Metadaten wie Kosten) |
 
-Verwenden Sie das Flag `--refresh`, um die zwischengespeicherte Modellliste zu aktualisieren. Dies ist nützlich, wenn einem Anbieter neue Modelle hinzugefügt wurden und Sie diese in Codemate sehen möchten.
+Verwenden Sie das Flag `--refresh`, um die zwischengespeicherte Modellliste zu aktualisieren. Dies ist nützlich, wenn einem Anbieter neue Modelle hinzugefügt wurden und Sie diese in codemate sehen möchten.
 
 ```bash
 codemate models --refresh
@@ -311,7 +315,7 @@ codemate models --refresh
 
 ### run
 
-Führen Sie Codemate im nicht interaktiven Modus aus, indem Sie direkt eine Eingabeaufforderung übergeben.
+Führen Sie codemate im nicht interaktiven Modus aus, indem Sie direkt eine Eingabeaufforderung übergeben.
 
 ```bash
 codemate run [message..]
@@ -335,47 +339,52 @@ codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 #### Optionen
 
-| Flag         | Kurz | Beschreibung                                                                                        |
-| ------------ | ---- | --------------------------------------------------------------------------------------------------- |
-| `--command`  |      | Der auszuführende Befehl, Argumente als Nachricht verwenden                                         |
-| `--continue` | `-c` | Setzen Sie die letzte Sitzung fort                                                                  |
-| `--session`  | `-s` | Session-ID zum Fortfahren                                                                           |
-| `--fork`     |      | Sitzung beim Fortsetzen verzweigen (mit `--continue` oder `--session` verwenden)                    |
-| `--share`    |      | Teilen Sie die Sitzung                                                                              |
-| `--model`    | `-m` | Zu verwendendes Modell in der Form provider/model                                                   |
-| `--agent`    |      | Zu verwendender Agent                                                                               |
-| `--file`     | `-f` | Datei(en) zum Anhängen an die Nachricht                                                             |
-| `--format`   |      | Format: default (formatiert) oder json (rohe JSON-Ereignisse)                                       |
-| `--title`    |      | Titel für die Sitzung (verwendet eine verkürzte Eingabeaufforderung, wenn kein Wert angegeben wird) |
-| `--attach`   |      | An einen laufenden Codemate-Server anschließen (z.B. http://localhost:4096)                         |
-| `--port`     |      | Port für den lokalen Server (standardmäßig zufälliger Port)                                         |
+| Flag                                     | Kurz | Beschreibung                                                                                        |
+| ---------------------------------------- | ---- | --------------------------------------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |      | Der auszuführende Befehl, Argumente als Nachricht verwenden                                         |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Setzen Sie die letzte Sitzung fort                                                                  |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Session-ID zum Fortfahren                                                                           |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Sitzung beim Fortsetzen verzweigen (mit `--continue` oder `--session` verwenden)                    |
+| <nobr><code>{"--share"}</code></nobr>    |      | Teilen Sie die Sitzung                                                                              |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Zu verwendendes Modell in der Form provider/model                                                   |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Zu verwendender Agent                                                                               |
+| <nobr><code>{"--file"}</code></nobr>     | `-f` | Datei(en) zum Anhängen an die Nachricht                                                             |
+| <nobr><code>{"--format"}</code></nobr>   |      | Format: default (formatiert) oder json (rohe JSON-Ereignisse)                                       |
+| <nobr><code>{"--title"}</code></nobr>    |      | Titel für die Sitzung (verwendet eine verkürzte Eingabeaufforderung, wenn kein Wert angegeben wird) |
+| <nobr><code>{"--attach"}</code></nobr>   |      | An einen laufenden codemate-Server anschließen (z.B. http://localhost:4096)                         |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Basic-Auth-Passwort (standardmäßig `codemate_SERVER_PASSWORD`)                                      |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Basic-Auth-Benutzername (standardmäßig `codemate_SERVER_USERNAME` oder `codemate`)                  |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Verzeichnis für die Ausführung, oder Pfad auf dem Remote-Server beim Anhängen                       |
+| <nobr><code>{"--variant"}</code></nobr>  |      | Modellvariante (anbieterspezifischer Reasoning-Aufwand)                                             |
+| <nobr><code>{"--thinking"}</code></nobr> |      | Denkblöcke anzeigen                                                                                 |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port für den lokalen Server (standardmäßig zufälliger Port)                                         |
 
 ---
 
 ### serve
 
-Starten Sie einen Headless-Codemate-Server für den API-Zugriff. Sehen Sie sich die [Server-Dokumentation](/docs/server) für die vollständige HTTP-Schnittstelle an.
+Starten Sie einen Headless-codemate-Server für den API-Zugriff. Sehen Sie sich die [Server-Dokumentation](/docs/server) für die vollständige HTTP-Schnittstelle an.
 
 ```bash
 codemate serve
 ```
 
-Dadurch wird ein HTTP-Server gestartet, der API-Zugriff auf Codemate-Funktionalität ohne die TUI-Schnittstelle bietet. Legen Sie `CODEMATE_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `codemate`).
+Dadurch wird ein HTTP-Server gestartet, der API-Zugriff auf codemate-Funktionalität ohne die TUI-Schnittstelle bietet. Legen Sie `codemate_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `codemate`).
 
 #### Optionen
 
-| Flag         | Beschreibung                                    |
-| ------------ | ----------------------------------------------- |
-| `--port`     | Port zum Abhören                                |
-| `--hostname` | Hostname zum Abhören                            |
-| `--mdns`     | mDNS-Discovery aktivieren                       |
-| `--cors`     | Zusätzliche Browser-Ursprünge für CORS zulassen |
+| Flag                                     | Beschreibung                                    |
+| ---------------------------------------- | ----------------------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | Port zum Abhören                                |
+| <nobr><code>{"--hostname"}</code></nobr> | Hostname zum Abhören                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | mDNS-Discovery aktivieren                       |
+| <nobr><code>{"--cors"}</code></nobr>     | Zusätzliche Browser-Ursprünge für CORS zulassen |
 
 ---
 
 ### session
 
-Codemate-Sitzungen verwalten.
+codemate-Sitzungen verwalten.
 
 ```bash
 codemate session [command]
@@ -385,7 +394,7 @@ codemate session [command]
 
 #### list
 
-Listen Sie alle Codemate-Sitzungen auf.
+Listen Sie alle codemate-Sitzungen auf.
 
 ```bash
 codemate session list
@@ -393,16 +402,16 @@ codemate session list
 
 ##### Optionen
 
-| Flag          | Kurz | Beschreibung                             |
-| ------------- | ---- | ---------------------------------------- |
-| `--max-count` | `-n` | Beschränken auf die N neuesten Sitzungen |
-| `--format`    |      | Ausgabeformat: table oder json (table)   |
+| Flag                                      | Kurz | Beschreibung                             |
+| ----------------------------------------- | ---- | ---------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n` | Beschränken auf die N neuesten Sitzungen |
+| <nobr><code>{"--format"}</code></nobr>    |      | Ausgabeformat: table oder json (table)   |
 
 ---
 
 ### stats
 
-Zeigen Sie Token-Nutzungs- und Kostenstatistiken für Ihre Codemate-Sitzungen an.
+Zeigen Sie Token-Nutzungs- und Kostenstatistiken für Ihre codemate-Sitzungen an.
 
 ```bash
 codemate stats
@@ -410,12 +419,12 @@ codemate stats
 
 #### Optionen
 
-| Flag        | Beschreibung                                                                                                                   |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `--days`    | Statistiken für die letzten N Tage anzeigen (alle Zeiten)                                                                      |
-| `--tools`   | Anzahl der angebotenen Werkzeuge (alle)                                                                                        |
-| `--models`  | Aufschlüsselung der Modellnutzung anzeigen (standardmäßig ausgeblendet). Übergeben Sie eine Zahl, um die obersten N anzuzeigen |
-| `--project` | Nach Projekt filtern (alle Projekte, leere Zeichenfolge: aktuelles Projekt)                                                    |
+| Flag                                    | Beschreibung                                                                                                                   |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| <nobr><code>{"--days"}</code></nobr>    | Statistiken für die letzten N Tage anzeigen (alle Zeiten)                                                                      |
+| <nobr><code>{"--tools"}</code></nobr>   | Anzahl der angebotenen Werkzeuge (alle)                                                                                        |
+| <nobr><code>{"--models"}</code></nobr>  | Aufschlüsselung der Modellnutzung anzeigen (standardmäßig ausgeblendet). Übergeben Sie eine Zahl, um die obersten N anzuzeigen |
+| <nobr><code>{"--project"}</code></nobr> | Nach Projekt filtern (alle Projekte, leere Zeichenfolge: aktuelles Projekt)                                                    |
 
 ---
 
@@ -433,13 +442,13 @@ Wenn Sie keine Sitzungs-ID angeben, werden Sie aufgefordert, eine der verfügbar
 
 ### import
 
-Importieren Sie Sitzungsdaten aus einer JSON-Datei oder einer Codemate-Freigabe-URL.
+Importieren Sie Sitzungsdaten aus einer JSON-Datei oder einer codemate-Freigabe-URL.
 
 ```bash
 codemate import <file>
 ```
 
-Sie können aus einer lokalen Datei oder einer Codemate-Freigabe-URL importieren.
+Sie können aus einer lokalen Datei oder einer codemate-Freigabe-URL importieren.
 
 ```bash
 codemate import session.json
@@ -450,22 +459,22 @@ codemate import https://opncd.ai/s/abc123
 
 ### web
 
-Starten Sie einen Headless-Codemate-Server mit einer Weboberfläche.
+Starten Sie einen Headless-codemate-Server mit einer Weboberfläche.
 
 ```bash
 codemate web
 ```
 
-Dadurch wird ein HTTP-Server gestartet und ein Webbrowser geöffnet, um über eine Webschnittstelle auf Codemate zuzugreifen. Legen Sie `CODEMATE_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `codemate`).
+Dadurch wird ein HTTP-Server gestartet und ein Webbrowser geöffnet, um über eine Webschnittstelle auf codemate zuzugreifen. Legen Sie `codemate_SERVER_PASSWORD` fest, um die HTTP-Basisauthentifizierung zu aktivieren (Benutzername ist standardmäßig `codemate`).
 
 #### Optionen
 
-| Flag         | Beschreibung                                    |
-| ------------ | ----------------------------------------------- |
-| `--port`     | Port zum Abhören                                |
-| `--hostname` | Hostname zum Abhören                            |
-| `--mdns`     | mDNS-Discovery aktivieren                       |
-| `--cors`     | Zusätzliche Browser-Ursprünge für CORS zulassen |
+| Flag                                     | Beschreibung                                    |
+| ---------------------------------------- | ----------------------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | Port zum Abhören                                |
+| <nobr><code>{"--hostname"}</code></nobr> | Hostname zum Abhören                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | mDNS-Discovery aktivieren                       |
+| <nobr><code>{"--cors"}</code></nobr>     | Zusätzliche Browser-Ursprünge für CORS zulassen |
 
 ---
 
@@ -481,17 +490,17 @@ Dieser Befehl startet einen ACP-Server, der über stdin/stdout unter Verwendung 
 
 #### Optionen
 
-| Flag         | Beschreibung         |
-| ------------ | -------------------- |
-| `--cwd`      | Arbeitsverzeichnis   |
-| `--port`     | Port zum Abhören     |
-| `--hostname` | Hostname zum Abhören |
+| Flag                                     | Beschreibung         |
+| ---------------------------------------- | -------------------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | Arbeitsverzeichnis   |
+| <nobr><code>{"--port"}</code></nobr>     | Port zum Abhören     |
+| <nobr><code>{"--hostname"}</code></nobr> | Hostname zum Abhören |
 
 ---
 
 ### uninstall
 
-Deinstallieren Sie Codemate und entfernen Sie alle zugehörigen Dateien.
+Deinstallieren Sie codemate und entfernen Sie alle zugehörigen Dateien.
 
 ```bash
 codemate uninstall
@@ -499,18 +508,18 @@ codemate uninstall
 
 #### Optionen
 
-| Flag            | Kurz | Beschreibung                                        |
-| --------------- | ---- | --------------------------------------------------- |
-| `--keep-config` | `-c` | Konfigurationsdateien behalten                      |
-| `--keep-data`   | `-d` | Sitzungsdaten und Snapshots aufbewahren             |
-| `--dry-run`     |      | Zeigt, was entfernt werden würde, ohne zu entfernen |
-| `--force`       | `-f` | Bestätigungsaufforderungen überspringen             |
+| Flag                                        | Kurz | Beschreibung                                        |
+| ------------------------------------------- | ---- | --------------------------------------------------- |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c` | Konfigurationsdateien behalten                      |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d` | Sitzungsdaten und Snapshots aufbewahren             |
+| <nobr><code>{"--dry-run"}</code></nobr>     |      | Zeigt, was entfernt werden würde, ohne zu entfernen |
+| <nobr><code>{"--force"}</code></nobr>       | `-f` | Bestätigungsaufforderungen überspringen             |
 
 ---
 
 ### upgrade
 
-Aktualisiert Codemate auf die neueste Version oder eine bestimmte Version.
+Aktualisiert codemate auf die neueste Version oder eine bestimmte Version.
 
 ```bash
 codemate upgrade [target]
@@ -530,54 +539,54 @@ codemate upgrade v0.1.48
 
 #### Optionen
 
-| Flag       | Kurz | Beschreibung                                                        |
-| ---------- | ---- | ------------------------------------------------------------------- |
-| `--method` | `-m` | Die zu verwendende Installationsmethode; curl, npm, pnpm, bun, brew |
+| Flag                                   | Kurz | Beschreibung                                                        |
+| -------------------------------------- | ---- | ------------------------------------------------------------------- |
+| <nobr><code>{"--method"}</code></nobr> | `-m` | Die zu verwendende Installationsmethode; curl, npm, pnpm, bun, brew |
 
 ---
 
 ## Globale Flags
 
-Der Codemate CLI akzeptiert die folgenden globalen Flags.
+Der codemate CLI akzeptiert die folgenden globalen Flags.
 
-| Flag           | Kurz | Beschreibung                              |
-| -------------- | ---- | ----------------------------------------- |
-| `--help`       | `-h` | Hilfe anzeigen                            |
-| `--version`    | `-v` | Versionsnummer drucken                    |
-| `--print-logs` |      | Protokolle nach stderr drucken            |
-| `--log-level`  |      | Protokollebene (DEBUG, INFO, WARN, ERROR) |
+| Flag                                       | Kurz | Beschreibung                              |
+| ------------------------------------------ | ---- | ----------------------------------------- |
+| <nobr><code>{"--help"}</code></nobr>       | `-h` | Hilfe anzeigen                            |
+| <nobr><code>{"--version"}</code></nobr>    | `-v` | Versionsnummer drucken                    |
+| <nobr><code>{"--print-logs"}</code></nobr> |      | Protokolle nach stderr drucken            |
+| <nobr><code>{"--log-level"}</code></nobr>  |      | Protokollebene (DEBUG, INFO, WARN, ERROR) |
 
 ---
 
 ## Umgebungsvariablen
 
-Codemate kann mithilfe von Umgebungsvariablen konfiguriert werden.
+codemate kann mithilfe von Umgebungsvariablen konfiguriert werden.
 
 | Variable                              | Typ             | Beschreibung                                                                     |
 | ------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
-| `CODEMATE_AUTO_SHARE`                 | boolescher Wert | Sitzungen automatisch teilen                                                     |
-| `CODEMATE_GIT_BASH_PATH`              | Zeichenfolge    | Pfad zur ausführbaren Git Bash-Datei unter Windows                               |
-| `CODEMATE_CONFIG`                     | Zeichenfolge    | Pfad zur Konfigurationsdatei                                                     |
-| `CODEMATE_CONFIG_DIR`                 | Zeichenfolge    | Pfad zum Konfigurationsverzeichnis                                               |
-| `CODEMATE_CONFIG_CONTENT`             | Zeichenfolge    | Inline-JSON-Konfigurationsinhalt                                                 |
-| `CODEMATE_DISABLE_AUTOUPDATE`         | boolescher Wert | Automatische Update-Prüfungen deaktivieren                                       |
-| `CODEMATE_DISABLE_PRUNE`              | boolescher Wert | Bereinigung alter Daten deaktivieren                                             |
-| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolescher Wert | Deaktivieren Sie die automatische Aktualisierung von Terminaltiteln              |
-| `CODEMATE_PERMISSION`                 | Zeichenfolge    | Inline-JSON-Berechtigungskonfiguration                                           |
-| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolescher Wert | Standard-Plugins deaktivieren                                                    |
-| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolescher Wert | Automatische LSP-Server-Downloads deaktivieren                                   |
-| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolescher Wert | Experimentelle Modelle aktivieren                                                |
-| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolescher Wert | Automatische Kontextkomprimierung deaktivieren                                   |
-| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolescher Wert | Deaktivieren Sie das Lesen von `.claude` (Prompt + Skills)                       |
-| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolescher Wert | Deaktivieren Sie das Lesen von `~/.claude/CLAUDE.md`                             |
-| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolescher Wert | Deaktivieren Sie das Laden von `.claude/skills`                                  |
-| `CODEMATE_DISABLE_MODELS_FETCH`       | boolescher Wert | Deaktivieren Sie das Abrufen von Modellen aus Remote-Quellen                     |
-| `CODEMATE_FAKE_VCS`                   | Zeichenfolge    | Gefälschter VCS-Anbieter zu Testzwecken                                          |
-| `CODEMATE_CLIENT`                     | Zeichenfolge    | Client-ID (standardmäßig `cli`)                                                  |
-| `CODEMATE_ENABLE_EXA`                 | boolescher Wert | Exa-Websuchtools aktivieren                                                      |
-| `CODEMATE_SERVER_PASSWORD`            | Zeichenfolge    | Aktivieren Sie die Basisauthentifizierung für `serve`/`web`                      |
-| `CODEMATE_SERVER_USERNAME`            | Zeichenfolge    | Benutzernamen für die Basisauthentifizierung überschreiben (Standard `codemate`) |
-| `CODEMATE_MODELS_URL`                 | Zeichenfolge    | Benutzerdefinierte URL zum Abrufen der Modellkonfiguration                       |
+| `codemate_AUTO_SHARE`                 | boolescher Wert | Sitzungen automatisch teilen                                                     |
+| `codemate_GIT_BASH_PATH`              | Zeichenfolge    | Pfad zur ausführbaren Git Bash-Datei unter Windows                               |
+| `codemate_CONFIG`                     | Zeichenfolge    | Pfad zur Konfigurationsdatei                                                     |
+| `codemate_CONFIG_DIR`                 | Zeichenfolge    | Pfad zum Konfigurationsverzeichnis                                               |
+| `codemate_CONFIG_CONTENT`             | Zeichenfolge    | Inline-JSON-Konfigurationsinhalt                                                 |
+| `codemate_DISABLE_AUTOUPDATE`         | boolescher Wert | Automatische Update-Prüfungen deaktivieren                                       |
+| `codemate_DISABLE_PRUNE`              | boolescher Wert | Bereinigung alter Daten deaktivieren                                             |
+| `codemate_DISABLE_TERMINAL_TITLE`     | boolescher Wert | Deaktivieren Sie die automatische Aktualisierung von Terminaltiteln              |
+| `codemate_PERMISSION`                 | Zeichenfolge    | Inline-JSON-Berechtigungskonfiguration                                           |
+| `codemate_DISABLE_DEFAULT_PLUGINS`    | boolescher Wert | Standard-Plugins deaktivieren                                                    |
+| `codemate_DISABLE_LSP_DOWNLOAD`       | boolescher Wert | Automatische LSP-Server-Downloads deaktivieren                                   |
+| `codemate_ENABLE_EXPERIMENTAL_MODELS` | boolescher Wert | Experimentelle Modelle aktivieren                                                |
+| `codemate_DISABLE_AUTOCOMPACT`        | boolescher Wert | Automatische Kontextkomprimierung deaktivieren                                   |
+| `codemate_DISABLE_CLAUDE_CODE`        | boolescher Wert | Deaktivieren Sie das Lesen von `.claude` (Prompt + Skills)                       |
+| `codemate_DISABLE_CLAUDE_CODE_PROMPT` | boolescher Wert | Deaktivieren Sie das Lesen von `~/.claude/CLAUDE.md`                             |
+| `codemate_DISABLE_CLAUDE_CODE_SKILLS` | boolescher Wert | Deaktivieren Sie das Laden von `.claude/skills`                                  |
+| `codemate_DISABLE_MODELS_FETCH`       | boolescher Wert | Deaktivieren Sie das Abrufen von Modellen aus Remote-Quellen                     |
+| `codemate_FAKE_VCS`                   | Zeichenfolge    | Gefälschter VCS-Anbieter zu Testzwecken                                          |
+| `codemate_CLIENT`                     | Zeichenfolge    | Client-ID (standardmäßig `cli`)                                                  |
+| `codemate_ENABLE_EXA`                 | boolescher Wert | Exa-Websuchtools aktivieren                                                      |
+| `codemate_SERVER_PASSWORD`            | Zeichenfolge    | Aktivieren Sie die Basisauthentifizierung für `serve`/`web`                      |
+| `codemate_SERVER_USERNAME`            | Zeichenfolge    | Benutzernamen für die Basisauthentifizierung überschreiben (Standard `codemate`) |
+| `codemate_MODELS_URL`                 | Zeichenfolge    | Benutzerdefinierte URL zum Abrufen der Modellkonfiguration                       |
 
 ---
 
@@ -587,16 +596,16 @@ Diese Umgebungsvariablen ermöglichen experimentelle Funktionen, die sich änder
 
 | Variable                                        | Typ             | Beschreibung                                            |
 | ----------------------------------------------- | --------------- | ------------------------------------------------------- |
-| `CODEMATE_EXPERIMENTAL`                         | boolescher Wert | Alle experimentellen Funktionen aktivieren              |
-| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolescher Wert | Symbolerkennung aktivieren                              |
-| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolescher Wert | Kopieren bei Auswahl in TUI deaktivieren                |
-| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | Zahl            | Standard-Timeout für Bash-Befehle in ms                 |
-| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | Zahl            | Maximale Ausgabetokens für LLM-Antworten                |
-| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolescher Wert | Dateiüberwachung für das gesamte Verzeichnis aktivieren |
-| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolescher Wert | Oxfmt-Formatierer aktivieren                            |
-| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolescher Wert | Experimentelles LSP-Tool aktivieren                     |
-| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolescher Wert | Dateiüberwachung deaktivieren                           |
-| `CODEMATE_EXPERIMENTAL_EXA`                     | boolescher Wert | Experimentelle Exa-Funktionen aktivieren                |
-| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolescher Wert | TY LSP für Python-Dateien aktivieren                    |
-| `CODEMATE_EXPERIMENTAL_MARKDOWN`                | boolescher Wert | Experimentelle Markdown-Funktionen aktivieren           |
-| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolescher Wert | Planmodus aktivieren                                    |
+| `codemate_EXPERIMENTAL`                         | boolescher Wert | Alle experimentellen Funktionen aktivieren              |
+| `codemate_EXPERIMENTAL_ICON_DISCOVERY`          | boolescher Wert | Symbolerkennung aktivieren                              |
+| `codemate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolescher Wert | Kopieren bei Auswahl in TUI deaktivieren                |
+| `codemate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | Zahl            | Standard-Timeout für Bash-Befehle in ms                 |
+| `codemate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | Zahl            | Maximale Ausgabetokens für LLM-Antworten                |
+| `codemate_EXPERIMENTAL_FILEWATCHER`             | boolescher Wert | Dateiüberwachung für das gesamte Verzeichnis aktivieren |
+| `codemate_EXPERIMENTAL_OXFMT`                   | boolescher Wert | Oxfmt-Formatierer aktivieren                            |
+| `codemate_EXPERIMENTAL_LSP_TOOL`                | boolescher Wert | Experimentelles LSP-Tool aktivieren                     |
+| `codemate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolescher Wert | Dateiüberwachung deaktivieren                           |
+| `codemate_EXPERIMENTAL_EXA`                     | boolescher Wert | Experimentelle Exa-Funktionen aktivieren                |
+| `codemate_EXPERIMENTAL_LSP_TY`                  | boolescher Wert | TY LSP für Python-Dateien aktivieren                    |
+| `codemate_EXPERIMENTAL_MARKDOWN`                | boolescher Wert | Experimentelle Markdown-Funktionen aktivieren           |
+| `codemate_EXPERIMENTAL_PLAN_MODE`               | boolescher Wert | Planmodus aktivieren                                    |

@@ -68,7 +68,7 @@ This is an SST v3 monorepo with TypeScript. The project uses bun workspaces for 
 
 ### التوافق مع Claude Code
 
-للمستخدمين الذين ينتقلون من Claude Code، يدعم Codemate اصطلاحات ملفات Claude Code كبدائل احتياطية:
+للمستخدمين الذين ينتقلون من Claude Code، يدعم codemate اصطلاحات ملفات Claude Code كبدائل احتياطية:
 
 - **قواعد المشروع**: `CLAUDE.md` في دليل مشروعك (يُستخدم إذا لم يوجد `AGENTS.md`)
 - **قواعد عامة**: `~/.claude/CLAUDE.md` (يُستخدم إذا لم يوجد `~/.config/codemate/AGENTS.md`)
@@ -77,9 +77,9 @@ This is an SST v3 monorepo with TypeScript. The project uses bun workspaces for 
 لإيقاف التوافق مع Claude Code، عيّن أحد متغيرات البيئة التالية:
 
 ```bash
-export CODEMATE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export CODEMATE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export CODEMATE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export codemate_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export codemate_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export codemate_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---

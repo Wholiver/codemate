@@ -28,9 +28,9 @@ npm install @codemate-ai/sdk
 Crea un'istanza di codemate:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 Questo avvia sia un server sia un client
@@ -52,9 +52,9 @@ Questo avvia sia un server sia un client
 Puoi passare un oggetto di configurazione per personalizzare il comportamento. L'istanza legge comunque `codemate.json`, ma puoi sovrascrivere o aggiungere configurazione inline:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -72,9 +72,9 @@ codemate.server.close()
 Se hai gia un'istanza di codemate in esecuzione, puoi creare un client per collegarti:
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

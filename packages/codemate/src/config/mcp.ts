@@ -1,6 +1,6 @@
 import { Schema } from "effect"
-import { zod } from "@/util/effect-zod"
-import { PositiveInt, withStatics } from "@/util/schema"
+import { zod } from "@codemate-ai/core/effect-zod"
+import { PositiveInt, withStatics } from "@codemate-ai/core/schema"
 
 export const Local = Schema.Struct({
   type: Schema.Literal("local").annotate({ description: "Type of MCP server connection" }),

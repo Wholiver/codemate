@@ -2,8 +2,9 @@ export * from "./gen/types.gen.js"
 
 import { createClient } from "./gen/client/client.gen.js"
 import { type Config } from "./gen/client/types.gen.js"
-import { CodemateClient } from "./gen/sdk.gen.js"
-export { type Config as CodemateClientConfig, CodemateClient }
+import { codemateClient } from "./gen/sdk.gen.js"
+import { wrapClientError } from "../error-interceptor.js"
+export { type Config as codemateClientConfig, codemateClient }
 
 function pick(value: string | null, fallback?: string, encode?: (value: string) => string) {
   if (!value) return
@@ -43,7 +44,7 @@ function rewrite(request: Request, values: { directory?: string; workspace?: str
   return next
 }
 
-export function createCodemateClient(config?: Config & { directory?: string; experimental_workspaceID?: string }) {
+export function createcodemateClient(config?: Config & { directory?: string; experimental_workspaceID?: string }) {
   if (!config?.fetch) {
     const customFetch: any = (req: any) => {
       // @ts-ignore
@@ -80,9 +81,10 @@ export function createCodemateClient(config?: Config & { directory?: string; exp
   client.interceptors.response.use((response) => {
     const contentType = response.headers.get("content-type")
     if (contentType === "text/html")
-      throw new Error("Request is not supported by this version of Codemate Server (Server responded with text/html)")
+      throw new Error("Request is not supported by this version of codemate Server (Server responded with text/html)")
 
     return response
   })
-  return new CodemateClient({ client })
+  client.interceptors.error.use(wrapClientError)
+  return new codemateClient({ client })
 }

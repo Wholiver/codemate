@@ -28,9 +28,9 @@ npm install @codemate-ai/sdk
 สร้างอินสแตนซ์ของ codemate:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 สิ่งนี้จะเริ่มต้นทั้งเซิร์ฟเวอร์และไคลเอนต์
@@ -52,9 +52,9 @@ const { client } = await createCodemate()
 คุณสามารถส่งผ่านออบเจ็กต์การกำหนดค่าเพื่อปรับแต่งลักษณะการทำงานได้ อินสแตนซ์ยังคงรับ `codemate.json` ของคุณ แต่คุณสามารถแทนที่หรือเพิ่มการกำหนดค่าแบบอินไลน์ได้:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -72,9 +72,9 @@ codemate.server.close()
 หากคุณมีอินสแตนซ์ codemate ที่ทำงานอยู่แล้ว คุณสามารถสร้างอินสแตนซ์ไคลเอ็นต์เพื่อเชื่อมต่อได้:
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

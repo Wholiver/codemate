@@ -7,15 +7,15 @@ import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Go je povoljna pretplata — **$5 za vaš prvi mjesec**, a zatim **$10/mjesečno** — koja vam pruža pouzdan pristup popularnim otvorenim modelima za programiranje.
+codemate Go je povoljna pretplata — **$5 za vaš prvi mjesec**, a zatim **$10/mjesečno** — koja vam pruža pouzdan pristup popularnim otvorenim modelima za programiranje.
 
 :::note
-Codemate Go je trenutno u beta fazi.
+codemate Go je trenutno u beta fazi.
 :::
 
-Go radi kao bilo koji drugi provajder u Codemate-u. Pretplatite se na Codemate Go i
+Go radi kao bilo koji drugi provajder u codemate-u. Pretplatite se na codemate Go i
 dobijete svoj API ključ. On je **potpuno opcionalan** i ne morate ga koristiti da
-biste koristili Codemate.
+biste koristili codemate.
 
 Dizajniran je prvenstveno za međunarodne korisnike, sa modelima hostovanim u SAD-u, EU i Singapuru za stabilan globalni pristup.
 
@@ -31,7 +31,7 @@ Međutim, dobiti pouzdan pristup s niskom latencijom do njih može biti teško. 
 variraju u pogledu kvaliteta i dostupnosti.
 
 :::tip
-Testirali smo odabranu grupu modela i provajdera koji dobro rade sa Codemate-om.
+Testirali smo odabranu grupu modela i provajdera koji dobro rade sa codemate-om.
 :::
 
 Da bismo to popravili, uradili smo nekoliko stvari:
@@ -43,22 +43,22 @@ Da bismo to popravili, uradili smo nekoliko stvari:
 3. Na kraju smo benchmarkovali kombinaciju modela/provajdera i osmislili
    listu koju rado preporučujemo.
 
-Codemate Go vam daje pristup ovim modelima za **$5 za vaš prvi mjesec**, a zatim **$10/mjesečno**.
+codemate Go vam daje pristup ovim modelima za **$5 za vaš prvi mjesec**, a zatim **$10/mjesečno**.
 
 ---
 
 ## Kako funkcioniše
 
-Codemate Go radi kao bilo koji drugi provajder u Codemate-u.
+codemate Go radi kao bilo koji drugi provajder u codemate-u.
 
-1. Prijavite se na **<a href={console}>Codemate Zen</a>**, pretplatite se na Go i
+1. Prijavite se na **<a href={console}>codemate Zen</a>**, pretplatite se na Go i
    kopirajte svoj API ključ.
-2. Pokrenite komandu `/connect` u TUI-ju, odaberite `Codemate Go` i zalijepite
+2. Pokrenite komandu `/connect` u TUI-ju, odaberite `codemate Go` i zalijepite
    svoj API ključ.
 3. Pokrenite `/models` u TUI-ju da vidite listu modela dostupnih kroz Go.
 
 :::note
-Samo jedan član po radnom prostoru (workspace) može se pretplatiti na Codemate Go.
+Samo jedan član po radnom prostoru (workspace) može se pretplatiti na codemate Go.
 :::
 
 Trenutna lista modela uključuje:
@@ -67,10 +67,8 @@ Trenutna lista modela uključuje:
 - **GLM-5.1**
 - **Kimi K2.5**
 - **Kimi K2.6**
-- **MiMo-V2-Pro**
-- **MiMo-V2-Omni**
-- **MiMo-V2.5-Pro**
 - **MiMo-V2.5**
+- **MiMo-V2.5-Pro**
 - **MiniMax M2.5**
 - **Qwen3.5 Plus**
 - **Qwen3.6 Plus**
@@ -84,7 +82,7 @@ Lista modela se može mijenjati dok testiramo i dodajemo nove.
 
 ## Ograničenja upotrebe
 
-Codemate Go uključuje sljedeća ograničenja:
+codemate Go uključuje sljedeća ograničenja:
 
 - **Ograničenje od 5 sati** — $12 potrošnje
 - **Sedmično ograničenje** — $30 potrošnje
@@ -100,10 +98,8 @@ Tabela ispod pruža procijenjeni broj zahtjeva na osnovu tipičnih obrazaca kori
 | GLM-5              | 1,150              | 2,880             | 5,750             |
 | Kimi K2.5          | 1,850              | 4,630             | 9,250             |
 | Kimi K2.6          | 1,150              | 2,880             | 5,750             |
-| MiMo-V2-Pro        | 1,290              | 3,225             | 6,450             |
-| MiMo-V2-Omni       | 2,150              | 5,450             | 10,900            |
-| MiMo-V2.5-Pro      | 1,290              | 3,225             | 6,450             |
 | MiMo-V2.5 (≤ 256K) | 2,150              | 5,450             | 10,900            |
+| MiMo-V2.5-Pro      | 1,290              | 3,225             | 6,450             |
 | MiniMax M2.7       | 3,400              | 8,500             | 17,000            |
 | MiniMax M2.5       | 6,300              | 15,900            | 31,800            |
 | Qwen3.6 Plus       | 3,300              | 8,200             | 16,300            |
@@ -120,10 +116,8 @@ Procjene se zasnivaju na zapaženim prosječnim obrascima zahtjeva:
 - MiniMax M2.7/M2.5 — 300 ulaznih, 55,000 keširanih, 125 izlaznih tokena po zahtjevu
 - Qwen3.5 Plus — 410 ulaznih, 47,000 keširanih, 140 izlaznih tokena po zahtjevu
 - Qwen3.6 Plus — 500 ulaznih, 57,000 keširanih, 190 izlaznih tokena po zahtjevu
-- MiMo-V2-Pro — 350 ulaznih, 41,000 keširanih, 250 izlaznih tokena po zahtjevu
-- MiMo-V2-Omni — 1000 ulaznih, 60,000 keširanih, 140 izlaznih tokena po zahtjevu
-- MiMo-V2.5-Pro — 350 ulaznih, 41,000 keširanih, 250 izlaznih tokena po zahtjevu
 - MiMo-V2.5 — 1000 ulaznih, 60,000 keširanih, 140 izlaznih tokena po zahtjevu
+- MiMo-V2.5-Pro — 350 ulaznih, 41,000 keširanih, 250 izlaznih tokena po zahtjevu
 
 Svoju trenutnu potrošnju možete pratiti u **<a href={console}>konzoli</a>**.
 
@@ -155,16 +149,14 @@ Također možete pristupiti Go modelima putem sljedećih API endpointa.
 | Kimi K2.6         | kimi-k2.6         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Pro   | deepseek-v4-pro   | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Flash | deepseek-v4-flash | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Pro       | mimo-v2-pro       | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Omni      | mimo-v2-omni      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiMo-V2.5         | mimo-v2.5         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
+| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiniMax M2.7      | minimax-m2.7      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | MiniMax M2.5      | minimax-m2.5      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | Qwen3.6 Plus      | qwen3.6-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 | Qwen3.5 Plus      | qwen3.5-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 
-[Model id](/docs/config/#models) u vašoj Codemate konfiguraciji
+[Model id](/docs/config/#models) u vašoj codemate konfiguraciji
 koristi format `codemate-go/<model-id>`. Na primjer, za Kimi K2.6, koristili biste
 `codemate-go/kimi-k2.6` u svojoj konfiguraciji.
 
@@ -188,9 +180,9 @@ Plan je prvenstveno namijenjen međunarodnim korisnicima, a modeli su smješteni
 
 ## Ciljevi
 
-Napravili smo Codemate Go da bismo:
+Napravili smo codemate Go da bismo:
 
 1. Učinili AI programiranje **dostupnim** većem broju ljudi putem povoljne pretplate.
 2. Pružili **pouzdan** pristup najboljim otvorenim modelima za programiranje.
 3. Odabrali modele koji su **testirani i benchmarkovani** za upotrebu od strane agenata za programiranje.
-4. Osigurali da **nema zaključavanja (no lock-in)**, omogućavajući vam da uz Codemate koristite i bilo kojeg drugog provajdera.
+4. Osigurali da **nema zaključavanja (no lock-in)**, omogućavajući vam da uz codemate koristite i bilo kojeg drugog provajdera.

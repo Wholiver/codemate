@@ -1,18 +1,18 @@
 ---
 title: Enterprise
-description: Using Codemate securely in your organization.
+description: Using codemate securely in your organization.
 ---
 
 import config from "../../../config.mjs"
 export const email = `mailto:${config.email}`
 
-Codemate Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.
+codemate Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.
 
 :::note
-Codemate does not store any of your code or context data.
+codemate does not store any of your code or context data.
 :::
 
-To get started with Codemate Enterprise:
+To get started with codemate Enterprise:
 
 1. Do a trial internally with your team.
 2. **<a href={email}>Contact us</a>** to discuss pricing and implementation options.
@@ -21,16 +21,16 @@ To get started with Codemate Enterprise:
 
 ## Trial
 
-Codemate is open source and does not store any of your code or context data, so your developers can simply [get started](/docs/) and carry out a trial.
+codemate is open source and does not store any of your code or context data, so your developers can simply [get started](/docs/) and carry out a trial.
 
 ---
 
 ### Data handling
 
-**Codemate does not store your code or context data.** All processing happens locally or through direct API calls to your AI provider.
+**codemate does not store your code or context data.** All processing happens locally or through direct API calls to your AI provider.
 
 This means that as long as you are using a provider you trust, or an internal
-AI gateway, you can use Codemate securely.
+AI gateway, you can use codemate securely.
 
 The only caveat here is the optional `/share` feature.
 
@@ -57,19 +57,19 @@ We recommend you disable this for your trial.
 
 ### Code ownership
 
-**You own all code produced by Codemate.** There are no licensing restrictions or ownership claims.
+**You own all code produced by codemate.** There are no licensing restrictions or ownership claims.
 
 ---
 
 ## Pricing
 
-We use a per-seat model for Codemate Enterprise. If you have your own LLM gateway, we do not charge for tokens used. For further details about pricing and implementation options, **<a href={email}>contact us</a>**.
+We use a per-seat model for codemate Enterprise. If you have your own LLM gateway, we do not charge for tokens used. For further details about pricing and implementation options, **<a href={email}>contact us</a>**.
 
 ---
 
 ## Deployment
 
-Once you have completed your trial and you are ready to use Codemate at
+Once you have completed your trial and you are ready to use codemate at
 your organization, you can **<a href={email}>contact us</a>** to discuss
 pricing and implementation options.
 
@@ -77,7 +77,7 @@ pricing and implementation options.
 
 ### Central Config
 
-We can set up Codemate to use a single central config for your entire organization.
+We can set up codemate to use a single central config for your entire organization.
 
 This centralized config can integrate with your SSO provider and ensures all users access only your internal AI gateway.
 
@@ -85,15 +85,15 @@ This centralized config can integrate with your SSO provider and ensures all use
 
 ### SSO integration
 
-Through the central config, Codemate can integrate with your organization's SSO provider for authentication.
+Through the central config, codemate can integrate with your organization's SSO provider for authentication.
 
-This allows Codemate to obtain credentials for your internal AI gateway through your existing identity management system.
+This allows codemate to obtain credentials for your internal AI gateway through your existing identity management system.
 
 ---
 
 ### Internal AI gateway
 
-With the central config, Codemate can also be configured to use only your internal AI gateway.
+With the central config, codemate can also be configured to use only your internal AI gateway.
 
 You can also disable all other AI providers, ensuring all requests go through your organization's approved infrastructure.
 
@@ -111,16 +111,16 @@ This is currently on our roadmap. If you're interested, **<a href={email}>let us
 ## FAQ
 
 <details>
-<summary>What is Codemate Enterprise?</summary>
+<summary>What is codemate Enterprise?</summary>
 
-Codemate Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.
+codemate Enterprise is for organizations that want to ensure that their code and data never leaves their infrastructure. It can do this by using a centralized config that integrates with your SSO and internal AI gateway.
 
 </details>
 
 <details>
-<summary>How do I get started with Codemate Enterprise?</summary>
+<summary>How do I get started with codemate Enterprise?</summary>
 
-Simply start with an internal trial with your team. Codemate by default does not store your code or context data, making it easy to get started.
+Simply start with an internal trial with your team. codemate by default does not store your code or context data, making it easy to get started.
 
 Then **<a href={email}>contact us</a>** to discuss pricing and implementation options.
 
@@ -134,16 +134,16 @@ We offer per-seat enterprise pricing. If you have your own LLM gateway, we do no
 </details>
 
 <details>
-<summary>Is my data secure with Codemate Enterprise?</summary>
+<summary>Is my data secure with codemate Enterprise?</summary>
 
-Yes. Codemate does not store your code or context data. All processing happens locally or through direct API calls to your AI provider. With central config and SSO integration, your data remains secure within your organization's infrastructure.
+Yes. codemate does not store your code or context data. All processing happens locally or through direct API calls to your AI provider. With central config and SSO integration, your data remains secure within your organization's infrastructure.
 
 </details>
 
 <details>
 <summary>Can we use our own private NPM registry?</summary>
 
-Codemate supports private npm registries through Bun's native `.npmrc` file support. If your organization uses a private registry, such as JFrog Artifactory, Nexus, or similar, ensure developers are authenticated before running Codemate.
+codemate supports private npm registries through Bun's native `.npmrc` file support. If your organization uses a private registry, such as JFrog Artifactory, Nexus, or similar, ensure developers are authenticated before running codemate.
 
 To set up authentication with your private registry:
 
@@ -151,11 +151,11 @@ To set up authentication with your private registry:
 npm login --registry=https://your-company.jfrog.io/api/npm/npm-virtual/
 ```
 
-This creates `~/.npmrc` with authentication details. Codemate will automatically
+This creates `~/.npmrc` with authentication details. codemate will automatically
 pick this up.
 
 :::caution
-You must be logged into the private registry before running Codemate.
+You must be logged into the private registry before running codemate.
 :::
 
 Alternatively, you can manually configure a `.npmrc` file:
@@ -165,6 +165,6 @@ registry=https://your-company.jfrog.io/api/npm/npm-virtual/
 //your-company.jfrog.io/api/npm/npm-virtual/:_authToken=${NPM_AUTH_TOKEN}
 ```
 
-Developers must be logged into the private registry before running Codemate to ensure packages can be installed from your enterprise registry.
+Developers must be logged into the private registry before running codemate to ensure packages can be installed from your enterprise registry.
 
 </details>

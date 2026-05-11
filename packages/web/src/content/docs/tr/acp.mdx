@@ -30,7 +30,7 @@ Aşağıda ACP'yi destekleyen popüler düzenleyicilere ilişkin örnekler veril
 ```json title="~/.config/zed/settings.json"
 {
   "agent_servers": {
-    "Codemate": {
+    "codemate": {
       "command": "codemate",
       "args": ["acp"]
     }
@@ -51,7 +51,7 @@ Açmak için **Komut Paleti**'ndeki `agent: new thread` eylemini kullanın.
         {
           "agent": {
             "custom": {
-              "name": "Codemate",
+              "name": "codemate",
               "command": {
                 "command": "codemate",
                 "args": ["acp"]
@@ -74,7 +74,7 @@ Açmak için **Komut Paleti**'ndeki `agent: new thread` eylemini kullanın.
 ```json title="acp.json"
 {
   "agent_servers": {
-    "Codemate": {
+    "codemate": {
       "command": "/absolute/path/bin/codemate",
       "args": ["acp"]
     }
@@ -82,7 +82,7 @@ Açmak için **Komut Paleti**'ndeki `agent: new thread` eylemini kullanın.
 }
 ```
 
-Açmak için AI Chat agent seçicisindeki yeni 'Codemate' ajanını kullanın.
+Açmak için AI Chat agent seçicisindeki yeni 'codemate' ajanını kullanın.
 
 ---
 
@@ -110,7 +110,7 @@ Ortam değişkenlerini iletmeniz gerekiyor:
       command = "codemate",
       args = { "acp" },
       env = {
-        CODEMATE_API_KEY = os.getenv("CODEMATE_API_KEY")
+        codemate_API_KEY = os.getenv("codemate_API_KEY")
       }
     }
   }
@@ -138,7 +138,7 @@ require("codecompanion").setup({
 
 Bu yapılandırma, CodeCompanion'ı codemate'u sohbet için ACP ajanı olarak kullanacak şekilde ayarlar.
 
-Ortam değişkenlerini (`CODEMATE_API_KEY` gibi) iletmeniz gerekiyorsa, tüm ayrıntılar için CodeCompanion.nvim belgelerindeki [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key)'ye bakın.
+Ortam değişkenlerini (`codemate_API_KEY` gibi) iletmeniz gerekiyorsa, tüm ayrıntılar için CodeCompanion.nvim belgelerindeki [Configuring Adapters: Environment Variables](https://codecompanion.olimorris.dev/getting-started#setting-an-api-key)'ye bakın.
 
 ## Destek
 

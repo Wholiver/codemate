@@ -86,12 +86,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # should be removed once binary is renamed or decided otherwise
   # darwin output is a .app bundle so no conflict
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    mv $out/bin/Codemate $out/bin/codemate-desktop
-    sed -i 's|^Exec=Codemate$|Exec=codemate-desktop|' $out/share/applications/Codemate.desktop
+    mv $out/bin/codemate $out/bin/codemate-desktop
+    sed -i 's|^Exec=codemate$|Exec=codemate-desktop|' $out/share/applications/codemate.desktop
   '';
 
   meta = {
-    description = "Codemate Desktop App";
+    description = "codemate Desktop App";
     homepage = "https://codemate.ai";
     license = lib.licenses.mit;
     mainProgram = "codemate-desktop";

@@ -1,15 +1,15 @@
 ---
 title: Serwery LSP
-description: Codemate integruje się z serwerami LSP.
+description: codemate integruje się z serwerami LSP.
 ---
 
-Codemate integruje się z protokołem Language Server Protocol (LSP), aby zapewnić modelom LLM kontekst bazy kodu. Wykorzystuje diagnostykę, aby przekazywać informacje zwrotne do LLM.
+codemate integruje się z protokołem Language Server Protocol (LSP), aby zapewnić modelom LLM kontekst bazy kodu. Wykorzystuje diagnostykę, aby przekazywać informacje zwrotne do LLM.
 
 ---
 
 ## Wbudowane
 
-Codemate posiada kilka wbudowanych serwerów LSP dla następujących języków:
+codemate posiada kilka wbudowanych serwerów LSP dla następujących języków:
 
 | Serwer LSP         | Rozszerzenia                                                        | Wymagania                                                                |
 | ------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------ |
@@ -50,14 +50,14 @@ Codemate posiada kilka wbudowanych serwerów LSP dla następujących języków:
 Serwery LSP są automatycznie włączane po wykryciu jednego z obsługiwanych plików i spełnieniu wymagań.
 
 :::note
-Możesz wyłączyć automatyczne pobieranie serwerów LSP, ustawiając zmienną środowiskową `CODEMATE_DISABLE_LSP_DOWNLOAD` na `true`.
+Możesz wyłączyć automatyczne pobieranie serwerów LSP, ustawiając zmienną środowiskową `codemate_DISABLE_LSP_DOWNLOAD` na `true`.
 :::
 
 ---
 
 ## Jak to działa
 
-Gdy Codemate otwiera plik:
+Gdy codemate otwiera plik:
 
 1. Sprawdza plik pod kątem wszystkich dostępnych serwerów LSP.
 2. Uruchamia odpowiedni serwer LSP, jeśli jeszcze nie działa.
@@ -66,7 +66,7 @@ Gdy Codemate otwiera plik:
 
 ## Konfiguracja
 
-Możesz dostosować serwery LSP poprzez sekcję `lsp` w konfiguracji Codemate.
+Możesz dostosować serwery LSP poprzez sekcję `lsp` w konfiguracji codemate.
 
 ```json title="codemate.json"
 {

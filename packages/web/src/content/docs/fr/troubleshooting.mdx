@@ -3,7 +3,7 @@ title: Dépannage
 description: Problèmes courants et comment les résoudre.
 ---
 
-Pour déboguer les problèmes avec Codemate, commencez par vérifier les journaux et les données locales qu'il stocke sur le disque.
+Pour déboguer les problèmes avec codemate, commencez par vérifier les journaux et les données locales qu'il stocke sur le disque.
 
 ---
 
@@ -39,13 +39,13 @@ Ce répertoire contient :
 
 ## Application de bureau
 
-Codemate Desktop exécute un serveur Codemate local (le side-car `codemate-cli`) en arrière-plan. La plupart des problèmes sont causés par un plugin qui se comporte mal, un cache corrompu ou un mauvais paramètre du serveur.
+codemate Desktop exécute un serveur codemate local (le side-car `codemate-cli`) en arrière-plan. La plupart des problèmes sont causés par un plugin qui se comporte mal, un cache corrompu ou un mauvais paramètre du serveur.
 
 ### Vérifications rapides
 
 - Quittez complètement et relancez l'application.
 - Si l'application affiche un écran d'erreur, cliquez sur **Redémarrer** et copiez les détails de l'erreur.
-- macOS uniquement : menu `Codemate` -> **Recharger la vue Web** (aide si l'interface utilisateur est vide/gelée).
+- macOS uniquement : menu `codemate` -> **Recharger la vue Web** (aide si l'interface utilisateur est vide/gelée).
 
 ---
 
@@ -72,7 +72,7 @@ Si vous avez configuré des plugins, désactivez-les temporairement en suppriman
 
 #### Vérifiez les répertoires des plugins
 
-Codemate peut également charger des plugins locaux à partir du disque. Écartez-les temporairement (ou renommez le dossier) et redémarrez l'application de bureau :
+codemate peut également charger des plugins locaux à partir du disque. Écartez-les temporairement (ou renommez le dossier) et redémarrez l'application de bureau :
 
 - **Plugins mondiaux**
   - **macOS/Linux** : `~/.config/codemate/plugins/`
@@ -86,22 +86,22 @@ Si l'application recommence à fonctionner, réactivez les plugins un par un pou
 
 ### Vider le cache
 
-Si la désactivation des plugins ne résout pas le problème (ou si l'installation d'un plugin est bloquée), videz le cache afin que Codemate puisse le reconstruire.
+Si la désactivation des plugins ne résout pas le problème (ou si l'installation d'un plugin est bloquée), videz le cache afin que codemate puisse le reconstruire.
 
-1. Quittez complètement Codemate Desktop.
+1. Quittez complètement codemate Desktop.
 2. Supprimez le répertoire cache :
 
 - **macOS** : Finder -> `Cmd+Shift+G` -> coller `~/.cache/codemate`
 - **Linux** : supprimez `~/.cache/codemate` (ou exécutez `rm -rf ~/.cache/codemate`)
 - **Windows** : appuyez sur `WIN+R` et collez `%USERPROFILE%\.cache\codemate`
 
-3. Redémarrez le bureau Codemate.
+3. Redémarrez le bureau codemate.
 
 ---
 
 ### Résoudre les problèmes de connexion au serveur
 
-Codemate Desktop peut soit démarrer son propre serveur local (par défaut), soit se connecter à un serveur URL que vous avez configuré.
+codemate Desktop peut soit démarrer son propre serveur local (par défaut), soit se connecter à un serveur URL que vous avez configuré.
 
 Si vous voyez une boîte de dialogue **« Échec de la connexion »** (ou si l'application ne dépasse jamais l'écran de démarrage), recherchez un serveur personnalisé URL.
 
@@ -115,9 +115,9 @@ Si votre `codemate.json(c)` contient une section `server`, supprimez-la temporai
 
 #### Vérifier les variables d'environnement
 
-Si `CODEMATE_PORT` est défini dans votre environnement, l'application de bureau tentera d'utiliser ce port pour le serveur local.
+Si `codemate_PORT` est défini dans votre environnement, l'application de bureau tentera d'utiliser ce port pour le serveur local.
 
-- Désactivez `CODEMATE_PORT` (ou choisissez un port libre) et redémarrez.
+- Désactivez `codemate_PORT` (ou choisissez un port libre) et redémarrez.
 
 ---
 
@@ -132,21 +132,21 @@ Sur Linux, certaines configurations Wayland peuvent provoquer des fenêtres vide
 
 ### Windows : exécution WebView2
 
-Sur Windows, Codemate Desktop nécessite Microsoft Edge **WebView2 Runtime**. Si l'application s'ouvre sur une fenêtre vide ou ne démarre pas, installez/mettez à jour WebView2 et réessayez.
+Sur Windows, codemate Desktop nécessite Microsoft Edge **WebView2 Runtime**. Si l'application s'ouvre sur une fenêtre vide ou ne démarre pas, installez/mettez à jour WebView2 et réessayez.
 
 ---
 
 ### Windows : problèmes de performances généraux
 
-Si vous rencontrez des performances lentes, des problèmes d'accès aux fichiers ou des problèmes de terminal sur Windows, essayez d'utiliser [WSL (Windows Sous-système pour Linux)](/docs/windows-wsl). WSL fournit un environnement Linux qui fonctionne de manière plus transparente avec les fonctionnalités de Codemate.
+Si vous rencontrez des performances lentes, des problèmes d'accès aux fichiers ou des problèmes de terminal sur Windows, essayez d'utiliser [WSL (Windows Sous-système pour Linux)](/docs/windows-wsl). WSL fournit un environnement Linux qui fonctionne de manière plus transparente avec les fonctionnalités de codemate.
 
 ---
 
 ### Les notifications ne s'affichent pas
 
-Codemate Desktop affiche uniquement les notifications système lorsque :
+codemate Desktop affiche uniquement les notifications système lorsque :
 
-- les notifications sont activées pour Codemate dans les paramètres de votre système d'exploitation, et
+- les notifications sont activées pour codemate dans les paramètres de votre système d'exploitation, et
 - la fenêtre de l'application n'est pas ciblée.
 
 ---
@@ -155,8 +155,8 @@ Codemate Desktop affiche uniquement les notifications système lorsque :
 
 Si l'application ne démarre pas et que vous ne pouvez pas effacer les paramètres depuis l'interface utilisateur, réinitialisez l'état enregistré de l'application de bureau.
 
-1. Quittez le bureau Codemate.
-2. Recherchez et supprimez ces fichiers (ils se trouvent dans le répertoire de données de l'application Codemate Desktop) :
+1. Quittez le bureau codemate.
+2. Recherchez et supprimez ces fichiers (ils se trouvent dans le répertoire de données de l'application codemate Desktop) :
 
 - `codemate.settings.dat` (serveur de bureau par défaut URL)
 - `codemate.global.dat` et `codemate.workspace.*.dat` (état de l'interface utilisateur comme les serveurs/projets récents)
@@ -171,7 +171,7 @@ Pour trouver rapidement le répertoire :
 
 ## Obtenir de l'aide
 
-Si vous rencontrez des problèmes avec Codemate :
+Si vous rencontrez des problèmes avec codemate :
 
 1. **Signaler les problèmes le GitHub**
 
@@ -195,7 +195,7 @@ Voici quelques problèmes courants et comment les résoudre.
 
 ---
 
-### Codemate ne démarre pas
+### codemate ne démarre pas
 
 1. Vérifiez les journaux pour les messages d'erreur
 2. Essayez d'exécuter avec `--print-logs` pour voir la sortie dans le terminal

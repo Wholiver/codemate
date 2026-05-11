@@ -28,9 +28,9 @@ npm install @codemate-ai/sdk
 Kreirajte instancu codemate:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 Ovo pokrece i server i klijent
@@ -52,9 +52,9 @@ Ovo pokrece i server i klijent
 Mozete proslijediti konfiguracijski objekat za prilagodavanje ponasanja. Instanca i dalje ucitava `codemate.json`, ali konfiguraciju mozete nadjacati ili dodati inline:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -72,9 +72,9 @@ codemate.server.close()
 Ako vec imate pokrenutu codemate instancu, mozete napraviti klijentsku instancu i povezati se na nju:
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

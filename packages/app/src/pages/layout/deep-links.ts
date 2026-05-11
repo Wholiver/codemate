@@ -36,15 +36,15 @@ export const collectOpenProjectDeepLinks = (urls: string[]) =>
 export const collectNewSessionDeepLinks = (urls: string[]) =>
   urls.map(parseNewSessionDeepLink).filter((link): link is { directory: string; prompt?: string } => !!link)
 
-type CodemateWindow = Window & {
-  __CODEMATE__?: {
+type codemateWindow = Window & {
+  __codemate__?: {
     deepLinks?: string[]
   }
 }
 
-export const drainPendingDeepLinks = (target: CodemateWindow) => {
-  const pending = target.__CODEMATE__?.deepLinks ?? []
+export const drainPendingDeepLinks = (target: codemateWindow) => {
+  const pending = target.__codemate__?.deepLinks ?? []
   if (pending.length === 0) return []
-  if (target.__CODEMATE__) target.__CODEMATE__.deepLinks = []
+  if (target.__codemate__) target.__codemate__.deepLinks = []
   return pending
 }

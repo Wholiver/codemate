@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### Godkendelse
 
-Indstil `CODEMATE_SERVER_PASSWORD` for at beskytte serveren med HTTP grundlæggende godkendelse. Brugernavnet er som standard `codemate`, eller indstil `CODEMATE_SERVER_USERNAME` for at tilsidesætte det. Dette gælder både `codemate serve` og `codemate web`.
+Indstil `codemate_SERVER_PASSWORD` for at beskytte serveren med HTTP grundlæggende godkendelse. Brugernavnet er som standard `codemate`, eller indstil `codemate_SERVER_USERNAME` for at tilsidesætte det. Dette gælder både `codemate serve` og `codemate web`.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -65,7 +65,7 @@ codemate TUI kørende, vil `codemate serve` starte en ny server.
 
 Når du starter TUI, tildeler den tilfældigt en port og et værtsnavn. Du kan i stedet sende `--hostname` og `--port` [flagene](/docs/cli). Brug derefter disse til at forbinde til serveren.
 
-[`/tui`](#tui) endpointet kan bruges til at køre TUI gennem serveren. Du kan for eksempel forududfylde eller køre en forespørgsel. Denne opsætning bruges af Codemate [IDE](/docs/ide) plugins.
+[`/tui`](#tui) endpointet kan bruges til at køre TUI gennem serveren. Du kan for eksempel forududfylde eller køre en forespørgsel. Denne opsætning bruges af codemate [IDE](/docs/ide) plugins.
 
 ---
 
@@ -83,7 +83,7 @@ For eksempel `http://localhost:4096/doc`. Brug specifikationen til at generere k
 
 ## API'er
 
-Codemate-serveren viser følgende API'er.
+codemate-serveren viser følgende API'er.
 
 ---
 

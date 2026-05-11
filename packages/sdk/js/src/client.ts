@@ -2,8 +2,9 @@ export * from "./gen/types.gen.js"
 
 import { createClient } from "./gen/client/client.gen.js"
 import { type Config } from "./gen/client/types.gen.js"
-import { CodemateClient } from "./gen/sdk.gen.js"
-export { type Config as CodemateClientConfig, CodemateClient }
+import { codemateClient } from "./gen/sdk.gen.js"
+import { wrapClientError } from "./error-interceptor.js"
+export { type Config as codemateClientConfig, codemateClient }
 
 function pick(value: string | null, fallback?: string) {
   if (!value) return
@@ -29,7 +30,7 @@ function rewrite(request: Request, directory?: string) {
   return next
 }
 
-export function createCodemateClient(config?: Config & { directory?: string }) {
+export function createcodemateClient(config?: Config & { directory?: string }) {
   if (!config?.fetch) {
     const customFetch: any = (req: any) => {
       // @ts-ignore
@@ -51,5 +52,6 @@ export function createCodemateClient(config?: Config & { directory?: string }) {
 
   const client = createClient(config)
   client.interceptors.request.use((request) => rewrite(request, config?.directory))
-  return new CodemateClient({ client })
+  client.interceptors.error.use(wrapClientError)
+  return new codemateClient({ client })
 }

@@ -7,13 +7,13 @@ import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Go, popüler açık kodlama modellerine güvenilir erişim sağlayan düşük maliyetli bir aboneliktir — **ilk ayınız için 5$**, sonrasında **aylık 10$**.
+codemate Go, popüler açık kodlama modellerine güvenilir erişim sağlayan düşük maliyetli bir aboneliktir — **ilk ayınız için 5$**, sonrasında **aylık 10$**.
 
 :::note
-Codemate Go şu anda beta olarak mevcut.
+codemate Go şu anda beta olarak mevcut.
 :::
 
-Go, Codemate'daki diğer sağlayıcılar gibi çalışır. Codemate Go'ya abone olur ve API anahtarınızı alırsınız. Bu **tamamen isteğe bağlıdır** ve Codemate'u kullanmak için bunu kullanmanıza gerek yoktur.
+Go, codemate'daki diğer sağlayıcılar gibi çalışır. codemate Go'ya abone olur ve API anahtarınızı alırsınız. Bu **tamamen isteğe bağlıdır** ve codemate'u kullanmak için bunu kullanmanıza gerek yoktur.
 
 Dünya çapında istikrarlı erişim için ABD, AB ve Singapur'da barındırılan modellerle temel olarak uluslararası kullanıcılar için tasarlanmıştır.
 
@@ -26,7 +26,7 @@ Açık modeller gerçekten çok iyi hale geldi. Artık kodlama görevleri için 
 Ancak, bu modellere güvenilir, düşük gecikmeli erişim sağlamak zor olabilir. Sağlayıcılar kalite ve erişilebilirlik açısından farklılık gösterir.
 
 :::tip
-Codemate ile iyi çalışan seçili bir model ve sağlayıcı grubunu test ettik.
+codemate ile iyi çalışan seçili bir model ve sağlayıcı grubunu test ettik.
 :::
 
 Bunu çözmek için birkaç şey yaptık:
@@ -35,20 +35,20 @@ Bunu çözmek için birkaç şey yaptık:
 2. Ardından, bunların doğru şekilde sunulduğundan emin olmak için birkaç sağlayıcıyla birlikte çalıştık.
 3. Son olarak, model/sağlayıcı kombinasyonunu kıyasladık (benchmark) ve gönül rahatlığıyla önerebileceğimiz bir liste oluşturduk.
 
-Codemate Go, bu modellere **ilk ayınız için 5$**, ardından **aylık 10$** karşılığında erişmenizi sağlar.
+codemate Go, bu modellere **ilk ayınız için 5$**, ardından **aylık 10$** karşılığında erişmenizi sağlar.
 
 ---
 
 ## Nasıl çalışır?
 
-Codemate Go, Codemate'daki diğer sağlayıcılar gibi çalışır.
+codemate Go, codemate'daki diğer sağlayıcılar gibi çalışır.
 
-1. **<a href={console}>Codemate Zen</a>**'e giriş yapın, Go'ya abone olun ve API anahtarınızı kopyalayın.
-2. TUI'de `/connect` komutunu çalıştırın, `Codemate Go`yu seçin ve API anahtarınızı yapıştırın.
+1. **<a href={console}>codemate Zen</a>**'e giriş yapın, Go'ya abone olun ve API anahtarınızı kopyalayın.
+2. TUI'de `/connect` komutunu çalıştırın, `codemate Go`yu seçin ve API anahtarınızı yapıştırın.
 3. Go üzerinden kullanabileceğiniz modellerin listesini görmek için TUI'de `/models` komutunu çalıştırın.
 
 :::note
-Her çalışma alanından yalnızca bir üye Codemate Go'ya abone olabilir.
+Her çalışma alanından yalnızca bir üye codemate Go'ya abone olabilir.
 :::
 
 Mevcut model listesi şunları içerir:
@@ -57,10 +57,8 @@ Mevcut model listesi şunları içerir:
 - **GLM-5.1**
 - **Kimi K2.5**
 - **Kimi K2.6**
-- **MiMo-V2-Pro**
-- **MiMo-V2-Omni**
-- **MiMo-V2.5-Pro**
 - **MiMo-V2.5**
+- **MiMo-V2.5-Pro**
 - **MiniMax M2.5**
 - **Qwen3.5 Plus**
 - **Qwen3.6 Plus**
@@ -74,7 +72,7 @@ Test edip yenilerini ekledikçe model listesi değişebilir.
 
 ## Kullanım limitleri
 
-Codemate Go aşağıdaki limitleri içerir:
+codemate Go aşağıdaki limitleri içerir:
 
 - **5 saatlik limit** — 12$ kullanım
 - **Haftalık limit** — 30$ kullanım
@@ -90,10 +88,8 @@ Aşağıdaki tablo, tipik Go kullanım modellerine dayalı tahmini bir istek say
 | GLM-5              | 1,150              | 2,880          | 5,750       |
 | Kimi K2.5          | 1,850              | 4,630          | 9,250       |
 | Kimi K2.6          | 1,150              | 2,880          | 5,750       |
-| MiMo-V2-Pro        | 1,290              | 3,225          | 6,450       |
-| MiMo-V2-Omni       | 2,150              | 5,450          | 10,900      |
-| MiMo-V2.5-Pro      | 1,290              | 3,225          | 6,450       |
 | MiMo-V2.5 (≤ 256K) | 2,150              | 5,450          | 10,900      |
+| MiMo-V2.5-Pro      | 1,290              | 3,225          | 6,450       |
 | MiniMax M2.7       | 3,400              | 8,500          | 17,000      |
 | MiniMax M2.5       | 6,300              | 15,900         | 31,800      |
 | Qwen3.6 Plus       | 3,300              | 8,200          | 16,300      |
@@ -110,10 +106,8 @@ Tahminler, gözlemlenen ortalama istek modellerine dayanmaktadır:
 - MiniMax M2.7/M2.5 — İstek başına 300 girdi, 55.000 önbelleğe alınmış, 125 çıktı token'ı
 - Qwen3.5 Plus — İstek başına 410 girdi, 47.000 önbelleğe alınmış, 140 çıktı token'ı
 - Qwen3.6 Plus — İstek başına 500 girdi, 57.000 önbelleğe alınmış, 190 çıktı token'ı
-- MiMo-V2-Pro — İstek başına 350 girdi, 41.000 önbelleğe alınmış, 250 çıktı token'ı
-- MiMo-V2-Omni — İstek başına 1000 girdi, 60.000 önbelleğe alınmış, 140 çıktı token'ı
-- MiMo-V2.5-Pro — İstek başına 350 girdi, 41.000 önbelleğe alınmış, 250 çıktı token'ı
 - MiMo-V2.5 — İstek başına 1000 girdi, 60.000 önbelleğe alınmış, 140 çıktı token'ı
+- MiMo-V2.5-Pro — İstek başına 350 girdi, 41.000 önbelleğe alınmış, 250 çıktı token'ı
 
 Mevcut kullanımınızı **<a href={console}>konsoldan</a>** takip edebilirsiniz.
 
@@ -143,16 +137,14 @@ Go modellerine aşağıdaki API uç noktaları aracılığıyla da erişebilirsi
 | Kimi K2.6         | kimi-k2.6         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Pro   | deepseek-v4-pro   | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Flash | deepseek-v4-flash | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Pro       | mimo-v2-pro       | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Omni      | mimo-v2-omni      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiMo-V2.5         | mimo-v2.5         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
+| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiniMax M2.7      | minimax-m2.7      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | MiniMax M2.5      | minimax-m2.5      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | Qwen3.6 Plus      | qwen3.6-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 | Qwen3.5 Plus      | qwen3.5-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 
-Codemate yapılandırmanızdaki [model id](/docs/config/#models) formatı `codemate-go/<model-id>` şeklindedir. Örneğin, Kimi K2.6 için yapılandırmanızda `codemate-go/kimi-k2.6` kullanmalısınız.
+codemate yapılandırmanızdaki [model id](/docs/config/#models) formatı `codemate-go/<model-id>` şeklindedir. Örneğin, Kimi K2.6 için yapılandırmanızda `codemate-go/kimi-k2.6` kullanmalısınız.
 
 ---
 
@@ -174,9 +166,9 @@ Plan, öncelikle uluslararası kullanıcılar için tasarlanmıştır; dünya ge
 
 ## Hedefler
 
-Codemate Go'yu şu amaçlarla oluşturduk:
+codemate Go'yu şu amaçlarla oluşturduk:
 
 1. Düşük maliyetli bir abonelik ile yapay zeka destekli kodlamayı daha fazla kişi için **erişilebilir** kılmak.
 2. En iyi açık kodlama modellerine **güvenilir** erişim sağlamak.
 3. Kodlama aracısı (agent) kullanımı için **test edilmiş ve kıyaslanmış** modelleri bir araya getirmek.
-4. Codemate ile diğer sağlayıcıları da kullanmanıza olanak tanıyarak **kilitlenme (vendor lock-in) olmamasını** sağlamak.
+4. codemate ile diğer sağlayıcıları da kullanmanıza olanak tanıyarak **kilitlenme (vendor lock-in) olmamasını** sağlamak.

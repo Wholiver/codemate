@@ -28,7 +28,7 @@ jobs:
       - name: Run codemate
         uses: anomalyco/codemate/github@latest
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
-          CODEMATE_PERMISSION: '{"bash": "deny"}'
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
+          codemate_PERMISSION: '{"bash": "deny"}'
         with:
           model: codemate/claude-opus-4-5

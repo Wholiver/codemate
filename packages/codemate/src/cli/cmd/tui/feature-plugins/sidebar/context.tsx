@@ -1,5 +1,6 @@
 import type { AssistantMessage } from "@codemate-ai/sdk/v2"
-import type { TuiPlugin, TuiPluginApi, TuiPluginModule } from "@codemate-ai/plugin/tui"
+import type { TuiPlugin, TuiPluginApi } from "@codemate-ai/plugin/tui"
+import type { InternalTuiPlugin } from "../../plugin/internal"
 import { createMemo } from "solid-js"
 
 const id = "internal:sidebar-context"
@@ -55,7 +56,7 @@ const tui: TuiPlugin = async (api) => {
   })
 }
 
-const plugin: TuiPluginModule & { id: string } = {
+const plugin: InternalTuiPlugin = {
   id,
   tui,
 }

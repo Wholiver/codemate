@@ -5,9 +5,9 @@ description: Bruke codemate-terminalbrukergrensesnittet.
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Codemate gir et interaktivt terminalgrensesnitt (TUI) for å jobbe med prosjektene dine med en LLM.
+codemate gir et interaktivt terminalgrensesnitt (TUI) for å jobbe med prosjektene dine med en LLM.
 
-Å kjøre Codemate starter TUI for gjeldende katalog.
+Å kjøre codemate starter TUI for gjeldende katalog.
 
 ```bash
 codemate
@@ -57,7 +57,7 @@ Utdataene fra kommandoen legges til samtalen som et verktøyresultat.
 
 ## Kommandoer
 
-Når du bruker Codemate TUI, kan du skrive `/` etterfulgt av et kommandonavn for raskt å utføre handlinger. For eksempel:
+Når du bruker codemate TUI, kan du skrive `/` etterfulgt av et kommandonavn for raskt å utføre handlinger. For eksempel:
 
 ```bash frame="none"
 /help
@@ -71,7 +71,7 @@ Her er alle tilgjengelige slash-kommandoer:
 
 ### connect
 
-Legg til en leverandør til Codemate. Lar deg velge fra tilgjengelige leverandører og legge til deres API-nøkler.
+Legg til en leverandør til codemate. Lar deg velge fra tilgjengelige leverandører og legge til deres API-nøkler.
 
 ```bash frame="none"
 /connect
@@ -117,7 +117,7 @@ Veksle visning av verktøydetaljer.
 
 ### exit
 
-Avslutt Codemate. _Aliaser_: `/quit`, `/q`
+Avslutt codemate. _Aliaser_: `/quit`, `/q`
 
 ```bash frame="none"
 /exit
@@ -382,7 +382,7 @@ Dette er atskilt fra `codemate.json`, som konfigurerer server-/kjøretidsoppfør
 - `scroll_speed` - Styrer hvor raskt TUI ruller når du bruker rullekommandoer (minimum: `0.001`, støtter desimalverdier). Standard er `3`. **Merk: Dette ignoreres hvis `scroll_acceleration.enabled` er satt til `true`.**
 - `diff_style` - Kontrollerer diff-gjengivelse. `"auto"` tilpasser seg terminalbredden, `"stacked"` viser alltid en enkeltkolonneoppsett.
 
-Bruk `CODEMATE_TUI_CONFIG` for å laste en egendefinert TUI-konfigurasjonsbane.
+Bruk `codemate_TUI_CONFIG` for å laste en egendefinert TUI-konfigurasjonsbane.
 
 ---
 

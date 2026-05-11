@@ -1,7 +1,7 @@
 import { describe, test, expect } from "bun:test"
 import { Effect, Layer, FileSystem } from "effect"
 import { NodeFileSystem } from "@effect/platform-node"
-import { AppFileSystem } from "@opencode-ai/core/filesystem"
+import { AppFileSystem } from "@codemate-ai/core/filesystem"
 import { testEffect } from "../lib/effect"
 import path from "path"
 
@@ -61,6 +61,34 @@ describe("AppFileSystem", () => {
         const filesys = yield* FileSystem.FileSystem
         const tmp = yield* filesys.makeTempDirectoryScoped()
         expect(yield* fs.isFile(tmp)).toBe(false)
+      }),
+    )
+  })
+
+  describe("readFileStringSafe", () => {
+    it(
+      "returns file contents when file exists",
+      Effect.gen(function* () {
+        const fs = yield* AppFileSystem.Service
+        const filesys = yield* FileSystem.FileSystem
+        const tmp = yield* filesys.makeTempDirectoryScoped()
+        const file = path.join(tmp, "exists.txt")
+        yield* filesys.writeFileString(file, "hello")
+
+        const result = yield* fs.readFileStringSafe(file)
+        expect(result).toBe("hello")
+      }),
+    )
+
+    it(
+      "returns undefined for missing file (NotFound)",
+      Effect.gen(function* () {
+        const fs = yield* AppFileSystem.Service
+        const filesys = yield* FileSystem.FileSystem
+        const tmp = yield* filesys.makeTempDirectoryScoped()
+
+        const result = yield* fs.readFileStringSafe(path.join(tmp, "does-not-exist.txt"))
+        expect(result).toBeUndefined()
       }),
     )
   })

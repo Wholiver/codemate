@@ -1,15 +1,15 @@
 ---
 title: Formatters
-description: Codemate uses language specific formatters.
+description: codemate uses language specific formatters.
 ---
 
-Codemate automatically formats files after they are written or edited using language-specific formatters. This ensures that the code that is generated follows the code styles of your project.
+codemate can format files after they are written or edited using language-specific formatters. Formatters are disabled by default; enable them in your config before codemate will run them.
 
 ---
 
 ## Built-in
 
-Codemate comes with several built-in formatters for popular languages and frameworks. Below is a list of the formatters, supported file extensions, and commands or config options it needs.
+codemate comes with several built-in formatters for popular languages and frameworks. Below is a list of the formatters, supported file extensions, and commands or config options it needs.
 
 | Formatter            | Extensions                                                                                               | Requirements                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -40,25 +40,36 @@ Codemate comes with several built-in formatters for popular languages and framew
 | uv                   | .py, .pyi                                                                                                | `uv` command available                                                                                |
 | zig                  | .zig, .zon                                                                                               | `zig` command available                                                                               |
 
-So if your project has `prettier` in your `package.json`, Codemate will automatically use it.
+When formatters are enabled, codemate will use `prettier` for matching files if your project has `prettier` in `package.json`.
 
 ---
 
 ## How it works
 
-When Codemate writes or edits a file, it:
+When codemate writes or edits a file and formatters are enabled, it:
 
 1. Checks the file extension against all enabled formatters.
 2. Runs the appropriate formatter command on the file.
-3. Applies the formatting changes automatically.
+3. Applies the formatting changes.
 
-This process happens in the background, ensuring your code styles are maintained without any manual steps.
+This process happens in the background for enabled formatters.
 
 ---
 
 ## Configure
 
-You can customize formatters through the `formatter` section in your Codemate config.
+You can enable and customize formatters through the `formatter` section in your codemate config.
+
+To enable all built-in formatters, set `formatter` to `true`.
+
+```json title="codemate.json"
+{
+  "$schema": "https://codemate.ai/config.json",
+  "formatter": true
+}
+```
+
+Use an object to keep built-ins enabled while configuring overrides or custom formatters.
 
 ```json title="codemate.json"
 {
@@ -69,12 +80,12 @@ You can customize formatters through the `formatter` section in your Codemate co
 
 Each formatter configuration supports the following:
 
-| Property      | Type     | Description                                             |
-| ------------- | -------- | ------------------------------------------------------- |
-| `disabled`    | boolean  | Set this to `true` to disable the formatter             |
-| `command`     | string[] | The command to run for formatting                       |
-| `environment` | object   | Environment variables to set when running the formatter |
-| `extensions`  | string[] | File extensions this formatter should handle            |
+| Property      | Type     | Description                                                                                |
+| ------------- | -------- | ------------------------------------------------------------------------------------------ |
+| `disabled`    | boolean  | Set this to `true` to disable the formatter                                                |
+| `command`     | string[] | The command to run for formatting. Required for custom formatters; optional for built-ins. |
+| `environment` | object   | Environment variables to set when running the formatter                                    |
+| `extensions`  | string[] | File extensions this formatter should handle                                               |
 
 Let's look at some examples.
 
@@ -82,7 +93,7 @@ Let's look at some examples.
 
 ### Disabling formatters
 
-To disable **all** formatters globally, set `formatter` to `false`:
+If `formatter` is omitted, all formatters are disabled. To disable all formatters after another config enabled them, set `formatter` to `false`:
 
 ```json title="codemate.json" {3}
 {
@@ -108,7 +119,7 @@ To disable a **specific** formatter, set `disabled` to `true`:
 
 ### Custom formatters
 
-You can override the built-in formatters or add new ones by specifying the command, environment variables, and file extensions:
+You can configure built-in formatters with options like `environment` or `extensions`. To add a custom formatter, specify a `command` and `extensions`:
 
 ```json title="codemate.json" {4-14}
 {

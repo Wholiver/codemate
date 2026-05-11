@@ -1,7 +1,7 @@
 import path from "path"
 import { Effect, Layer, Record, Result, Schema, Context } from "effect"
-import { zod } from "@/util/effect-zod"
-import { NonNegativeInt } from "@/util/schema"
+import { zod } from "@codemate-ai/core/effect-zod"
+import { NonNegativeInt } from "@codemate-ai/core/schema"
 import { Global } from "@codemate-ai/core/global"
 import { AppFileSystem } from "@codemate-ai/core/filesystem"
 
@@ -57,9 +57,9 @@ export const layer = Layer.effect(
     const decode = Schema.decodeUnknownOption(Info)
 
     const all = Effect.fn("Auth.all")(function* () {
-      if (process.env.CODEMATE_AUTH_CONTENT) {
+      if (process.env.codemate_AUTH_CONTENT) {
         try {
-          return JSON.parse(process.env.CODEMATE_AUTH_CONTENT)
+          return JSON.parse(process.env.codemate_AUTH_CONTENT)
         } catch (err) {}
       }
 

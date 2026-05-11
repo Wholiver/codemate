@@ -171,7 +171,7 @@ export default function () {
           return (
             <>
               <Show when={info().title}>
-                <Title>{info().title} | Codemate</Title>
+                <Title>{info().title} | codemate</Title>
               </Show>
               <Meta name="description" content="codemate - The AI coding agent built for the terminal." />
               <Meta property="og:image" content={ogImage()} />

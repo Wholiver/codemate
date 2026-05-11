@@ -1,8 +1,14 @@
 {
   "$schema": "https://codemate.ai/config.json",
+  "provider": {},
   "permission": {
-    "planner": "allow",
-    "tool_search": "allow",
-    "tool_search_regex": "allow"
-  }
+    "edit": {
+      "packages/codemate/migration/*": "ask",
+    },
+  },
+  "mcp": {},
+  "tools": {
+    "github-triage": false,
+    "github-pr-search": false,
+  },
 }

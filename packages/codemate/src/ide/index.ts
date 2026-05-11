@@ -44,7 +44,7 @@ export function ide() {
 }
 
 export function alreadyInstalled() {
-  return process.env["CODEMATE_CALLER"] === "vscode" || process.env["CODEMATE_CALLER"] === "vscode-insiders"
+  return process.env["codemate_CALLER"] === "vscode" || process.env["codemate_CALLER"] === "vscode-insiders"
 }
 
 export async function install(ide: (typeof SUPPORTED_IDES)[number]["name"]) {

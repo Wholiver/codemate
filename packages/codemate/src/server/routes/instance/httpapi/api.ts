@@ -19,13 +19,19 @@ import { SessionApi } from "./groups/session"
 import { SyncApi } from "./groups/sync"
 import { TuiApi } from "./groups/tui"
 import { WorkspaceApi } from "./groups/workspace"
+import { V2Api } from "./groups/v2"
+import { Authorization } from "./middleware/authorization"
+import { SchemaErrorMiddleware } from "./middleware/schema-error"
 
-// SSE event schemas built from the same BusEvent/SyncEvent registries that
-// the Hono spec uses, so both specs emit identical Event/SyncEvent components.
+// SSE event schemas built from the BusEvent/SyncEvent registries.
 const EventSchema = Schema.Union(BusEvent.effectPayloads()).annotate({ identifier: "Event" })
 const SyncEventSchemas = SyncEvent.effectPayloads()
 
-export const RootHttpApi = HttpApi.make("codemate-root").addHttpApi(ControlApi).addHttpApi(GlobalApi)
+export const RootHttpApi = HttpApi.make("codemate-root")
+  .addHttpApi(ControlApi)
+  .addHttpApi(GlobalApi)
+  .middleware(SchemaErrorMiddleware)
+  .middleware(Authorization)
 
 export const InstanceHttpApi = HttpApi.make("codemate-instance")
   .addHttpApi(ConfigApi)
@@ -40,10 +46,12 @@ export const InstanceHttpApi = HttpApi.make("codemate-instance")
   .addHttpApi(ProviderApi)
   .addHttpApi(SessionApi)
   .addHttpApi(SyncApi)
+  .addHttpApi(V2Api)
   .addHttpApi(TuiApi)
   .addHttpApi(WorkspaceApi)
+  .middleware(SchemaErrorMiddleware)
 
-export const CodemateHttpApi = HttpApi.make("codemate")
+export const codemateHttpApi = HttpApi.make("codemate")
   .addHttpApi(RootHttpApi)
   .addHttpApi(EventApi)
   .addHttpApi(InstanceHttpApi)

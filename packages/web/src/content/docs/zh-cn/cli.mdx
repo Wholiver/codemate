@@ -1,17 +1,17 @@
 ---
 title: CLI
-description: Codemate CLI 选项和命令。
+description: codemate CLI 选项和命令。
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Codemate CLI 在不带任何参数运行时，默认启动 [TUI](/docs/tui)。
+codemate CLI 在不带任何参数运行时，默认启动 [TUI](/docs/tui)。
 
 ```bash
 codemate
 ```
 
-但它也接受本页面中记录的命令，使您可以通过编程方式与 Codemate 进行交互。
+但它也接受本页面中记录的命令，使您可以通过编程方式与 codemate 进行交互。
 
 ```bash
 codemate run "Explain how closures work in JavaScript"
@@ -21,7 +21,7 @@ codemate run "Explain how closures work in JavaScript"
 
 ### tui
 
-启动 Codemate 终端用户界面。
+启动 codemate 终端用户界面。
 
 ```bash
 codemate [project]
@@ -29,28 +29,28 @@ codemate [project]
 
 #### 标志
 
-| 标志         | 简写 | 描述                                                      |
-| ------------ | ---- | --------------------------------------------------------- |
-| `--continue` | `-c` | 继续上一个会话                                            |
-| `--session`  | `-s` | 要继续的会话 ID                                           |
-| `--fork`     |      | 继续时分叉会话（与 `--continue` 或 `--session` 配合使用） |
-| `--prompt`   |      | 要使用的提示词                                            |
-| `--model`    | `-m` | 要使用的模型，格式为 provider/model                       |
-| `--agent`    |      | 要使用的代理                                              |
-| `--port`     |      | 监听端口                                                  |
-| `--hostname` |      | 监听主机名                                                |
+| 标志                                     | 简写 | 描述                                                      |
+| ---------------------------------------- | ---- | --------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 继续上一个会话                                            |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 要继续的会话 ID                                           |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 继续时分叉会话（与 `--continue` 或 `--session` 配合使用） |
+| <nobr><code>{"--prompt"}</code></nobr>   |      | 要使用的提示词                                            |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | 要使用的模型，格式为 provider/model                       |
+| <nobr><code>{"--agent"}</code></nobr>    |      | 要使用的代理                                              |
+| <nobr><code>{"--port"}</code></nobr>     |      | 监听端口                                                  |
+| <nobr><code>{"--hostname"}</code></nobr> |      | 监听主机名                                                |
 
 ---
 
 ## 命令
 
-Codemate CLI 还提供以下命令。
+codemate CLI 还提供以下命令。
 
 ---
 
 ### agent
 
-管理 Codemate 的代理。
+管理 codemate 的代理。
 
 ```bash
 codemate agent [command]
@@ -60,13 +60,13 @@ codemate agent [command]
 
 ### attach
 
-将终端连接到已通过 `serve` 或 `web` 命令启动的 Codemate 后端服务器。
+将终端连接到已通过 `serve` 或 `web` 命令启动的 codemate 后端服务器。
 
 ```bash
 codemate attach [url]
 ```
 
-这允许将 TUI 与远程 Codemate 后端配合使用。例如：
+这允许将 TUI 与远程 codemate 后端配合使用。例如：
 
 ```bash
 # Start the backend server for web/mobile access
@@ -78,10 +78,14 @@ codemate attach http://10.20.30.40:4096
 
 #### 标志
 
-| 标志        | 简写 | 描述                |
-| ----------- | ---- | ------------------- |
-| `--dir`     |      | 启动 TUI 的工作目录 |
-| `--session` | `-s` | 要继续的会话 ID     |
+| 标志                                     | 简写 | 描述                                                                |
+| ---------------------------------------- | ---- | ------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |      | 启动 TUI 的工作目录                                                 |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 继续上一个会话                                                      |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 要继续的会话 ID                                                     |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 继续时派生会话（与 `--continue` 或 `--session` 一起使用）           |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本认证密码（默认使用 `codemate_SERVER_PASSWORD`）                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本认证用户名（默认使用 `codemate_SERVER_USERNAME` 或 `codemate`） |
 
 ---
 
@@ -119,13 +123,13 @@ codemate auth [command]
 
 #### login
 
-Codemate 基于 [Models.dev](https://models.dev) 的提供商列表运行，因此您可以使用 `codemate auth login` 为任何想要使用的提供商配置 API 密钥。密钥存储在 `~/.local/share/codemate/auth.json` 中。
+codemate 基于 [Models.dev](https://models.dev) 的提供商列表运行，因此您可以使用 `codemate auth login` 为任何想要使用的提供商配置 API 密钥。密钥存储在 `~/.local/share/codemate/auth.json` 中。
 
 ```bash
 codemate auth login
 ```
 
-Codemate 启动时会从凭据文件加载提供商信息，同时也会加载环境变量或项目中 `.env` 文件中定义的密钥。
+codemate 启动时会从凭据文件加载提供商信息，同时也会加载环境变量或项目中 `.env` 文件中定义的密钥。
 
 ---
 
@@ -187,10 +191,10 @@ codemate github run
 
 ##### 标志
 
-| 标志      | 描述                           |
-| --------- | ------------------------------ |
-| `--event` | 用于运行代理的 GitHub 模拟事件 |
-| `--token` | GitHub 个人访问令牌            |
+| 标志                                  | 描述                           |
+| ------------------------------------- | ------------------------------ |
+| <nobr><code>{"--event"}</code></nobr> | 用于运行代理的 GitHub 模拟事件 |
+| <nobr><code>{"--token"}</code></nobr> | GitHub 个人访问令牌            |
 
 ---
 
@@ -296,12 +300,12 @@ codemate models anthropic
 
 #### 标志
 
-| 标志        | 描述                                     |
-| ----------- | ---------------------------------------- |
-| `--refresh` | 从 models.dev 刷新模型缓存               |
-| `--verbose` | 使用更详细的模型输出（包含费用等元数据） |
+| 标志                                    | 描述                                     |
+| --------------------------------------- | ---------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | 从 models.dev 刷新模型缓存               |
+| <nobr><code>{"--verbose"}</code></nobr> | 使用更详细的模型输出（包含费用等元数据） |
 
-使用 `--refresh` 标志可以更新缓存的模型列表。当提供商新增了模型并且您希望在 Codemate 中看到它们时，此功能非常有用。
+使用 `--refresh` 标志可以更新缓存的模型列表。当提供商新增了模型并且您希望在 codemate 中看到它们时，此功能非常有用。
 
 ```bash
 codemate models --refresh
@@ -311,7 +315,7 @@ codemate models --refresh
 
 ### run
 
-以非交互模式运行 Codemate，直接传入提示词。
+以非交互模式运行 codemate，直接传入提示词。
 
 ```bash
 codemate run [message..]
@@ -335,47 +339,52 @@ codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 #### 标志
 
-| 标志         | 简写 | 描述                                                           |
-| ------------ | ---- | -------------------------------------------------------------- |
-| `--command`  |      | 要运行的命令，使用 message 作为参数                            |
-| `--continue` | `-c` | 继续上一个会话                                                 |
-| `--session`  | `-s` | 要继续的会话 ID                                                |
-| `--fork`     |      | 继续时分叉会话（与 `--continue` 或 `--session` 配合使用）      |
-| `--share`    |      | 分享会话                                                       |
-| `--model`    | `-m` | 要使用的模型，格式为 provider/model                            |
-| `--agent`    |      | 要使用的代理                                                   |
-| `--file`     | `-f` | 附加到消息的文件                                               |
-| `--format`   |      | 格式：default（格式化输出）或 json（原始 JSON 事件）           |
-| `--title`    |      | 会话标题（未提供值时使用截断的提示词）                         |
-| `--attach`   |      | 连接到正在运行的 codemate 服务器（例如 http://localhost:4096） |
-| `--port`     |      | 本地服务器端口（默认为随机端口）                               |
+| 标志                                     | 简写 | 描述                                                                |
+| ---------------------------------------- | ---- | ------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |      | 要运行的命令，使用 message 作为参数                                 |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 继续上一个会话                                                      |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 要继续的会话 ID                                                     |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 继续时分叉会话（与 `--continue` 或 `--session` 配合使用）           |
+| <nobr><code>{"--share"}</code></nobr>    |      | 分享会话                                                            |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | 要使用的模型，格式为 provider/model                                 |
+| <nobr><code>{"--agent"}</code></nobr>    |      | 要使用的代理                                                        |
+| <nobr><code>{"--file"}</code></nobr>     | `-f` | 附加到消息的文件                                                    |
+| <nobr><code>{"--format"}</code></nobr>   |      | 格式：default（格式化输出）或 json（原始 JSON 事件）                |
+| <nobr><code>{"--title"}</code></nobr>    |      | 会话标题（未提供值时使用截断的提示词）                              |
+| <nobr><code>{"--attach"}</code></nobr>   |      | 连接到正在运行的 codemate 服务器（例如 http://localhost:4096）      |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 基本认证密码（默认使用 `codemate_SERVER_PASSWORD`）                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 基本认证用户名（默认使用 `codemate_SERVER_USERNAME` 或 `codemate`） |
+| <nobr><code>{"--dir"}</code></nobr>      |      | 运行目录，或附加时远程服务器上的路径                                |
+| <nobr><code>{"--variant"}</code></nobr>  |      | 模型变体（特定于提供商的推理级别）                                  |
+| <nobr><code>{"--thinking"}</code></nobr> |      | 显示思考块                                                          |
+| <nobr><code>{"--port"}</code></nobr>     |      | 本地服务器端口（默认为随机端口）                                    |
 
 ---
 
 ### serve
 
-启动无界面的 Codemate 服务器以提供 API 访问。查看[服务器文档](/docs/server)了解完整的 HTTP 接口。
+启动无界面的 codemate 服务器以提供 API 访问。查看[服务器文档](/docs/server)了解完整的 HTTP 接口。
 
 ```bash
 codemate serve
 ```
 
-此命令启动一个 HTTP 服务器，提供对 Codemate 功能的 API 访问，无需 TUI 界面。设置 `CODEMATE_SERVER_PASSWORD` 可启用 HTTP 基本认证（用户名默认为 `codemate`）。
+此命令启动一个 HTTP 服务器，提供对 codemate 功能的 API 访问，无需 TUI 界面。设置 `codemate_SERVER_PASSWORD` 可启用 HTTP 基本认证（用户名默认为 `codemate`）。
 
 #### 标志
 
-| 标志         | 描述                       |
-| ------------ | -------------------------- |
-| `--port`     | 监听端口                   |
-| `--hostname` | 监听主机名                 |
-| `--mdns`     | 启用 mDNS 发现             |
-| `--cors`     | 允许 CORS 的额外浏览器来源 |
+| 标志                                     | 描述                       |
+| ---------------------------------------- | -------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | 监听端口                   |
+| <nobr><code>{"--hostname"}</code></nobr> | 监听主机名                 |
+| <nobr><code>{"--mdns"}</code></nobr>     | 启用 mDNS 发现             |
+| <nobr><code>{"--cors"}</code></nobr>     | 允许 CORS 的额外浏览器来源 |
 
 ---
 
 ### session
 
-管理 Codemate 会话。
+管理 codemate 会话。
 
 ```bash
 codemate session [command]
@@ -385,7 +394,7 @@ codemate session [command]
 
 #### list
 
-列出所有 Codemate 会话。
+列出所有 codemate 会话。
 
 ```bash
 codemate session list
@@ -393,16 +402,16 @@ codemate session list
 
 ##### 标志
 
-| 标志          | 简写 | 描述                                  |
-| ------------- | ---- | ------------------------------------- |
-| `--max-count` | `-n` | 限制为最近 N 个会话                   |
-| `--format`    |      | 输出格式：table 或 json（默认 table） |
+| 标志                                      | 简写 | 描述                                  |
+| ----------------------------------------- | ---- | ------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n` | 限制为最近 N 个会话                   |
+| <nobr><code>{"--format"}</code></nobr>    |      | 输出格式：table 或 json（默认 table） |
 
 ---
 
 ### stats
 
-显示 Codemate 会话的 Token 用量和费用统计信息。
+显示 codemate 会话的 Token 用量和费用统计信息。
 
 ```bash
 codemate stats
@@ -410,12 +419,12 @@ codemate stats
 
 #### 标志
 
-| 标志        | 描述                                                   |
-| ----------- | ------------------------------------------------------ |
-| `--days`    | 显示最近 N 天的统计信息（默认为所有时间）              |
-| `--tools`   | 显示的工具数量（默认为全部）                           |
-| `--models`  | 显示模型用量明细（默认隐藏）。传入数字可显示前 N 个    |
-| `--project` | 按项目筛选（默认为所有项目，传入空字符串表示当前项目） |
+| 标志                                    | 描述                                                   |
+| --------------------------------------- | ------------------------------------------------------ |
+| <nobr><code>{"--days"}</code></nobr>    | 显示最近 N 天的统计信息（默认为所有时间）              |
+| <nobr><code>{"--tools"}</code></nobr>   | 显示的工具数量（默认为全部）                           |
+| <nobr><code>{"--models"}</code></nobr>  | 显示模型用量明细（默认隐藏）。传入数字可显示前 N 个    |
+| <nobr><code>{"--project"}</code></nobr> | 按项目筛选（默认为所有项目，传入空字符串表示当前项目） |
 
 ---
 
@@ -433,13 +442,13 @@ codemate export [sessionID]
 
 ### import
 
-从 JSON 文件或 Codemate 分享链接导入会话数据。
+从 JSON 文件或 codemate 分享链接导入会话数据。
 
 ```bash
 codemate import <file>
 ```
 
-您可以从本地文件或 Codemate 分享链接导入。
+您可以从本地文件或 codemate 分享链接导入。
 
 ```bash
 codemate import session.json
@@ -450,22 +459,22 @@ codemate import https://opncd.ai/s/abc123
 
 ### web
 
-启动带有 Web 界面的无界面 Codemate 服务器。
+启动带有 Web 界面的无界面 codemate 服务器。
 
 ```bash
 codemate web
 ```
 
-此命令启动一个 HTTP 服务器并打开浏览器，通过 Web 界面访问 Codemate。设置 `CODEMATE_SERVER_PASSWORD` 可启用 HTTP 基本认证（用户名默认为 `codemate`）。
+此命令启动一个 HTTP 服务器并打开浏览器，通过 Web 界面访问 codemate。设置 `codemate_SERVER_PASSWORD` 可启用 HTTP 基本认证（用户名默认为 `codemate`）。
 
 #### 标志
 
-| 标志         | 描述                       |
-| ------------ | -------------------------- |
-| `--port`     | 监听端口                   |
-| `--hostname` | 监听主机名                 |
-| `--mdns`     | 启用 mDNS 发现             |
-| `--cors`     | 允许 CORS 的额外浏览器来源 |
+| 标志                                     | 描述                       |
+| ---------------------------------------- | -------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | 监听端口                   |
+| <nobr><code>{"--hostname"}</code></nobr> | 监听主机名                 |
+| <nobr><code>{"--mdns"}</code></nobr>     | 启用 mDNS 发现             |
+| <nobr><code>{"--cors"}</code></nobr>     | 允许 CORS 的额外浏览器来源 |
 
 ---
 
@@ -481,17 +490,17 @@ codemate acp
 
 #### 标志
 
-| 标志         | 描述       |
-| ------------ | ---------- |
-| `--cwd`      | 工作目录   |
-| `--port`     | 监听端口   |
-| `--hostname` | 监听主机名 |
+| 标志                                     | 描述       |
+| ---------------------------------------- | ---------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | 工作目录   |
+| <nobr><code>{"--port"}</code></nobr>     | 监听端口   |
+| <nobr><code>{"--hostname"}</code></nobr> | 监听主机名 |
 
 ---
 
 ### uninstall
 
-卸载 Codemate 并删除所有相关文件。
+卸载 codemate 并删除所有相关文件。
 
 ```bash
 codemate uninstall
@@ -499,18 +508,18 @@ codemate uninstall
 
 #### 标志
 
-| 标志            | 简写 | 描述                           |
-| --------------- | ---- | ------------------------------ |
-| `--keep-config` | `-c` | 保留配置文件                   |
-| `--keep-data`   | `-d` | 保留会话数据和快照             |
-| `--dry-run`     |      | 显示将被删除的内容但不实际删除 |
-| `--force`       | `-f` | 跳过确认提示                   |
+| 标志                                        | 简写 | 描述                           |
+| ------------------------------------------- | ---- | ------------------------------ |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c` | 保留配置文件                   |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d` | 保留会话数据和快照             |
+| <nobr><code>{"--dry-run"}</code></nobr>     |      | 显示将被删除的内容但不实际删除 |
+| <nobr><code>{"--force"}</code></nobr>       | `-f` | 跳过确认提示                   |
 
 ---
 
 ### upgrade
 
-将 Codemate 更新到最新版本或指定版本。
+将 codemate 更新到最新版本或指定版本。
 
 ```bash
 codemate upgrade [target]
@@ -530,55 +539,55 @@ codemate upgrade v0.1.48
 
 #### 标志
 
-| 标志       | 简写 | 描述                                       |
-| ---------- | ---- | ------------------------------------------ |
-| `--method` | `-m` | 使用的安装方式：curl、npm、pnpm、bun、brew |
+| 标志                                   | 简写 | 描述                                       |
+| -------------------------------------- | ---- | ------------------------------------------ |
+| <nobr><code>{"--method"}</code></nobr> | `-m` | 使用的安装方式：curl、npm、pnpm、bun、brew |
 
 ---
 
 ## 全局标志
 
-Codemate CLI 接受以下全局标志。
+codemate CLI 接受以下全局标志。
 
-| 标志           | 简写 | 描述                                 |
-| -------------- | ---- | ------------------------------------ |
-| `--help`       | `-h` | 显示帮助信息                         |
-| `--version`    | `-v` | 打印版本号                           |
-| `--print-logs` |      | 将日志输出到 stderr                  |
-| `--log-level`  |      | 日志级别（DEBUG、INFO、WARN、ERROR） |
+| 标志                                       | 简写 | 描述                                 |
+| ------------------------------------------ | ---- | ------------------------------------ |
+| <nobr><code>{"--help"}</code></nobr>       | `-h` | 显示帮助信息                         |
+| <nobr><code>{"--version"}</code></nobr>    | `-v` | 打印版本号                           |
+| <nobr><code>{"--print-logs"}</code></nobr> |      | 将日志输出到 stderr                  |
+| <nobr><code>{"--log-level"}</code></nobr>  |      | 日志级别（DEBUG、INFO、WARN、ERROR） |
 
 ---
 
 ## 环境变量
 
-Codemate 可以通过环境变量进行配置。
+codemate 可以通过环境变量进行配置。
 
 | 变量                                  | 类型    | 描述                                    |
 | ------------------------------------- | ------- | --------------------------------------- |
-| `CODEMATE_AUTO_SHARE`                 | boolean | 自动分享会话                            |
-| `CODEMATE_GIT_BASH_PATH`              | string  | Windows 上 Git Bash 可执行文件的路径    |
-| `CODEMATE_CONFIG`                     | string  | 配置文件路径                            |
-| `CODEMATE_TUI_CONFIG`                 | string  | TUI 配置文件路径                        |
-| `CODEMATE_CONFIG_DIR`                 | string  | 配置目录路径                            |
-| `CODEMATE_CONFIG_CONTENT`             | string  | 内联 JSON 配置内容                      |
-| `CODEMATE_DISABLE_AUTOUPDATE`         | boolean | 禁用自动更新检查                        |
-| `CODEMATE_DISABLE_PRUNE`              | boolean | 禁用旧数据清理                          |
-| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolean | 禁用自动终端标题更新                    |
-| `CODEMATE_PERMISSION`                 | string  | 内联 JSON 权限配置                      |
-| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolean | 禁用默认插件                            |
-| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolean | 禁用 LSP 服务器自动下载                 |
-| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolean | 启用实验性模型                          |
-| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolean | 禁用自动上下文压缩                      |
-| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolean | 禁用读取 `.claude`（提示词 + 技能）     |
-| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | 禁用读取 `~/.claude/CLAUDE.md`          |
-| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | 禁用加载 `.claude/skills`               |
-| `CODEMATE_DISABLE_MODELS_FETCH`       | boolean | 禁用从远程源获取模型                    |
-| `CODEMATE_FAKE_VCS`                   | string  | 用于测试目的的模拟 VCS 提供商           |
-| `CODEMATE_CLIENT`                     | string  | 客户端标识符（默认为 `cli`）            |
-| `CODEMATE_ENABLE_EXA`                 | boolean | 启用 Exa 网络搜索工具                   |
-| `CODEMATE_SERVER_PASSWORD`            | string  | 为 `serve`/`web` 启用基本认证           |
-| `CODEMATE_SERVER_USERNAME`            | string  | 覆盖基本认证用户名（默认为 `codemate`） |
-| `CODEMATE_MODELS_URL`                 | string  | 自定义模型配置获取 URL                  |
+| `codemate_AUTO_SHARE`                 | boolean | 自动分享会话                            |
+| `codemate_GIT_BASH_PATH`              | string  | Windows 上 Git Bash 可执行文件的路径    |
+| `codemate_CONFIG`                     | string  | 配置文件路径                            |
+| `codemate_TUI_CONFIG`                 | string  | TUI 配置文件路径                        |
+| `codemate_CONFIG_DIR`                 | string  | 配置目录路径                            |
+| `codemate_CONFIG_CONTENT`             | string  | 内联 JSON 配置内容                      |
+| `codemate_DISABLE_AUTOUPDATE`         | boolean | 禁用自动更新检查                        |
+| `codemate_DISABLE_PRUNE`              | boolean | 禁用旧数据清理                          |
+| `codemate_DISABLE_TERMINAL_TITLE`     | boolean | 禁用自动终端标题更新                    |
+| `codemate_PERMISSION`                 | string  | 内联 JSON 权限配置                      |
+| `codemate_DISABLE_DEFAULT_PLUGINS`    | boolean | 禁用默认插件                            |
+| `codemate_DISABLE_LSP_DOWNLOAD`       | boolean | 禁用 LSP 服务器自动下载                 |
+| `codemate_ENABLE_EXPERIMENTAL_MODELS` | boolean | 启用实验性模型                          |
+| `codemate_DISABLE_AUTOCOMPACT`        | boolean | 禁用自动上下文压缩                      |
+| `codemate_DISABLE_CLAUDE_CODE`        | boolean | 禁用读取 `.claude`（提示词 + 技能）     |
+| `codemate_DISABLE_CLAUDE_CODE_PROMPT` | boolean | 禁用读取 `~/.claude/CLAUDE.md`          |
+| `codemate_DISABLE_CLAUDE_CODE_SKILLS` | boolean | 禁用加载 `.claude/skills`               |
+| `codemate_DISABLE_MODELS_FETCH`       | boolean | 禁用从远程源获取模型                    |
+| `codemate_FAKE_VCS`                   | string  | 用于测试目的的模拟 VCS 提供商           |
+| `codemate_CLIENT`                     | string  | 客户端标识符（默认为 `cli`）            |
+| `codemate_ENABLE_EXA`                 | boolean | 启用 Exa 网络搜索工具                   |
+| `codemate_SERVER_PASSWORD`            | string  | 为 `serve`/`web` 启用基本认证           |
+| `codemate_SERVER_USERNAME`            | string  | 覆盖基本认证用户名（默认为 `codemate`） |
+| `codemate_MODELS_URL`                 | string  | 自定义模型配置获取 URL                  |
 
 ---
 
@@ -588,15 +597,15 @@ Codemate 可以通过环境变量进行配置。
 
 | 变量                                            | 类型    | 描述                            |
 | ----------------------------------------------- | ------- | ------------------------------- | --- | -------------------------------- | ------- | ------------------------ |
-| `CODEMATE_EXPERIMENTAL`                         | boolean | 启用所有实验性功能              |
-| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 启用图标发现                    |
-| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | 禁用 TUI 中的选中即复制         |
-| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 命令的默认超时时间（毫秒） |
-| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 响应的最大输出 Token 数     |
-| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolean | 启用整个目录的文件监听器        |
-| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolean | 启用 oxfmt 格式化器             |
-| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolean | 启用实验性 LSP 工具             |
-| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 禁用文件监听器                  |
-| `CODEMATE_EXPERIMENTAL_EXA`                     | boolean | 启用实验性 Exa 功能             |
-| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolean | 为 python 文件启用 TY LSP       |     | `CODEMATE_EXPERIMENTAL_MARKDOWN` | boolean | 启用实验性 Markdown 功能 |
-| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolean | 启用计划模式                    |
+| `codemate_EXPERIMENTAL`                         | boolean | 启用所有实验性功能              |
+| `codemate_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 启用图标发现                    |
+| `codemate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | 禁用 TUI 中的选中即复制         |
+| `codemate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 命令的默认超时时间（毫秒） |
+| `codemate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 响应的最大输出 Token 数     |
+| `codemate_EXPERIMENTAL_FILEWATCHER`             | boolean | 启用整个目录的文件监听器        |
+| `codemate_EXPERIMENTAL_OXFMT`                   | boolean | 启用 oxfmt 格式化器             |
+| `codemate_EXPERIMENTAL_LSP_TOOL`                | boolean | 启用实验性 LSP 工具             |
+| `codemate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 禁用文件监听器                  |
+| `codemate_EXPERIMENTAL_EXA`                     | boolean | 启用实验性 Exa 功能             |
+| `codemate_EXPERIMENTAL_LSP_TY`                  | boolean | 为 python 文件启用 TY LSP       |     | `codemate_EXPERIMENTAL_MARKDOWN` | boolean | 启用实验性 Markdown 功能 |
+| `codemate_EXPERIMENTAL_PLAN_MODE`               | boolean | 启用计划模式                    |

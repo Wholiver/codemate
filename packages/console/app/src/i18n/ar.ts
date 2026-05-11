@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "الرئيسية",
   "nav.openMenu": "فتح القائمة",
   "nav.getStartedFree": "ابدأ مجانا",
-  "nav.logoAlt": "Codemate",
+  "nav.logoAlt": "codemate",
 
   "nav.context.copyLogo": "نسخ الشعار كـ SVG",
   "nav.context.copyWordmark": "نسخ اسم العلامة كـ SVG",
@@ -81,9 +81,9 @@ export const dict = {
   "error.reloadAmountMin": "يجب أن يكون مبلغ الشحن ${{amount}} على الأقل",
   "error.reloadTriggerMin": "يجب أن يكون حد الرصيد ${{amount}} على الأقل",
 
-  "app.meta.description": "Codemate - وكيل البرمجة مفتوح المصدر.",
+  "app.meta.description": "codemate - وكيل البرمجة مفتوح المصدر.",
 
-  "home.title": "Codemate | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
+  "home.title": "codemate | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
 
   "temp.title": "codemate | وكيل برمجة بالذكاء الاصطناعي مبني للطرفية",
   "temp.hero.title": "وكيل البرمجة بالذكاء الاصطناعي المبني للطرفية",
@@ -96,8 +96,8 @@ export const dict = {
   "temp.feature.zen.afterLink": "مقدمة من codemate",
   "temp.feature.models.beforeLink": "يدعم أكثر من 75 مزود LLM من خلال",
   "temp.feature.models.afterLink": "، بما في ذلك النماذج المحلية",
-  "temp.screenshot.caption": "واجهة Codemate الطرفية مع سمة tokyonight",
-  "temp.screenshot.alt": "واجهة Codemate الطرفية بسمة tokyonight",
+  "temp.screenshot.caption": "واجهة codemate الطرفية مع سمة tokyonight",
+  "temp.screenshot.alt": "واجهة codemate الطرفية بسمة tokyonight",
   "temp.logoLightAlt": "شعار codemate الفاتح",
   "temp.logoDarkAlt": "شعار codemate الداكن",
 
@@ -113,8 +113,8 @@ export const dict = {
 
   "home.install.ariaLabel": "خيارات التثبيت",
 
-  "home.what.title": "ما هو Codemate؟",
-  "home.what.body": "Codemate وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
+  "home.what.title": "ما هو codemate؟",
+  "home.what.body": "codemate وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
   "home.what.lsp.title": "دعم LSP",
   "home.what.lsp.body": "يحمّل تلقائيًا موافقات LSP المناسبة للـ LLM",
   "home.what.multiSession.title": "جلسات متعددة",
@@ -133,50 +133,50 @@ export const dict = {
 
   "home.growth.title": "وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
   "home.growth.body":
-    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم Codemate ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
+    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم codemate ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
   "home.growth.githubStars": "نجوم GitHub",
   "home.growth.contributors": "المساهمون",
   "home.growth.monthlyDevs": "مطورون شهريًا",
 
   "home.privacy.title": "مصمم للخصوصية أولاً",
-  "home.privacy.body": "لا يخزّن Codemate أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
+  "home.privacy.body": "لا يخزّن codemate أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
   "home.privacy.learnMore": "اعرف المزيد عن",
   "home.privacy.link": "الخصوصية",
 
-  "home.faq.q1": "ما هو Codemate؟",
+  "home.faq.q1": "ما هو codemate؟",
   "home.faq.a1":
-    "Codemate وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
-  "home.faq.q2": "كيف أستخدم Codemate؟",
+    "codemate وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
+  "home.faq.q2": "كيف أستخدم codemate؟",
   "home.faq.a2.before": "أسهل طريقة للبدء هي قراءة",
   "home.faq.a2.link": "المقدمة",
-  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام Codemate؟",
+  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام codemate؟",
   "home.faq.a3.p1":
-    "ليس بالضرورة، فـ Codemate يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
+    "ليس بالضرورة، فـ codemate يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
   "home.faq.a3.p2.beforeZen": "وبخلاف ذلك، يمكنك استخدام أي من نماذج البرمجة الشائعة بإنشاء حساب",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن Codemate يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
+    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن codemate يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
   "home.faq.a3.p4.beforeLocal": "ويمكنك أيضًا ربط",
   "home.faq.a3.p4.localLink": "النماذج المحلية",
-  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع Codemate؟",
+  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع codemate؟",
   "home.faq.a4.p1":
-    "نعم، يدعم Codemate خطط الاشتراك من كل المزودين الرئيسيين. يمكنك استخدام اشتراكات Claude Pro/Max، ChatGPT Plus/Pro، أو GitHub Copilot.",
-  "home.faq.q5": "هل يمكنني استخدام Codemate في الطرفية فقط؟",
-  "home.faq.a5.beforeDesktop": "ليس بعد الآن! Codemate متاح الآن كتطبيق لـ",
+    "نعم، يدعم codemate خطط الاشتراك من كل المزودين الرئيسيين. يمكنك استخدام اشتراكات Claude Pro/Max، ChatGPT Plus/Pro، أو GitHub Copilot.",
+  "home.faq.q5": "هل يمكنني استخدام codemate في الطرفية فقط؟",
+  "home.faq.a5.beforeDesktop": "ليس بعد الآن! codemate متاح الآن كتطبيق لـ",
   "home.faq.a5.desktop": "سطح المكتب",
   "home.faq.a5.and": "و",
   "home.faq.a5.web": "الويب",
-  "home.faq.q6": "كم تكلفة Codemate؟",
+  "home.faq.q6": "كم تكلفة codemate؟",
   "home.faq.a6":
-    "Codemate مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
+    "codemate مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
   "home.faq.q7": "ماذا عن البيانات والخصوصية؟",
   "home.faq.a7.p1": "لا يتم تخزين بياناتك ومعلوماتك إلا عندما تستخدم نماذجنا المجانية أو تنشئ روابط قابلة للمشاركة.",
   "home.faq.a7.p2.beforeModels": "اعرف المزيد عن",
   "home.faq.a7.p2.modelsLink": "نماذجنا",
   "home.faq.a7.p2.and": "و",
   "home.faq.a7.p2.shareLink": "صفحات المشاركة",
-  "home.faq.q8": "هل Codemate مفتوح المصدر؟",
-  "home.faq.a8.p1": "نعم، Codemate مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
+  "home.faq.q8": "هل codemate مفتوح المصدر؟",
+  "home.faq.a8.p1": "نعم، codemate مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
   "home.faq.a8.p2": "بموجب",
   "home.faq.a8.mitLicense": "رخصة MIT",
   "home.faq.a8.p3":
@@ -184,23 +184,23 @@ export const dict = {
 
   "home.zenCta.title": "وصول لنماذج محسنة وموثوقة لوكلاء البرمجة",
   "home.zenCta.body":
-    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها Codemate وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
+    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها codemate وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
   "home.zenCta.link": "تعرف على Zen",
 
-  "zen.title": "Codemate Zen | مجموعة منسقة من النماذج المحسنة والموثوقة لوكلاء البرمجة",
+  "zen.title": "codemate Zen | مجموعة منسقة من النماذج المحسنة والموثوقة لوكلاء البرمجة",
   "zen.hero.title": "نماذج محسنة وموثوقة لوكلاء البرمجة",
   "zen.hero.body":
-    "يمنحك Zen الوصول إلى مجموعة منسقة من نماذج الذكاء الاصطناعي التي اختبرها Codemate وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة، استخدم نماذج محققة تعمل بكفاءة.",
+    "يمنحك Zen الوصول إلى مجموعة منسقة من نماذج الذكاء الاصطناعي التي اختبرها codemate وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة، استخدم نماذج محققة تعمل بكفاءة.",
 
-  "zen.faq.q1": "ما هو Codemate Zen؟",
+  "zen.faq.q1": "ما هو codemate Zen؟",
   "zen.faq.a1":
-    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ Codemate.",
+    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ codemate.",
   "zen.faq.q2": "ما الذي يجعل Zen أكثر دقة؟",
   "zen.faq.a2":
     "يوفر Zen فقط النماذج التي تم اختبارها وقياس أدائها خصيصًا لوكلاء البرمجة. لن تستخدم سكين زبدة لقطع شريحة لحم، فلا تستخدم نماذج ضعيفة للبرمجة.",
   "zen.faq.q3": "هل Zen أرخص؟",
   "zen.faq.a3":
-    "Zen ليس للربح. يمرر Zen التكاليف من مزودي النماذج إليك مباشرة. كلما زاد استخدام Zen، تمكن Codemate من التفاوض على أسعار أفضل وتمريرها إليك.",
+    "Zen ليس للربح. يمرر Zen التكاليف من مزودي النماذج إليك مباشرة. كلما زاد استخدام Zen، تمكن codemate من التفاوض على أسعار أفضل وتمريرها إليك.",
   "zen.faq.q4": "كم تكلفة Zen؟",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "يحاسب لكل طلب",
@@ -208,7 +208,7 @@ export const dict = {
   "zen.faq.a4.p2.beforeAccount": "تعتمد تكلفتك الإجمالية على الاستخدام، ويمكنك تعيين حدود إنفاق شهرية في",
   "zen.faq.a4.p2.accountLink": "حسابك",
   "zen.faq.a4.p3":
-    "لتغطية التكاليف، يضيف Codemate فقط رسومًا صغيرة لمعالجة الدفع قدرها 1.23 دولار لكل إعادة شحن رصيد بقيمة 20 دولارًا.",
+    "لتغطية التكاليف، يضيف codemate فقط رسومًا صغيرة لمعالجة الدفع قدرها 1.23 دولار لكل إعادة شحن رصيد بقيمة 20 دولارًا.",
   "zen.faq.q5": "ماذا عن البيانات والخصوصية؟",
   "zen.faq.a5.beforeExceptions":
     "تتم استضافة جميع نماذج Zen في الولايات المتحدة. يتبع المزودون سياسة عدم الاحتفاظ بالبيانات ولا يستخدمون بياناتك لتدريب النماذج، مع",
@@ -219,7 +219,7 @@ export const dict = {
   "zen.faq.a7": "نعم، يمكنك تعطيل الفوترة في أي وقت واستخدام رصيدك المتبقي.",
   "zen.faq.q8": "هل يمكنني استخدام Zen مع وكلاء برمجة آخرين؟",
   "zen.faq.a8":
-    "بينما يعمل Zen بشكل رائع مع Codemate، يمكنك استخدام Zen مع أي وكيل. اتبع تعليمات الإعداد في وكيل البرمجة المفضل لديك.",
+    "بينما يعمل Zen بشكل رائع مع codemate، يمكنك استخدام Zen مع أي وكيل. اتبع تعليمات الإعداد في وكيل البرمجة المفضل لديك.",
 
   "zen.cta.start": "ابدأ مع Zen",
   "zen.pricing.title": "أضف رصيد 20 دولار (دفع حسب الاستخدام)",
@@ -228,12 +228,12 @@ export const dict = {
   "zen.problem.title": "ما المشكلة التي يحلها Zen؟",
   "zen.problem.body":
     "هناك العديد من النماذج المتاحة، ولكن القليل منها فقط يعمل بشكل جيد مع وكلاء البرمجة. يقوم معظم مقدمي الخدمة بتكوينها بشكل مختلف مما يعطي نتائج متفاوتة.",
-  "zen.problem.subtitle": "نحن نعمل على إصلاح هذا للجميع، وليس فقط لمستخدمي Codemate.",
+  "zen.problem.subtitle": "نحن نعمل على إصلاح هذا للجميع، وليس فقط لمستخدمي codemate.",
   "zen.problem.item1": "اختبار نماذج مختارة واستشارة فرقها",
   "zen.problem.item2": "العمل مع مقدمي الخدمة لضمان تسليمها بشكل صحيح",
   "zen.problem.item3": "قياس أداء جميع مجموعات النماذج والمزودين التي نوصي بها",
   "zen.how.title": "كيف يعمل Zen",
-  "zen.how.body": "بينما نقترح عليك استخدام Zen مع Codemate، يمكنك استخدام Zen مع أي وكيل.",
+  "zen.how.body": "بينما نقترح عليك استخدام Zen مع codemate، يمكنك استخدام Zen مع أي وكيل.",
   "zen.how.step1.title": "سجّل وأضف رصيدًا بقيمة 20 دولارًا",
   "zen.how.step1.beforeLink": "اتبع",
   "zen.how.step1.link": "تعليمات الإعداد",
@@ -247,9 +247,9 @@ export const dict = {
     "تتم استضافة جميع نماذج Zen في الولايات المتحدة. يتبع المزودون سياسة عدم الاحتفاظ بالبيانات ولا يستخدمون بياناتك لتدريب النماذج، مع",
   "zen.privacy.exceptionsLink": "الاستثناءات التالية",
 
-  "go.title": "Codemate Go | نماذج برمجة منخفضة التكلفة للجميع",
+  "go.title": "codemate Go | نماذج برمجة منخفضة التكلفة للجميع",
   "go.meta.description":
-    "يبدأ Go من $5 للشهر الأول، ثم $10/شهر، مع حدود طلب سخية لمدة 5 ساعات لـ GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2-Pro وMiMo-V2-Omni وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash.",
+    "يبدأ Go من $5 للشهر الأول، ثم $10/شهر، مع حدود طلب سخية لمدة 5 ساعات لـ GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash.",
   "go.hero.title": "نماذج برمجة منخفضة التكلفة للجميع",
   "go.hero.body":
     "يجلب Go البرمجة الوكيلة للمبرمجين حول العالم. يوفر حدودًا سخية ووصولًا موثوقًا إلى أقوى النماذج مفتوحة المصدر، حتى تتمكن من البناء باستخدام وكلاء أقوياء دون القلق بشأن التكلفة أو التوفر.",
@@ -261,8 +261,6 @@ export const dict = {
   "go.cta.promo": "$5 للشهر الأول",
   "go.pricing.body":
     "استخدمه مع أي وكيل. $5 للشهر الأول، ثم $10/شهر. قم بزيادة الرصيد إذا لزم الأمر. الإلغاء في أي وقت.",
-  "go.banner.badge": "3x",
-  "go.banner.text": "Kimi K2.6: حد الاستخدام 3 أضعاف حتى 27 أبريل",
   "go.graph.free": "مجاني",
   "go.graph.freePill": "Big Pickle ونماذج مجانية",
   "go.graph.go": "Go",
@@ -273,7 +271,7 @@ export const dict = {
 
   "go.testimonials.brand.zen": "Zen",
   "go.testimonials.brand.go": "Go",
-  "go.testimonials.handle": "@Codemate",
+  "go.testimonials.handle": "@codemate",
   "go.testimonials.dax.name": "Dax Raad",
   "go.testimonials.dax.title": "الرئيس التنفيذي السابق، منتجات Terminal",
   "go.testimonials.dax.quoteAfter": "كان تغييرًا جذريًا في الحياة، إنه قرار لا يحتاج لتفكير.",
@@ -294,15 +292,15 @@ export const dict = {
   "go.testimonials.frank.quote": "أتمنى لو كنت لا أزال في Nvidia.",
   "go.problem.title": "ما المشكلة التي يحلها Go؟",
   "go.problem.body":
-    "نحن نركز على تقديم تجربة Codemate لأكبر عدد ممكن من الناس. Codemate Go هو اشتراك منخفض التكلفة: $5 للشهر الأول، ثم $10/شهر. يوفر حدودا سخية ووصولا موثوقا إلى نماذج المصدر المفتوح الأكثر قدرة.",
+    "نحن نركز على تقديم تجربة codemate لأكبر عدد ممكن من الناس. codemate Go هو اشتراك منخفض التكلفة: $5 للشهر الأول، ثم $10/شهر. يوفر حدودا سخية ووصولا موثوقا إلى نماذج المصدر المفتوح الأكثر قدرة.",
   "go.problem.subtitle": " ",
   "go.problem.item1": "أسعار اشتراك منخفضة التكلفة",
   "go.problem.item2": "حدود سخية ووصول موثوق",
   "go.problem.item3": "مصمم لأكبر عدد ممكن من المبرمجين",
   "go.problem.item4":
-    "يتضمن GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2-Pro وMiMo-V2-Omni وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash",
+    "يتضمن GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash",
   "go.how.title": "كيف يعمل Go",
-  "go.how.body": "يبدأ Go من $5 للشهر الأول، ثم $10/شهر. يمكنك استخدامه مع Codemate أو أي وكيل.",
+  "go.how.body": "يبدأ Go من $5 للشهر الأول، ثم $10/شهر. يمكنك استخدامه مع codemate أو أي وكيل.",
   "go.how.step1.title": "أنشئ حسابًا",
   "go.how.step1.beforeLink": "اتبع",
   "go.how.step1.link": "تعليمات الإعداد",
@@ -318,13 +316,13 @@ export const dict = {
   "go.privacy.beforeExceptions":
     "تتم استضافة نماذج Go في الولايات المتحدة. يتبع المزودون سياسة عدم الاحتفاظ بالبيانات ولا يستخدمون بياناتك لتدريب النماذج، مع",
   "go.privacy.exceptionsLink": "الاستثناءات التالية",
-  "go.faq.q1": "ما هو Codemate Go؟",
+  "go.faq.q1": "ما هو codemate Go؟",
   "go.faq.a1": "Go هو اشتراك منخفض التكلفة يمنحك وصولًا موثوقًا إلى نماذج مفتوحة المصدر قادرة على البرمجة الوكيلة.",
   "go.faq.q2": "ما النماذج التي يتضمنها Go؟",
   "go.faq.a2": "يتضمن Go النماذج المدرجة أدناه، مع حدود سخية وإتاحة موثوقة.",
   "go.faq.q3": "هل Go هو نفسه Zen؟",
   "go.faq.a3":
-    "لا. Zen هو الدفع حسب الاستخدام، بينما يبدأ Go من $5 للشهر الأول، ثم $10/شهر، مع حدود سخية ووصول موثوق إلى نماذج المصدر المفتوح GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2-Pro وMiMo-V2-Omni وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash.",
+    "لا. Zen هو الدفع حسب الاستخدام، بينما يبدأ Go من $5 للشهر الأول، ثم $10/شهر، مع حدود سخية ووصول موثوق إلى نماذج المصدر المفتوح GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash.",
   "go.faq.q4": "كم تكلفة Go؟",
   "go.faq.a4.p1.beforePricing": "تكلفة Go",
   "go.faq.a4.p1.pricingLink": "$5 للشهر الأول",
@@ -347,7 +345,7 @@ export const dict = {
 
   "go.faq.q9": "ما الفرق بين النماذج المجانية وGo؟",
   "go.faq.a9":
-    "تشمل النماذج المجانية Big Pickle بالإضافة إلى النماذج الترويجية المتاحة في ذلك الوقت، مع حصة 200 طلب/يوم. يتضمن Go نماذج GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2-Pro وMiMo-V2-Omni وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash مع حصص طلبات أعلى مطبقة عبر نوافذ متجددة (5 ساعات، أسبوعيًا، وشهريًا)، تعادل تقريبًا 12 دولارًا كل 5 ساعات، و30 دولارًا في الأسبوع، و60 دولارًا في الشهر (تختلف أعداد الطلبات الفعلية حسب النموذج والاستخدام).",
+    "تشمل النماذج المجانية Big Pickle بالإضافة إلى النماذج الترويجية المتاحة في ذلك الوقت، مع حصة 200 طلب/يوم. يتضمن Go نماذج GLM-5.1 وGLM-5 وKimi K2.5 وKimi K2.6 وMiMo-V2.5-Pro وMiMo-V2.5 وQwen3.5 Plus وQwen3.6 Plus وMiniMax M2.5 وMiniMax M2.7 وDeepSeek V4 Pro وDeepSeek V4 Flash مع حصص طلبات أعلى مطبقة عبر نوافذ متجددة (5 ساعات، أسبوعيًا، وشهريًا)، تعادل تقريبًا 12 دولارًا كل 5 ساعات، و30 دولارًا في الأسبوع، و60 دولارًا في الشهر (تختلف أعداد الطلبات الفعلية حسب النموذج والاستخدام).",
 
   "zen.api.error.rateLimitExceeded": "تم تجاوز حد الطلبات. يرجى المحاولة مرة أخرى لاحقًا.",
   "zen.api.error.modelNotSupported": "النموذج {{model}} غير مدعوم",
@@ -357,8 +355,12 @@ export const dict = {
   "zen.api.error.missingApiKey": "مفتاح API مفقود.",
   "zen.api.error.invalidApiKey": "مفتاح API غير صالح.",
   "zen.api.error.subscriptionQuotaExceeded": "تم تجاوز حصة الاشتراك. أعد المحاولة خلال {{retryIn}}.",
-  "zen.api.error.subscriptionQuotaExceededUseFreeModels":
-    "تم تجاوز حصة الاشتراك. يمكنك الاستمرار في استخدام النماذج المجانية.",
+  "zen.api.error.goSubscriptionRollingLimitExceeded":
+    "تم الوصول إلى حد الاستخدام لمدة 5 ساعات. تتم إعادة التعيين خلال {{retryIn}}. لمواصلة استخدام هذا النموذج الآن، فعّل الاستخدام من رصيدك المتاح: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionWeeklyLimitExceeded":
+    "تم الوصول إلى حد الاستخدام الأسبوعي. تتم إعادة التعيين خلال {{retryIn}}. لمواصلة استخدام هذا النموذج الآن، فعّل الاستخدام من رصيدك المتاح: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionMonthlyLimitExceeded":
+    "تم الوصول إلى حد الاستخدام الشهري. تتم إعادة التعيين خلال {{retryIn}}. لمواصلة استخدام هذا النموذج الآن، فعّل الاستخدام من رصيدك المتاح: {{consoleGoUrl}}",
   "zen.api.error.noPaymentMethod": "لا توجد طريقة دفع. أضف طريقة دفع هنا: {{billingUrl}}",
   "zen.api.error.insufficientBalance": "رصيد غير كاف. إدارة فواتيرك هنا: {{billingUrl}}",
   "zen.api.error.workspaceMonthlyLimitReached":
@@ -367,13 +369,13 @@ export const dict = {
     "لقد وصلت إلى حد الإنفاق الشهري البالغ ${{amount}}. إدارة حدودك هنا: {{membersUrl}}",
   "zen.api.error.modelDisabled": "النموذج معطل",
   "zen.api.error.trialEnded":
-    "انتهى العرض المجاني لـ {{model}}. يمكنك مواصلة استخدام النموذج بالاشتراك في Codemate Go - {{link}}",
+    "انتهى العرض المجاني لـ {{model}}. يمكنك مواصلة استخدام النموذج بالاشتراك في codemate Go - {{link}}",
 
-  "black.meta.title": "Codemate Black | الوصول إلى أفضل نماذج البرمجة في العالم",
-  "black.meta.description": "احصل على وصول إلى Claude، GPT، Gemini والمزيد مع خطط اشتراك Codemate Black.",
+  "black.meta.title": "codemate Black | الوصول إلى أفضل نماذج البرمجة في العالم",
+  "black.meta.description": "احصل على وصول إلى Claude، GPT، Gemini والمزيد مع خطط اشتراك codemate Black.",
   "black.hero.title": "الوصول إلى أفضل نماذج البرمجة في العالم",
   "black.hero.subtitle": "بما في ذلك Claude، GPT، Gemini والمزيد",
-  "black.title": "Codemate Black | الأسعار",
+  "black.title": "codemate Black | الأسعار",
   "black.paused": "التسجيل في خطة Black متوقف مؤقتًا.",
   "black.plan.icon20": "خطة Black 20",
   "black.plan.icon100": "خطة Black 100",
@@ -392,10 +394,10 @@ export const dict = {
   "black.action.continue": "متابعة",
   "black.finePrint.beforeTerms": "الأسعار المعروضة لا تشمل الضرائب المطبقة",
   "black.finePrint.terms": "شروط الخدمة",
-  "black.workspace.title": "Codemate Black | اختر مساحة العمل",
+  "black.workspace.title": "codemate Black | اختر مساحة العمل",
   "black.workspace.selectPlan": "اختر مساحة عمل لهذه الخطة",
   "black.workspace.name": "مساحة العمل {{n}}",
-  "black.subscribe.title": "اشترك في Codemate Black",
+  "black.subscribe.title": "اشترك في codemate Black",
   "black.subscribe.paymentMethod": "طريقة الدفع",
   "black.subscribe.loadingPaymentForm": "جارٍ تحميل نموذج الدفع...",
   "black.subscribe.selectWorkspaceToContinue": "اختر مساحة عمل للمتابعة",
@@ -407,9 +409,9 @@ export const dict = {
   "black.subscribe.processing": "جارٍ المعالجة...",
   "black.subscribe.submit": "اشترك بمبلغ ${{plan}}",
   "black.subscribe.form.chargeNotice": "لن يتم خصم المبلغ إلا عند تفعيل اشتراكك",
-  "black.subscribe.success.title": "أنت في قائمة انتظار Codemate Black",
+  "black.subscribe.success.title": "أنت في قائمة انتظار codemate Black",
   "black.subscribe.success.subscriptionPlan": "خطة الاشتراك",
-  "black.subscribe.success.planName": "Codemate Black {{plan}}",
+  "black.subscribe.success.planName": "codemate Black {{plan}}",
   "black.subscribe.success.amount": "المبلغ",
   "black.subscribe.success.amountValue": "${{plan}} شهريًا",
   "black.subscribe.success.paymentMethod": "طريقة الدفع",
@@ -609,15 +611,15 @@ export const dict = {
   "workspace.black.time.minutes": "دقائق",
   "workspace.black.time.fewSeconds": "بضع ثوان",
   "workspace.black.subscription.title": "الاشتراك",
-  "workspace.black.subscription.message": "أنت مشترك في Codemate Black مقابل ${{plan}} شهريًا.",
+  "workspace.black.subscription.message": "أنت مشترك في codemate Black مقابل ${{plan}} شهريًا.",
   "workspace.black.subscription.manage": "إدارة الاشتراك",
   "workspace.black.subscription.rollingUsage": "استخدام لمدة 5 ساعات",
   "workspace.black.subscription.weeklyUsage": "الاستخدام الأسبوعي",
   "workspace.black.subscription.resetsIn": "إعادة تعيين في",
   "workspace.black.subscription.useBalance": "استخدم رصيدك المتوفر بعد الوصول إلى حدود الاستخدام",
   "workspace.black.waitlist.title": "قائمة الانتظار",
-  "workspace.black.waitlist.joined": "أنت في قائمة الانتظار لخطة Codemate Black بقيمة ${{plan}} شهريًا.",
-  "workspace.black.waitlist.ready": "نحن مستعدون لتسجيلك في خطة Codemate Black بقيمة ${{plan}} شهريًا.",
+  "workspace.black.waitlist.joined": "أنت في قائمة الانتظار لخطة codemate Black بقيمة ${{plan}} شهريًا.",
+  "workspace.black.waitlist.ready": "نحن مستعدون لتسجيلك في خطة codemate Black بقيمة ${{plan}} شهريًا.",
   "workspace.black.waitlist.leave": "ترك قائمة الانتظار",
   "workspace.black.waitlist.leaving": "جارٍ المغادرة...",
   "workspace.black.waitlist.left": "غادر",
@@ -634,7 +636,7 @@ export const dict = {
   "workspace.lite.time.minute": "دقيقة",
   "workspace.lite.time.minutes": "دقائق",
   "workspace.lite.time.fewSeconds": "بضع ثوان",
-  "workspace.lite.subscription.message": "أنت مشترك في Codemate Go.",
+  "workspace.lite.subscription.message": "أنت مشترك في codemate Go.",
   "workspace.lite.subscription.manage": "إدارة الاشتراك",
   "workspace.lite.subscription.rollingUsage": "الاستخدام المتجدد",
   "workspace.lite.subscription.weeklyUsage": "الاستخدام الأسبوعي",
@@ -642,13 +644,13 @@ export const dict = {
   "workspace.lite.subscription.resetsIn": "إعادة تعيين في",
   "workspace.lite.subscription.useBalance": "استخدم رصيدك المتوفر بعد الوصول إلى حدود الاستخدام",
   "workspace.lite.subscription.selectProvider":
-    'اختر "Codemate Go" كمزود في إعدادات codemate الخاصة بك لاستخدام نماذج Go.',
+    'اختر "codemate Go" كمزود في إعدادات codemate الخاصة بك لاستخدام نماذج Go.',
   "workspace.lite.black.message":
-    "أنت مشترك حاليًا في Codemate Black أو في قائمة الانتظار. يرجى إلغاء الاشتراك أولاً إذا كنت ترغب في التبديل إلى Go.",
+    "أنت مشترك حاليًا في codemate Black أو في قائمة الانتظار. يرجى إلغاء الاشتراك أولاً إذا كنت ترغب في التبديل إلى Go.",
   "workspace.lite.other.message":
-    "عضو آخر في مساحة العمل هذه مشترك بالفعل في Codemate Go. يمكن لعضو واحد فقط لكل مساحة عمل الاشتراك.",
+    "عضو آخر في مساحة العمل هذه مشترك بالفعل في codemate Go. يمكن لعضو واحد فقط لكل مساحة عمل الاشتراك.",
   "workspace.lite.promo.description":
-    "يبدأ Codemate Go بسعر {{price}}، ثم $10/شهر، ويوفر وصولا موثوقا لنماذج البرمجة المفتوحة الشهيرة مع حدود استخدام سخية.",
+    "يبدأ codemate Go بسعر {{price}}، ثم $10/شهر، ويوفر وصولا موثوقا لنماذج البرمجة المفتوحة الشهيرة مع حدود استخدام سخية.",
   "workspace.lite.promo.price": "$5 للشهر الأول",
   "workspace.lite.promo.modelsTitle": "ما يتضمنه",
   "workspace.lite.promo.footer":
@@ -658,15 +660,15 @@ export const dict = {
   "workspace.lite.promo.otherMethods": "طرق دفع أخرى",
   "workspace.lite.promo.selectMethod": "اختر طريقة الدفع",
 
-  "download.title": "Codemate | تنزيل",
-  "download.meta.description": "نزّل Codemate لـ macOS، Windows، وLinux",
-  "download.hero.title": "تنزيل Codemate",
+  "download.title": "codemate | تنزيل",
+  "download.meta.description": "نزّل codemate لـ macOS، Windows، وLinux",
+  "download.hero.title": "تنزيل codemate",
   "download.hero.subtitle": "متاح في نسخة تجريبية لـ macOS، Windows، وLinux",
   "download.hero.button": "تنزيل لـ {{os}}",
-  "download.section.terminal": "Codemate للطرفية",
-  "download.section.desktop": "Codemate لسطح المكتب (Beta)",
-  "download.section.extensions": "امتدادات Codemate",
-  "download.section.integrations": "تكاملات Codemate",
+  "download.section.terminal": "codemate للطرفية",
+  "download.section.desktop": "codemate لسطح المكتب (Beta)",
+  "download.section.extensions": "امتدادات codemate",
+  "download.section.integrations": "تكاملات codemate",
   "download.action.download": "تنزيل",
   "download.action.install": "تثبيت",
 
@@ -677,25 +679,25 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "ليس بالضرورة، ولكن على الأرجح. ستحتاج إلى اشتراك ذكاء اصطناعي إذا كنت تريد ربط Codemate بمزوّد مدفوع، رغم أنه يمكنك العمل مع",
+    "ليس بالضرورة، ولكن على الأرجح. ستحتاج إلى اشتراك ذكاء اصطناعي إذا كنت تريد ربط codemate بمزوّد مدفوع، رغم أنه يمكنك العمل مع",
   "download.faq.a3.localLink": "النماذج المحلية",
   "download.faq.a3.afterLocal.beforeZen": "مجانًا. بينما نشجع المستخدمين على استخدام",
-  "download.faq.a3.afterZen": "، فإن Codemate يعمل مع جميع المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
+  "download.faq.a3.afterZen": "، فإن codemate يعمل مع جميع المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
 
-  "download.faq.a5.p1": "Codemate مجاني 100% للاستخدام.",
+  "download.faq.a5.p1": "codemate مجاني 100% للاستخدام.",
   "download.faq.a5.p2.beforeZen":
-    "أي تكاليف إضافية ستأتي من اشتراكك لدى مزود النماذج. بينما يعمل Codemate مع أي مزود نماذج، نوصي باستخدام",
+    "أي تكاليف إضافية ستأتي من اشتراكك لدى مزود النماذج. بينما يعمل codemate مع أي مزود نماذج، نوصي باستخدام",
   "download.faq.a5.p2.afterZen": ".",
 
-  "download.faq.a6.p1": "يتم حفظ بياناتك ومعلوماتك فقط عند إنشاء روابط قابلة للمشاركة في Codemate.",
+  "download.faq.a6.p1": "يتم حفظ بياناتك ومعلوماتك فقط عند إنشاء روابط قابلة للمشاركة في codemate.",
   "download.faq.a6.p2.beforeShare": "اعرف المزيد عن",
   "download.faq.a6.shareLink": "صفحات المشاركة",
 
-  "enterprise.title": "Codemate | حلول المؤسسات لمنظمتك",
-  "enterprise.meta.description": "تواصل مع Codemate لحلول المؤسسات",
+  "enterprise.title": "codemate | حلول المؤسسات لمنظمتك",
+  "enterprise.meta.description": "تواصل مع codemate لحلول المؤسسات",
   "enterprise.hero.title": "كودك ملكك",
   "enterprise.hero.body1":
-    "يعمل Codemate بأمان داخل مؤسستك دون تخزين أي بيانات أو سياق، ودون قيود ترخيص أو مطالبات ملكية. ابدأ تجربة مع فريقك، ثم انشره عبر مؤسستك من خلال دمجه مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
+    "يعمل codemate بأمان داخل مؤسستك دون تخزين أي بيانات أو سياق، ودون قيود ترخيص أو مطالبات ملكية. ابدأ تجربة مع فريقك، ثم انشره عبر مؤسستك من خلال دمجه مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
   "enterprise.hero.body2": "أخبرنا كيف يمكننا المساعدة.",
   "enterprise.form.name.label": "الاسم الكامل",
   "enterprise.form.name.placeholder": "جيف بيزوس",
@@ -717,29 +719,29 @@ export const dict = {
   "enterprise.form.error.invalidEmailFormat": "تنسيق البريد الإلكتروني غير صالح.",
   "enterprise.form.error.internalServer": "خطأ داخلي في الخادم.",
   "enterprise.faq.title": "الأسئلة الشائعة",
-  "enterprise.faq.q1": "ما هو Codemate Enterprise؟",
+  "enterprise.faq.q1": "ما هو codemate Enterprise؟",
   "enterprise.faq.a1":
-    "Codemate Enterprise مخصص للمؤسسات التي تريد التأكد من أن الكود والبيانات لا تغادر بنيتها التحتية أبدًا. يتحقق ذلك عبر استخدام تكوين مركزي يندمج مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
-  "enterprise.faq.q2": "كيف أبدأ مع Codemate Enterprise؟",
+    "codemate Enterprise مخصص للمؤسسات التي تريد التأكد من أن الكود والبيانات لا تغادر بنيتها التحتية أبدًا. يتحقق ذلك عبر استخدام تكوين مركزي يندمج مع SSO وبوابة الذكاء الاصطناعي الداخلية لديك.",
+  "enterprise.faq.q2": "كيف أبدأ مع codemate Enterprise؟",
   "enterprise.faq.a2":
-    "ابدأ ببساطة بتجربة داخلية مع فريقك. افتراضيًا، لا يقوم Codemate بتخزين الكود أو بيانات السياق، مما يجعل البدء سهلاً. ثم اتصل بنا لمناقشة الأسعار وخيارات التنفيذ.",
+    "ابدأ ببساطة بتجربة داخلية مع فريقك. افتراضيًا، لا يقوم codemate بتخزين الكود أو بيانات السياق، مما يجعل البدء سهلاً. ثم اتصل بنا لمناقشة الأسعار وخيارات التنفيذ.",
   "enterprise.faq.q3": "كيف تعمل تسعيرة المؤسسات؟",
   "enterprise.faq.a3":
     "نقدم تسعيرًا للمؤسسات حسب المقعد. إذا كان لديك بوابة LLM خاصة بك، فلن نفرض رسومًا على التوكنات المستخدمة. لمزيد من التفاصيل، اتصل بنا للحصول على عرض سعر مخصص بناءً على احتياجات مؤسستك.",
-  "enterprise.faq.q4": "هل بياناتي آمنة مع Codemate Enterprise؟",
+  "enterprise.faq.q4": "هل بياناتي آمنة مع codemate Enterprise؟",
   "enterprise.faq.a4":
-    "نعم. لا يقوم Codemate بتخزين الكود أو بيانات السياق. تتم جميع المعالجة محليًا أو عبر استدعاءات API مباشرة إلى مزود الذكاء الاصطناعي لديك. مع التكوين المركزي وتكامل SSO، تظل بياناتك آمنة داخل البنية التحتية لمؤسستك.",
+    "نعم. لا يقوم codemate بتخزين الكود أو بيانات السياق. تتم جميع المعالجة محليًا أو عبر استدعاءات API مباشرة إلى مزود الذكاء الاصطناعي لديك. مع التكوين المركزي وتكامل SSO، تظل بياناتك آمنة داخل البنية التحتية لمؤسستك.",
 
-  "brand.title": "Codemate | العلامة التجارية",
-  "brand.meta.description": "إرشادات العلامة التجارية لـ Codemate",
+  "brand.title": "codemate | العلامة التجارية",
+  "brand.meta.description": "إرشادات العلامة التجارية لـ codemate",
   "brand.heading": "إرشادات العلامة التجارية",
-  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ Codemate.",
+  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ codemate.",
   "brand.downloadAll": "تنزيل جميع الأصول",
 
-  "changelog.title": "Codemate | سجل التغييرات",
-  "changelog.meta.description": "ملاحظات الإصدار وسجل التغييرات لـ Codemate",
+  "changelog.title": "codemate | سجل التغييرات",
+  "changelog.meta.description": "ملاحظات الإصدار وسجل التغييرات لـ codemate",
   "changelog.hero.title": "سجل التغييرات",
-  "changelog.hero.subtitle": "تحديثات وتحسينات جديدة لـ Codemate",
+  "changelog.hero.subtitle": "تحديثات وتحسينات جديدة لـ codemate",
   "changelog.empty": "لم يتم العثور على مدخلات في سجل التغييرات.",
   "changelog.viewJson": "عرض JSON",
 

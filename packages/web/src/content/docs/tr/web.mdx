@@ -18,7 +18,7 @@ codemate web
 Bu, `127.0.0.1` üzerinde rastgele kullanılabilir bir bağlantı noktasına sahip yerel bir sunucuyu başlatır ve codemate'u varsayılan tarayıcınızda otomatik olarak açar.
 
 :::caution
-`CODEMATE_SERVER_PASSWORD` ayarlanmadıysa sunucunun güvenliği kaldırılacaktır. Bu, yerel kullanım için iyidir ancak ağ erişimi için ayarlanmalıdır.
+`codemate_SERVER_PASSWORD` ayarlanmadıysa sunucunun güvenliği kaldırılacaktır. Bu, yerel kullanım için iyidir ancak ağ erişimi için ayarlanmalıdır.
 :::
 
 :::tip[Windows Kullanıcıları]
@@ -80,13 +80,13 @@ codemate web --cors https://example.com
 
 ### Kimlik Doğrulaması
 
-Erişimi korumak için `CODEMATE_SERVER_PASSWORD` ortam değişkenini kullanarak bir parola ayarlayın:
+Erişimi korumak için `codemate_SERVER_PASSWORD` ortam değişkenini kullanarak bir parola ayarlayın:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-Kullanıcı adı varsayılan olarak `codemate` şeklindedir ancak `CODEMATE_SERVER_USERNAME` ile değiştirilebilir.
+Kullanıcı adı varsayılan olarak `codemate` şeklindedir ancak `codemate_SERVER_USERNAME` ile değiştirilebilir.
 
 ---
 

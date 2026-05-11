@@ -76,7 +76,7 @@ Since this isn't committed to Git or shared with your team, we recommend using t
 
 ### Claude Code Compatibility
 
-For users migrating from Claude Code, Codemate supports Claude Code's file conventions as fallbacks:
+For users migrating from Claude Code, codemate supports Claude Code's file conventions as fallbacks:
 
 - **Project rules**: `CLAUDE.md` in your project directory (used if no `AGENTS.md` exists)
 - **Global rules**: `~/.claude/CLAUDE.md` (used if no `~/.config/codemate/AGENTS.md` exists)
@@ -85,9 +85,9 @@ For users migrating from Claude Code, Codemate supports Claude Code's file conve
 To disable Claude Code compatibility, set one of these environment variables:
 
 ```bash
-export CODEMATE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export CODEMATE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export CODEMATE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export codemate_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export codemate_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export codemate_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---

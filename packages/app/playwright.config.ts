@@ -31,8 +31,8 @@ export default defineConfig({
     reuseExistingServer: reuse,
     timeout: 120_000,
     env: {
-      VITE_CODEMATE_SERVER_HOST: serverHost,
-      VITE_CODEMATE_SERVER_PORT: serverPort,
+      VITE_codemate_SERVER_HOST: serverHost,
+      VITE_codemate_SERVER_PORT: serverPort,
     },
   },
   use: {

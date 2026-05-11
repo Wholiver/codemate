@@ -1,11 +1,11 @@
 ---
 title: Web
-description: Verwenden Sie Codemate in Ihrem Browser.
+description: Verwenden Sie codemate in Ihrem Browser.
 ---
 
-Codemate kann als Webanwendung in Ihrem Browser ausgeführt werden und bietet das gleiche leistungsstarke KI-Codierungserlebnis, ohne dass ein Terminal erforderlich ist.
+codemate kann als Webanwendung in Ihrem Browser ausgeführt werden und bietet das gleiche leistungsstarke KI-Codierungserlebnis, ohne dass ein Terminal erforderlich ist.
 
-![Codemate Web – Neue Sitzung](../../../assets/web/web-homepage-new-session.png)
+![codemate Web – Neue Sitzung](../../../assets/web/web-homepage-new-session.png)
 
 ## Erste Schritte
 
@@ -15,10 +15,10 @@ Starten Sie die Weboberfläche, indem Sie Folgendes ausführen:
 codemate web
 ```
 
-Dadurch wird ein lokaler Server auf `127.0.0.1` mit einem zufällig verfügbaren Port gestartet und Codemate automatisch in Ihrem Standardbrowser geöffnet.
+Dadurch wird ein lokaler Server auf `127.0.0.1` mit einem zufällig verfügbaren Port gestartet und codemate automatisch in Ihrem Standardbrowser geöffnet.
 
 :::caution
-Wenn `CODEMATE_SERVER_PASSWORD` nicht gesetzt ist, ist der Server ungesichert. Dies ist für den lokalen Gebrauch in Ordnung, sollte aber für den Netzwerkzugriff eingestellt werden.
+Wenn `codemate_SERVER_PASSWORD` nicht gesetzt ist, ist der Server ungesichert. Dies ist für den lokalen Gebrauch in Ordnung, sollte aber für den Netzwerkzugriff eingestellt werden.
 :::
 
 :::tip[Windows-Nutzer]
@@ -33,7 +33,7 @@ Sie können den Webserver mithilfe von Befehlszeilen-Flags oder in Ihrer [Konfig
 
 ### Port
 
-Standardmäßig wählt Codemate einen verfügbaren Port aus. Sie können einen Port angeben:
+Standardmäßig wählt codemate einen verfügbaren Port aus. Sie können einen Port angeben:
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### Hostname
 
-Standardmäßig bindet der Server an `127.0.0.1` (nur localhost). So machen Sie Codemate in Ihrem Netzwerk zugänglich:
+Standardmäßig bindet der Server an `127.0.0.1` (nur localhost). So machen Sie codemate in Ihrem Netzwerk zugänglich:
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-Bei Verwendung von `0.0.0.0` zeigt Codemate sowohl lokale als auch Netzwerkadressen an:
+Bei Verwendung von `0.0.0.0` zeigt codemate sowohl lokale als auch Netzwerkadressen an:
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### Authentifizierung
 
-Um den Zugriff zu schützen, legen Sie mithilfe der Umgebungsvariablen `CODEMATE_SERVER_PASSWORD` ein Passwort fest:
+Um den Zugriff zu schützen, legen Sie mithilfe der Umgebungsvariablen `codemate_SERVER_PASSWORD` ein Passwort fest:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-Der Benutzername ist standardmäßig `codemate`, kann aber mit `CODEMATE_SERVER_USERNAME` geändert werden.
+Der Benutzername ist standardmäßig `codemate`, kann aber mit `codemate_SERVER_USERNAME` geändert werden.
 
 ---
 
 ## Verwenden der Weboberfläche
 
-Nach dem Start bietet die Weboberfläche Zugriff auf Ihre Codemate-Sitzungen.
+Nach dem Start bietet die Weboberfläche Zugriff auf Ihre codemate-Sitzungen.
 
 ### Sitzungen
 
 Zeigen Sie Ihre Sitzungen auf der Startseite an und verwalten Sie sie. Sie können aktive Sitzungen sehen und neue starten.
 
-![Codemate Web – Aktive Sitzung](../../../assets/web/web-homepage-active-session.png)
+![codemate Web – Aktive Sitzung](../../../assets/web/web-homepage-active-session.png)
 
 ### Serverstatus
 
 Klicken Sie auf „Server anzeigen“, um verbundene Server und deren Status anzuzeigen.
 
-![Codemate Web – Siehe Server](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web – Siehe Server](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

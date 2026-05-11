@@ -2,11 +2,11 @@ import type { APIEvent } from "@solidjs/start"
 import type { DownloadPlatform } from "../types"
 
 const prodAssetNames: Record<string, string> = {
-  "darwin-aarch64-dmg": "codemate-desktop-darwin-aarch64.dmg",
-  "darwin-x64-dmg": "codemate-desktop-darwin-x64.dmg",
-  "windows-x64-nsis": "codemate-desktop-windows-x64.exe",
+  "darwin-aarch64-dmg": "codemate-desktop-mac-arm64.dmg",
+  "darwin-x64-dmg": "codemate-desktop-mac-x64.dmg",
+  "windows-x64-nsis": "codemate-desktop-win-x64.exe",
   "linux-x64-deb": "codemate-desktop-linux-amd64.deb",
-  "linux-x64-appimage": "codemate-desktop-linux-amd64.AppImage",
+  "linux-x64-appimage": "codemate-desktop-linux-x86_64.AppImage",
   "linux-x64-rpm": "codemate-desktop-linux-x86_64.rpm",
 } satisfies Record<DownloadPlatform, string>
 
@@ -21,9 +21,9 @@ const betaAssetNames: Record<string, string> = {
 
 // Doing this on the server lets us preserve the original name for platforms we don't care to rename for
 const downloadNames: Record<string, string> = {
-  "darwin-aarch64-dmg": "Codemate Desktop.dmg",
-  "darwin-x64-dmg": "Codemate Desktop.dmg",
-  "windows-x64-nsis": "Codemate Desktop Installer.exe",
+  "darwin-aarch64-dmg": "codemate Desktop.dmg",
+  "darwin-x64-dmg": "codemate Desktop.dmg",
+  "windows-x64-nsis": "codemate Desktop Installer.exe",
 } satisfies { [K in DownloadPlatform]?: string }
 
 export async function GET({ params: { platform, channel } }: APIEvent) {
@@ -32,13 +32,6 @@ export async function GET({ params: { platform, channel } }: APIEvent) {
 
   const resp = await fetch(
     `https://github.com/anomalyco/${channel === "stable" ? "codemate" : "codemate-beta"}/releases/latest/download/${assetName}`,
-    {
-      cf: {
-        // in case gh releases has rate limits
-        cacheTtl: 60 * 5,
-        cacheEverything: true,
-      },
-    } as any,
   )
 
   const downloadName = downloadNames[platform]

@@ -29,8 +29,8 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          codemate-app-id: ${{ vars.CODEMATE_APP_ID }}
-          codemate-app-secret: ${{ secrets.CODEMATE_APP_SECRET }}
+          codemate-app-id: ${{ vars.codemate_APP_ID }}
+          codemate-app-secret: ${{ secrets.codemate_APP_SECRET }}
 
       - name: Compute changed English docs
         id: changes
@@ -48,15 +48,15 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Install Codemate
+      - name: Install codemate
         if: steps.changes.outputs.has_changes == 'true'
         run: curl -fsSL https://codemate.ai/install | bash
 
-      - name: Sync locale docs with Codemate
+      - name: Sync locale docs with codemate
         if: steps.changes.outputs.has_changes == 'true'
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
-          CODEMATE_CONFIG_CONTENT: |
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
+          codemate_CONFIG_CONTENT: |
             {
               "permission": {
                 "*": "deny",

@@ -3,7 +3,7 @@ title: Herramientas
 description: Administre las herramientas que puede usar un LLM.
 ---
 
-Las herramientas permiten que LLM realice acciones en su código base. Codemate viene con un conjunto de herramientas integradas, pero puede ampliarlo con [herramientas personalizadas](/docs/custom-tools) o [servidores MCP](/docs/mcp-servers).
+Las herramientas permiten que LLM realice acciones en su código base. codemate viene con un conjunto de herramientas integradas, pero puede ampliarlo con [herramientas personalizadas](/docs/custom-tools) o [servidores MCP](/docs/mcp-servers).
 
 De forma predeterminada, todas las herramientas están **habilitadas** y no necesitan permiso para ejecutarse. Puede controlar el comportamiento de la herramienta a través de [permisos](/docs/permissions).
 
@@ -41,7 +41,7 @@ También puedes utilizar comodines para controlar varias herramientas a la vez. 
 
 ## Integradas
 
-Aquí están todas las herramientas integradas disponibles en Codemate.
+Aquí están todas las herramientas integradas disponibles en codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Busque archivos usando patrones globales como `**/*.js` o `src/**/*.ts`. Devuelv
 Interactúe con sus servidores LSP configurados para obtener funciones de inteligencia de código como definiciones, referencias, información de desplazamiento y jerarquía de llamadas.
 
 :::note
-Esta herramienta solo está disponible cuando `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (o `CODEMATE_EXPERIMENTAL=true`).
+Esta herramienta solo está disponible cuando `codemate_EXPERIMENTAL_LSP_TOOL=true` (o `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Permite que LLM busque y lea páginas web. Útil para buscar documentación o in
 Busque información en la web.
 
 :::note
-Esta herramienta solo está disponible cuando se utiliza el proveedor Codemate o cuando la variable de entorno `CODEMATE_ENABLE_EXA` está configurada en cualquier valor verdadero (por ejemplo, `true` o `1`).
+Esta herramienta solo está disponible cuando se utiliza el proveedor codemate o cuando la variable de entorno `codemate_ENABLE_EXA` está configurada en cualquier valor verdadero (por ejemplo, `true` o `1`).
 
-Para habilitar al iniciar Codemate:
+Para habilitar al iniciar codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

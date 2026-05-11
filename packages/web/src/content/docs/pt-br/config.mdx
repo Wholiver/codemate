@@ -45,10 +45,10 @@ As fontes de configuração são carregadas nesta ordem (fontes posteriores subs
 
 1. **Configuração remota** (de `.well-known/codemate`) - padrões organizacionais
 2. **Configuração global** (`~/.config/codemate/codemate.json`) - preferências do usuário
-3. **Configuração personalizada** (`CODEMATE_CONFIG` var de ambiente) - substituições personalizadas
+3. **Configuração personalizada** (`codemate_CONFIG` var de ambiente) - substituições personalizadas
 4. **Configuração do projeto** (`codemate.json` no projeto) - configurações específicas do projeto
 5. **Diretórios `.codemate`** - agentes, comandos, plugins
-6. **Configuração inline** (`CODEMATE_CONFIG_CONTENT` var de ambiente) - substituições em tempo de execução
+6. **Configuração inline** (`codemate_CONFIG_CONTENT` var de ambiente) - substituições em tempo de execução
 
 Isso significa que as configurações do projeto podem substituir os padrões globais, e as configurações globais podem substituir os padrões organizacionais remotos.
 
@@ -122,10 +122,10 @@ Isso também é seguro para ser verificado no Git e usa o mesmo esquema que o gl
 
 ### Caminho personalizado
 
-Especifique um caminho de arquivo de configuração personalizado usando a variável de ambiente `CODEMATE_CONFIG`.
+Especifique um caminho de arquivo de configuração personalizado usando a variável de ambiente `codemate_CONFIG`.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -135,10 +135,10 @@ A configuração personalizada é carregada entre as configurações globais e d
 
 ### Diretório personalizado
 
-Especifique um diretório de configuração personalizado usando a variável de ambiente `CODEMATE_CONFIG_DIR`. Este diretório será pesquisado por agentes, comandos, modos e plugins, assim como o diretório padrão `.codemate`, e deve seguir a mesma estrutura.
+Especifique um diretório de configuração personalizado usando a variável de ambiente `codemate_CONFIG_DIR`. Este diretório será pesquisado por agentes, comandos, modos e plugins, assim como o diretório padrão `.codemate`, e deve seguir a mesma estrutura.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -171,7 +171,7 @@ Use um arquivo `tui.json` (ou `tui.jsonc`) dedicado para configurações especí
 }
 ```
 
-Use `CODEMATE_TUI_CONFIG` para apontar para um arquivo de configuração TUI personalizado.
+Use `codemate_TUI_CONFIG` para apontar para um arquivo de configuração TUI personalizado.
 
 Chaves legadas `theme`, `keybinds` e `tui` em `codemate.json` estão obsoletas e são migradas automaticamente quando possível.
 
@@ -640,7 +640,7 @@ Use `{env:VARIABLE_NAME}` para substituir variáveis de ambiente:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

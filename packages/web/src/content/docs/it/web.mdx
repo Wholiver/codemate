@@ -1,11 +1,11 @@
 ---
 title: Web
-description: Usa Codemate nel browser.
+description: Usa codemate nel browser.
 ---
 
-Codemate puo funzionare come applicazione web nel browser, offrendo la stessa potente esperienza di coding AI senza bisogno di un terminale.
+codemate puo funzionare come applicazione web nel browser, offrendo la stessa potente esperienza di coding AI senza bisogno di un terminale.
 
-![Codemate Web - Nuova sessione](../../../assets/web/web-homepage-new-session.png)
+![codemate Web - Nuova sessione](../../../assets/web/web-homepage-new-session.png)
 
 ## Per iniziare
 
@@ -15,10 +15,10 @@ Avvia l'interfaccia web eseguendo:
 codemate web
 ```
 
-Questo avvia un server locale su `127.0.0.1` con una porta disponibile scelta a caso e apre automaticamente Codemate nel browser predefinito.
+Questo avvia un server locale su `127.0.0.1` con una porta disponibile scelta a caso e apre automaticamente codemate nel browser predefinito.
 
 :::caution
-Se `CODEMATE_SERVER_PASSWORD` non e impostata, il server non sara protetto. Va bene per l'uso locale, ma va impostata per l'accesso in rete.
+Se `codemate_SERVER_PASSWORD` non e impostata, il server non sara protetto. Va bene per l'uso locale, ma va impostata per l'accesso in rete.
 :::
 
 :::tip[Utenti Windows]
@@ -33,7 +33,7 @@ Puoi configurare il server web con i flag della riga di comando o nel tuo [file 
 
 ### Porta
 
-Per impostazione predefinita, Codemate sceglie una porta disponibile. Puoi specificare una porta:
+Per impostazione predefinita, codemate sceglie una porta disponibile. Puoi specificare una porta:
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### Nome host
 
-Per impostazione predefinita, il server si lega a `127.0.0.1` (solo localhost). Per rendere Codemate accessibile sulla rete:
+Per impostazione predefinita, il server si lega a `127.0.0.1` (solo localhost). Per rendere codemate accessibile sulla rete:
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-Usando `0.0.0.0`, Codemate mostrera sia l'indirizzo locale sia quello di rete:
+Usando `0.0.0.0`, codemate mostrera sia l'indirizzo locale sia quello di rete:
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### Autenticazione
 
-Per proteggere l'accesso, imposta una password usando la variabile d'ambiente `CODEMATE_SERVER_PASSWORD`:
+Per proteggere l'accesso, imposta una password usando la variabile d'ambiente `codemate_SERVER_PASSWORD`:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-Lo username predefinito e `codemate`, ma puo essere cambiato con `CODEMATE_SERVER_USERNAME`.
+Lo username predefinito e `codemate`, ma puo essere cambiato con `codemate_SERVER_USERNAME`.
 
 ---
 
 ## Usa l'interfaccia web
 
-Una volta avviata, l'interfaccia web ti da accesso alle tue sessioni Codemate.
+Una volta avviata, l'interfaccia web ti da accesso alle tue sessioni codemate.
 
 ### Sessioni
 
 Visualizza e gestisci le sessioni dalla homepage. Puoi vedere le sessioni attive e avviarne di nuove.
 
-![Codemate Web - Sessione attiva](../../../assets/web/web-homepage-active-session.png)
+![codemate Web - Sessione attiva](../../../assets/web/web-homepage-active-session.png)
 
 ### Stato del server
 
 Fai clic su "See Servers" per vedere i server connessi e il loro stato.
 
-![Codemate Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

@@ -18,7 +18,7 @@ codemate web
 Isso inicia um servidor local em `127.0.0.1` com uma porta aleatória disponível e abre automaticamente o codemate no seu navegador padrão.
 
 :::caution
-Se `CODEMATE_SERVER_PASSWORD` não estiver definido, o servidor ficará sem segurança. Isso é aceitável para uso local, mas deve ser configurado para acesso à rede.
+Se `codemate_SERVER_PASSWORD` não estiver definido, o servidor ficará sem segurança. Isso é aceitável para uso local, mas deve ser configurado para acesso à rede.
 :::
 
 :::tip[Usuários do Windows]
@@ -80,13 +80,13 @@ codemate web --cors https://example.com
 
 ### Autenticação
 
-Para proteger o acesso, defina uma senha usando a variável de ambiente `CODEMATE_SERVER_PASSWORD`:
+Para proteger o acesso, defina uma senha usando a variável de ambiente `codemate_SERVER_PASSWORD`:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-O nome de usuário padrão é `codemate`, mas pode ser alterado com `CODEMATE_SERVER_USERNAME`.
+O nome de usuário padrão é `codemate`, mas pode ser alterado com `codemate_SERVER_USERNAME`.
 
 ---
 

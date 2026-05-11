@@ -3,9 +3,9 @@ import { Bus } from "@/bus"
 import { BusEvent } from "@/bus/bus-event"
 import { InstanceState } from "@/effect/instance-state"
 import { SessionID, MessageID } from "@/session/schema"
-import { zod } from "@/util/effect-zod"
+import { zod } from "@codemate-ai/core/effect-zod"
 import * as Log from "@codemate-ai/core/util/log"
-import { withStatics } from "@/util/schema"
+import { withStatics } from "@codemate-ai/core/schema"
 import { QuestionID } from "./schema"
 
 const log = Log.create({ service: "question" })

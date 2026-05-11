@@ -1,19 +1,17 @@
-import z from "zod"
 import { Database } from "@/storage/db"
 import { eq } from "drizzle-orm"
 import { GlobalBus } from "@/bus/global"
 import { Bus as ProjectBus } from "@/bus"
 import { BusEvent } from "@/bus/bus-event"
-import { Instance } from "@/project/instance"
+import type { InstanceContext } from "@/project/instance"
 import { EventSequenceTable, EventTable } from "./event.sql"
-import { WorkspaceContext } from "@/control-plane/workspace-context"
+import type { WorkspaceID } from "@/control-plane/schema"
 import { EventID } from "./schema"
 import { Flag } from "@codemate-ai/core/flag/flag"
 import { Context, Effect, Layer, Schema as EffectSchema } from "effect"
-import { zodObject } from "@/util/effect-zod"
-import type { DeepMutable } from "@/util/schema"
-import { makeRuntime } from "@/effect/run-service"
+import type { DeepMutable } from "@codemate-ai/core/schema"
 import { serviceUse } from "@/effect/service-use"
+import { InstanceState } from "@/effect/instance-state"
 
 // Keep `Event["data"]` mutable because projectors mutate the persisted shape
 // when writing to the database. Bus payloads (`Properties`) stay readonly —
@@ -45,8 +43,12 @@ export type Properties<Def extends Definition = Definition> = EffectSchema.Schem
 
 export type SerializedEvent<Def extends Definition = Definition> = Event<Def> & { type: string }
 
-type ProjectorFunc = (db: Database.TxOrDb, data: unknown) => void
+type ProjectorFunc = (db: Database.TxOrDb, data: unknown, event: Event) => void
 type ConvertEvent = (type: string, data: Event["data"]) => unknown | Promise<unknown>
+type PublishContext = {
+  instance?: InstanceContext
+  workspace?: WorkspaceID
+}
 
 export interface Interface {
   readonly run: <Def extends Definition>(
@@ -54,9 +56,13 @@ export interface Interface {
     data: Event<Def>["data"],
     options?: { publish?: boolean },
   ) => Effect.Effect<void>
-  readonly replay: (event: SerializedEvent, options?: { publish: boolean }) => Effect.Effect<void>
-  readonly replayAll: (events: SerializedEvent[], options?: { publish: boolean }) => Effect.Effect<string | undefined>
+  readonly replay: (event: SerializedEvent, options?: { publish: boolean; ownerID?: string }) => Effect.Effect<void>
+  readonly replayAll: (
+    events: SerializedEvent[],
+    options?: { publish: boolean; ownerID?: string },
+  ) => Effect.Effect<string | undefined>
   readonly remove: (aggregateID: string) => Effect.Effect<void>
+  readonly claim: (aggregateID: string, ownerID: string) => Effect.Effect<void>
 }
 
 export class Service extends Context.Service<Service, Interface>()("@codemate/SyncEvent") {}
@@ -71,7 +77,7 @@ export const layer = Layer.effect(Service)(
 
       const row = Database.use((db) =>
         db
-          .select({ seq: EventSequenceTable.seq })
+          .select({ seq: EventSequenceTable.seq, ownerID: EventSequenceTable.owner_id })
           .from(EventSequenceTable)
           .where(eq(EventSequenceTable.aggregate_id, event.aggregateID))
           .get(),
@@ -80,6 +86,10 @@ export const layer = Layer.effect(Service)(
       const latest = row?.seq ?? -1
       if (event.seq <= latest) return
 
+      if (row?.ownerID && row.ownerID !== options?.ownerID) {
+        return
+      }
+
       const expected = latest + 1
       if (event.seq !== expected) {
         throw new Error(
@@ -87,7 +97,14 @@ export const layer = Layer.effect(Service)(
         )
       }
 
-      process(def, event, { publish: !!options?.publish })
+      const publish = !!options?.publish
+      const context = publish
+        ? {
+            instance: yield* InstanceState.context,
+            workspace: yield* InstanceState.workspaceID,
+          }
+        : undefined
+      process(def, event, { publish, context, ownerID: options?.ownerID })
     })
 
     const replayAll: Interface["replayAll"] = Effect.fn("SyncEvent.replayAll")(function* (events, options) {
@@ -122,6 +139,12 @@ export const layer = Layer.effect(Service)(
       }
 
       const { publish = true } = options || {}
+      const context = publish
+        ? {
+            instance: yield* InstanceState.context,
+            workspace: yield* InstanceState.workspaceID,
+          }
+        : undefined
 
       // Note that this is an "immediate" transaction which is critical.
       // We need to make sure we can safely read and write with nothing
@@ -137,7 +160,7 @@ export const layer = Layer.effect(Service)(
           const seq = row?.seq != null ? row.seq + 1 : 0
 
           const event = { id, seq, aggregateID: agg, data }
-          process(def, event, { publish })
+          process(def, event, { publish, context })
         },
         {
           behavior: "immediate",
@@ -152,11 +175,24 @@ export const layer = Layer.effect(Service)(
       })
     })
 
+    const claim: Interface["claim"] = Effect.fn("SyncEvent.claim")((aggregateID, ownerID) =>
+      Effect.sync(() =>
+        Database.use((db) =>
+          db
+            .update(EventSequenceTable)
+            .set({ owner_id: ownerID })
+            .where(eq(EventSequenceTable.aggregate_id, aggregateID))
+            .run(),
+        ),
+      ),
+    )
+
     return Service.of({
       run,
       replay,
       replayAll,
       remove,
+      claim,
     })
   }),
 )
@@ -164,8 +200,6 @@ export const layer = Layer.effect(Service)(
 export const defaultLayer = layer
 
 export const use = serviceUse(Service)
-
-const runtime = makeRuntime(Service, defaultLayer)
 
 export const registry = new Map<string, Definition>()
 let projectors: Map<Definition, ProjectorFunc> | undefined
@@ -237,12 +271,16 @@ export function define<
 
 export function project<Def extends Definition>(
   def: Def,
-  func: (db: Database.TxOrDb, data: Event<Def>["data"]) => void,
+  func: (db: Database.TxOrDb, data: Event<Def>["data"], event: Event<Def>) => void,
 ): [Definition, ProjectorFunc] {
   return [def, func as ProjectorFunc]
 }
 
-function process<Def extends Definition>(def: Def, event: Event<Def>, options: { publish: boolean }) {
+function process<Def extends Definition>(
+  def: Def,
+  event: Event<Def>,
+  options: { publish: boolean; context?: PublishContext; ownerID?: string },
+) {
   if (projectors == null) {
     throw new Error("No projectors available. Call `SyncEvent.init` to install projectors")
   }
@@ -252,16 +290,15 @@ function process<Def extends Definition>(def: Def, event: Event<Def>, options: {
     throw new Error(`Projector not found for event: ${def.type}`)
   }
 
-  // idempotent: need to ignore any events already logged
-
   Database.transaction((tx) => {
-    projector(tx, event.data)
+    projector(tx, event.data, event)
 
-    if (Flag.CODEMATE_EXPERIMENTAL_WORKSPACES) {
+    if (Flag.codemate_EXPERIMENTAL_WORKSPACES) {
       tx.insert(EventSequenceTable)
         .values({
           aggregate_id: event.aggregateID,
           seq: event.seq,
+          owner_id: options?.ownerID,
         })
         .onConflictDoUpdate({
           target: EventSequenceTable.aggregate_id,
@@ -281,8 +318,12 @@ function process<Def extends Definition>(def: Def, event: Event<Def>, options: {
 
     Database.effect(() => {
       if (options?.publish) {
+        if (!options.context?.instance) {
+          throw new Error("SyncEvent.process: publish requires instance context")
+        }
+
         const result = convertEvent(def.type, event.data)
-        const publish = (data: unknown) => ProjectBus.publish(def, data as Properties<Def>)
+        const publish = (data: unknown) => ProjectBus.publish(def, data as Properties<Def>, { id: event.id })
         if (result instanceof Promise) {
           void result.then(publish)
         } else {
@@ -290,9 +331,9 @@ function process<Def extends Definition>(def: Def, event: Event<Def>, options: {
         }
 
         GlobalBus.emit("event", {
-          directory: Instance.directory,
-          project: Instance.project.id,
-          workspace: WorkspaceContext.workspaceID,
+          directory: options.context.instance.directory,
+          project: options.context.instance.project.id,
+          workspace: options.context.workspace,
           payload: {
             type: "sync",
             syncEvent: {
@@ -304,42 +345,6 @@ function process<Def extends Definition>(def: Def, event: Event<Def>, options: {
       }
     })
   })
-}
-
-export function replay(event: SerializedEvent, options?: { publish: boolean }) {
-  return runtime.runSync((sync) => sync.replay(event, options))
-}
-
-export function replayAll(events: SerializedEvent[], options?: { publish: boolean }) {
-  return runtime.runSync((sync) => sync.replayAll(events, options))
-}
-
-export function run<Def extends Definition>(def: Def, data: Event<Def>["data"], options?: { publish?: boolean }) {
-  return runtime.runSync((sync) => sync.run(def, data, options))
-}
-
-export function remove(aggregateID: string) {
-  return runtime.runSync((sync) => sync.remove(aggregateID))
-}
-
-export function payloads() {
-  return registry
-    .entries()
-    .map(([type, def]) => {
-      return z
-        .object({
-          type: z.literal("sync"),
-          name: z.literal(type),
-          id: z.string(),
-          seq: z.number(),
-          aggregateID: z.literal(def.aggregate),
-          data: zodObject(def.schema),
-        })
-        .meta({
-          ref: `SyncEvent.${def.type}`,
-        })
-    })
-    .toArray()
 }
 
 export function effectPayloads() {

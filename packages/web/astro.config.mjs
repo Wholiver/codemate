@@ -31,7 +31,7 @@ export default defineConfig({
     configSchema(),
     solidJs(),
     starlight({
-      title: "Codemate",
+      title: "codemate",
       defaultLocale: "root",
       locales: {
         root: {

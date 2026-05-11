@@ -15,6 +15,7 @@ type Commit = {
   areas: Set<string>
 }
 
+type User = Map<string, Set<string>>
 type Diff = {
   sha: string
   login: string | null
@@ -79,6 +80,11 @@ function section(areas: Set<string>) {
     if (areas.has(area)) return sections[area as keyof typeof sections]
   }
   return "Core"
+}
+
+function type(message: string) {
+  if (message.match(/fix/i)) return "Bugfixes"
+  return "Improvements"
 }
 
 function reverted(commits: Commit[]) {
@@ -149,14 +155,63 @@ async function commits(from: string, to: string) {
   return reverted(list)
 }
 
-function format(from: string, to: string, list: Commit[]) {
-  const grouped = new Map<string, string[]>()
-  for (const title of order) grouped.set(title, [])
+async function contributors(from: string, to: string) {
+  const base = ref(from)
+  const head = ref(to)
+
+  const users: User = new Map()
+  for (const item of await diff(base, head)) {
+    const title = item.message.split("\n")[0] ?? ""
+    if (!item.login || team.includes(item.login)) continue
+    if (title.match(/^(ignore:|test:|chore:|ci:|release:)/i)) continue
+    if (!users.has(item.login)) users.set(item.login, new Set())
+    users.get(item.login)!.add(title)
+  }
+
+  return users
+}
+
+async function published(to: string) {
+  if (to === "HEAD") return
+  const body = await $`gh release view ${ref(to)} --repo ${repo} --json body --jq .body`.text().catch(() => "")
+  if (!body) return
+
+  const lines = body.split(/\r?\n/)
+  const start = lines.findIndex((line) => line.startsWith("**Thank you to "))
+  if (start < 0) return
+  return lines.slice(start).join("\n").trim()
+}
+
+async function thanks(from: string, to: string, reuse: boolean) {
+  const release = reuse ? await published(to) : undefined
+  if (release) return release.split(/\r?\n/)
+
+  const users = await contributors(from, to)
+  if (users.size === 0) return []
+
+  const lines = [`**Thank you to ${users.size} community contributor${users.size > 1 ? "s" : ""}:**`]
+  for (const [name, commits] of users) {
+    lines.push(`- @${name}:`)
+    for (const commit of commits) lines.push(`  - ${commit}`)
+  }
+  return lines
+}
+
+function format(from: string, to: string, list: Commit[], thanks: string[]) {
+  const grouped = new Map<string, Map<string, string[]>>()
+  for (const title of order) {
+    grouped.set(
+      title,
+      new Map([
+        ["Improvements", []],
+        ["Bugfixes", []],
+      ]),
+    )
+  }
 
   for (const commit of list) {
-    const title = section(commit.areas)
     const attr = commit.author && !team.includes(commit.author) ? ` (@${commit.author})` : ""
-    grouped.get(title)!.push(`- \`${commit.hash}\` ${commit.message}${attr}`)
+    grouped.get(section(commit.areas))!.get(type(commit.message))!.push(`- \`${commit.hash}\` ${commit.message}${attr}`)
   }
 
   const lines = [`Last release: ${ref(from)}`, `Target ref: ${to}`, ""]
@@ -166,11 +221,30 @@ function format(from: string, to: string, list: Commit[]) {
   }
 
   for (const title of order) {
-    const entries = grouped.get(title)
-    if (!entries || entries.length === 0) continue
+    const groups = grouped.get(title)
+    if (!groups || [...groups.values()].every((entries) => entries.length === 0)) continue
     lines.push(`## ${title}`)
-    lines.push(...entries)
+    const improvements = groups.get("Improvements")!
+    const bugfixes = groups.get("Bugfixes")!
+    if (bugfixes.length === 0) {
+      lines.push(...improvements)
+      lines.push("")
+      continue
+    }
+
+    for (const [subtitle, entries] of groups) {
+      if (entries.length === 0) continue
+      lines.push(`### ${subtitle}`)
+      lines.push(...entries)
+      lines.push("")
+    }
+  }
+
+  if (thanks.length > 0) {
+    if (lines.at(-1) !== "") lines.push("")
+    lines.push("## Community Contributors Input")
     lines.push("")
+    lines.push(...thanks)
   }
 
   if (lines.at(-1) === "") lines.pop()
@@ -207,5 +281,5 @@ Examples:
   const to = values.to!
   const from = values.from ?? (await latest())
   const list = await commits(from, to)
-  console.log(format(from, to, list))
+  console.log(format(from, to, list, await thanks(from, to, !values.from)))
 }

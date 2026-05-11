@@ -1,11 +1,13 @@
 // @refresh reload
 
+import * as Sentry from "@sentry/solid"
 import { render } from "solid-js/web"
 import { AppBaseProviders, AppInterface } from "@/app"
 import { type Platform, PlatformProvider } from "@/context/platform"
 import { dict as en } from "@/i18n/en"
 import { dict as zh } from "@/i18n/zh"
 import { handleNotificationClick } from "@/utils/notification-click"
+import { authFromToken } from "@/utils/server"
 import pkg from "../package.json"
 import { ServerConnection } from "./context/server"
 
@@ -100,7 +102,7 @@ if (!(root instanceof HTMLElement) && import.meta.env.DEV) {
 const getCurrentUrl = () => {
   if (location.hostname.includes("codemate.ai")) return "http://localhost:4096"
   if (import.meta.env.DEV)
-    return `http://${import.meta.env.VITE_CODEMATE_SERVER_HOST ?? "localhost"}:${import.meta.env.VITE_CODEMATE_SERVER_PORT ?? "4096"}`
+    return `http://${import.meta.env.VITE_codemate_SERVER_HOST ?? "localhost"}:${import.meta.env.VITE_codemate_SERVER_PORT ?? "4096"}`
   return location.origin
 }
 
@@ -108,6 +110,13 @@ const getDefaultUrl = () => {
   const lsDefault = readDefaultServerUrl()
   if (lsDefault) return lsDefault
   return getCurrentUrl()
+}
+
+const clearAuthToken = () => {
+  const params = new URLSearchParams(location.search)
+  if (!params.has("auth_token")) return
+  params.delete("auth_token")
+  history.replaceState(null, "", location.pathname + (params.size ? `?${params}` : "") + location.hash)
 }
 
 const platform: Platform = {
@@ -125,8 +134,36 @@ const platform: Platform = {
   setDefaultServer: writeDefaultServerUrl,
 }
 
+if (import.meta.env.VITE_SENTRY_DSN) {
+  Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT ?? import.meta.env.MODE,
+    release: import.meta.env.VITE_SENTRY_RELEASE ?? `web@${pkg.version}`,
+    initialScope: {
+      tags: {
+        platform: "web",
+      },
+    },
+    integrations: (integrations) => {
+      return integrations.filter(
+        (i) =>
+          i.name !== "Breadcrumbs" && !(import.meta.env.codemate_CHANNEL === "prod" && i.name === "GlobalHandlers"),
+      )
+    },
+  })
+}
+
 if (root instanceof HTMLElement) {
-  const server: ServerConnection.Http = { type: "http", http: { url: getCurrentUrl() } }
+  const auth = authFromToken(new URLSearchParams(location.search).get("auth_token"))
+  clearAuthToken()
+  const server: ServerConnection.Http = {
+    type: "http",
+    authToken: !!auth,
+    http: {
+      url: getCurrentUrl(),
+      ...auth,
+    },
+  }
   render(
     () => (
       <PlatformProvider value={platform}>

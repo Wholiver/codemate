@@ -3,7 +3,7 @@ import { Provider } from "@/provider/provider"
 import { HttpApi, HttpApiEndpoint, HttpApiError, HttpApiGroup, OpenApi } from "effect/unstable/httpapi"
 import { Authorization } from "../middleware/authorization"
 import { InstanceContextMiddleware } from "../middleware/instance-context"
-import { WorkspaceRoutingMiddleware } from "../middleware/workspace-routing"
+import { WorkspaceRoutingMiddleware, WorkspaceRoutingQuery } from "../middleware/workspace-routing"
 import { described } from "./metadata"
 
 const root = "/config"
@@ -13,15 +13,17 @@ export const ConfigApi = HttpApi.make("config")
     HttpApiGroup.make("config")
       .add(
         HttpApiEndpoint.get("get", root, {
+          query: WorkspaceRoutingQuery,
           success: described(Config.Info, "Get config info"),
         }).annotateMerge(
           OpenApi.annotations({
             identifier: "config.get",
             summary: "Get configuration",
-            description: "Retrieve the current Codemate configuration settings and preferences.",
+            description: "Retrieve the current codemate configuration settings and preferences.",
           }),
         ),
         HttpApiEndpoint.patch("update", root, {
+          query: WorkspaceRoutingQuery,
           payload: Config.Info,
           success: described(Config.Info, "Successfully updated config"),
           error: HttpApiError.BadRequest,
@@ -29,10 +31,11 @@ export const ConfigApi = HttpApi.make("config")
           OpenApi.annotations({
             identifier: "config.update",
             summary: "Update configuration",
-            description: "Update Codemate configuration settings and preferences.",
+            description: "Update codemate configuration settings and preferences.",
           }),
         ),
         HttpApiEndpoint.get("providers", `${root}/providers`, {
+          query: WorkspaceRoutingQuery,
           success: described(Provider.ConfigProvidersResult, "List of providers"),
         }).annotateMerge(
           OpenApi.annotations({

@@ -34,7 +34,6 @@ import { Global } from "@codemate-ai/core/global"
 import { JsonMigration } from "@/storage/json-migration"
 import { Database } from "@/storage/db"
 import { errorMessage } from "./util/error"
-import { PluginCommand } from "./cli/cmd/plug"
 import { Heap } from "./cli/heap"
 import { drizzle } from "drizzle-orm/bun-sqlite"
 import { ensureProcessMetadata } from "@codemate-ai/core/util/codemate-process"
@@ -88,7 +87,7 @@ const cli = yargs(args)
   })
   .middleware(async (opts) => {
     if (opts.pure) {
-      process.env.CODEMATE_PURE = "1"
+      process.env.codemate_PURE = "1"
     }
 
     await Log.init({
@@ -104,8 +103,8 @@ const cli = yargs(args)
     Heap.start()
 
     process.env.AGENT = "1"
-    process.env.CODEMATE = "1"
-    process.env.CODEMATE_PID = String(process.pid)
+    process.env.codemate = "1"
+    process.env.codemate_PID = String(process.pid)
 
     Log.Default.info("codemate", {
       version: InstallationVersion,
@@ -173,7 +172,6 @@ const cli = yargs(args)
   .command(GithubCommand)
   .command(PrCommand)
   .command(SessionCommand)
-  .command(PluginCommand)
   .command(DbCommand)
   .fail((msg, err) => {
     if (

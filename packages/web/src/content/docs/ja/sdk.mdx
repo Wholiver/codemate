@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Codemate サーバー用の型安全な JS クライアント。
+description: codemate サーバー用の型安全な JS クライアント。
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Codemate JS/TS SDK は、サーバーと対話するための型安全なクライアントを提供します。
-これを使用して、統合を構築し、Codemate をプログラムで制御します。
+codemate JS/TS SDK は、サーバーと対話するための型安全なクライアントを提供します。
+これを使用して、統合を構築し、codemate をプログラムで制御します。
 
 [サーバーの仕組みについての詳細](/docs/server) をご覧ください。たとえば、コミュニティによって構築された [projects](/docs/ecosystem#projects) をチェックしてください。
 
@@ -25,12 +25,12 @@ npm install @codemate-ai/sdk
 
 ## クライアントの作成
 
-Codemate のインスタンスを作成します。
+codemate のインスタンスを作成します。
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 これにより、サーバーとクライアントの両方が起動します
@@ -52,9 +52,9 @@ const { client } = await createCodemate()
 設定オブジェクトを渡して動作をカスタマイズできます。インスタンスは引き続き `codemate.json` を取得しますが、設定をインラインでオーバーライドまたは追加することができます。
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -69,12 +69,12 @@ codemate.server.close()
 
 ## クライアントのみ
 
-すでに実行中の Codemate のインスタンスがある場合は、それに接続するためのクライアントインスタンスを作成できます。
+すでに実行中の codemate のインスタンスがある場合は、それに接続するためのクライアントインスタンスを作成できます。
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

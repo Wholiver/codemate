@@ -1,9 +1,9 @@
 ---
 title: Plugins
-description: Schreiben Sie Ihre eigenen Plugins, um Codemate zu erweitern.
+description: Schreiben Sie Ihre eigenen Plugins, um codemate zu erweitern.
 ---
 
-Mit Plugins können Sie Codemate erweitern, indem Sie verschiedene Ereignisse einbinden und das Verhalten anpassen. Sie können Plugins erstellen, um neue Funktionen hinzuzufügen, externe Dienste zu integrieren oder das Standardverhalten von Codemate zu ändern.
+Mit Plugins können Sie codemate erweitern, indem Sie verschiedene Ereignisse einbinden und das Verhalten anpassen. Sie können Plugins erstellen, um neue Funktionen hinzuzufügen, externe Dienste zu integrieren oder das Standardverhalten von codemate zu ändern.
 
 Beispiele finden Sie im von der Community erstellten [plugins](/docs/ecosystem#plugins).
 
@@ -82,7 +82,7 @@ Lokale Plugins und benutzerdefinierte Tools können externe npm-Pakete verwenden
 }
 ```
 
-Codemate führt beim Start `bun install` aus, um diese zu installieren. Ihre Plugins und Tools können sie dann importieren.
+codemate führt beim Start `bun install` aus, um diese zu installieren. Ihre Plugins und Tools können sie dann importieren.
 
 ```ts title=".codemate/plugins/my-plugin.ts"
 import { escape } from "shescape"
@@ -117,7 +117,7 @@ Die Plugin-Funktion erhält:
 - `project`: Die aktuellen Projektinformationen.
 - `directory`: Das aktuelle Arbeitsverzeichnis.
 - `worktree`: Der Git-Worktree-Pfad.
-- `client`: Ein Codemate-SDK-Client für die Interaktion mit AI.
+- `client`: Ein codemate-SDK-Client für die Interaktion mit AI.
 - `$`: Buns [shell API](https://bun.com/docs/runtime/shell) zum Ausführen von Befehlen.
 
 ---
@@ -210,7 +210,7 @@ Plugins können Ereignisse abonnieren, wie unten im Abschnitt „Beispiele“ ge
 
 ## Beispiele
 
-Hier sind einige Beispiele für Plugins, mit denen Sie Codemate erweitern können.
+Hier sind einige Beispiele für Plugins, mit denen Sie codemate erweitern können.
 
 ---
 
@@ -234,14 +234,14 @@ export const NotificationPlugin = async ({ project, client, $, directory, worktr
 Wir verwenden `osascript`, um AppleScript unter macOS auszuführen. Hier verwenden wir es zum Versenden von Benachrichtigungen.
 
 :::note
-Wenn Sie die Codemate-Desktop-App verwenden, kann diese automatisch Systembenachrichtigungen senden, wenn eine Antwort bereit ist oder wenn in einer Sitzung ein Fehler auftritt.
+Wenn Sie die codemate-Desktop-App verwenden, kann diese automatisch Systembenachrichtigungen senden, wenn eine Antwort bereit ist oder wenn in einer Sitzung ein Fehler auftritt.
 :::
 
 ---
 
 ### .env-Schutz
 
-Verhindern Sie, dass Codemate `.env`-Dateien liest:
+Verhindern Sie, dass codemate `.env`-Dateien liest:
 
 ```javascript title=".codemate/plugins/env-protection.js"
 export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
@@ -276,7 +276,7 @@ export const InjectEnvPlugin = async () => {
 
 ### Benutzerdefinierte Tools
 
-Plugins können Codemate auch benutzerdefinierte Tools hinzufügen:
+Plugins können codemate auch benutzerdefinierte Tools hinzufügen:
 
 ```ts title=".codemate/plugins/custom-tools.ts"
 import { type Plugin, tool } from "@codemate-ai/plugin"
@@ -299,13 +299,13 @@ export const CustomToolsPlugin: Plugin = async (ctx) => {
 }
 ```
 
-Der `tool`-Helfer erstellt ein benutzerdefiniertes Tool, das Codemate aufrufen kann. Es verwendet eine Zod-Schemafunktion und gibt eine Tooldefinition zurück mit:
+Der `tool`-Helfer erstellt ein benutzerdefiniertes Tool, das codemate aufrufen kann. Es verwendet eine Zod-Schemafunktion und gibt eine Tooldefinition zurück mit:
 
 - `description`: Was das Tool macht
 - `args`: Zod-Schema für die Argumente des Tools
 - `execute`: Funktion, die ausgeführt wird, wenn das Tool aufgerufen wird
 
-Ihre benutzerdefinierten Tools stehen neben den integrierten Tools für Codemate zur Verfügung.
+Ihre benutzerdefinierten Tools stehen neben den integrierten Tools für codemate zur Verfügung.
 
 ---
 

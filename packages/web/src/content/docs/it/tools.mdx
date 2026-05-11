@@ -3,7 +3,7 @@ title: Strumenti
 description: Gestisci gli strumenti che un LLM puo' usare.
 ---
 
-Gli strumenti permettono all'LLM di eseguire azioni nel tuo codebase. Codemate include un set di strumenti integrati, ma puoi estenderlo con [strumenti personalizzati](/docs/custom-tools) o con [server MCP](/docs/mcp-servers).
+Gli strumenti permettono all'LLM di eseguire azioni nel tuo codebase. codemate include un set di strumenti integrati, ma puoi estenderlo con [strumenti personalizzati](/docs/custom-tools) o con [server MCP](/docs/mcp-servers).
 
 Di default, tutti gli strumenti sono **abilitati** e non richiedono permessi per essere eseguiti. Puoi controllare il comportamento degli strumenti tramite i [permessi](/docs/permissions).
 
@@ -41,7 +41,7 @@ Puoi anche usare wildcard per controllare piu' strumenti insieme. Per esempio, p
 
 ## Integrati
 
-Ecco tutti gli strumenti integrati disponibili in Codemate.
+Ecco tutti gli strumenti integrati disponibili in codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Cerca file usando pattern glob come `**/*.js` o `src/**/*.ts`. Restituisce i per
 Interagisci con i server LSP configurati per ottenere funzionalita' di code intelligence come definizioni, riferimenti, hover info e call hierarchy.
 
 :::note
-Questo strumento e' disponibile solo quando `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (oppure `CODEMATE_EXPERIMENTAL=true`).
+Questo strumento e' disponibile solo quando `codemate_EXPERIMENTAL_LSP_TOOL=true` (oppure `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Permette all'LLM di recuperare e leggere pagine web. Utile per consultare docume
 Cerca informazioni sul web.
 
 :::note
-Questo strumento e' disponibile solo quando usi il provider Codemate o quando la variabile d'ambiente `CODEMATE_ENABLE_EXA` e' impostata a un valore truthy (ad esempio `true` o `1`).
+Questo strumento e' disponibile solo quando usi il provider codemate o quando la variabile d'ambiente `codemate_ENABLE_EXA` e' impostata a un valore truthy (ad esempio `true` o `1`).
 
-Per abilitarlo all'avvio di Codemate:
+Per abilitarlo all'avvio di codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

@@ -1,14 +1,14 @@
 ---
 title: Windows (WSL)
-description: Esegui Codemate su Windows con WSL per la migliore esperienza.
+description: Esegui codemate su Windows con WSL per la migliore esperienza.
 ---
 
 import { Steps } from "@astrojs/starlight/components"
 
-Anche se Codemate puo essere eseguito direttamente su Windows, consigliamo di usare [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) per la migliore esperienza. WSL fornisce un ambiente Linux che funziona in modo ottimale con le funzionalita di Codemate.
+Anche se codemate puo essere eseguito direttamente su Windows, consigliamo di usare [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) per la migliore esperienza. WSL fornisce un ambiente Linux che funziona in modo ottimale con le funzionalita di codemate.
 
 :::tip[Perche WSL?]
-WSL offre prestazioni migliori del file system, supporto completo del terminale e compatibilita con gli strumenti di sviluppo su cui Codemate fa affidamento.
+WSL offre prestazioni migliori del file system, supporto completo del terminale e compatibilita con gli strumenti di sviluppo su cui codemate fa affidamento.
 :::
 
 ---
@@ -21,17 +21,17 @@ WSL offre prestazioni migliori del file system, supporto completo del terminale 
 
    Se non l'hai ancora fatto, [installa WSL](https://learn.microsoft.com/en-us/windows/wsl/install) seguendo la guida ufficiale Microsoft.
 
-2. **Installa Codemate in WSL**
+2. **Installa codemate in WSL**
 
-   Dopo aver configurato WSL, apri il terminale WSL e installa Codemate usando uno dei [metodi di installazione](/docs/).
+   Dopo aver configurato WSL, apri il terminale WSL e installa codemate usando uno dei [metodi di installazione](/docs/).
 
    ```bash
    curl -fsSL https://codemate.ai/install | bash
    ```
 
-3. **Usa Codemate da WSL**
+3. **Usa codemate da WSL**
 
-   Vai nella directory del progetto (accedi ai file Windows tramite `/mnt/c/`, `/mnt/d/`, ecc.) ed esegui Codemate.
+   Vai nella directory del progetto (accedi ai file Windows tramite `/mnt/c/`, `/mnt/d/`, ecc.) ed esegui codemate.
 
    ```bash
    cd /mnt/c/Users/YourName/project
@@ -44,7 +44,7 @@ WSL offre prestazioni migliori del file system, supporto completo del terminale 
 
 ## App desktop + server WSL
 
-Se preferisci usare l'app desktop di Codemate ma vuoi eseguire il server in WSL:
+Se preferisci usare l'app desktop di codemate ma vuoi eseguire il server in WSL:
 
 1. **Avvia il server in WSL** con `--hostname 0.0.0.0` per consentire connessioni esterne:
 
@@ -59,10 +59,10 @@ Se `localhost` non funziona nella tua configurazione, usa l'indirizzo IP di WSL 
 :::
 
 :::caution
-Quando usi `--hostname 0.0.0.0`, imposta `CODEMATE_SERVER_PASSWORD` per proteggere il server.
+Quando usi `--hostname 0.0.0.0`, imposta `codemate_SERVER_PASSWORD` per proteggere il server.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve --hostname 0.0.0.0
+codemate_SERVER_PASSWORD=your-password codemate serve --hostname 0.0.0.0
 ```
 
 :::
@@ -79,7 +79,7 @@ Per la migliore esperienza web su Windows:
    codemate web --hostname 0.0.0.0
    ```
 
-2. **Accedi dal browser Windows** su `http://localhost:<port>` (Codemate stampa l'URL)
+2. **Accedi dal browser Windows** su `http://localhost:<port>` (codemate stampa l'URL)
 
 Eseguire `codemate web` da WSL garantisce accesso corretto al file system e integrazione del terminale, restando comunque accessibile dal browser Windows.
 
@@ -101,13 +101,13 @@ codemate
 ```
 
 :::tip
-Per un'esperienza piu fluida, valuta di clonare o copiare il repository nel file system di WSL (per esempio in `~/code/`) ed eseguire Codemate li.
+Per un'esperienza piu fluida, valuta di clonare o copiare il repository nel file system di WSL (per esempio in `~/code/`) ed eseguire codemate li.
 :::
 
 ---
 
 ## Suggerimenti
 
-- Tieni Codemate in esecuzione su WSL per i progetti salvati su unita Windows: l'accesso ai file e immediato
-- Usa l'[estensione WSL di VS Code](https://code.visualstudio.com/docs/remote/wsl) insieme a Codemate per un flusso di lavoro integrato
-- Configurazione e sessioni di Codemate sono salvate nell'ambiente WSL in `~/.local/share/codemate/`
+- Tieni codemate in esecuzione su WSL per i progetti salvati su unita Windows: l'accesso ai file e immediato
+- Usa l'[estensione WSL di VS Code](https://code.visualstudio.com/docs/remote/wsl) insieme a codemate per un flusso di lavoro integrato
+- Configurazione e sessioni di codemate sono salvate nell'ambiente WSL in `~/.local/share/codemate/`

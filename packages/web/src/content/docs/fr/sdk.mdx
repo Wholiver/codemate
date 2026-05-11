@@ -28,9 +28,9 @@ npm install @codemate-ai/sdk
 Créez une instance de codemate :
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 Cela démarre à la fois un serveur et un client
@@ -52,9 +52,9 @@ Cela démarre à la fois un serveur et un client
 Vous pouvez transmettre un objet de configuration pour personnaliser le comportement. L'instance récupère toujours votre `codemate.json`, mais vous pouvez remplacer ou ajouter une configuration en ligne :
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -72,9 +72,9 @@ codemate.server.close()
 Si vous disposez déjà d'une instance en cours d'exécution de codemate, vous pouvez créer une instance client pour vous y connecter :
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

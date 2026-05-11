@@ -5,7 +5,7 @@ import { NamedError } from "@codemate-ai/core/util/error"
 import z from "zod"
 import { AppFileSystem } from "@codemate-ai/core/filesystem"
 import { Effect, Exit, Layer, Option, RcMap, Schema, Context, TxReentrantLock } from "effect"
-import { NonNegativeInt } from "@/util/schema"
+import { NonNegativeInt } from "@codemate-ai/core/schema"
 import { Git } from "@/git"
 
 const log = Log.create({ service: "storage" })

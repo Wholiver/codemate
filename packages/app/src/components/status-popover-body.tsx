@@ -6,7 +6,7 @@ import { Tabs } from "@codemate-ai/ui/tabs"
 import { useMutation, useQueryClient } from "@tanstack/solid-query"
 import { showToast } from "@codemate-ai/ui/toast"
 import { useNavigate } from "@solidjs/router"
-import { type Accessor, createEffect, createMemo, For, onCleanup, Show } from "solid-js"
+import { type Accessor, createEffect, createMemo, For, type JSXElement, onCleanup, Show } from "solid-js"
 import { createStore, reconcile } from "solid-js/store"
 import { ServerHealthIndicator, ServerRow } from "@/components/server/server-row"
 import { useLanguage } from "@/context/language"
@@ -15,9 +15,21 @@ import { useSDK } from "@/context/sdk"
 import { normalizeServerUrl, ServerConnection, useServer } from "@/context/server"
 import { useSync } from "@/context/sync"
 import { useCheckServerHealth, type ServerHealth } from "@/utils/server-health"
-import { loadMcpQuery } from "@/context/global-sync"
+import { mcpQueryKey } from "@/context/global-sync"
 
 const pollMs = 10_000
+
+const pluginEmptyMessage = (value: string, file: string): JSXElement => {
+  const parts = value.split(file)
+  if (parts.length === 1) return value
+  return (
+    <>
+      {parts[0]}
+      <code class="bg-surface-raised-base px-1.5 py-0.5 rounded-sm text-text-base">{file}</code>
+      {parts.slice(1).join(file)}
+    </>
+  )
+}
 
 const listServersByHealth = (
   list: ServerConnection.Any[],
@@ -133,7 +145,7 @@ const useMcpToggleMutation = () => {
       const status = sync.data.mcp[name]
       await (status?.status === "connected" ? sdk.client.mcp.disconnect({ name }) : sdk.client.mcp.connect({ name }))
     },
-    onSuccess: () => queryClient.refetchQueries({ queryKey: loadMcpQuery(sync.directory).queryKey }),
+    onSuccess: () => queryClient.refetchQueries({ queryKey: mcpQueryKey(sync.directory) }),
     onError: (err) => {
       showToast({
         variant: "error",
@@ -186,6 +198,11 @@ export function StatusPopoverBody(props: { shown: Accessor<boolean> }) {
   const mcpConnected = createMemo(() => mcpNames().filter((name) => mcpStatus(name) === "connected").length)
   const lspItems = createMemo(() => sync.data.lsp ?? [])
   const lspCount = createMemo(() => lspItems().length)
+  const plugins = createMemo(() =>
+    (sync.data.config.plugin ?? []).map((item) => (typeof item === "string" ? item : item[0])),
+  )
+  const pluginCount = createMemo(() => plugins().length)
+  const pluginEmpty = createMemo(() => pluginEmptyMessage(language.t("dialog.plugins.empty"), "codemate.json"))
 
   return (
     <div class="flex items-center gap-1 w-[360px] rounded-xl shadow-[var(--shadow-lg-border-base)]">
@@ -209,6 +226,10 @@ export function StatusPopoverBody(props: { shown: Accessor<boolean> }) {
           <Tabs.Trigger value="lsp" data-slot="tab" class="text-12-regular">
             {lspCount() > 0 ? `${lspCount()} ` : ""}
             {language.t("status.popover.tab.lsp")}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="plugins" data-slot="tab" class="text-12-regular">
+            {pluginCount() > 0 ? `${pluginCount()} ` : ""}
+            {language.t("status.popover.tab.plugins")}
           </Tabs.Trigger>
         </Tabs.List>
 
@@ -350,6 +371,26 @@ export function StatusPopoverBody(props: { shown: Accessor<boolean> }) {
                         }}
                       />
                       <span class="text-14-regular text-text-base truncate">{item.name || item.id}</span>
+                    </div>
+                  )}
+                </For>
+              </Show>
+            </div>
+          </div>
+        </Tabs.Content>
+
+        <Tabs.Content value="plugins">
+          <div class="flex flex-col px-2 pb-2">
+            <div class="flex flex-col p-3 bg-background-base rounded-sm min-h-14">
+              <Show
+                when={plugins().length > 0}
+                fallback={<div class="text-14-regular text-text-base text-center my-auto">{pluginEmpty()}</div>}
+              >
+                <For each={plugins()}>
+                  {(plugin) => (
+                    <div class="flex items-center gap-2 w-full px-2 py-1">
+                      <div class="size-1.5 rounded-full shrink-0 bg-icon-success-base" />
+                      <span class="text-14-regular text-text-base truncate">{plugin}</span>
                     </div>
                   )}
                 </For>

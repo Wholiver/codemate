@@ -1,9 +1,9 @@
 ---
 title: Dodaci
-description: Napišite vlastite dodatke za proširenje Codemate.
+description: Napišite vlastite dodatke za proširenje codemate.
 ---
 
-Dodaci vam omogućavaju da proširite Codemate spajanjem na različite događaje i prilagođavanjem ponašanja. Možete kreirati dodatke za dodavanje novih funkcija, integraciju sa eksternim uslugama ili izmenu zadanog ponašanja Codemate.
+Dodaci vam omogućavaju da proširite codemate spajanjem na različite događaje i prilagođavanjem ponašanja. Možete kreirati dodatke za dodavanje novih funkcija, integraciju sa eksternim uslugama ili izmenu zadanog ponašanja codemate.
 Za primjere, pogledajte [plugins](/docs/ecosystem#plugins) kreirane od strane zajednice.
 
 ---
@@ -76,7 +76,7 @@ Lokalni dodaci i prilagođeni alati mogu koristiti vanjske npm pakete. Dodajte `
 }
 ```
 
-Codemate pokreće `bun install` pri pokretanju da ih instalira. Vaši dodaci i alati ih zatim mogu uvesti.
+codemate pokreće `bun install` pri pokretanju da ih instalira. Vaši dodaci i alati ih zatim mogu uvesti.
 
 ```ts title=".codemate/plugins/my-plugin.ts"
 import { escape } from "shescape"
@@ -111,7 +111,7 @@ Funkcija dodatka prima:
 - `project`: Trenutne informacije o projektu.
 - `directory`: Trenutni radni direktorij.
 - `worktree`: Putanja git radnog stabla.
-- `client`: Codemate SDK klijent za interakciju sa AI.
+- `client`: codemate SDK klijent za interakciju sa AI.
 - `$`: Bun's [shell API](https://bun.com/docs/runtime/shell) za izvršavanje naredbi.
 
 ---
@@ -204,7 +204,7 @@ Dodaci se mogu pretplatiti na događaje kao što je prikazano ispod u odjeljku P
 
 ## Primjeri
 
-Evo nekoliko primjera dodataka koje možete koristiti za proširenje Codemate.
+Evo nekoliko primjera dodataka koje možete koristiti za proširenje codemate.
 
 ### Slanje obavještenja
 

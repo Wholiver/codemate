@@ -156,7 +156,7 @@ Pesquise arquivos usando padrões glob como `**/*.js` ou `src/**/*.ts`. Retorna 
 Interaja com seus servidores LSP configurados para obter recursos de inteligência de código, como definições, referências, informações de hover e hierarquia de chamadas.
 
 :::note
-Esta ferramenta está disponível apenas quando `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (ou `CODEMATE_EXPERIMENTAL=true`).
+Esta ferramenta está disponível apenas quando `codemate_EXPERIMENTAL_LSP_TOOL=true` (ou `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Permite que o LLM busque e leia páginas da web. Útil para consultar documenta�
 Pesquise na web por informações.
 
 :::note
-Esta ferramenta está disponível apenas ao usar o provedor codemate ou quando a variável de ambiente `CODEMATE_ENABLE_EXA` está definida como qualquer valor verdadeiro (por exemplo, `true` ou `1`).
+Esta ferramenta está disponível apenas ao usar o provedor codemate ou quando a variável de ambiente `codemate_ENABLE_EXA` está definida como qualquer valor verdadeiro (por exemplo, `true` ou `1`).
 
 Para habilitar ao iniciar o codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

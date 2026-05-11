@@ -1,15 +1,15 @@
 ---
 title: Konfiguracja
-description: Ustawienia Codemate w pliku JSON.
+description: Ustawienia codemate w pliku JSON.
 ---
 
-Możesz dostosować Codemate za pomocą pliku konfiguracyjnego JSON.
+Możesz dostosować codemate za pomocą pliku konfiguracyjnego JSON.
 
 ---
 
 ## Format
 
-Codemate obsługuje formaty **JSON** i **JSONC** (JSON z komentarzami).
+codemate obsługuje formaty **JSON** i **JSONC** (JSON z komentarzami).
 
 ```jsonc title="codemate.jsonc"
 {
@@ -43,10 +43,10 @@ Na przykład, jeśli konfiguracja globalna ustawi `theme: "codemate"` i `autoupd
 
 1. **Konfiguracja zdalna** (z `.well-known/codemate`) – ustawienia wymuszane przez organizację
 2. **Konfiguracja globalna** (`~/.config/codemate/codemate.json`) – preferencje użytkownika
-3. **Konfiguracja niestandardowa** (zmienna `CODEMATE_CONFIG`) — jawne nadpisanie
+3. **Konfiguracja niestandardowa** (zmienna `codemate_CONFIG`) — jawne nadpisanie
 4. **Konfiguracja projektu** (`codemate.json` w projekcie) - ustawienia specyficzne dla projektu
 5. **Katalogi `.codemate`** - agenci, polecenia, umiejętności
-6. **Konfiguracja wbudowana** (zmienna `CODEMATE_CONFIG_CONTENT`) — nadpisanie środowiska uruchomieniowego
+6. **Konfiguracja wbudowana** (zmienna `codemate_CONFIG_CONTENT`) — nadpisanie środowiska uruchomieniowego
 
 Oznacza to, że konfiguracje projektu mogą nadpisywać konfiguracje globalne, a konfiguracje globalne mogą nadpisywać konfiguracje zdalne.
 
@@ -94,7 +94,7 @@ Możesz włączyć serwer w konfiguracji projektu:
 
 ### Globalna
 
-Umieść swoją globalną konfigurację Codemate w `~/.config/codemate/codemate.json`. Użyj jej do ustawień ogólnych dla użytkownika, takich jak dostawcy, modele i uprawnienia.
+Umieść swoją globalną konfigurację codemate w `~/.config/codemate/codemate.json`. Użyj jej do ustawień ogólnych dla użytkownika, takich jak dostawcy, modele i uprawnienia.
 
 Dla ustawień specyficznych dla TUI, użyj `~/.config/codemate/tui.json`.
 
@@ -112,7 +112,7 @@ Dla ustawień TUI specyficznych dla projektu, dodaj plik `tui.json` obok niego.
 Umieść konfigurację specyficzną dla projektu w katalogu głównym projektu.
 :::
 
-Kiedy Codemate się uruchamia, szuka pliku konfiguracyjnego w katalogu głównym repozytorium Git.
+Kiedy codemate się uruchamia, szuka pliku konfiguracyjnego w katalogu głównym repozytorium Git.
 
 Może on być przechowywany w Git i mieć ten sam schemat, co konfiguracja globalna.
 
@@ -120,10 +120,10 @@ Może on być przechowywany w Git i mieć ten sam schemat, co konfiguracja globa
 
 ### Niestandardowa ścieżka
 
-Możesz załadować niestandardowy plik konfiguracyjny, ustawiając zmienną środowiskową `CODEMATE_CONFIG`.
+Możesz załadować niestandardowy plik konfiguracyjny, ustawiając zmienną środowiskową `codemate_CONFIG`.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -133,10 +133,10 @@ Konfiguracja niestandardowa jest ładowana po konfiguracji globalnej i przed kon
 
 ### Niestandardowy katalog
 
-Możesz ustawić niestandardowy katalog konfiguracyjny za pomocą zmiennej środowiskowej `CODEMATE_CONFIG_DIR`. Katalog ten będzie przeszukiwany pod kątem agentów, poleceń, trybów i wtyczek, tak jak standardowy katalog `.codemate` i powinien zachować tę samą strukturę.
+Możesz ustawić niestandardowy katalog konfiguracyjny za pomocą zmiennej środowiskowej `codemate_CONFIG_DIR`. Katalog ten będzie przeszukiwany pod kątem agentów, poleceń, trybów i wtyczek, tak jak standardowy katalog `.codemate` i powinien zachować tę samą strukturę.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -167,7 +167,7 @@ Użyj dedykowanego pliku `tui.json` (lub `tui.jsonc`) dla ustawień specyficznyc
 }
 ```
 
-Użyj `CODEMATE_TUI_CONFIG`, aby wskazać niestandardowy plik konfiguracyjny TUI.
+Użyj `codemate_TUI_CONFIG`, aby wskazać niestandardowy plik konfiguracyjny TUI.
 
 Przestarzałe klucze `theme`, `keybinds` i `tui` w `codemate.json` są wycofywane i automatycznie migrowane, gdy to możliwe.
 
@@ -196,7 +196,7 @@ Dostępne opcje:
 
 - `port` - Port do nasłuchiwania.
 - `hostname` — Nazwa hosta, z którą należy się powiązać. Gdy `mdns` jest włączone i nie ustawiono innej nazwy hosta, domyślnie jest to `0.0.0.0`.
-- `mdns` - Włącz wykrywanie usług mDNS. Dzięki temu inne urządzenia w sieci mogą łatwo znaleźć Twój serwer Codemate.
+- `mdns` - Włącz wykrywanie usług mDNS. Dzięki temu inne urządzenia w sieci mogą łatwo znaleźć Twój serwer codemate.
 - `mdnsDomain` - Niestandardowa nazwa domeny dla usług mDNS. Domyślnie `codemate.local`. Przydatne do uruchamiania wielu instancji w tej samej sieci.
 - `cors` - Dozwolone źródła CORS podczas korzystania z serwera HTTP z przeglądarki. Wartość musi być listą źródeł (schemat + host + opcjonalny port), np. `https://app.example.com`.
 
@@ -235,7 +235,7 @@ Możesz skonfigurować dostawców i modele, których chcesz używać, za pomocą
 }
 ```
 
-Opcja `small_model` konfiguruje oddzielny model do lżejszych zadań, takich jak generowanie tytułów. Domyślnie Codemate wybiera tańszy model od tego samego dostawcy, jeśli jest dostępny, w przeciwnym razie powraca do modelu głównego.
+Opcja `small_model` konfiguruje oddzielny model do lżejszych zadań, takich jak generowanie tytułów. Domyślnie codemate wybiera tańszy model od tego samego dostawcy, jeśli jest dostępny, w przeciwnym razie powraca do modelu głównego.
 
 Opcje dostawcy mogą zawierać `timeout` i `setCacheKey`:
 
@@ -347,7 +347,7 @@ Domyślnego agenta można ustawić za pomocą opcji `default_agent`. Określa to
 }
 ```
 
-Agent domyślny musi być agentem typu `primary` (nie `subagent`). Może to być agent wbudowany, taki jak `"build"` lub `"plan"`, albo zdefiniowany przez Ciebie [agent niestandardowy](/docs/agents). Jeśli agent nie istnieje lub jest subagentem, Codemate powróci do `"build"` z ostrzeżeniem.
+Agent domyślny musi być agentem typu `primary` (nie `subagent`). Może to być agent wbudowany, taki jak `"build"` lub `"plan"`, albo zdefiniowany przez Ciebie [agent niestandardowy](/docs/agents). Jeśli agent nie istnieje lub jest subagentem, codemate powróci do `"build"` z ostrzeżeniem.
 
 Dotyczy to wszystkich interfejsów: TUI, CLI (`codemate run`), aplikacji desktopowej i GitHub Actions.
 
@@ -417,7 +417,7 @@ Dostosuj skróty klawiszowe w `tui.json`.
 
 ### Autoupdate (Automatyczna aktualizacja)
 
-Codemate może automatycznie pobierać nowe wersje. Możesz to kontrolować za pomocą opcji `autoupdate`.
+codemate może automatycznie pobierać nowe wersje. Możesz to kontrolować za pomocą opcji `autoupdate`.
 
 ```json title="codemate.json"
 {
@@ -427,7 +427,7 @@ Codemate może automatycznie pobierać nowe wersje. Możesz to kontrolować za p
 ```
 
 Jeśli nie chcesz automatycznych aktualizacji, ale chcesz być powiadamiany o nowych wersjach, ustaw `autoupdate` na `"notify"`.
-Działa to tylko wtedy, gdy Codemate nie został zainstalowany przez menedżera pakietów, takiego jak Homebrew.
+Działa to tylko wtedy, gdy codemate nie został zainstalowany przez menedżera pakietów, takiego jak Homebrew.
 
 ---
 
@@ -459,7 +459,7 @@ Możesz skonfigurować formatery kodu za pomocą opcji `formatter`.
 
 ### Permissions (Uprawnienia)
 
-Domyślnie Codemate **zezwala na wszystkie działania** bez konieczności zatwierdzania. Możesz to zmienić za pomocą opcji `permission`.
+Domyślnie codemate **zezwala na wszystkie działania** bez konieczności zatwierdzania. Możesz to zmienić za pomocą opcji `permission`.
 
 Na przykład, aby wymagać zatwierdzenia dla narzędzi `edit` i `bash`:
 
@@ -530,7 +530,7 @@ Skonfiguruj serwery MCP, których chcesz używać, za pomocą opcji `mcp`.
 
 ### Plugins (Wtyczki)
 
-[Wtyczki](/docs/plugins) rozszerzają Codemate o niestandardowe narzędzia, hooki i integracje.
+[Wtyczki](/docs/plugins) rozszerzają codemate o niestandardowe narzędzia, hooki i integracje.
 
 Umieść pliki wtyczek w `.codemate/plugins/` lub `~/.config/codemate/plugins/`. Możesz także załadować wtyczkę z npm za pomocą opcji `plugin`.
 
@@ -594,7 +594,7 @@ Możesz określić listę dozwolonych dostawców za pomocą `enabled_providers`.
 }
 ```
 
-Jest to przydatne, gdy chcesz ograniczyć użycie Codemate tylko do określonych dostawców.
+Jest to przydatne, gdy chcesz ograniczyć użycie codemate tylko do określonych dostawców.
 
 :::note
 `disabled_providers` ma pierwszeństwo przed `enabled_providers`.
@@ -634,7 +634,7 @@ Użyj `{env:VARIABLE_NAME}`, aby wstawić wartość zmiennej środowiskowej:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

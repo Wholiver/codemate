@@ -17,16 +17,21 @@ import { sessionTitle } from "@/utils/session-title"
 import { sessionPermissionRequest } from "../session/composer/session-request-tree"
 import { childSessionOnPath, hasProjectPermissions } from "./helpers"
 
-const CODEMATE_PROJECT_ID = "4b0ea68d7af9a6031a7ffda7ad66e0cb83315750"
+const codemate_PROJECT_ID = "4b0ea68d7af9a6031a7ffda7ad66e0cb83315750"
 
 export function getProjectAvatarSource(id?: string, icon?: { color?: string; url?: string; override?: string }) {
-  if (id === CODEMATE_PROJECT_ID) return "https://codemate.ai/favicon.svg"
+  if (id === codemate_PROJECT_ID) return "https://codemate.ai/favicon.svg"
   if (icon?.override) return icon?.override
   if (icon?.color) return undefined
   return icon?.url
 }
 
-export const ProjectIcon = (props: { project: LocalProject; class?: string; notify?: boolean }): JSX.Element => {
+export const ProjectIcon = (props: {
+  project: LocalProject
+  class?: string
+  notify?: boolean
+  working?: boolean
+}): JSX.Element => {
   const globalSync = useGlobalSync()
   const notification = useNotification()
   const permission = usePermission()
@@ -64,6 +69,11 @@ export const ProjectIcon = (props: { project: LocalProject; class?: string; noti
             "bg-text-interactive-base": !hasPermissions() && !hasError(),
           }}
         />
+      </Show>
+      <Show when={props.working}>
+        <div class="absolute bottom-px right-px size-3 rounded-full bg-background-base z-10 flex items-center justify-center">
+          <Spinner class="size-[9px]" />
+        </div>
       </Show>
     </div>
   )

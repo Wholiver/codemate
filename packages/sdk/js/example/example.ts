@@ -1,8 +1,8 @@
-import { createCodemateClient, createCodemateServer } from "@codemate-ai/sdk"
+import { createcodemateClient, createcodemateServer } from "@codemate-ai/sdk"
 import { pathToFileURL } from "bun"
 
-const server = await createCodemateServer()
-const client = createCodemateClient({ baseUrl: server.url })
+const server = await createcodemateServer()
+const client = createcodemateClient({ baseUrl: server.url })
 
 const input = await Array.fromAsync(new Bun.Glob("packages/core/*.ts").scan())
 

@@ -24,9 +24,9 @@ jobs:
 
       - name: Check duplicates and compliance
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CODEMATE_PERMISSION: |
+          codemate_PERMISSION: |
             {
               "bash": {
                 "*": "deny",
@@ -136,9 +136,9 @@ jobs:
 
       - name: Recheck compliance
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CODEMATE_PERMISSION: |
+          codemate_PERMISSION: |
             {
               "bash": {
                 "*": "deny",

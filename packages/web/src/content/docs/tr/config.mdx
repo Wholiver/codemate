@@ -44,10 +44,10 @@ Yapılandırma kaynakları bu sırayla yüklenir (sonraki kaynaklar öncekileri 
 
 1. **Uzak yapılandırma** (`.well-known/codemate`'dan) - kurumsal varsayılanlar
 2. **Genel yapılandırma** (`~/.config/codemate/codemate.json`) - kullanıcı tercihleri
-3. **Özel yapılandırma** (`CODEMATE_CONFIG` env var) - özel geçersiz kılmalar
+3. **Özel yapılandırma** (`codemate_CONFIG` env var) - özel geçersiz kılmalar
 4. **Proje yapılandırması** (projedeki `codemate.json`) - projeye özgü ayarlar
 5. **`.codemate` dizinleri** - agent'lar, komutlar, eklentiler
-6. **Satır içi yapılandırma** (`CODEMATE_CONFIG_CONTENT` env var) - çalışma zamanı geçersiz kılmaları
+6. **Satır içi yapılandırma** (`codemate_CONFIG_CONTENT` env var) - çalışma zamanı geçersiz kılmaları
 
 Bu, proje yapılandırmalarının genel varsayılanları geçersiz kılabileceği ve genel yapılandırmaların uzak organizasyonel varsayılanları geçersiz kılabileceği anlamına gelir.
 
@@ -117,10 +117,10 @@ Bunun Git'te kontrol edilmesi de güvenlidir ve global olanla aynı şemayı kul
 
 ### Özel yol
 
-`CODEMATE_CONFIG` ortam değişkenini kullanarak özel bir yapılandırma dosyası yolu belirtin.
+`codemate_CONFIG` ortam değişkenini kullanarak özel bir yapılandırma dosyası yolu belirtin.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -130,13 +130,13 @@ codemate run "Hello world"
 
 ### Özel dizin
 
-`CODEMATE_CONFIG_DIR` kullanarak özel bir yapılandırma dizini belirtin
+`codemate_CONFIG_DIR` kullanarak özel bir yapılandırma dizini belirtin
 ortam değişkeni. Bu dizin agent'lar, komutlar için aranacaktır.
 modlar ve eklentiler tıpkı standart `.codemate` dizini gibi olmalıdır ve
 aynı yapıyı takip edin.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -641,7 +641,7 @@ Ortam değişkenlerini değiştirmek için `{env:VARIABLE_NAME}` kullanın:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

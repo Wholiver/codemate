@@ -10,8 +10,8 @@ import type { Proc } from "#pty"
 import * as Log from "@codemate-ai/core/util/log"
 import { PtyID } from "./schema"
 import { Effect, Layer, Context, Schema, Types } from "effect"
-import { zod } from "@/util/effect-zod"
-import { NonNegativeInt, PositiveInt, withStatics } from "@/util/schema"
+import { zod } from "@codemate-ai/core/effect-zod"
+import { NonNegativeInt, PositiveInt, withStatics } from "@codemate-ai/core/schema"
 
 const log = Log.create({ service: "pty" })
 
@@ -191,7 +191,7 @@ export const layer = Layer.effect(
         ...input.env,
         ...shell.env,
         TERM: "xterm-256color",
-        CODEMATE_TERMINAL: "1",
+        codemate_TERMINAL: "1",
       } as Record<string, string>
 
       if (process.platform === "win32") {

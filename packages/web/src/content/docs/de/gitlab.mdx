@@ -1,33 +1,33 @@
 ---
 title: GitLab
-description: Verwenden Sie Codemate in GitLab-Issues und Merge Requests.
+description: Verwenden Sie codemate in GitLab-Issues und Merge Requests.
 ---
 
-Codemate lässt sich über Ihre GitLab CI/CD-Pipeline oder mit GitLab Duo in Ihren GitLab-Workflow integrieren.
+codemate lässt sich über Ihre GitLab CI/CD-Pipeline oder mit GitLab Duo in Ihren GitLab-Workflow integrieren.
 
-In beiden Fällen läuft Codemate auf Ihren GitLab Runners.
+In beiden Fällen läuft codemate auf Ihren GitLab Runners.
 
 ---
 
 ## GitLab CI
 
-Codemate funktioniert in einer regulären GitLab-Pipeline. Sie können es als [CI component](https://docs.gitlab.com/ee/ci/components/) in eine Pipeline einbauen.
+codemate funktioniert in einer regulären GitLab-Pipeline. Sie können es als [CI component](https://docs.gitlab.com/ee/ci/components/) in eine Pipeline einbauen.
 
-Hier verwenden wir eine von der Community erstellte CI/CD-Komponente für Codemate – [nagyv/gitlab-codemate](https://gitlab.com/nagyv/gitlab-codemate).
+Hier verwenden wir eine von der Community erstellte CI/CD-Komponente für codemate – [nagyv/gitlab-codemate](https://gitlab.com/nagyv/gitlab-codemate).
 
 ---
 
 ### Funktionen
 
-- **Benutzerdefinierte Konfiguration pro Job verwenden**: Konfigurieren Sie Codemate mit einem benutzerdefinierten Konfigurationsverzeichnis, zum Beispiel `./config/#custom-directory`, um die Funktionalität pro Codemate-Aufruf zu aktivieren oder zu deaktivieren.
-- **Minimale Einrichtung**: Die CI-Komponente richtet Codemate im Hintergrund ein. Sie müssen lediglich die Codemate-Konfiguration und die erste Eingabeaufforderung erstellen.
+- **Benutzerdefinierte Konfiguration pro Job verwenden**: Konfigurieren Sie codemate mit einem benutzerdefinierten Konfigurationsverzeichnis, zum Beispiel `./config/#custom-directory`, um die Funktionalität pro codemate-Aufruf zu aktivieren oder zu deaktivieren.
+- **Minimale Einrichtung**: Die CI-Komponente richtet codemate im Hintergrund ein. Sie müssen lediglich die codemate-Konfiguration und die erste Eingabeaufforderung erstellen.
 - **Flexibel**: Die CI-Komponente unterstützt mehrere Eingaben zum Anpassen ihres Verhaltens
 
 ---
 
 ### Einrichtung
 
-1. Speichern Sie Ihre Codemate-Authentifizierung JSON als Umgebungsvariablen vom Dateityp CI unter **Einstellungen** > **CI/CD** > **Variablen**. Stellen Sie sicher, dass Sie sie als „Maskiert und ausgeblendet“ markieren.
+1. Speichern Sie Ihre codemate-Authentifizierung JSON als Umgebungsvariablen vom Dateityp CI unter **Einstellungen** > **CI/CD** > **Variablen**. Stellen Sie sicher, dass Sie sie als „Maskiert und ausgeblendet“ markieren.
 2. Fügen Sie Folgendes zu Ihrer `.gitlab-ci.yml`-Datei hinzu.
 
    ```yaml title=".gitlab-ci.yml"
@@ -35,7 +35,7 @@ Hier verwenden wir eine von der Community erstellte CI/CD-Komponente für Codema
      - component: $CI_SERVER_FQDN/nagyv/gitlab-codemate/codemate@2
        inputs:
          config_dir: ${CI_PROJECT_DIR}/codemate-config
-         auth_json: $CODEMATE_AUTH_JSON # Die variable name für ihre Codemate authentifizierung JSON
+         auth_json: $codemate_AUTH_JSON # Die variable name für ihre codemate authentifizierung JSON
          command: optional-custom-command
          message: "Your prompt here"
    ```
@@ -46,23 +46,23 @@ Weitere Eingaben und Anwendungsfälle finden Sie unter [check out the docs](http
 
 ## GitLab Duo
 
-Codemate lässt sich in Ihren GitLab-Workflow integrieren.
-Erwähnen Sie `@codemate` in einem Kommentar und Codemate führt Aufgaben innerhalb Ihrer GitLab CI-Pipeline aus.
+codemate lässt sich in Ihren GitLab-Workflow integrieren.
+Erwähnen Sie `@codemate` in einem Kommentar und codemate führt Aufgaben innerhalb Ihrer GitLab CI-Pipeline aus.
 
 ---
 
 ### Funktionen
 
-- **Issue Triage**: Bitten Sie Codemate, ein Problem zu untersuchen und es Ihnen zu erklären.
-- **Reparieren und implementieren**: Bitten Sie Codemate, ein Problem zu beheben oder eine Funktion zu implementieren.
+- **Issue Triage**: Bitten Sie codemate, ein Problem zu untersuchen und es Ihnen zu erklären.
+- **Reparieren und implementieren**: Bitten Sie codemate, ein Problem zu beheben oder eine Funktion zu implementieren.
   Es wird ein neuer Branch erstellt und eine Merge Request mit den Änderungen ausgelöst.
-- **Sicher**: Codemate läuft auf Ihren GitLab Runners.
+- **Sicher**: codemate läuft auf Ihren GitLab Runners.
 
 ---
 
 ### Einrichtung
 
-Codemate wird in Ihrer GitLab CI/CD-Pipeline ausgeführt. Folgendes müssen Sie zum Einrichten benötigen:
+codemate wird in Ihrer GitLab CI/CD-Pipeline ausgeführt. Folgendes müssen Sie zum Einrichten benötigen:
 
 :::tip
 Aktuelle Anweisungen finden Sie im [**GitLab docs**](https://docs.gitlab.com/user/duo_agent_platform/agent_assistant/).
@@ -85,13 +85,13 @@ Aktuelle Anweisungen finden Sie im [**GitLab docs**](https://docs.gitlab.com/use
       - echo "Installing codemate"
       - npm install --global codemate-ai
       - echo "Installing glab"
-      - export GITLAB_TOKEN=$GITLAB_TOKEN_CODEMATE
+      - export GITLAB_TOKEN=$GITLAB_TOKEN_codemate
       - apt-get update --quiet && apt-get install --yes curl wget gpg git && rm --recursive --force /var/lib/apt/lists/*
       - curl --silent --show-error --location "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash
       - apt-get install --yes glab
       - echo "Configuring glab"
       - echo $GITLAB_HOST
-      - echo "Creating Codemate auth configuration"
+      - echo "Creating codemate auth configuration"
       - mkdir --parents ~/.local/share/codemate
       - |
         cat > ~/.local/share/codemate/auth.json << EOF
@@ -104,10 +104,10 @@ Aktuelle Anweisungen finden Sie im [**GitLab docs**](https://docs.gitlab.com/use
         EOF
       - echo "Configuring git"
       - git config --global user.email "codemate@gitlab.com"
-      - git config --global user.name "Codemate"
+      - git config --global user.name "codemate"
       - echo "Testing glab"
       - glab issue list
-      - echo "Running Codemate"
+      - echo "Running codemate"
       - |
         codemate run "
         You are an AI assistant helping with GitLab operations.
@@ -146,7 +146,7 @@ Aktuelle Anweisungen finden Sie im [**GitLab docs**](https://docs.gitlab.com/use
         fi
     variables:
       - ANTHROPIC_API_KEY
-      - GITLAB_TOKEN_CODEMATE
+      - GITLAB_TOKEN_codemate
       - GITLAB_HOST
     ```
 
@@ -158,7 +158,7 @@ Ausführliche Anweisungen finden Sie unter [GitLab CLI agents docs](https://docs
 
 ### Beispiele
 
-Hier sind einige Beispiele, wie Sie Codemate in GitLab verwenden können.
+Hier sind einige Beispiele, wie Sie codemate in GitLab verwenden können.
 
 :::tip
 Sie können die Verwendung einer anderen Triggerphrase als `@codemate` konfigurieren.
@@ -172,7 +172,7 @@ Sie können die Verwendung einer anderen Triggerphrase als `@codemate` konfiguri
   @codemate explain this issue
   ```
 
-  Codemate liest das Problem und antwortet mit einer klaren Erklärung.
+  codemate liest das Problem und antwortet mit einer klaren Erklärung.
 
 - **Ein Problem beheben**
 
@@ -182,7 +182,7 @@ Sie können die Verwendung einer anderen Triggerphrase als `@codemate` konfiguri
   @codemate fix this
   ```
 
-  Codemate erstellt einen neuen Branch, implementiert die Änderungen und öffnet eine Merge Request mit den Änderungen.
+  codemate erstellt einen neuen Branch, implementiert die Änderungen und öffnet eine Merge Request mit den Änderungen.
 
 - **Merge Requests prüfen**
 
@@ -192,4 +192,4 @@ Sie können die Verwendung einer anderen Triggerphrase als `@codemate` konfiguri
   @codemate review this merge request
   ```
 
-  Codemate prüft die Merge Request und gibt Feedback.
+  codemate prüft die Merge Request und gibt Feedback.

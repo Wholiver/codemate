@@ -1,15 +1,15 @@
 ---
 title: LSP 伺服器
-description: Codemate 與您的 LSP 伺服器整合。
+description: codemate 與您的 LSP 伺服器整合。
 ---
 
-Codemate 與您的語言伺服器協定（LSP）整合，協助 LLM 與您的程式碼庫進行互動。它利用診斷資訊向 LLM 提供回饋。
+codemate 與您的語言伺服器協定（LSP）整合，協助 LLM 與您的程式碼庫進行互動。它利用診斷資訊向 LLM 提供回饋。
 
 ---
 
 ## 內建支援
 
-Codemate 內建了多種適用於主流語言的 LSP 伺服器：
+codemate 內建了多種適用於主流語言的 LSP 伺服器：
 
 | LSP 伺服器         | 副檔名                                                              | 要求                                                  |
 | ------------------ | ------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -50,14 +50,14 @@ Codemate 內建了多種適用於主流語言的 LSP 伺服器：
 當偵測到上述檔案副檔名且滿足相應要求時，LSP 伺服器會自動啟用。
 
 :::note
-您可以將 `CODEMATE_DISABLE_LSP_DOWNLOAD` 環境變數設定為 `true` 來停用 LSP 伺服器的自動下載。
+您可以將 `codemate_DISABLE_LSP_DOWNLOAD` 環境變數設定為 `true` 來停用 LSP 伺服器的自動下載。
 :::
 
 ---
 
 ## 工作原理
 
-當 Codemate 開啟一個檔案時，它會：
+當 codemate 開啟一個檔案時，它會：
 
 1. 將檔案副檔名與所有已啟用的 LSP 伺服器進行比對。
 2. 如果對應的 LSP 伺服器尚未執行，則自動啟動它。
@@ -66,7 +66,7 @@ Codemate 內建了多種適用於主流語言的 LSP 伺服器：
 
 ## 設定
 
-您可以透過 Codemate 設定檔中的 `lsp` 部分來自訂 LSP 伺服器。
+您可以透過 codemate 設定檔中的 `lsp` 部分來自訂 LSP 伺服器。
 
 ```json title="codemate.json"
 {

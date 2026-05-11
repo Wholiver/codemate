@@ -1,11 +1,9 @@
 export * as ConfigPaths from "./paths"
 
 import path from "path"
-import { Filesystem } from "@/util/filesystem"
 import { Flag } from "@codemate-ai/core/flag/flag"
 import { Global } from "@codemate-ai/core/global"
 import { unique } from "remeda"
-import { JsonError } from "./error"
 import * as Effect from "effect/Effect"
 import { AppFileSystem } from "@codemate-ai/core/filesystem"
 
@@ -26,7 +24,7 @@ export const directories = Effect.fn("ConfigPaths.directories")(function* (direc
   const afs = yield* AppFileSystem.Service
   return unique([
     Global.Path.config,
-    ...(!Flag.CODEMATE_DISABLE_PROJECT_CONFIG
+    ...(!Flag.codemate_DISABLE_PROJECT_CONFIG
       ? yield* afs.up({
           targets: [".codemate"],
           start: directory,
@@ -38,18 +36,10 @@ export const directories = Effect.fn("ConfigPaths.directories")(function* (direc
       start: Global.Path.home,
       stop: Global.Path.home,
     })),
-    ...(Flag.CODEMATE_CONFIG_DIR ? [Flag.CODEMATE_CONFIG_DIR] : []),
+    ...(Flag.codemate_CONFIG_DIR ? [Flag.codemate_CONFIG_DIR] : []),
   ])
 })
 
 export function fileInDirectory(dir: string, name: string) {
   return [path.join(dir, `${name}.json`), path.join(dir, `${name}.jsonc`)]
-}
-
-/** Read a config file, returning undefined for missing files and throwing JsonError for other failures. */
-export async function readFile(filepath: string) {
-  return Filesystem.readText(filepath).catch((err: NodeJS.ErrnoException) => {
-    if (err.code === "ENOENT") return
-    throw new JsonError({ path: filepath }, { cause: err })
-  })
 }

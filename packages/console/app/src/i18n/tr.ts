@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Ana sayfa",
   "nav.openMenu": "Menüyü aç",
   "nav.getStartedFree": "Ücretsiz başla",
-  "nav.logoAlt": "Codemate",
+  "nav.logoAlt": "codemate",
 
   "nav.context.copyLogo": "Logoyu SVG olarak kopyala",
   "nav.context.copyWordmark": "Wordmark'ı SVG olarak kopyala",
@@ -81,9 +81,9 @@ export const dict = {
   "error.reloadAmountMin": "Yükleme tutarı en az ${{amount}} olmalıdır",
   "error.reloadTriggerMin": "Bakiye tetikleyicisi en az ${{amount}} olmalıdır",
 
-  "app.meta.description": "Codemate - Açık kaynaklı kodlama ajanı.",
+  "app.meta.description": "codemate - Açık kaynaklı kodlama ajanı.",
 
-  "home.title": "Codemate | Açık kaynaklı yapay zeka kodlama ajanı",
+  "home.title": "codemate | Açık kaynaklı yapay zeka kodlama ajanı",
 
   "temp.title": "codemate | Terminal için geliştirilmiş yapay zeka kodlama ajanı",
   "temp.hero.title": "Terminal için geliştirilmiş yapay zeka kodlama ajanı",
@@ -113,9 +113,9 @@ export const dict = {
 
   "home.install.ariaLabel": "Kurulum seçenekleri",
 
-  "home.what.title": "Codemate nedir?",
+  "home.what.title": "codemate nedir?",
   "home.what.body":
-    "Codemate, terminalinizde, IDE'nizde veya masaüstünde kod yazmanıza yardım eden açık kaynaklı bir ajandır.",
+    "codemate, terminalinizde, IDE'nizde veya masaüstünde kod yazmanıza yardım eden açık kaynaklı bir ajandır.",
   "home.what.lsp.title": "LSP etkin",
   "home.what.lsp.body": "LLM için doğru LSP'leri otomatik olarak yükler",
   "home.what.multiSession.title": "Çoklu oturum",
@@ -134,41 +134,41 @@ export const dict = {
 
   "home.growth.title": "Açık kaynaklı yapay zeka kodlama ajanı",
   "home.growth.body":
-    "GitHub'da <strong>{{stars}}</strong>+ yıldız, <strong>{{contributors}}</strong> katılımcı ve <strong>{{commits}}</strong>+ commit ile Codemate, her ay <strong>{{monthlyUsers}}</strong>+ geliştirici tarafından kullanılıyor ve güveniliyor.",
+    "GitHub'da <strong>{{stars}}</strong>+ yıldız, <strong>{{contributors}}</strong> katılımcı ve <strong>{{commits}}</strong>+ commit ile codemate, her ay <strong>{{monthlyUsers}}</strong>+ geliştirici tarafından kullanılıyor ve güveniliyor.",
   "home.growth.githubStars": "GitHub Yıldızları",
   "home.growth.contributors": "Katılımcılar",
   "home.growth.monthlyDevs": "Aylık Geliştiriciler",
 
   "home.privacy.title": "Gizlilik öncelikli tasarlandı",
   "home.privacy.body":
-    "Codemate kodunuzu veya bağlam verilerinizi saklamaz; bu sayede gizliliğe duyarlı ortamlarda çalışabilir.",
+    "codemate kodunuzu veya bağlam verilerinizi saklamaz; bu sayede gizliliğe duyarlı ortamlarda çalışabilir.",
   "home.privacy.learnMore": "Hakkında daha fazla bilgi:",
   "home.privacy.link": "gizlilik",
 
-  "home.faq.q1": "Codemate nedir?",
+  "home.faq.q1": "codemate nedir?",
   "home.faq.a1":
-    "Codemate, herhangi bir AI modeliyle kod yazmanıza ve çalıştırmanıza yardım eden açık kaynaklı bir ajandır. Terminal arayüzü, masaüstü uygulaması veya IDE uzantısı olarak kullanılabilir.",
-  "home.faq.q2": "Codemate'u nasıl kullanırım?",
+    "codemate, herhangi bir AI modeliyle kod yazmanıza ve çalıştırmanıza yardım eden açık kaynaklı bir ajandır. Terminal arayüzü, masaüstü uygulaması veya IDE uzantısı olarak kullanılabilir.",
+  "home.faq.q2": "codemate'u nasıl kullanırım?",
   "home.faq.a2.before": "Başlamanın en kolay yolu",
   "home.faq.a2.link": "girişi okumaktır",
-  "home.faq.q3": "Codemate için ek AI aboneliklerine ihtiyacım var mı?",
-  "home.faq.a3.p1": "Şart değil. Codemate, hesap açmadan kullanabileceğiniz ücretsiz modellerle gelir.",
+  "home.faq.q3": "codemate için ek AI aboneliklerine ihtiyacım var mı?",
+  "home.faq.a3.p1": "Şart değil. codemate, hesap açmadan kullanabileceğiniz ücretsiz modellerle gelir.",
   "home.faq.a3.p2.beforeZen": "Bunun dışında, popüler kodlama modellerini kullanmak için bir",
   "home.faq.a3.p2.afterZen": " hesabı oluşturabilirsiniz.",
-  "home.faq.a3.p3": "Zen'i öneriyoruz, ancak Codemate OpenAI, Anthropic, xAI gibi popüler sağlayıcılarla da çalışır.",
+  "home.faq.a3.p3": "Zen'i öneriyoruz, ancak codemate OpenAI, Anthropic, xAI gibi popüler sağlayıcılarla da çalışır.",
   "home.faq.a3.p4.beforeLocal": "Hatta",
   "home.faq.a3.p4.localLink": "yerel modellerinizi bağlayabilirsiniz",
-  "home.faq.q4": "Mevcut AI aboneliklerimi Codemate ile kullanabilir miyim?",
+  "home.faq.q4": "Mevcut AI aboneliklerimi codemate ile kullanabilir miyim?",
   "home.faq.a4.p1":
-    "Evet. Codemate tüm büyük sağlayıcıların aboneliklerini destekler. Claude Pro/Max, ChatGPT Plus/Pro veya GitHub Copilot kullanabilirsiniz.",
-  "home.faq.q5": "Codemate'u sadece terminalde mi kullanabilirim?",
-  "home.faq.a5.beforeDesktop": "Artık hayır! Codemate artık sizin bu cihazlarınıza",
+    "Evet. codemate tüm büyük sağlayıcıların aboneliklerini destekler. Claude Pro/Max, ChatGPT Plus/Pro veya GitHub Copilot kullanabilirsiniz.",
+  "home.faq.q5": "codemate'u sadece terminalde mi kullanabilirim?",
+  "home.faq.a5.beforeDesktop": "Artık hayır! codemate artık sizin bu cihazlarınıza",
   "home.faq.a5.desktop": "masaüstü",
   "home.faq.a5.and": "ve",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "Codemate ne kadar?",
+  "home.faq.q6": "codemate ne kadar?",
   "home.faq.a6":
-    "Codemate %100 ücretsizdir. Ayrıca ücretsiz model setiyle gelir. Başka bir sağlayıcı bağlarsanız ek maliyetler olabilir.",
+    "codemate %100 ücretsizdir. Ayrıca ücretsiz model setiyle gelir. Başka bir sağlayıcı bağlarsanız ek maliyetler olabilir.",
   "home.faq.q7": "Veri ve gizlilik ne olacak?",
   "home.faq.a7.p1":
     "Verileriniz yalnızca ücretsiz modellerimizi kullandığınızda veya paylaşılabilir bağlantılar oluşturduğunuzda saklanır.",
@@ -176,8 +176,8 @@ export const dict = {
   "home.faq.a7.p2.modelsLink": "modellerimiz",
   "home.faq.a7.p2.and": "ve",
   "home.faq.a7.p2.shareLink": "paylaşım sayfaları",
-  "home.faq.q8": "Codemate açık kaynak mı?",
-  "home.faq.a8.p1": "Evet, Codemate tamamen açık kaynaktır. Kaynak kodu",
+  "home.faq.q8": "codemate açık kaynak mı?",
+  "home.faq.a8.p1": "Evet, codemate tamamen açık kaynaktır. Kaynak kodu",
   "home.faq.a8.p2": "'da",
   "home.faq.a8.mitLicense": "MIT Lisansı",
   "home.faq.a8.p3":
@@ -185,23 +185,23 @@ export const dict = {
 
   "home.zenCta.title": "Kodlama ajanları için güvenilir, optimize modeller",
   "home.zenCta.body":
-    "Zen, Codemate'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
+    "Zen, codemate'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
   "home.zenCta.link": "Zen hakkında",
 
-  "zen.title": "Codemate Zen | Kodlama ajanları için güvenilir, optimize edilmiş modellerin seçilmiş seti",
+  "zen.title": "codemate Zen | Kodlama ajanları için güvenilir, optimize edilmiş modellerin seçilmiş seti",
   "zen.hero.title": "Kodlama ajanları için güvenilir, optimize modeller",
   "zen.hero.body":
-    "Zen, Codemate'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
+    "Zen, codemate'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
 
-  "zen.faq.q1": "Codemate Zen nedir?",
+  "zen.faq.q1": "codemate Zen nedir?",
   "zen.faq.a1":
-    "Zen, Codemate ekibi tarafından oluşturulan ve kodlama ajanları için test edilip benchmark edilen seçilmiş bir AI model setidir.",
+    "Zen, codemate ekibi tarafından oluşturulan ve kodlama ajanları için test edilip benchmark edilen seçilmiş bir AI model setidir.",
   "zen.faq.q2": "Zen'i daha doğru yapan nedir?",
   "zen.faq.a2":
     "Zen yalnızca kodlama ajanları için özel olarak test edilip benchmark edilmiş modelleri sunar. Biftek kesmek için tereyağı bıçağı kullanmazsın; kodlama için kötü modeller kullanma.",
   "zen.faq.q3": "Zen daha ucuz mu?",
   "zen.faq.a3":
-    "Zen kâr amaçlı değildir. Zen, model sağlayıcılarının maliyetlerini size yansıtır. Zen'in kullanımı arttıkça Codemate daha iyi fiyatlar pazarlayabilir ve bunları size yansıtabilir.",
+    "Zen kâr amaçlı değildir. Zen, model sağlayıcılarının maliyetlerini size yansıtır. Zen'in kullanımı arttıkça codemate daha iyi fiyatlar pazarlayabilir ve bunları size yansıtabilir.",
   "zen.faq.q4": "Zen ne kadar?",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "istek başı ücret alır",
@@ -210,7 +210,7 @@ export const dict = {
   "zen.faq.a4.p2.beforeAccount": "Toplam maliyetiniz kullanım miktarına bağlıdır ve aylık harcama limitlerini",
   "zen.faq.a4.p2.accountLink": "hesabınızda ayarlayabilirsiniz",
   "zen.faq.a4.p3":
-    "Maliyetleri karşılamak için Codemate, $20 bakiye yüklemesi başına yalnızca $1.23 tutarında küçük bir ödeme işleme ücreti ekler.",
+    "Maliyetleri karşılamak için codemate, $20 bakiye yüklemesi başına yalnızca $1.23 tutarında küçük bir ödeme işleme ücreti ekler.",
   "zen.faq.q5": "Veri ve gizlilik ne olacak?",
   "zen.faq.a5.beforeExceptions":
     "Tüm Zen modelleri ABD'de barındırılır. Sağlayıcılar sıfır-retention politikasını uygular ve verilerinizi model eğitimi için kullanmaz; şu",
@@ -222,7 +222,7 @@ export const dict = {
     "Evet, istediğiniz zaman faturalandırmayı devre dışı bırakabilir ve kalan bakiyenizi kullanabilirsiniz.",
   "zen.faq.q8": "Zen'i diğer kodlama ajanlarıyla kullanabilir miyim?",
   "zen.faq.a8":
-    "Zen Codemate ile harika çalışır, ama Zen'i herhangi bir ajan ile kullanabilirsiniz. Tercih ettiğiniz kodlama ajanında kurulum talimatlarını izleyin.",
+    "Zen codemate ile harika çalışır, ama Zen'i herhangi bir ajan ile kullanabilirsiniz. Tercih ettiğiniz kodlama ajanında kurulum talimatlarını izleyin.",
 
   "zen.cta.start": "Zen'i kullanmaya başlayın",
   "zen.pricing.title": "20$ Kullandıkça öde bakiyesi ekle",
@@ -232,12 +232,12 @@ export const dict = {
   "zen.problem.title": "Zen hangi sorunu çözüyor?",
   "zen.problem.body":
     "Pek çok model mevcut ancak yalnızca birkaçı kodlama ajanlarıyla iyi çalışıyor. Çoğu sağlayıcı, bunları değişen sonuçlarla farklı şekilde yapılandırır.",
-  "zen.problem.subtitle": "Bu sorunu yalnızca Codemate kullanıcıları için değil, herkes için düzeltiyoruz.",
+  "zen.problem.subtitle": "Bu sorunu yalnızca codemate kullanıcıları için değil, herkes için düzeltiyoruz.",
   "zen.problem.item1": "Seçilen modelleri test etme ve ekiplerine danışmanlık yapma",
   "zen.problem.item2": "Düzgün bir şekilde teslim edildiklerinden emin olmak için sağlayıcılarla çalışmak",
   "zen.problem.item3": "Önerdiğimiz tüm model-sağlayıcı kombinasyonlarının karşılaştırılması",
   "zen.how.title": "Zen nasıl çalışır?",
-  "zen.how.body": "Zen'i Codemate ile kullanmanızı önersek de, Zen'i herhangi bir ajan ile kullanabilirsiniz.",
+  "zen.how.body": "Zen'i codemate ile kullanmanızı önersek de, Zen'i herhangi bir ajan ile kullanabilirsiniz.",
   "zen.how.step1.title": "Kaydolun ve 20$ bakiye ekleyin",
   "zen.how.step1.beforeLink": "takip edin",
   "zen.how.step1.link": "kurulum talimatları",
@@ -251,9 +251,9 @@ export const dict = {
     "Tüm Zen modelleri ABD'de barındırılmaktadır. Sağlayıcılar sıfır saklama politikası izler ve verilerinizi model eğitimi için kullanmaz; şu",
   "zen.privacy.exceptionsLink": "aşağıdaki istisnalar",
 
-  "go.title": "Codemate Go | Herkes için düşük maliyetli kodlama modelleri",
+  "go.title": "codemate Go | Herkes için düşük maliyetli kodlama modelleri",
   "go.meta.description":
-    "Go ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar; GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash için cömert 5 saatlik istek limitleri sunar.",
+    "Go ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar; GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash için cömert 5 saatlik istek limitleri sunar.",
   "go.hero.title": "Herkes için düşük maliyetli kodlama modelleri",
   "go.hero.body":
     "Go, dünya çapındaki programcılara ajan tabanlı kodlama getiriyor. En yetenekli açık kaynaklı modellere cömert limitler ve güvenilir erişim sunarak, maliyet veya erişilebilirlik konusunda endişelenmeden güçlü ajanlarla geliştirme yapmanızı sağlar.",
@@ -265,8 +265,6 @@ export const dict = {
   "go.cta.promo": "İlk ay $5",
   "go.pricing.body":
     "Herhangi bir ajanla kullanın. İlk ay $5, sonrasında ayda 10$. Gerekirse kredi yükleyin. İstediğiniz zaman iptal edin.",
-  "go.banner.badge": "3x",
-  "go.banner.text": "Kimi K2.6: kullanım limiti 27 Nisan'a kadar 3 katına çıktı",
   "go.graph.free": "Ücretsiz",
   "go.graph.freePill": "Big Pickle ve ücretsiz modeller",
   "go.graph.go": "Go",
@@ -277,7 +275,7 @@ export const dict = {
 
   "go.testimonials.brand.zen": "Zen",
   "go.testimonials.brand.go": "Go",
-  "go.testimonials.handle": "@Codemate",
+  "go.testimonials.handle": "@codemate",
   "go.testimonials.dax.name": "Dax Raad",
   "go.testimonials.dax.title": "Eski CEO, Terminal Ürünleri",
   "go.testimonials.dax.quoteAfter": "hayat değiştirdi, gerçekten düşünmeye bile gerek yok.",
@@ -299,16 +297,16 @@ export const dict = {
   "go.testimonials.frank.quote": "Keşke hala Nvidia'da olsaydım.",
   "go.problem.title": "Go hangi sorunu çözüyor?",
   "go.problem.body":
-    "Codemate deneyimini mümkün olduğunca çok kişiye ulaştırmaya odaklandık. Codemate Go düşük maliyetli bir aboneliktir: İlk ay $5, sonrasında ayda 10$. Cömert limitler ve en yetenekli açık kaynak modellere güvenilir erişim sağlar.",
+    "codemate deneyimini mümkün olduğunca çok kişiye ulaştırmaya odaklandık. codemate Go düşük maliyetli bir aboneliktir: İlk ay $5, sonrasında ayda 10$. Cömert limitler ve en yetenekli açık kaynak modellere güvenilir erişim sağlar.",
   "go.problem.subtitle": " ",
   "go.problem.item1": "Düşük maliyetli abonelik fiyatlandırması",
   "go.problem.item2": "Cömert limitler ve güvenilir erişim",
   "go.problem.item3": "Mümkün olduğunca çok programcı için geliştirildi",
   "go.problem.item4":
-    "GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash içerir",
+    "GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash içerir",
   "go.how.title": "Go nasıl çalışır?",
   "go.how.body":
-    "Go ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar. Codemate veya herhangi bir ajanla kullanabilirsiniz.",
+    "Go ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar. codemate veya herhangi bir ajanla kullanabilirsiniz.",
   "go.how.step1.title": "Bir hesap oluşturun",
   "go.how.step1.beforeLink": "takip edin",
   "go.how.step1.link": "kurulum talimatları",
@@ -324,14 +322,14 @@ export const dict = {
   "go.privacy.beforeExceptions":
     "Go modelleri ABD'de barındırılmaktadır. Sağlayıcılar sıfır saklama politikası izler ve verilerinizi model eğitimi için kullanmaz; şu",
   "go.privacy.exceptionsLink": "aşağıdaki istisnalar",
-  "go.faq.q1": "Codemate Go nedir?",
+  "go.faq.q1": "codemate Go nedir?",
   "go.faq.a1":
     "Go, ajan tabanlı kodlama için yetenekli açık kaynaklı modellere güvenilir erişim sağlayan düşük maliyetli bir aboneliktir.",
   "go.faq.q2": "Go hangi modelleri içerir?",
   "go.faq.a2": "Go, aşağıda listelenen modelleri cömert limitler ve güvenilir erişimle sunar.",
   "go.faq.q3": "Go, Zen ile aynı mı?",
   "go.faq.a3":
-    "Hayır. Zen kullandıkça öde modelidir, Go ise ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar; GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash açık kaynak modellerine cömert limitler ve güvenilir erişim sunar.",
+    "Hayır. Zen kullandıkça öde modelidir, Go ise ilk ay $5, sonrasında ayda 10$ fiyatıyla başlar; GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash açık kaynak modellerine cömert limitler ve güvenilir erişim sunar.",
   "go.faq.q4": "Go ne kadar?",
   "go.faq.a4.p1.beforePricing": "Go'nun maliyeti",
   "go.faq.a4.p1.pricingLink": "İlk ay $5",
@@ -355,7 +353,7 @@ export const dict = {
 
   "go.faq.q9": "Ücretsiz modeller ve Go arasındaki fark nedir?",
   "go.faq.a9":
-    "Ücretsiz modeller, günlük 200 istek kotası ile Big Pickle ve o sırada mevcut olan promosyonel modelleri içerir. Go ise GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash modellerini; yuvarlanan pencereler (5 saatlik, haftalık ve aylık) üzerinden uygulanan daha yüksek istek kotalarıyla içerir. Bu kotalar kabaca her 5 saatte 12$, haftada 30$ ve ayda 60$ değerine eşdeğerdir (gerçek istek sayıları modele ve kullanıma göre değişir).",
+    "Ücretsiz modeller, günlük 200 istek kotası ile Big Pickle ve o sırada mevcut olan promosyonel modelleri içerir. Go ise GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro ve DeepSeek V4 Flash modellerini; yuvarlanan pencereler (5 saatlik, haftalık ve aylık) üzerinden uygulanan daha yüksek istek kotalarıyla içerir. Bu kotalar kabaca her 5 saatte 12$, haftada 30$ ve ayda 60$ değerine eşdeğerdir (gerçek istek sayıları modele ve kullanıma göre değişir).",
 
   "zen.api.error.rateLimitExceeded": "İstek limiti aşıldı. Lütfen daha sonra tekrar deneyin.",
   "zen.api.error.modelNotSupported": "{{model}} modeli desteklenmiyor",
@@ -365,8 +363,12 @@ export const dict = {
   "zen.api.error.missingApiKey": "API anahtarı eksik.",
   "zen.api.error.invalidApiKey": "Geçersiz API anahtarı.",
   "zen.api.error.subscriptionQuotaExceeded": "Abonelik kotası aşıldı. {{retryIn}} içinde tekrar deneyin.",
-  "zen.api.error.subscriptionQuotaExceededUseFreeModels":
-    "Abonelik kotası aşıldı. Ücretsiz modelleri kullanmaya devam edebilirsiniz.",
+  "zen.api.error.goSubscriptionRollingLimitExceeded":
+    "5 saatlik kullanım limitine ulaşıldı. {{retryIn}} içinde sıfırlanır. Bu modeli şimdi kullanmaya devam etmek için kullanılabilir bakiyenizden kullanımı etkinleştirin: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionWeeklyLimitExceeded":
+    "Haftalık kullanım limitine ulaşıldı. {{retryIn}} içinde sıfırlanır. Bu modeli şimdi kullanmaya devam etmek için kullanılabilir bakiyenizden kullanımı etkinleştirin: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionMonthlyLimitExceeded":
+    "Aylık kullanım limitine ulaşıldı. {{retryIn}} içinde sıfırlanır. Bu modeli şimdi kullanmaya devam etmek için kullanılabilir bakiyenizden kullanımı etkinleştirin: {{consoleGoUrl}}",
   "zen.api.error.noPaymentMethod": "Ödeme yöntemi bulunamadı. Buradan bir ödeme yöntemi ekleyin: {{billingUrl}}",
   "zen.api.error.insufficientBalance": "Yetersiz bakiye. Faturalandırmanızı buradan yönetin: {{billingUrl}}",
   "zen.api.error.workspaceMonthlyLimitReached":
@@ -375,13 +377,13 @@ export const dict = {
     "Aylık ${{amount}} harcama limitinize ulaştınız. Limitlerinizi buradan yönetin: {{membersUrl}}",
   "zen.api.error.modelDisabled": "Model devre dışı",
   "zen.api.error.trialEnded":
-    "{{model}} için ücretsiz promosyon sona erdi. Codemate Go'ya abone olarak modeli kullanmaya devam edebilirsiniz - {{link}}",
+    "{{model}} için ücretsiz promosyon sona erdi. codemate Go'ya abone olarak modeli kullanmaya devam edebilirsiniz - {{link}}",
 
-  "black.meta.title": "Codemate Black | Dünyanın en iyi kodlama modellerine erişin",
-  "black.meta.description": "Codemate Black abonelik planlarıyla Claude, GPT, Gemini ve daha fazlasına erişin.",
+  "black.meta.title": "codemate Black | Dünyanın en iyi kodlama modellerine erişin",
+  "black.meta.description": "codemate Black abonelik planlarıyla Claude, GPT, Gemini ve daha fazlasına erişin.",
   "black.hero.title": "Dünyanın en iyi kodlama modellerine erişin",
   "black.hero.subtitle": "Claude, GPT, Gemini ve daha fazlası dahil",
-  "black.title": "Codemate Black | Fiyatlandırma",
+  "black.title": "codemate Black | Fiyatlandırma",
   "black.paused": "Black plan kaydı geçici olarak duraklatıldı.",
   "black.plan.icon20": "Black 20 planı",
   "black.plan.icon100": "Black 100 planı",
@@ -400,10 +402,10 @@ export const dict = {
   "black.action.continue": "Devam et",
   "black.finePrint.beforeTerms": "Gösterilen fiyatlara geçerli vergiler dahil değildir",
   "black.finePrint.terms": "Hizmet Şartları",
-  "black.workspace.title": "Codemate Black | Çalışma Alanı Seç",
+  "black.workspace.title": "codemate Black | Çalışma Alanı Seç",
   "black.workspace.selectPlan": "Bu plan için bir çalışma alanı seçin",
   "black.workspace.name": "Çalışma Alanı {{n}}",
-  "black.subscribe.title": "Codemate Black'e Abone Ol",
+  "black.subscribe.title": "codemate Black'e Abone Ol",
   "black.subscribe.paymentMethod": "Ödeme yöntemi",
   "black.subscribe.loadingPaymentForm": "Ödeme formu yükleniyor...",
   "black.subscribe.selectWorkspaceToContinue": "Devam etmek için bir çalışma alanı seçin",
@@ -415,9 +417,9 @@ export const dict = {
   "black.subscribe.processing": "İşleniyor...",
   "black.subscribe.submit": "${{plan}} Abone Ol",
   "black.subscribe.form.chargeNotice": "Sadece aboneliğiniz aktive edildiğinde ücretlendirileceksiniz",
-  "black.subscribe.success.title": "Codemate Black bekleme listesindesiniz",
+  "black.subscribe.success.title": "codemate Black bekleme listesindesiniz",
   "black.subscribe.success.subscriptionPlan": "Abonelik planı",
-  "black.subscribe.success.planName": "Codemate Black {{plan}}",
+  "black.subscribe.success.planName": "codemate Black {{plan}}",
   "black.subscribe.success.amount": "Tutar",
   "black.subscribe.success.amountValue": "Aylık ${{plan}}",
   "black.subscribe.success.paymentMethod": "Ödeme yöntemi",
@@ -618,15 +620,15 @@ export const dict = {
   "workspace.black.time.minutes": "dakika",
   "workspace.black.time.fewSeconds": "birkaç saniye",
   "workspace.black.subscription.title": "Abonelik",
-  "workspace.black.subscription.message": "Aylık ${{plan}} karşılığında Codemate Black'e abonesiniz.",
+  "workspace.black.subscription.message": "Aylık ${{plan}} karşılığında codemate Black'e abonesiniz.",
   "workspace.black.subscription.manage": "Aboneliği Yönet",
   "workspace.black.subscription.rollingUsage": "5 Saatlik Kullanım",
   "workspace.black.subscription.weeklyUsage": "Haftalık Kullanım",
   "workspace.black.subscription.resetsIn": "Sıfırlama süresi",
   "workspace.black.subscription.useBalance": "Kullanım limitlerine ulaştıktan sonra mevcut bakiyenizi kullanın",
   "workspace.black.waitlist.title": "Bekleme listesi",
-  "workspace.black.waitlist.joined": "Aylık ${{plan}} Codemate Black planı için bekleme listesindesiniz.",
-  "workspace.black.waitlist.ready": "Sizi ayda {{plan}} $ tutarındaki Codemate Black planına kaydetmeye hazırız.",
+  "workspace.black.waitlist.joined": "Aylık ${{plan}} codemate Black planı için bekleme listesindesiniz.",
+  "workspace.black.waitlist.ready": "Sizi ayda {{plan}} $ tutarındaki codemate Black planına kaydetmeye hazırız.",
   "workspace.black.waitlist.leave": "Bekleme Listesinden Ayrıl",
   "workspace.black.waitlist.leaving": "Ayrılıyor...",
   "workspace.black.waitlist.left": "Ayrıldı",
@@ -644,7 +646,7 @@ export const dict = {
   "workspace.lite.time.minute": "dakika",
   "workspace.lite.time.minutes": "dakika",
   "workspace.lite.time.fewSeconds": "birkaç saniye",
-  "workspace.lite.subscription.message": "Codemate Go abonesisiniz.",
+  "workspace.lite.subscription.message": "codemate Go abonesisiniz.",
   "workspace.lite.subscription.manage": "Aboneliği Yönet",
   "workspace.lite.subscription.rollingUsage": "Devam Eden Kullanım",
   "workspace.lite.subscription.weeklyUsage": "Haftalık Kullanım",
@@ -652,13 +654,13 @@ export const dict = {
   "workspace.lite.subscription.resetsIn": "Sıfırlama süresi",
   "workspace.lite.subscription.useBalance": "Kullanım limitlerine ulaştıktan sonra mevcut bakiyenizi kullanın",
   "workspace.lite.subscription.selectProvider":
-    'Go modellerini kullanmak için codemate yapılandırmanızda "Codemate Go"\'yu sağlayıcı olarak seçin.',
+    'Go modellerini kullanmak için codemate yapılandırmanızda "codemate Go"\'yu sağlayıcı olarak seçin.',
   "workspace.lite.black.message":
-    "Şu anda Codemate Black abonesisiniz veya bekleme listesindesiniz. Go'ya geçmek istiyorsanız lütfen önce aboneliğinizi iptal edin.",
+    "Şu anda codemate Black abonesisiniz veya bekleme listesindesiniz. Go'ya geçmek istiyorsanız lütfen önce aboneliğinizi iptal edin.",
   "workspace.lite.other.message":
-    "Bu çalışma alanındaki başka bir üye zaten Codemate Go abonesi. Çalışma alanı başına yalnızca bir üye abone olabilir.",
+    "Bu çalışma alanındaki başka bir üye zaten codemate Go abonesi. Çalışma alanı başına yalnızca bir üye abone olabilir.",
   "workspace.lite.promo.description":
-    "Codemate Go {{price}} fiyatından başlar, sonrasında ayda 10$ olur ve cömert kullanım limitleriyle popüler açık kodlama modellerine güvenilir erişim sağlar.",
+    "codemate Go {{price}} fiyatından başlar, sonrasında ayda 10$ olur ve cömert kullanım limitleriyle popüler açık kodlama modellerine güvenilir erişim sağlar.",
   "workspace.lite.promo.price": "İlk ay $5",
   "workspace.lite.promo.modelsTitle": "Neler Dahil",
   "workspace.lite.promo.footer":
@@ -668,15 +670,15 @@ export const dict = {
   "workspace.lite.promo.otherMethods": "Diğer ödeme yöntemleri",
   "workspace.lite.promo.selectMethod": "Ödeme yöntemini seçin",
 
-  "download.title": "Codemate | İndir",
-  "download.meta.description": "Codemate'u macOS, Windows ve Linux için indirin",
-  "download.hero.title": "Codemate'u İndir",
+  "download.title": "codemate | İndir",
+  "download.meta.description": "codemate'u macOS, Windows ve Linux için indirin",
+  "download.hero.title": "codemate'u İndir",
   "download.hero.subtitle": "macOS, Windows ve Linux için Beta olarak sunuluyor",
   "download.hero.button": "{{os}} için indir",
-  "download.section.terminal": "Codemate Terminal",
-  "download.section.desktop": "Codemate Desktop (Beta)",
-  "download.section.extensions": "Codemate Eklentileri",
-  "download.section.integrations": "Codemate Entegrasyonları",
+  "download.section.terminal": "codemate Terminal",
+  "download.section.desktop": "codemate Desktop (Beta)",
+  "download.section.extensions": "codemate Eklentileri",
+  "download.section.integrations": "codemate Entegrasyonları",
   "download.action.download": "İndir",
   "download.action.install": "Kur",
 
@@ -687,27 +689,27 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "Tam olarak değil, ama muhtemelen. Codemate'u ücretli bir sağlayıcıya bağlamak istiyorsanız bir AI aboneliği gerekir, ancak",
+    "Tam olarak değil, ama muhtemelen. codemate'u ücretli bir sağlayıcıya bağlamak istiyorsanız bir AI aboneliği gerekir, ancak",
   "download.faq.a3.localLink": "yerel modeller",
   "download.faq.a3.afterLocal.beforeZen": "ile ücretsiz çalışabilirsiniz. Kullanıcıları",
   "download.faq.a3.afterZen":
-    " kullanmaya teşvik ediyoruz, ancak Codemate OpenAI, Anthropic, xAI vb. gibi tüm popüler sağlayıcılarla çalışır.",
+    " kullanmaya teşvik ediyoruz, ancak codemate OpenAI, Anthropic, xAI vb. gibi tüm popüler sağlayıcılarla çalışır.",
 
-  "download.faq.a5.p1": "Codemate %100 ücretsizdir.",
+  "download.faq.a5.p1": "codemate %100 ücretsizdir.",
   "download.faq.a5.p2.beforeZen":
-    "Ek maliyetler, bir model sağlayıcısına olan aboneliğinizden gelir. Codemate herhangi bir model sağlayıcısıyla çalışır, ancak",
+    "Ek maliyetler, bir model sağlayıcısına olan aboneliğinizden gelir. codemate herhangi bir model sağlayıcısıyla çalışır, ancak",
   "download.faq.a5.p2.afterZen": " kullanmanızı öneririz.",
 
   "download.faq.a6.p1":
-    "Verileriniz ve bilginiz yalnızca Codemate'da paylaşılabilir bağlantılar oluşturduğunuzda saklanır.",
+    "Verileriniz ve bilginiz yalnızca codemate'da paylaşılabilir bağlantılar oluşturduğunuzda saklanır.",
   "download.faq.a6.p2.beforeShare": "Daha fazla bilgi:",
   "download.faq.a6.shareLink": "paylaşım sayfaları",
 
-  "enterprise.title": "Codemate | Kurumunuz için kurumsal çözümler",
-  "enterprise.meta.description": "Kurumsal çözümler için Codemate ile iletişime geçin",
+  "enterprise.title": "codemate | Kurumunuz için kurumsal çözümler",
+  "enterprise.meta.description": "Kurumsal çözümler için codemate ile iletişime geçin",
   "enterprise.hero.title": "Kodunuz size aittir",
   "enterprise.hero.body1":
-    "Codemate, hiçbir veri veya bağlam saklamadan ve lisans kısıtlamaları ya da sahiplik iddiaları olmadan kuruluşunuzun içinde güvenli şekilde çalışır. Ekibinizle bir deneme başlatın, ardından SSO'nuz ve dahili AI geçidiniz ile entegre ederek tüm kuruluşunuzda devreye alın.",
+    "codemate, hiçbir veri veya bağlam saklamadan ve lisans kısıtlamaları ya da sahiplik iddiaları olmadan kuruluşunuzun içinde güvenli şekilde çalışır. Ekibinizle bir deneme başlatın, ardından SSO'nuz ve dahili AI geçidiniz ile entegre ederek tüm kuruluşunuzda devreye alın.",
   "enterprise.hero.body2": "Nasıl yardımcı olabileceğimizi bize söyleyin.",
   "enterprise.form.name.label": "Ad soyad",
   "enterprise.form.name.placeholder": "Jeff Bezos",
@@ -729,29 +731,29 @@ export const dict = {
   "enterprise.form.error.invalidEmailFormat": "Geçersiz e-posta formatı.",
   "enterprise.form.error.internalServer": "İç sunucu hatası.",
   "enterprise.faq.title": "SSS",
-  "enterprise.faq.q1": "Codemate Enterprise nedir?",
+  "enterprise.faq.q1": "codemate Enterprise nedir?",
   "enterprise.faq.a1":
-    "Codemate Enterprise, kodunuzun ve verilerinizin asla altyapınızı terk etmemesini sağlamak isteyen kurumlar içindir. Bunu, SSO'nuz ve dahili AI geçidiniz ile entegre olan merkezileştirilmiş bir konfigürasyonla sağlar.",
-  "enterprise.faq.q2": "Codemate Enterprise'a nasıl başlarım?",
+    "codemate Enterprise, kodunuzun ve verilerinizin asla altyapınızı terk etmemesini sağlamak isteyen kurumlar içindir. Bunu, SSO'nuz ve dahili AI geçidiniz ile entegre olan merkezileştirilmiş bir konfigürasyonla sağlar.",
+  "enterprise.faq.q2": "codemate Enterprise'a nasıl başlarım?",
   "enterprise.faq.a2":
-    "Ekibinizle dahili bir deneme ile başlayın. Codemate varsayılan olarak kodunuzu veya bağlam verilerinizi saklamaz, bu da başlamayı kolaylaştırır. Ardından fiyatlandırma ve uygulama seçeneklerini görüşmek için bize ulaşın.",
+    "Ekibinizle dahili bir deneme ile başlayın. codemate varsayılan olarak kodunuzu veya bağlam verilerinizi saklamaz, bu da başlamayı kolaylaştırır. Ardından fiyatlandırma ve uygulama seçeneklerini görüşmek için bize ulaşın.",
   "enterprise.faq.q3": "Kurumsal fiyatlandırma nasıl çalışır?",
   "enterprise.faq.a3":
     "Kullanıcı başı (per-seat) kurumsal fiyatlandırma sunuyoruz. Kendi LLM geçidiniz varsa, kullanılan tokenlar için ücret almıyoruz. Daha fazla bilgi için, kurumunuzun ihtiyaçlarına göre özel bir teklif için bize ulaşın.",
-  "enterprise.faq.q4": "Codemate Enterprise ile verilerim güvende mi?",
+  "enterprise.faq.q4": "codemate Enterprise ile verilerim güvende mi?",
   "enterprise.faq.a4":
-    "Evet. Codemate kodunuzu veya bağlam verilerinizi saklamaz. Tüm işleme yerel olarak ya da AI sağlayıcınıza doğrudan API çağrıları ile gerçekleştirilir. Merkezileştirilmiş konfigürasyon ve SSO entegrasyonu ile verileriniz kurumunuzun altyapısı içinde güvende kalır.",
+    "Evet. codemate kodunuzu veya bağlam verilerinizi saklamaz. Tüm işleme yerel olarak ya da AI sağlayıcınıza doğrudan API çağrıları ile gerçekleştirilir. Merkezileştirilmiş konfigürasyon ve SSO entegrasyonu ile verileriniz kurumunuzun altyapısı içinde güvende kalır.",
 
-  "brand.title": "Codemate | Marka",
-  "brand.meta.description": "Codemate marka kılavuzu",
+  "brand.title": "codemate | Marka",
+  "brand.meta.description": "codemate marka kılavuzu",
   "brand.heading": "Marka kılavuzu",
-  "brand.subtitle": "Codemate markası ile çalışmanıza yardımcı olacak kaynaklar ve varlıklar.",
+  "brand.subtitle": "codemate markası ile çalışmanıza yardımcı olacak kaynaklar ve varlıklar.",
   "brand.downloadAll": "Tüm varlıkları indir",
 
-  "changelog.title": "Codemate | Değişiklik günlüğü",
-  "changelog.meta.description": "Codemate sürüm notları ve değişiklik günlüğü",
+  "changelog.title": "codemate | Değişiklik günlüğü",
+  "changelog.meta.description": "codemate sürüm notları ve değişiklik günlüğü",
   "changelog.hero.title": "Değişiklik günlüğü",
-  "changelog.hero.subtitle": "Codemate için yeni güncellemeler ve iyileştirmeler",
+  "changelog.hero.subtitle": "codemate için yeni güncellemeler ve iyileştirmeler",
   "changelog.empty": "Değişiklik günlüğü kaydı bulunamadı.",
   "changelog.viewJson": "JSON'u görüntüle",
 

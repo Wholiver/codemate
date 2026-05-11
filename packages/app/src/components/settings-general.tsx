@@ -329,6 +329,7 @@ export const SettingsGeneral: Component = () => {
             label={(o) => o.label}
             onSelect={(option) => {
               if (!option) return
+              if (option.value === currentShell()) return
               globalSync.updateConfig({ shell: option.value })
             }}
             variant="secondary"
@@ -774,7 +775,7 @@ export const SettingsGeneral: Component = () => {
           </div>
         </Show>
 
-        <Show when={desktop() && import.meta.env.VITE_CODEMATE_CHANNEL === "beta"}>
+        <Show when={desktop() && import.meta.env.VITE_codemate_CHANNEL === "beta"}>
           <AdvancedSection />
         </Show>
       </div>

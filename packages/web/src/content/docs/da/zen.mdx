@@ -1,21 +1,21 @@
 ---
 title: Zen
-description: Udvalgt liste over modeller leveret af Codemate.
+description: Udvalgt liste over modeller leveret af codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Zen er en liste over testede og verificerede modeller leveret af Codemate-teamet.
+codemate Zen er en liste over testede og verificerede modeller leveret af codemate-teamet.
 
 :::note
-Codemate Zen er i øjeblikket i beta.
+codemate Zen er i øjeblikket i beta.
 :::
 
-Zen fungerer som enhver anden udbyder i Codemate. Du logger ind på Codemate Zen og får
+Zen fungerer som enhver anden udbyder i codemate. Du logger ind på codemate Zen og får
 din API-nøgle. Det er **helt valgfrit**, og du behøver ikke bruge det for at bruge
-Codemate.
+codemate.
 
 ---
 
@@ -26,7 +26,7 @@ fungerer godt som kodeagenter. Derudover er de fleste udbydere
 konfigureret meget forskelligt, så du får meget forskellig ydeevne og kvalitet.
 
 :::tip
-Vi testede en udvalgt gruppe modeller og udbydere, som fungerer godt med Codemate.
+Vi testede en udvalgt gruppe modeller og udbydere, som fungerer godt med codemate.
 :::
 
 Så hvis du bruger en model gennem noget som OpenRouter, kan du aldrig være
@@ -41,17 +41,17 @@ For at løse det gjorde vi et par ting:
 3. Til sidst benchmarkede vi kombinationen af model/udbyder og lavede
    en liste, som vi trygt kan anbefale.
 
-Codemate Zen er en AI gateway, der giver dig adgang til disse modeller.
+codemate Zen er en AI gateway, der giver dig adgang til disse modeller.
 
 ---
 
 ## Sådan fungerer det
 
-Codemate Zen fungerer som enhver anden udbyder i Codemate.
+codemate Zen fungerer som enhver anden udbyder i codemate.
 
-1. Du logger ind på **<a href={console}>Codemate Zen</a>**, tilføjer dine faktureringsoplysninger
+1. Du logger ind på **<a href={console}>codemate Zen</a>**, tilføjer dine faktureringsoplysninger
    og kopierer din API-nøgle.
-2. Du kører kommandoen `/connect` i TUI, vælger Codemate Zen og indsætter din API-nøgle.
+2. Du kører kommandoen `/connect` i TUI, vælger codemate Zen og indsætter din API-nøgle.
 3. Kør `/models` i TUI for at se listen over modeller, vi anbefaler.
 
 Du bliver opkrævet pr. anmodning, og du kan tilføje kredit til din konto.
@@ -102,11 +102,10 @@ Du kan også få adgang til vores modeller gennem følgende API-endpoints.
 | Kimi K2.5             | kimi-k2.5             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Kimi K2.6             | kimi-k2.6             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Big Pickle            | big-pickle            | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Ling 2.6 Flash        | ling-2.6-flash        | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Hy3 Preview Free      | hy3-preview-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
+| Ring 2.6 1T           | ring-2.6-1t-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Nemotron 3 Super Free | nemotron-3-super-free | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 
-[model id](/docs/config/#models) i din Codemate-konfiguration
+[model id](/docs/config/#models) i din codemate-konfiguration
 bruger formatet `codemate/<model-id>`. For eksempel ville du for GPT 5.5
 bruge `codemate/gpt-5.5` i din konfiguration.
 
@@ -130,8 +129,7 @@ Vi understøtter en pay-as-you-go-model. Nedenfor er priserne **pr. 1M tokens**.
 | --------------------------------- | ------ | ------- | ----------- | ------------ |
 | Big Pickle                        | Free   | Free    | Free        | -            |
 | MiniMax M2.5 Free                 | Free   | Free    | Free        | -            |
-| Ling 2.6 Flash Free               | Free   | Free    | Free        | -            |
-| Hy3 Preview Free                  | Free   | Free    | Free        | -            |
+| Ring 2.6 1T Free                  | Free   | Free    | Free        | -            |
 | Nemotron 3 Super Free             | Free   | Free    | Free        | -            |
 | MiniMax M2.7                      | $0.30  | $1.20   | $0.06       | $0.375       |
 | MiniMax M2.5                      | $0.30  | $1.20   | $0.06       | $0.375       |
@@ -172,7 +170,7 @@ Vi understøtter en pay-as-you-go-model. Nedenfor er priserne **pr. 1M tokens**.
 | GPT 5.1 Codex Mini                | $0.25  | $2.00   | $0.025      | -            |
 | GPT 5                             | $1.07  | $8.50   | $0.107      | -            |
 | GPT 5 Codex                       | $1.07  | $8.50   | $0.107      | -            |
-| GPT 5 Nano                        | Free   | Free    | Free        | -            |
+| GPT 5 Nano                        | $0.05  | $0.40   | $0.005      | -            |
 
 Du vil måske bemærke _Claude Haiku 3.5_ i din brugshistorik. Det er en [lavprismodel](/docs/config/#models), som bruges til at generere titlerne på dine sessioner.
 
@@ -182,11 +180,10 @@ Kreditkortgebyrer videregives til kostpris (4.4% + $0.30 pr. transaktion); vi op
 
 De gratis modeller:
 
-- MiniMax M2.5 Free er tilgængelig på Codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
-- Ling 2.6 Flash Free er tilgængelig på Codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
-- Hy3 Preview Free er tilgængelig på Codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
-- Nemotron 3 Super Free er tilgængelig på Codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
-- Big Pickle er en stealth-model, som er gratis på Codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
+- MiniMax M2.5 Free er tilgængelig på codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
+- Ring 2.6 1T Free er tilgængelig på codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
+- Nemotron 3 Super Free er tilgængelig på codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
+- Big Pickle er en stealth-model, som er gratis på codemate i en begrænset periode. Teamet bruger denne tid til at indsamle feedback og forbedre modellen.
 
 <a href={email}>Kontakt os</a>, hvis du har spørgsmål.
 
@@ -239,8 +236,7 @@ Alle vores modeller hostes i US. Vores udbydere følger en nul-opbevaringspoliti
 
 - Big Pickle: I den gratis periode kan indsamlede data blive brugt til at forbedre modellen.
 - MiniMax M2.5 Free: I den gratis periode kan indsamlede data blive brugt til at forbedre modellen.
-- Ling 2.6 Flash Free: I den gratis periode kan indsamlede data blive brugt til at forbedre modellen.
-- Hy3 Preview Free: I den gratis periode kan indsamlede data blive brugt til at forbedre modellen.
+- Ring 2.6 1T Free: I den gratis periode kan indsamlede data blive brugt til at forbedre modellen.
 - Nemotron 3 Super Free (gratis NVIDIA-endpoints): Leveres under [NVIDIA API Trial Terms of Service](https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf). Kun til prøvebrug, ikke til produktion eller følsomme data. Prompts og outputs logges af NVIDIA for at forbedre deres modeller og tjenester. Indsend ikke personlige eller fortrolige data.
 - OpenAI APIs: Anmodninger opbevares i 30 dage i overensstemmelse med [OpenAI's Data Policies](https://platform.openai.com/docs/guides/your-data).
 - Anthropic APIs: Anmodninger opbevares i 30 dage i overensstemmelse med [Anthropic's Data Policies](https://docs.anthropic.com/en/docs/claude-code/data-usage).
@@ -294,9 +290,9 @@ og du vil bruge den i stedet for den, som Zen stiller til rådighed.
 
 ## Mål
 
-Vi skabte Codemate Zen for at:
+Vi skabte codemate Zen for at:
 
 1. **Benchmarke** de bedste modeller/udbydere til kodeagenter.
 2. Give adgang til muligheder af **højeste kvalitet** uden at nedgradere ydeevnen eller route til billigere udbydere.
 3. Videreføre eventuelle **prisfald** ved at sælge til kostpris; så den eneste markup er for at dække vores behandlingsgebyrer.
-4. Have **ingen lock-in** ved at lade dig bruge det med enhver anden kodeagent. Og altid lade dig bruge enhver anden udbyder med Codemate også.
+4. Have **ingen lock-in** ved at lade dig bruge det med enhver anden kodeagent. Og altid lade dig bruge enhver anden udbyder med codemate også.

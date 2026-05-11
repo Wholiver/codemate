@@ -1,13 +1,13 @@
 ---
 title: TUI
-description: Brug af Codemate-terminalbrugergrænsefladen.
+description: Brug af codemate-terminalbrugergrænsefladen.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-Codemate giver en interaktiv terminalgrænseflade eller TUI til at arbejde med dine projekter med en LLM.
+codemate giver en interaktiv terminalgrænseflade eller TUI til at arbejde med dine projekter med en LLM.
 
-At køre Codemate starter TUI for den nuværende mappe.
+At køre codemate starter TUI for den nuværende mappe.
 
 ```bash
 codemate
@@ -57,7 +57,7 @@ Outputtet fra kommandoen tilføjes til samtalen som et værktøjsresultat.
 
 ## Kommandoer
 
-Når du bruger Codemate TUI, kan du skrive `/` efterfulgt af et kommandonavn for hurtigt at udføre handlinger. For eksempel:
+Når du bruger codemate TUI, kan du skrive `/` efterfulgt af et kommandonavn for hurtigt at udføre handlinger. For eksempel:
 
 ```bash frame="none"
 /help
@@ -71,7 +71,7 @@ Her er alle tilgængelige skråstregskommandoer:
 
 ### connect
 
-Tilføj en udbyder til Codemate. Lader dig vælge fra tilgængelige udbydere og tilføje deres API-nøgler.
+Tilføj en udbyder til codemate. Lader dig vælge fra tilgængelige udbydere og tilføje deres API-nøgler.
 
 ```bash frame="none"
 /connect
@@ -117,7 +117,7 @@ Skift visning af værktøjsudførelsesdetaljer.
 
 ### exit
 
-Afslut Codemate. _Aliaser_: `/quit`, `/q`
+Afslut codemate. _Aliaser_: `/quit`, `/q`
 
 ```bash frame="none"
 /exit
@@ -379,7 +379,7 @@ Dette er adskilt fra `codemate.json`, som konfigurerer server-/kørselstidsadfæ
 - `scroll_speed` - Styrer hvor hurtigt TUI ruller, når du bruger rullekommandoer (minimum: `0.001`, understøtter decimalværdier). Standard er `3`. **Bemærk: Dette ignoreres hvis `scroll_acceleration.enabled` er sat til `true`.**
 - `diff_style` - Styrer diff-gengivelse. `"auto"` tilpasser sig terminalbredde, `"stacked"` viser altid et enkeltkolonne-layout.
 
-Brug `CODEMATE_TUI_CONFIG` til at indlæse en brugerdefineret TUI-konfigurationssti.
+Brug `codemate_TUI_CONFIG` til at indlæse en brugerdefineret TUI-konfigurationssti.
 
 ---
 

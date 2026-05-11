@@ -1,17 +1,17 @@
 ---
 title: Provajderi
-description: Korištenje bilo kojeg LLM provajdera u Codemate.
+description: Korištenje bilo kojeg LLM provajdera u codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 
-Codemate koristi [AI SDK](https://ai-sdk.dev/) i [Models.dev](https://models.dev) za podršku **75+ LLM provajdera** i podržava pokretanje lokalnih modela.
+codemate koristi [AI SDK](https://ai-sdk.dev/) i [Models.dev](https://models.dev) za podršku **75+ LLM provajdera** i podržava pokretanje lokalnih modela.
 
 Za dodavanje provajdera potrebno je:
 
 1. Dodajte API ključeve za provajdera koristeći naredbu `/connect`.
-2. Konfigurirajte dobavljača u vašoj Codemate konfiguraciji.
+2. Konfigurirajte dobavljača u vašoj codemate konfiguraciji.
 
 ---
 
@@ -24,7 +24,7 @@ u `~/.local/share/codemate/auth.json`.
 
 ### Konfiguracija
 
-Možete prilagoditi dobavljače putem odjeljka `provider` u vašem Codemate
+Možete prilagoditi dobavljače putem odjeljka `provider` u vašem codemate
 config.
 
 ---
@@ -48,13 +48,13 @@ Možete prilagoditi osnovni URL za bilo kojeg provajdera postavljanjem opcije `b
 
 ---
 
-## Codemate Zen
+## codemate Zen
 
-Codemate Zen je lista modela koje je obezbedio Codemate tim koji su bili
-testirano i potvrđeno da dobro radi sa Codemate. [Saznajte više](/docs/zen).
+codemate Zen je lista modela koje je obezbedio codemate tim koji su bili
+testirano i potvrđeno da dobro radi sa codemate. [Saznajte više](/docs/zen).
 
 :::tip
-Ako ste novi, preporučujemo da počnete sa Codemate Zen.
+Ako ste novi, preporučujemo da počnete sa codemate Zen.
 :::
 
 1. Pokrenite naredbu `/connect` u TUI-u, odaberite codemate i idite na [codemate.ai/auth](https://codemate.ai/auth).
@@ -80,15 +80,15 @@ Ako ste novi, preporučujemo da počnete sa Codemate Zen.
    /models
 ```
 
-Radi kao i svaki drugi provajder u Codemate i potpuno je opcionalan za korištenje.
+Radi kao i svaki drugi provajder u codemate i potpuno je opcionalan za korištenje.
 
 ---
 
-## Codemate Go
+## codemate Go
 
-Codemate Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modelima otvorenog kodiranja koje pruža Codemate tim i koji su testirani i verificirani da dobro rade s Codemate-om.
+codemate Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modelima otvorenog kodiranja koje pruža codemate tim i koji su testirani i verificirani da dobro rade s codemate-om.
 
-1. Pokrenite naredbu `/connect` u TUI-u, odaberite `Codemate Go` i idite na [codemate.ai/auth](https://codemate.ai/zen).
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite `codemate Go` i idite na [codemate.ai/auth](https://codemate.ai/zen).
 
    ```txt
    /connect
@@ -111,7 +111,7 @@ Codemate Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim mode
    /models
    ```
 
-Radi kao i svaki drugi provajder u Codemate i potpuno je opcionalan za korištenje.
+Radi kao i svaki drugi provajder u codemate i potpuno je opcionalan za korištenje.
 
 ---
 
@@ -155,7 +155,7 @@ Ne vidite provajdera ovdje? Pošaljite PR.
 
 ### Amazon Bedrock
 
-Da biste koristili Amazon Bedrock s Codemate:
+Da biste koristili Amazon Bedrock s codemate:
 
 1. Idite na **Katalog modela** na Amazon Bedrock konzoli i zatražite
    pristup modelima koje želite.
@@ -313,7 +313,7 @@ Za prilagođene profile zaključivanja, koristite ime modela i dobavljača u klj
 ```
 
 :::info
-[Anthropic] (https://anthropic.com) službeno ne podržava korištenje vaše Claude Pro/Max pretplate u Codemate.
+[Anthropic] (https://anthropic.com) službeno ne podržava korištenje vaše Claude Pro/Max pretplate u codemate.
 :::
 
 ##### Korištenje API ključeva
@@ -653,17 +653,17 @@ Također možete dodati modele kroz svoju codemate konfiguraciju.
 
 ---
 
-### Firmware
+### FrogBot
 
-1. Idite na [kontrolnu tablu firmvera](https://app.firmware.ai/signup), kreirajte nalog i generišite API ključ.
+1. Idite na [kontrolnu tablu firmvera](https://app.frogbot.ai/signup), kreirajte nalog i generišite API ključ.
 
-2. Pokrenite naredbu `/connect` i potražite **Firmware**.
+2. Pokrenite naredbu `/connect` i potražite **FrogBot**.
 
 ```txt
    /connect
 ```
 
-3. Unesite svoj Firmware API ključ.
+3. Unesite svoj FrogBot API ključ.
 
 ```txt
    ┌ API key
@@ -735,7 +735,7 @@ Odaberite **OAuth** i vaš pretraživač će se otvoriti za autorizaciju.
 
 1.  Idite na [GitLab korisničke postavke > Pristupni tokeni](https://gitlab.com/-/user_settings/personal_access_tokens)
 2.  Kliknite **Dodaj novi token**
-3.  Naziv: `Codemate`, opseg: `api`
+3.  Naziv: `codemate`, opseg: `api`
 4.  Kopirajte token (počinje sa `glpat-`)
 5.  Unesite ga u terminal
 
@@ -759,8 +759,8 @@ da pohrani token u codemate auth memoriju.
 ##### Samostalni GitLab
 
 :::note[Napomena o usklađenosti]
-Codemate koristi mali model za neke AI zadatke kao što je generiranje naslova sesije.
-Podrazumevano je konfigurisan da koristi gpt-5-nano, a hostuje ga Zen. Da zaključate Codemate
+codemate koristi mali model za neke AI zadatke kao što je generiranje naslova sesije.
+Podrazumevano je konfigurisan da koristi gpt-5-nano, a hostuje ga Zen. Da zaključate codemate
 da biste koristili samo svoju vlastitu instancu koju hostuje GitLab, dodajte sljedeće u svoju
 `codemate.json` fajl. Također se preporučuje da onemogućite dijeljenje sesije.
 
@@ -893,7 +893,7 @@ Neki modeli moraju biti ručno omogućeni u vašim [postavkama GitHub Copilot](h
 
 ### Google Vertex AI
 
-Za korištenje Google Vertex AI s Codemate:
+Za korištenje Google Vertex AI s codemate:
 
 1. Idite do **Model Garden** u Google Cloud Console i provjerite
    modeli dostupni u vašoj regiji.
@@ -1075,7 +1075,7 @@ Helicone podržava prilagođena zaglavlja za funkcije kao što su keširanje, pr
 
 ##### Praćenje sesije
 
-Heliconeova funkcija [Sessions](https://docs.helicone.ai/features/sessions) vam omogućava da grupišete povezane LLM zahtjeve zajedno. Koristite dodatak [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) da automatski prijavite svaki Codemate razgovor kao sesiju u Helicone-u.
+Heliconeova funkcija [Sessions](https://docs.helicone.ai/features/sessions) vam omogućava da grupišete povezane LLM zahtjeve zajedno. Koristite dodatak [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) da automatski prijavite svaki codemate razgovor kao sesiju u Helicone-u.
 
 ```bash
 npm install -g codemate-helicone-session
@@ -1089,7 +1089,7 @@ Dodajte ga u svoju konfiguraciju.
 }
 ```
 
-Dodatak ubacuje zaglavlja `Helicone-Session-Id` i `Helicone-Session-Name` u vaše zahtjeve. Na stranici Helicone Sessions, vidjet ćete svaki Codemate razgovor naveden kao zasebna sesija.
+Dodatak ubacuje zaglavlja `Helicone-Session-Id` i `Helicone-Session-Name` u vaše zahtjeve. Na stranici Helicone Sessions, vidjet ćete svaki codemate razgovor naveden kao zasebna sesija.
 
 ##### Uobičajena Helicone zaglavlja
 
@@ -1293,7 +1293,7 @@ Da biste koristili Kimi K2 iz Moonshot AI:
 Možete konfigurirati codemate za korištenje lokalnih modela putem Ollame.
 
 :::tip
-Ollama se može automatski konfigurirati za Codemate. Pogledajte [Ollama integracijske dokumente](https://docs.ollama.com/integrations/codemate) za detalje.
+Ollama se može automatski konfigurirati za codemate. Pogledajte [Ollama integracijske dokumente](https://docs.ollama.com/integrations/codemate) za detalje.
 :::
 
 ```json title="codemate.json" "ollama" {5, 6, 8, 10-14}
@@ -1332,13 +1332,13 @@ Ako pozivi alata ne rade, pokušajte povećati `num_ctx` u Ollama. Počnite oko 
 
 ### Ollama Cloud
 
-Da biste koristili Ollama Cloud s Codemate:
+Da biste koristili Ollama Cloud s codemate:
 
 1. Idite na [https://ollama.com/](https://ollama.com/) i prijavite se ili kreirajte račun.
 
 2. Idite na **Postavke** > **Ključevi** i kliknite na **Dodaj API ključ** da generišete novi API ključ.
 
-3. Kopirajte API ključ za korištenje u Codemate.
+3. Kopirajte API ključ za korištenje u codemate.
 
 4. Pokrenite naredbu `/connect` i potražite **Ollama Cloud**.
 
@@ -1355,7 +1355,7 @@ Da biste koristili Ollama Cloud s Codemate:
    └ enter
 ```
 
-6. **Važno**: Prije upotrebe modela oblaka u Codemate, morate lokalno povući informacije o modelu:
+6. **Važno**: Prije upotrebe modela oblaka u codemate, morate lokalno povući informacije o modelu:
 
 ```bash
    ollama pull gpt-oss:20b-cloud
@@ -1402,19 +1402,19 @@ Ako već imate API ključ, možete odabrati **Ručno unesite API ključ** i zali
 
 ---
 
-### Codemate Zen
+### codemate Zen
 
-Codemate Zen je lista testiranih i verifikovanih modela koju je obezbedio Codemate tim. [Saznajte više](/docs/zen).
+codemate Zen je lista testiranih i verifikovanih modela koju je obezbedio codemate tim. [Saznajte više](/docs/zen).
 
-1. Prijavite se na **<a href={console}>Codemate Zen</a>** i kliknite na **Kreiraj API ključ**.
+1. Prijavite se na **<a href={console}>codemate Zen</a>** i kliknite na **Kreiraj API ključ**.
 
-2. Pokrenite naredbu `/connect` i potražite **Codemate Zen**.
+2. Pokrenite naredbu `/connect` i potražite **codemate Zen**.
 
 ```txt
    /connect
 ```
 
-3. Unesite svoj Codemate API ključ.
+3. Unesite svoj codemate API ključ.
 
 ```txt
    ┌ API key
@@ -1612,7 +1612,7 @@ STACKIT AI Model Serving pruža potpuno upravljano suvereno hosting okruženje z
 
 ### Scaleway
 
-Da biste koristili [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) sa Codemateom:
+Da biste koristili [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) sa codemateom:
 
 1. Prijeđite na [Scaleway Console IAM postavke](https://console.scaleway.com/iam/api-keys) da generišete novi API ključ.
 
@@ -1974,7 +1974,7 @@ Detalji konfiguracije:
 - **limit.context**: Maksimalni ulazni tokeni koje model prihvata.
 - **limit.output**: Maksimalni tokeni koje model može generirati.
 
-Polja `limit` omogućavaju Codemate da shvati koliko vam je konteksta ostalo. Standardni dobavljači ih automatski preuzimaju sa models.dev.
+Polja `limit` omogućavaju codemate da shvati koliko vam je konteksta ostalo. Standardni dobavljači ih automatski preuzimaju sa models.dev.
 
 ---
 
@@ -1987,7 +1987,7 @@ Ako imate problema s konfiguracijom provajdera, provjerite sljedeće:
 
    Ovo se ne odnosi na dobavljače kao što je Amazon Bedrock, koji se oslanjaju na varijable okruženja za svoju autentifikaciju.
 
-2. Za prilagođene provajdere, provjerite Codemate konfiguraciju i:
+2. Za prilagođene provajdere, provjerite codemate konfiguraciju i:
    - Uvjerite se da ID provajdera korišten u naredbi `/connect` odgovara ID-u u vašoj codemate konfiguraciji.
    - Za provajdera se koristi pravi npm paket. Na primjer, koristite `@ai-sdk/cerebras` za Cerebras. A za sve ostale OpenAI kompatibilne provajdere, koristite `@ai-sdk/openai-compatible`.
    - Provjerite da li se ispravna krajnja tačka API-ja koristi u polju `options.baseURL`.

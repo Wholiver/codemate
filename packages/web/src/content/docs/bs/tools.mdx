@@ -3,7 +3,7 @@ title: Alati
 description: Upravljajte alatima koje LLM moze koristiti.
 ---
 
-Alati omogucavaju LLM-u da izvrsava akcije u vasem kodu. Codemate dolazi sa skupom ugradenih alata, a mozete ga prosiriti kroz [custom tools](/docs/custom-tools) ili [MCP servers](/docs/mcp-servers).
+Alati omogucavaju LLM-u da izvrsava akcije u vasem kodu. codemate dolazi sa skupom ugradenih alata, a mozete ga prosiriti kroz [custom tools](/docs/custom-tools) ili [MCP servers](/docs/mcp-servers).
 
 Po defaultu su svi alati **ukljuceni** i ne traze dozvolu za pokretanje. Ponasanje alata kontrolisete kroz [permissions](/docs/permissions).
 
@@ -41,7 +41,7 @@ Mozete koristiti i wildcard obrasce da kontrolisete vise alata odjednom. Na prim
 
 ## Ugrađeni
 
-Ovo su svi ugradeni alati dostupni u Codemate.
+Ovo su svi ugradeni alati dostupni u codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Trazi datoteke koristeci glob obrasce kao `**/*.js` ili `src/**/*.ts`. Vraca put
 Komunicira sa konfigurisanim LSP serverima za funkcije inteligencije koda kao definicije, reference, hover info i hijerarhija poziva.
 
 :::note
-Ovaj alat je dostupan samo kada je `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (ili `CODEMATE_EXPERIMENTAL=true`).
+Ovaj alat je dostupan samo kada je `codemate_EXPERIMENTAL_LSP_TOOL=true` (ili `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Omogucava LLM-u da preuzima i cita web stranice. Korisno za dokumentaciju i onli
 Pretrazuje web za informacije.
 
 :::note
-Ovaj alat je dostupan samo uz Codemate provajdera ili kada je varijabla `CODEMATE_ENABLE_EXA` postavljena na truthy vrijednost (npr. `true` ili `1`).
+Ovaj alat je dostupan samo uz codemate provajdera ili kada je varijabla `codemate_ENABLE_EXA` postavljena na truthy vrijednost (npr. `true` ili `1`).
 
-Da ukljucite pri pokretanju Codemate:
+Da ukljucite pri pokretanju codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

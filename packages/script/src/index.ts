@@ -18,30 +18,30 @@ if (!semver.satisfies(process.versions.bun, expectedBunVersionRange)) {
 }
 
 const env = {
-  CODEMATE_CHANNEL: process.env["CODEMATE_CHANNEL"],
-  CODEMATE_BUMP: process.env["CODEMATE_BUMP"],
-  CODEMATE_VERSION: process.env["CODEMATE_VERSION"],
-  CODEMATE_RELEASE: process.env["CODEMATE_RELEASE"],
+  codemate_CHANNEL: process.env["codemate_CHANNEL"],
+  codemate_BUMP: process.env["codemate_BUMP"],
+  codemate_VERSION: process.env["codemate_VERSION"],
+  codemate_RELEASE: process.env["codemate_RELEASE"],
 }
 const CHANNEL = await (async () => {
-  if (env.CODEMATE_CHANNEL) return env.CODEMATE_CHANNEL
-  if (env.CODEMATE_BUMP) return "latest"
-  if (env.CODEMATE_VERSION && !env.CODEMATE_VERSION.startsWith("0.0.0-")) return "latest"
+  if (env.codemate_CHANNEL) return env.codemate_CHANNEL
+  if (env.codemate_BUMP) return "latest"
+  if (env.codemate_VERSION && !env.codemate_VERSION.startsWith("0.0.0-")) return "latest"
   return await $`git branch --show-current`.text().then((x) => x.trim())
 })()
 const IS_PREVIEW = CHANNEL !== "latest"
 
 const VERSION = await (async () => {
-  if (env.CODEMATE_VERSION) return env.CODEMATE_VERSION
+  if (env.codemate_VERSION) return env.codemate_VERSION
   if (IS_PREVIEW) return `0.0.0-${CHANNEL}-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, "")}`
-  const version = await fetch("https://registry.npmjs.org/codemate_agent/latest")
+  const version = await fetch("https://registry.npmjs.org/codemate-ai/latest")
     .then((res) => {
       if (!res.ok) throw new Error(res.statusText)
       return res.json()
     })
     .then((data: any) => data.version)
   const [major, minor, patch] = version.split(".").map((x: string) => Number(x) || 0)
-  const t = env.CODEMATE_BUMP?.toLowerCase()
+  const t = env.codemate_BUMP?.toLowerCase()
   if (t === "major") return `${major + 1}.0.0`
   if (t === "minor") return `${major}.${minor + 1}.0`
   return `${major}.${minor}.${patch + 1}`
@@ -68,7 +68,7 @@ export const Script = {
     return IS_PREVIEW
   },
   get release(): boolean {
-    return !!env.CODEMATE_RELEASE
+    return !!env.codemate_RELEASE
   },
   get team() {
     return team

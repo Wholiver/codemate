@@ -3,7 +3,7 @@ title: خوادم MCP
 description: أضف أدوات MCP محلية وبعيدة.
 ---
 
-يمكنك إضافة أدوات خارجية إلى Codemate باستخدام _Model Context Protocol_، أو MCP. يدعم Codemate خوادم محلية وبعيدة.
+يمكنك إضافة أدوات خارجية إلى codemate باستخدام _Model Context Protocol_، أو MCP. يدعم codemate خوادم محلية وبعيدة.
 
 بعد إضافتها، تصبح أدوات MCP متاحة تلقائيا للـ LLM إلى جانب الأدوات المضمنة.
 
@@ -23,7 +23,7 @@ description: أضف أدوات MCP محلية وبعيدة.
 
 ## التمكين
 
-يمكنك تعريف خوادم MCP في [إعدادات Codemate](https://codemate.ai/docs/config/) ضمن `mcp`. أضف كل خادم MCP باسم فريد. ويمكنك الإشارة إلى ذلك الخادم بالاسم عند توجيه الطلب إلى الـ LLM.
+يمكنك تعريف خوادم MCP في [إعدادات codemate](https://codemate.ai/docs/config/) ضمن `mcp`. أضف كل خادم MCP باسم فريد. ويمكنك الإشارة إلى ذلك الخادم بالاسم عند توجيه الطلب إلى الـ LLM.
 
 ```jsonc title="codemate.jsonc" {6}
 {
@@ -165,7 +165,7 @@ use the mcp_everything tool to add the number 3 and 4
 
 ## OAuth
 
-يتولى Codemate تلقائيا معالجة مصادقة OAuth لخوادم MCP البعيدة. عندما يتطلب خادم ما المصادقة، سيقوم Codemate بما يلي:
+يتولى codemate تلقائيا معالجة مصادقة OAuth لخوادم MCP البعيدة. عندما يتطلب خادم ما المصادقة، سيقوم codemate بما يلي:
 
 1. اكتشاف استجابة 401 وبدء تدفق OAuth
 2. استخدام **Dynamic Client Registration (RFC 7591)** إذا كان الخادم يدعمه
@@ -189,7 +189,7 @@ use the mcp_everything tool to add the number 3 and 4
 }
 ```
 
-إذا كان الخادم يتطلب المصادقة، فسيطلب منك Codemate المصادقة عند أول محاولة لاستخدامه. وإذا لم يحدث ذلك، يمكنك [تشغيل التدفق يدويا](#authenticating) باستخدام `codemate mcp auth <server-name>`.
+إذا كان الخادم يتطلب المصادقة، فسيطلب منك codemate المصادقة عند أول محاولة لاستخدامه. وإذا لم يحدث ذلك، يمكنك [تشغيل التدفق يدويا](#authenticating) باستخدام `codemate mcp auth <server-name>`.
 
 ---
 
@@ -238,7 +238,7 @@ codemate mcp list
 codemate mcp logout my-oauth-server
 ```
 
-سيفتح أمر `mcp auth` متصفحك للتفويض. بعد إكمال التفويض، سيخزّن Codemate الرموز بشكل آمن في `~/.local/share/codemate/mcp-auth.json`.
+سيفتح أمر `mcp auth` متصفحك للتفويض. بعد إكمال التفويض، سيخزّن codemate الرموز بشكل آمن في `~/.local/share/codemate/mcp-auth.json`.
 
 ---
 
@@ -291,7 +291,7 @@ codemate mcp debug my-oauth-server
 
 ## الإدارة
 
-تتوفر خوادم MCP لديك كأدوات داخل Codemate إلى جانب الأدوات المضمنة. لذا يمكنك إدارتها عبر إعدادات Codemate مثل أي أداة أخرى.
+تتوفر خوادم MCP لديك كأدوات داخل codemate إلى جانب الأدوات المضمنة. لذا يمكنك إدارتها عبر إعدادات codemate مثل أي أداة أخرى.
 
 ---
 
@@ -423,7 +423,7 @@ codemate mcp debug my-oauth-server
 codemate mcp auth sentry
 ```
 
-سيؤدي ذلك إلى فتح نافذة متصفح لإكمال تدفق OAuth وربط Codemate بحساب Sentry الخاص بك.
+سيؤدي ذلك إلى فتح نافذة متصفح لإكمال تدفق OAuth وربط codemate بحساب Sentry الخاص بك.
 
 بعد المصادقة، يمكنك استخدام أدوات Sentry في طلباتك للاستعلام عن القضايا والمشاريع وبيانات الأخطاء.
 

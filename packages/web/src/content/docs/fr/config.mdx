@@ -1,15 +1,15 @@
 ---
 title: Configuration
-description: Utilisation de la configuration JSON Codemate.
+description: Utilisation de la configuration JSON codemate.
 ---
 
-Vous pouvez configurer Codemate à l'aide d'un fichier de configuration JSON.
+Vous pouvez configurer codemate à l'aide d'un fichier de configuration JSON.
 
 ---
 
 ## Format
 
-Codemate prend en charge les formats **JSON** et **JSONC** (JSON avec commentaires).
+codemate prend en charge les formats **JSON** et **JSONC** (JSON avec commentaires).
 
 ```jsonc title="codemate.jsonc"
 {
@@ -45,10 +45,10 @@ Les sources de configuration sont chargées dans cet ordre (les sources ultérie
 
 1. **Configuration distante** (à partir de `.well-known/codemate`) - paramètres par défaut de l'organisation
 2. **Configuration globale** (`~/.config/codemate/codemate.json`) - préférences utilisateur
-3. **Configuration personnalisée** (`CODEMATE_CONFIG` env var) - remplacements personnalisés
+3. **Configuration personnalisée** (`codemate_CONFIG` env var) - remplacements personnalisés
 4. **Configuration du projet** (`codemate.json` dans le projet) - paramètres spécifiques au projet
 5. **Répertoires `.codemate`** - agents, commandes, plugins
-6. **Configuration en ligne** (`CODEMATE_CONFIG_CONTENT` env var) - remplacements d'exécution
+6. **Configuration en ligne** (`codemate_CONFIG_CONTENT` env var) - remplacements d'exécution
 
 Cela signifie que les configurations de projet peuvent remplacer les valeurs par défaut globales, et que les configurations globales peuvent remplacer les valeurs par défaut de l'organisation distante.
 
@@ -96,7 +96,7 @@ Vous pouvez activer des serveurs spécifiques dans votre configuration locale :
 
 ### Globale
 
-Placez votre configuration globale Codemate dans `~/.config/codemate/codemate.json`. Utilisez la configuration globale pour les préférences de l'utilisateur telles que les fournisseurs, les modèles et les autorisations.
+Placez votre configuration globale codemate dans `~/.config/codemate/codemate.json`. Utilisez la configuration globale pour les préférences de l'utilisateur telles que les fournisseurs, les modèles et les autorisations.
 
 Pour les paramètres spécifiques à TUI, utilisez `~/.config/codemate/tui.json`.
 
@@ -114,7 +114,7 @@ Pour les paramètres TUI spécifiques au projet, ajoutez `tui.json` à côté.
 Placez la configuration spécifique au projet à la racine de votre projet.
 :::
 
-Lorsque Codemate démarre, il recherche un fichier de configuration dans le répertoire actuel ou remonte jusqu'au répertoire Git le plus proche.
+Lorsque codemate démarre, il recherche un fichier de configuration dans le répertoire actuel ou remonte jusqu'au répertoire Git le plus proche.
 
 Il peut également être archivé en toute sécurité dans Git et utilise le même schéma que le schéma global.
 
@@ -122,10 +122,10 @@ Il peut également être archivé en toute sécurité dans Git et utilise le mê
 
 ### Chemin personnalisé
 
-Spécifiez un chemin de fichier de configuration personnalisé à l'aide de la variable d'environnement `CODEMATE_CONFIG`.
+Spécifiez un chemin de fichier de configuration personnalisé à l'aide de la variable d'environnement `codemate_CONFIG`.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -135,10 +135,10 @@ La configuration personnalisée est chargée entre les configurations globales e
 
 ### Répertoire personnalisé
 
-Spécifiez un répertoire de configuration personnalisé à l'aide de `CODEMATE_CONFIG_DIR` variable d'environnement. Ce répertoire sera recherché pour les agents, les commandes, modes et plugins tout comme le répertoire standard `.codemate`, et devrait suivre la même structure.
+Spécifiez un répertoire de configuration personnalisé à l'aide de `codemate_CONFIG_DIR` variable d'environnement. Ce répertoire sera recherché pour les agents, les commandes, modes et plugins tout comme le répertoire standard `.codemate`, et devrait suivre la même structure.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -171,7 +171,7 @@ Utilisez un fichier dédié `tui.json` (ou `tui.jsonc`) pour les paramètres sp�
 }
 ```
 
-Utilisez `CODEMATE_TUI_CONFIG` pour pointer vers un fichier de configuration TUI personnalisé.
+Utilisez `codemate_TUI_CONFIG` pour pointer vers un fichier de configuration TUI personnalisé.
 
 Les anciennes clés `theme`, `keybinds` et `tui` dans `codemate.json` sont obsolètes et migrées automatiquement lorsque cela est possible.
 
@@ -200,7 +200,7 @@ Options disponibles :
 
 - `port` - Port d'écoute.
 - `hostname` - Nom d'hôte d'écoute. Lorsque `mdns` est activé et qu'aucun nom d'hôte n'est défini, la valeur par défaut est `0.0.0.0`.
-- `mdns` - Activer la découverte du service mDNS. Cela permet à d'autres appareils du réseau de découvrir votre serveur Codemate.
+- `mdns` - Activer la découverte du service mDNS. Cela permet à d'autres appareils du réseau de découvrir votre serveur codemate.
 - `mdnsDomain` - Nom de domaine personnalisé pour le service mDNS. La valeur par défaut est `codemate.local`. Utile pour exécuter plusieurs instances sur le même réseau.
 - `cors` - Origines supplémentaires pour autoriser CORS lors de l'utilisation du serveur HTTP à partir d'un client basé sur un navigateur. Les valeurs doivent être des origines complètes (schéma + hôte + port facultatif), par exemple `https://app.example.com`.
 
@@ -228,7 +228,7 @@ Vous pouvez gérer les outils qu'un LLM peut utiliser via l'option `tools`.
 
 ### Modèles
 
-Vous pouvez configurer les fournisseurs et les modèles que vous souhaitez utiliser dans votre configuration Codemate via les options `provider`, `model` et `small_model`.
+Vous pouvez configurer les fournisseurs et les modèles que vous souhaitez utiliser dans votre configuration codemate via les options `provider`, `model` et `small_model`.
 
 ```json title="codemate.json"
 {
@@ -239,7 +239,7 @@ Vous pouvez configurer les fournisseurs et les modèles que vous souhaitez utili
 }
 ```
 
-L'option `small_model` configure un modèle distinct pour les tâches légères comme la génération de titres. Par défaut, Codemate essaie d'utiliser un modèle moins cher s'il est disponible auprès de votre fournisseur, sinon il revient à votre modèle principal.
+L'option `small_model` configure un modèle distinct pour les tâches légères comme la génération de titres. Par défaut, codemate essaie d'utiliser un modèle moins cher s'il est disponible auprès de votre fournisseur, sinon il revient à votre modèle principal.
 
 Les options du fournisseur peuvent inclure `timeout` et `setCacheKey` :
 
@@ -351,7 +351,7 @@ Vous pouvez définir l'agent par défaut à l'aide de l'option `default_agent`. 
 }
 ```
 
-L'agent par défaut doit être un agent principal (et non un sous-agent). Il peut s'agir d'un agent intégré tel que `"build"` ou `"plan"`, ou d'un [agent personnalisé](/docs/agents) que vous avez défini. Si l'agent spécifié n'existe pas ou est un sous-agent, Codemate reviendra à `"build"` avec un avertissement.
+L'agent par défaut doit être un agent principal (et non un sous-agent). Il peut s'agir d'un agent intégré tel que `"build"` ou `"plan"`, ou d'un [agent personnalisé](/docs/agents) que vous avez défini. Si l'agent spécifié n'existe pas ou est un sous-agent, codemate reviendra à `"build"` avec un avertissement.
 
 Ce paramètre s'applique à toutes les interfaces : TUI, CLI (`codemate run`), application de bureau et GitHub Action.
 
@@ -421,7 +421,7 @@ Personnalisez les raccourcis clavier dans `tui.json`.
 
 ### Mise à jour automatique
 
-Codemate téléchargera automatiquement toutes les nouvelles mises à jour au démarrage. Vous pouvez désactiver cela avec l'option `autoupdate`.
+codemate téléchargera automatiquement toutes les nouvelles mises à jour au démarrage. Vous pouvez désactiver cela avec l'option `autoupdate`.
 
 ```json title="codemate.json"
 {
@@ -536,7 +536,7 @@ Vous pouvez configurer les serveurs MCP que vous souhaitez utiliser via l'option
 
 ### Extensions
 
-[Plugins](/docs/plugins) étendent Codemate avec des outils, des hooks et des intégrations personnalisés.
+[Plugins](/docs/plugins) étendent codemate avec des outils, des hooks et des intégrations personnalisés.
 
 Placez les fichiers du plugin dans `.codemate/plugins/` ou `~/.config/codemate/plugins/`. Vous pouvez également charger des plugins depuis npm via l'option `plugin`.
 
@@ -600,7 +600,7 @@ Vous pouvez spécifier une liste autorisée de fournisseurs via l'option `enable
 }
 ```
 
-Ceci est utile lorsque vous souhaitez restreindre Codemate à l'utilisation de fournisseurs spécifiques plutôt que de les désactiver un par un.
+Ceci est utile lorsque vous souhaitez restreindre codemate à l'utilisation de fournisseurs spécifiques plutôt que de les désactiver un par un.
 
 :::note
 Le `disabled_providers` est prioritaire sur `enabled_providers`.
@@ -640,7 +640,7 @@ Utilisez `{env:VARIABLE_NAME}` pour remplacer les variables d'environnement :
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

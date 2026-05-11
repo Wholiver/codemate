@@ -68,7 +68,7 @@ Dato che questo non viene committato in Git o condiviso con il team, consigliamo
 
 ### Compatibilita Claude Code
 
-Per gli utenti che migrano da Claude Code, Codemate supporta come fallback le convenzioni di file di Claude Code:
+Per gli utenti che migrano da Claude Code, codemate supporta come fallback le convenzioni di file di Claude Code:
 
 - **Regole di progetto**: `CLAUDE.md` nella directory del progetto (usato se non esiste `AGENTS.md`)
 - **Regole globali**: `~/.claude/CLAUDE.md` (usato se non esiste `~/.config/codemate/AGENTS.md`)
@@ -77,9 +77,9 @@ Per gli utenti che migrano da Claude Code, Codemate supporta come fallback le co
 Per disabilitare la compatibilita' con Claude Code, imposta una di queste variabili d'ambiente:
 
 ```bash
-export CODEMATE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export CODEMATE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export CODEMATE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export codemate_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export codemate_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export codemate_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---

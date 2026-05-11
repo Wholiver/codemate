@@ -1,15 +1,15 @@
 ---
 title: Konfiguration
-description: Ved at bruge Codemate JSON konfig.
+description: Ved at bruge codemate JSON konfig.
 ---
 
-Du kan konfigurere Codemate ved hjælp af en JSON-konfigurationsfil.
+Du kan konfigurere codemate ved hjælp af en JSON-konfigurationsfil.
 
 ---
 
 ## Format
 
-Codemate understøtter både **JSON** og **JSONC** (JSON med kommentarer) formater.
+codemate understøtter både **JSON** og **JSONC** (JSON med kommentarer) formater.
 
 ```jsonc title="codemate.jsonc"
 {
@@ -45,10 +45,10 @@ Konfigurationskilder indlæses i denne rækkefølge (senere kilder tilsidesætte
 
 1. **Fjernkonfiguration** (fra `.well-known/codemate`) - organisatoriske standardindstillinger
 2. **Global config** (`~/.config/codemate/codemate.json`) - brugerpræferencer
-3. **Tilpasset konfiguration** (`CODEMATE_CONFIG` env var) - tilpassede tilsidesættelser
+3. **Tilpasset konfiguration** (`codemate_CONFIG` env var) - tilpassede tilsidesættelser
 4. **Project config** (`codemate.json` i projekt) - projektspecifikke indstillinger
 5. **`.codemate` mapper** - agent, kommandoer, plugins
-6. **Inline config** (`CODEMATE_CONFIG_CONTENT` env var) - runtime tilsidesættelser
+6. **Inline config** (`codemate_CONFIG_CONTENT` env var) - runtime tilsidesættelser
 
 Dette betyder, at projektkonfigurationer kan tilsidesætte globale standardindstillinger, og globale konfigurationer kan tilsidesætte eksterne organisatoriske standarder.
 
@@ -96,7 +96,7 @@ Du kan aktivere specifikke servere i din lokale konfiguration:
 
 ### Global
 
-Placer din globale Codemate-konfiguration i `~/.config/codemate/codemate.json`. Brug global konfiguration til brugerdækkende præferencer som temaer, udbydere eller nøglebindinger.
+Placer din globale codemate-konfiguration i `~/.config/codemate/codemate.json`. Brug global konfiguration til brugerdækkende præferencer som temaer, udbydere eller nøglebindinger.
 
 Global config tilsidesætter eksterne organisatoriske standarder.
 
@@ -110,7 +110,7 @@ Tilføj `codemate.json` i dit projektrod. Project config har den højeste forran
 Placer projektspecifik konfiguration i roden af ​​dit projekt.
 :::
 
-Når Codemate starter op, søger den efter en konfigurationsfil i den aktuelle mappe eller går op til den nærmeste Git-mappe.
+Når codemate starter op, søger den efter en konfigurationsfil i den aktuelle mappe eller går op til den nærmeste Git-mappe.
 
 Dette er også sikkert at blive tjekket ind i Git og bruger det samme skema som det globale.
 
@@ -118,10 +118,10 @@ Dette er også sikkert at blive tjekket ind i Git og bruger det samme skema som 
 
 ### Brugerdefineret sti
 
-Angiv en brugerdefineret konfigurationsfilsti ved hjælp af miljøvariablen `CODEMATE_CONFIG`.
+Angiv en brugerdefineret konfigurationsfilsti ved hjælp af miljøvariablen `codemate_CONFIG`.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -131,13 +131,13 @@ Brugerdefineret konfigurationsindlæses mellem globale konfigurationer og projek
 
 ### Brugerdefineret mappe
 
-Angiv en brugerdefineret konfigurationsmappe ved hjælp af `CODEMATE_CONFIG_DIR`
+Angiv en brugerdefineret konfigurationsmappe ved hjælp af `codemate_CONFIG_DIR`
 miljøvariabel. Dette kort vil blive søgt efter agenter, kommandoer,
 modes og plugins ligesom standard `.codemate` mappen, og bør
 følge samme struktur.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -201,7 +201,7 @@ Tilgængelige muligheder:
 
 - `port` - Port til at lytte på.
 - `hostname` - Værtsnavn at lytte på. Når `mdns` er aktiveret, og der ikke er angivet noget værtsnavn, er standarden `0.0.0.0`.
-- `mdns` - Aktiver mDNS-tjenesteopdagelse. Dette gør det muligt for andre enheder på netværket at opdage din Codemate-server.
+- `mdns` - Aktiver mDNS-tjenesteopdagelse. Dette gør det muligt for andre enheder på netværket at opdage din codemate-server.
 - `mdnsDomain` - Brugerdefineret domænenavn til mDNS-tjeneste. Som standard er `codemate.local`. Nyttigt til at køre flere forekomster på det samme netværk.
 - `cors` - Yderligere oprindelser for at tillade CORS ved brug af HTTP-serveren fra en browserbaseret klient. Værdier skal være fulde oprindelser (skema + vært + valgfri port), f.eks. `https://app.example.com`.
 
@@ -229,7 +229,7 @@ Du kan administrere de værktøjer, en LLM kan bruge, gennem indstillingen `tool
 
 ### Modeller (`models`)
 
-Du kan konfigurere de udbydere og modeller, du vil bruge i din Codemate-konfiguration, gennem mulighederne `provider`, `model` og `small_model`.
+Du kan konfigurere de udbydere og modeller, du vil bruge i din codemate-konfiguration, gennem mulighederne `provider`, `model` og `small_model`.
 
 ```json title="codemate.json"
 {
@@ -240,7 +240,7 @@ Du kan konfigurere de udbydere og modeller, du vil bruge i din Codemate-konfigur
 }
 ```
 
-Indstillingen `small_model` konfigurerer en separat model til lette opgaver som titelgenerering. Som standard forsøger Codemate at bruge en billigere model, hvis en er tilgængelig fra din udbyder, ellers falder den tilbage til din hovedmodel.
+Indstillingen `small_model` konfigurerer en separat model til lette opgaver som titelgenerering. Som standard forsøger codemate at bruge en billigere model, hvis en er tilgængelig fra din udbyder, ellers falder den tilbage til din hovedmodel.
 
 Udbydermuligheder kan omfatte `timeout` og `setCacheKey`:
 
@@ -302,7 +302,7 @@ Bearer tokens (`AWS_BEARER_TOKEN_BEDROCK` eller `/connect`) har forrang over pro
 
 ### Temaer (`themes`)
 
-Du kan konfigurere det tema, du vil bruge i din Codemate-konfiguration, gennem indstillingen `theme`.
+Du kan konfigurere det tema, du vil bruge i din codemate-konfiguration, gennem indstillingen `theme`.
 
 ```json title="codemate.json"
 {
@@ -352,7 +352,7 @@ Du kan indstille standardagenten ved at bruge indstillingen `default_agent`. Det
 }
 ```
 
-Standardagenten skal være en primær agent (ikke en subagent). Dette kan være en indbygget agent som `"build"` eller `"plan"`, eller en [custom agent](/docs/agents), du har defineret. Hvis den angivne agent ikke eksisterer eller er en underagent, vil Codemate falde tilbage til `"build"` med en advarsel.
+Standardagenten skal være en primær agent (ikke en subagent). Dette kan være en indbygget agent som `"build"` eller `"plan"`, eller en [custom agent](/docs/agents), du har defineret. Hvis den angivne agent ikke eksisterer eller er en underagent, vil codemate falde tilbage til `"build"` med en advarsel.
 
 Denne indstilling gælder på tværs af alle grænseflader: TUI, CLI (`codemate run`), desktop-app og GitHub Action.
 
@@ -422,7 +422,7 @@ Du kan tilpasse dine nøglebindinger gennem indstillingen `keybinds`.
 
 ### Auto-opdatering (`autoupdate`)
 
-Codemate vil automatisk downloade alle nye opdateringer, når den starter op. Du kan deaktivere dette med indstillingen `autoupdate`.
+codemate vil automatisk downloade alle nye opdateringer, når den starter op. Du kan deaktivere dette med indstillingen `autoupdate`.
 
 ```json title="codemate.json"
 {
@@ -537,7 +537,7 @@ Du kan konfigurere MCP-servere, som du vil bruge, gennem indstillingen `mcp`.
 
 ### Plugin
 
-[Plugins](/docs/plugins) udvide Codemate med brugerdefinerede værktøjer, kroge og integrationer.
+[Plugins](/docs/plugins) udvide codemate med brugerdefinerede værktøjer, kroge og integrationer.
 
 Placer plugin-filer i `.codemate/plugins/` eller `~/.config/codemate/plugins/`. Du kan også indlæse plugins fra npm gennem indstillingen `plugin`.
 
@@ -602,7 +602,7 @@ Du kan angive en tilladelsesliste over udbydere gennem muligheden `enabled_provi
 }
 ```
 
-Dette er nyttigt, når du vil begrænse Codemate til kun at bruge specifikke udbydere i stedet for at deaktivere dem én efter én.
+Dette er nyttigt, når du vil begrænse codemate til kun at bruge specifikke udbydere i stedet for at deaktivere dem én efter én.
 
 :::note
 `disabled_providers` har prioritet over `enabled_providers`.
@@ -642,7 +642,7 @@ Brug `{env:VARIABLE_NAME}` til at erstatte miljøvariabler:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

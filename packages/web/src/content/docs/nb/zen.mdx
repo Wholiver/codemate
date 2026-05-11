@@ -1,21 +1,21 @@
 ---
 title: Zen
-description: Utvalgt liste over modeller levert av Codemate.
+description: Utvalgt liste over modeller levert av codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Zen er en liste over testede og verifiserte modeller levert av Codemate-teamet.
+codemate Zen er en liste over testede og verifiserte modeller levert av codemate-teamet.
 
 :::note
-Codemate Zen er for øyeblikket i beta.
+codemate Zen er for øyeblikket i beta.
 :::
 
-Zen fungerer som enhver annen leverandør i Codemate. Du logger inn på Codemate Zen og får
+Zen fungerer som enhver annen leverandør i codemate. Du logger inn på codemate Zen og får
 API-nøkkelen din. Det er **helt valgfritt**, og du trenger ikke bruke det for å bruke
-Codemate.
+codemate.
 
 ---
 
@@ -26,7 +26,7 @@ disse modellene fungerer godt som kodeagenter. I tillegg er de fleste leverandø
 konfigurert svært ulikt, så du får veldig ulik ytelse og kvalitet.
 
 :::tip
-Vi testet en utvalgt gruppe modeller og leverandører som fungerer godt med Codemate.
+Vi testet en utvalgt gruppe modeller og leverandører som fungerer godt med codemate.
 :::
 
 Så hvis du bruker en modell gjennom noe som OpenRouter, kan du aldri være
@@ -41,17 +41,17 @@ For å løse dette gjorde vi et par ting:
 3. Til slutt benchmarket vi kombinasjonen av modell/leverandør og laget
    en liste vi føler oss trygge på å anbefale.
 
-Codemate Zen er en AI gateway som gir deg tilgang til disse modellene.
+codemate Zen er en AI gateway som gir deg tilgang til disse modellene.
 
 ---
 
 ## Slik fungerer det
 
-Codemate Zen fungerer som enhver annen leverandør i Codemate.
+codemate Zen fungerer som enhver annen leverandør i codemate.
 
-1. Du logger inn på **<a href={console}>Codemate Zen</a>**, legger til
+1. Du logger inn på **<a href={console}>codemate Zen</a>**, legger til
    faktureringsdetaljene dine og kopierer API-nøkkelen din.
-2. Du kjører kommandoen `/connect` i TUI, velger Codemate Zen og limer inn API-nøkkelen din.
+2. Du kjører kommandoen `/connect` i TUI, velger codemate Zen og limer inn API-nøkkelen din.
 3. Kjør `/models` i TUI for å se listen over modeller vi anbefaler.
 
 Du blir belastet per forespørsel, og du kan legge til kreditt på kontoen din.
@@ -102,11 +102,10 @@ Du kan også få tilgang til modellene våre gjennom følgende API-endepunkter.
 | Kimi K2.5             | kimi-k2.5             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Kimi K2.6             | kimi-k2.6             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Big Pickle            | big-pickle            | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Ling 2.6 Flash        | ling-2.6-flash        | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Hy3 Preview Free      | hy3-preview-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
+| Ring 2.6 1T           | ring-2.6-1t-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Nemotron 3 Super Free | nemotron-3-super-free | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 
-[modell-id](/docs/config/#models) i Codemate-konfigurasjonen din
+[modell-id](/docs/config/#models) i codemate-konfigurasjonen din
 bruker formatet `codemate/<model-id>`. For eksempel, for GPT 5.5, ville du
 brukt `codemate/gpt-5.5` i konfigurasjonen din.
 
@@ -130,8 +129,7 @@ Vi støtter en pay-as-you-go-modell. Nedenfor er prisene **per 1M tokens**.
 | --------------------------------- | ------- | ------- | ------------- | --------------- |
 | Big Pickle                        | Free    | Free    | Free          | -               |
 | MiniMax M2.5 Free                 | Free    | Free    | Free          | -               |
-| Ling 2.6 Flash Free               | Free    | Free    | Free          | -               |
-| Hy3 Preview Free                  | Free    | Free    | Free          | -               |
+| Ring 2.6 1T Free                  | Free    | Free    | Free          | -               |
 | Nemotron 3 Super Free             | Free    | Free    | Free          | -               |
 | MiniMax M2.7                      | $0.30   | $1.20   | $0.06         | $0.375          |
 | MiniMax M2.5                      | $0.30   | $1.20   | $0.06         | $0.375          |
@@ -172,7 +170,7 @@ Vi støtter en pay-as-you-go-modell. Nedenfor er prisene **per 1M tokens**.
 | GPT 5.1 Codex Mini                | $0.25   | $2.00   | $0.025        | -               |
 | GPT 5                             | $1.07   | $8.50   | $0.107        | -               |
 | GPT 5 Codex                       | $1.07   | $8.50   | $0.107        | -               |
-| GPT 5 Nano                        | Free    | Free    | Free          | -               |
+| GPT 5 Nano                        | $0.05   | $0.40   | $0.005        | -               |
 
 Du vil kanskje legge merke til _Claude Haiku 3.5_ i brukshistorikken din. Dette er en [lavprismodell](/docs/config/#models) som brukes til å generere titlene på øktene dine.
 
@@ -182,11 +180,10 @@ Kredittkortgebyrer videreføres til kostpris (4.4% + $0.30 per transaction); vi 
 
 Gratis-modellene:
 
-- MiniMax M2.5 Free er tilgjengelig på Codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
-- Ling 2.6 Flash Free er tilgjengelig på Codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
-- Hy3 Preview Free er tilgjengelig på Codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
-- Nemotron 3 Super Free er tilgjengelig på Codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
-- Big Pickle er en stealth-modell som er gratis på Codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
+- MiniMax M2.5 Free er tilgjengelig på codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
+- Ring 2.6 1T Free er tilgjengelig på codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
+- Nemotron 3 Super Free er tilgjengelig på codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
+- Big Pickle er en stealth-modell som er gratis på codemate i en begrenset periode. Teamet bruker denne tiden til å samle inn tilbakemeldinger og forbedre modellen.
 
 <a href={email}>Kontakt oss</a> hvis du har spørsmål.
 
@@ -239,8 +236,7 @@ Alle modellene våre hostes i US. Leverandørene våre følger en policy for zer
 
 - Big Pickle: I gratisperioden kan innsamlede data brukes til å forbedre modellen.
 - MiniMax M2.5 Free: I gratisperioden kan innsamlede data brukes til å forbedre modellen.
-- Ling 2.6 Flash Free: I gratisperioden kan innsamlede data brukes til å forbedre modellen.
-- Hy3 Preview Free: I gratisperioden kan innsamlede data brukes til å forbedre modellen.
+- Ring 2.6 1T Free: I gratisperioden kan innsamlede data brukes til å forbedre modellen.
 - Nemotron 3 Super Free (gratis NVIDIA-endepunkter): Leveres under [NVIDIA API Trial Terms of Service](https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf). Kun for prøvebruk, ikke for produksjon eller sensitive data. Prompter og svar logges av NVIDIA for å forbedre modellene og tjenestene deres. Ikke send inn personopplysninger eller konfidensielle data.
 - OpenAI APIs: Forespørsler lagres i 30 dager i samsvar med [OpenAI's Data Policies](https://platform.openai.com/docs/guides/your-data).
 - Anthropic APIs: Forespørsler lagres i 30 dager i samsvar med [Anthropic's Data Policies](https://docs.anthropic.com/en/docs/claude-code/data-usage).
@@ -294,9 +290,9 @@ og du vil bruke den i stedet for den Zen tilbyr.
 
 ## Mål
 
-Vi opprettet Codemate Zen for å:
+Vi opprettet codemate Zen for å:
 
 1. **Benchmarke** de beste modellene/leverandørene for kodeagenter.
 2. Ha tilgang til alternativene med **høyest kvalitet** og ikke nedgradere ytelsen eller rute til billigere leverandører.
 3. Videreføre eventuelle **prisreduksjoner** ved å selge til kostpris, slik at det eneste påslaget er for å dekke behandlingsgebyrene våre.
-4. Ha **ingen lock-in** ved å la deg bruke det med enhver annen kodeagent. Og alltid la deg bruke enhver annen leverandør med Codemate også.
+4. Ha **ingen lock-in** ved å la deg bruke det med enhver annen kodeagent. Og alltid la deg bruke enhver annen leverandør med codemate også.

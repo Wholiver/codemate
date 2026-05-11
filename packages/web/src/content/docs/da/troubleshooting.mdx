@@ -3,7 +3,7 @@ title: Fejlfinding
 description: Almindelige problemer, og hvordan de løses.
 ---
 
-For at fejlfinde problemer med Codemate, start med at tjekke logfilerne og de lokale data, den gemmer på disken.
+For at fejlfinde problemer med codemate, start med at tjekke logfilerne og de lokale data, den gemmer på disken.
 
 ---
 
@@ -39,13 +39,13 @@ Denne mappe indeholder:
 
 ## Desktop-app
 
-Codemate Desktop kører en lokal Codemate-server (`codemate-cli` sidevognen) i baggrunden. De fleste problemer er forårsaget af et plugin, der fungerer dårligt, en ødelagt cache eller en dårlig serverindstilling.
+codemate Desktop kører en lokal codemate-server (`codemate-cli` sidevognen) i baggrunden. De fleste problemer er forårsaget af et plugin, der fungerer dårligt, en ødelagt cache eller en dårlig serverindstilling.
 
 ### Hurtige tjek
 
 - Afslut og start appen på ny.
 - Hvis appen viser en fejlskærm, klikker du på **Start på ny** og kopierer fejldetaljerne.
-- Kun macOS: `Codemate`-menu -> **Genindlæs webvisning** (hjælper hvis UI er tom/frosset).
+- Kun macOS: `codemate`-menu -> **Genindlæs webvisning** (hjælper hvis UI er tom/frosset).
 
 ---
 
@@ -72,7 +72,7 @@ Hvis du har konfigureret plugins, deaktiver dem midlertidigt ved at fjerne nøgl
 
 #### Tjek plugin-mapper
 
-Codemate kan også indlæse lokale plugins fra disken. Flyt disse midlertidigt væk (eller giv mappen nyt navn) og start skrivebordsappen på ny:
+codemate kan også indlæse lokale plugins fra disken. Flyt disse midlertidigt væk (eller giv mappen nyt navn) og start skrivebordsappen på ny:
 
 - **Globale plugins**
   - **macOS/Linux**: `~/.config/codemate/plugins/`
@@ -86,22 +86,22 @@ Hvis appen begynder at fungere igen, aktiverer du plugins én ad gangen for at f
 
 ### Ryd cachen
 
-Hvis deaktivering af plugins ikke hjælper (eller en plugin-installation sidder fast), tøm cachen så Codemate kan genopbygge den.
+Hvis deaktivering af plugins ikke hjælper (eller en plugin-installation sidder fast), tøm cachen så codemate kan genopbygge den.
 
-1. Afslut Codemate Desktop helt.
+1. Afslut codemate Desktop helt.
 2. Slet cache-mappen:
 
 - **macOS**: Finder -> `Cmd+Shift+G` -> indsæt `~/.cache/codemate`
 - **Linux**: slet `~/.cache/codemate` (eller kør `rm -rf ~/.cache/codemate`)
 - **Windows**: Tryk `WIN+R` og indsæt `%USERPROFILE%\.cache\codemate`
 
-3. Start Codemate Desktop på ny.
+3. Start codemate Desktop på ny.
 
 ---
 
 ### Løs problemer med serverforbindelse
 
-Codemate Desktop kan enten starte sin egen lokale server (standard) eller forbinde til en server URL, du har konfigureret.
+codemate Desktop kan enten starte sin egen lokale server (standard) eller forbinde til en server URL, du har konfigureret.
 
 Hvis du ser en **"Forbindelse mislykkedes"**-dialogboks (eller appen kommer aldrig forbi splash-skærmen), se efter en brugerdefineret server URL.
 
@@ -115,9 +115,9 @@ Hvis `codemate.json(c)` indeholder en `server`-del, fjern den midlertidigt og st
 
 #### Tjek miljøvariabler
 
-Hvis du har `CODEMATE_PORT` sat i dit miljø, vil skrivebordsappen prøve at bruge den port for den lokale server.
+Hvis du har `codemate_PORT` sat i dit miljø, vil skrivebordsappen prøve at bruge den port for den lokale server.
 
-- Deaktiver `CODEMATE_PORT` (eller vælg en ledig port) og start på ny.
+- Deaktiver `codemate_PORT` (eller vælg en ledig port) og start på ny.
 
 ---
 
@@ -132,21 +132,21 @@ På Linux kan nogle Wayland-opsætninger forårsage tomme vinduer eller komposit
 
 ### Windows: WebView2-runtime
 
-På Windows kræver Codemate Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åbnes i et tomt vindue eller ikke starter, installer/opdater WebView2 og prøv igen.
+På Windows kræver codemate Desktop Microsoft Edge **WebView2 Runtime**. Hvis appen åbnes i et tomt vindue eller ikke starter, installer/opdater WebView2 og prøv igen.
 
 ---
 
 ### Windows: Generelle ydeevneproblemer
 
-Hvis du oplever langsom ydeevne, problemer med filadgang eller terminalproblemer på Windows, kan du prøve at bruge [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL giver et Linux-miljø som fungerer mere sømløst med funktionerne i Codemate.
+Hvis du oplever langsom ydeevne, problemer med filadgang eller terminalproblemer på Windows, kan du prøve at bruge [WSL (Windows Subsystem for Linux)](/docs/windows-wsl). WSL giver et Linux-miljø som fungerer mere sømløst med funktionerne i codemate.
 
 ---
 
 ### Meddelelser vises ikke
 
-Codemate Desktop viser kun systemvarsler når:
+codemate Desktop viser kun systemvarsler når:
 
-- varsler er aktiveret for Codemate i dine OS-indstillinger, og
+- varsler er aktiveret for codemate i dine OS-indstillinger, og
 - appvinduet ikke er fokuseret.
 
 ---
@@ -155,8 +155,8 @@ Codemate Desktop viser kun systemvarsler når:
 
 Hvis appen ikke starter og du ikke kan slette indstillingerne fra UI, nulstil skrivebordsappens gemte tilstand.
 
-1. Afslut Codemate Desktop.
-2. Find og slet disse filer (de findes i Codemate Desktop-appens datamappe):
+1. Afslut codemate Desktop.
+2. Find og slet disse filer (de findes i codemate Desktop-appens datamappe):
 
 - `codemate.settings.dat` (skrivebordsstandardserver URL)
 - `codemate.global.dat` og `codemate.workspace.*.dat` (UI tilstand som nylige servere/projekter)
@@ -171,7 +171,7 @@ Sådan finder du mappen hurtigt:
 
 ## Få hjælp
 
-Hvis du oplever problemer med Codemate:
+Hvis du oplever problemer med codemate:
 
 1. **Rapporter problemer på GitHub**
 
@@ -195,7 +195,7 @@ Her er nogle almindelige problemer og hvordan du kan løse dem.
 
 ---
 
-### Codemate vil ikke starte
+### codemate vil ikke starte
 
 1. Tjek logfilerne for fejlmeddelelser
 2. Prøv at køre med `--print-logs` for at se output i terminalen

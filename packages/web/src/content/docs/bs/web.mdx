@@ -1,11 +1,11 @@
 ---
 title: Web
-description: Korišćenje Codemate u vašem pretraživaču.
+description: Korišćenje codemate u vašem pretraživaču.
 ---
 
-Codemate može raditi kao web aplikacija u vašem pretraživaču, pružajući isto moćno iskustvo AI kodiranja bez potrebe za terminalom.
+codemate može raditi kao web aplikacija u vašem pretraživaču, pružajući isto moćno iskustvo AI kodiranja bez potrebe za terminalom.
 
-![Codemate Web - Nova sesija](../../../assets/web/web-homepage-new-session.png)
+![codemate Web - Nova sesija](../../../assets/web/web-homepage-new-session.png)
 
 ## Početak rada
 
@@ -15,10 +15,10 @@ Pokrenite web interfejs tako što ćete pokrenuti:
 codemate web
 ```
 
-Ovo pokreće lokalni server na `127.0.0.1` sa nasumičnim dostupnim portom i automatski otvara Codemate u vašem podrazumevanom pretraživaču.
+Ovo pokreće lokalni server na `127.0.0.1` sa nasumičnim dostupnim portom i automatski otvara codemate u vašem podrazumevanom pretraživaču.
 
 :::caution
-Ako `CODEMATE_SERVER_PASSWORD` nije postavljen, server će biti nezaštićen. Ovo je u redu za lokalnu upotrebu, ali bi trebalo biti postavljeno za pristup mreži.
+Ako `codemate_SERVER_PASSWORD` nije postavljen, server će biti nezaštićen. Ovo je u redu za lokalnu upotrebu, ali bi trebalo biti postavljeno za pristup mreži.
 :::
 
 :::tip[Windows korisnici]
@@ -33,7 +33,7 @@ Možete konfigurirati web server koristeći oznake komandne linije ili u vašoj 
 
 ### Port
 
-Codemate podrazumevano bira dostupni port. Možete odrediti port:
+codemate podrazumevano bira dostupni port. Možete odrediti port:
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### Ime hosta
 
-Podrazumevano, server se vezuje za `127.0.0.1` (samo lokalni host). Da biste Codemate učinili dostupnim na vašoj mreži:
+Podrazumevano, server se vezuje za `127.0.0.1` (samo lokalni host). Da biste codemate učinili dostupnim na vašoj mreži:
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-Kada koristite `0.0.0.0`, Codemate će prikazati i lokalne i mrežne adrese:
+Kada koristite `0.0.0.0`, codemate će prikazati i lokalne i mrežne adrese:
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### Autentifikacija
 
-Da biste zaštitili pristup, postavite lozinku koristeći varijablu okruženja `CODEMATE_SERVER_PASSWORD`:
+Da biste zaštitili pristup, postavite lozinku koristeći varijablu okruženja `codemate_SERVER_PASSWORD`:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-Korisničko ime podrazumevano je `codemate`, ali se može promeniti sa `CODEMATE_SERVER_USERNAME`.
+Korisničko ime podrazumevano je `codemate`, ali se može promeniti sa `codemate_SERVER_USERNAME`.
 
 ---
 
 ## Korištenje web sučelja
 
-Jednom pokrenut, web sučelje pruža pristup vašim Codemate sesijama.
+Jednom pokrenut, web sučelje pruža pristup vašim codemate sesijama.
 
 ### Sesije
 
 Pregledajte i upravljajte svojim sesijama sa početne stranice. Možete vidjeti aktivne sesije i započeti nove.
 
-![Codemate Web - aktivna sesija](../../../assets/web/web-homepage-active-session.png)
+![codemate Web - aktivna sesija](../../../assets/web/web-homepage-active-session.png)
 
 ### Status servera
 
 Kliknite "Pogledajte servere" da vidite povezane servere i njihov status.
 
-![Codemate Web - Vidi servere](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web - Vidi servere](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

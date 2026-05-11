@@ -1,4 +1,5 @@
 import "@/index.css"
+import * as Sentry from "@sentry/solid"
 import { I18nProvider } from "@codemate-ai/ui/context"
 import { DialogProvider } from "@codemate-ai/ui/context/dialog"
 import { FileComponentProvider } from "@codemate-ai/ui/context/file"
@@ -70,7 +71,7 @@ function UiI18nBridge(props: ParentProps) {
 
 declare global {
   interface Window {
-    __CODEMATE__?: {
+    __codemate__?: {
       updaterEnabled?: boolean
       deepLinks?: string[]
       wsl?: boolean
@@ -148,12 +149,19 @@ export function AppBaseProviders(props: ParentProps<{ locale?: Locale }>) {
       >
         <LanguageProvider locale={props.locale}>
           <UiI18nBridge>
-            <ErrorBoundary fallback={(error) => <ErrorPage error={error} />}>
-              <DialogProvider>
-                <MarkedProvider>
-                  <FileComponentProvider component={File}>{props.children}</FileComponentProvider>
-                </MarkedProvider>
-              </DialogProvider>
+            <ErrorBoundary
+              fallback={(error) => {
+                Sentry.captureException(error)
+                return <ErrorPage error={error} />
+              }}
+            >
+              <QueryProvider>
+                <DialogProvider>
+                  <MarkedProvider>
+                    <FileComponentProvider component={File}>{props.children}</FileComponentProvider>
+                  </MarkedProvider>
+                </DialogProvider>
+              </QueryProvider>
             </ErrorBoundary>
           </UiI18nBridge>
         </LanguageProvider>

@@ -45,9 +45,9 @@ jobs:
 
       - name: Check PR guidelines compliance
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CODEMATE_PERMISSION: '{ "bash": {  "*": "deny", "gh*": "allow", "gh pr review*": "deny" } }'
+          codemate_PERMISSION: '{ "bash": {  "*": "deny", "gh*": "allow", "gh pr review*": "deny" } }'
           PR_TITLE: ${{ steps.pr-details.outputs.title }}
         run: |
           PR_BODY=$(jq -r .body pr_data.json)

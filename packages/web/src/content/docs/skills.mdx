@@ -3,7 +3,7 @@ title: "Agent Skills"
 description: "Define reusable behavior via SKILL.md definitions"
 ---
 
-Agent skills let Codemate discover reusable instructions from your repo or home directory.
+Agent skills let codemate discover reusable instructions from your repo or home directory.
 Skills are loaded on-demand via the native `skill` tool—agents see available skills and can load the full content when needed.
 
 ---
@@ -11,7 +11,7 @@ Skills are loaded on-demand via the native `skill` tool—agents see available s
 ## Place files
 
 Create one folder per skill name and put a `SKILL.md` inside it.
-Codemate searches these locations:
+codemate searches these locations:
 
 - Project config: `.codemate/skills/<name>/SKILL.md`
 - Global config: `~/.config/codemate/skills/<name>/SKILL.md`
@@ -24,7 +24,7 @@ Codemate searches these locations:
 
 ## Understand discovery
 
-For project-local paths, Codemate walks up from your current working directory until it reaches the git worktree.
+For project-local paths, codemate walks up from your current working directory until it reaches the git worktree.
 It loads any matching `skills/*/SKILL.md` in `.codemate/` and any matching `.claude/skills/*/SKILL.md` or `.agents/skills/*/SKILL.md` along the way.
 
 Global definitions are also loaded from `~/.config/codemate/skills/*/SKILL.md`, `~/.claude/skills/*/SKILL.md`, and `~/.agents/skills/*/SKILL.md`.
@@ -102,7 +102,7 @@ Ask clarifying questions if the target versioning scheme is unclear.
 
 ## Recognize tool description
 
-Codemate lists available skills in the `skill` tool description.
+codemate lists available skills in the `skill` tool description.
 Each entry includes the skill name and description:
 
 ```xml

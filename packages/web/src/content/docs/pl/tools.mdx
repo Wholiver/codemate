@@ -3,7 +3,7 @@ title: Narzędzia
 description: Zarządzaj narzędziami, z których może korzystać LLM.
 ---
 
-Narzędzia umożliwiają LLM wykonywanie działań w bazie kodu. Codemate posiada zestaw wbudowanych narzędzi, ale możesz go rozszerzyć o [narzędzia niestandardowe](/docs/custom-tools) lub [serwery MCP](/docs/mcp-servers).
+Narzędzia umożliwiają LLM wykonywanie działań w bazie kodu. codemate posiada zestaw wbudowanych narzędzi, ale możesz go rozszerzyć o [narzędzia niestandardowe](/docs/custom-tools) lub [serwery MCP](/docs/mcp-servers).
 
 Domyślnie wszystkie narzędzia są **włączone** i nie wymagają zatwierdzenia przed uruchomieniem. Możesz kontrolować zachowanie narzędzi poprzez [uprawnienia](/docs/permissions).
 
@@ -41,7 +41,7 @@ Możesz także używać symboli wieloznacznych do kontrolowania wielu narzędzi 
 
 ## Wbudowane narzędzia
 
-Oto wszystkie wbudowane narzędzia dostępne w Codemate.
+Oto wszystkie wbudowane narzędzia dostępne w codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Szukaj plików przy użyciu wzorców glob, takich jak `**/*.js` lub `src/**/*.ts
 Interakcja ze skonfigurowanymi serwerami LSP w celu uzyskania funkcji analizy kodu, takich jak definicje, referencje, podpowiedzi (hover) i hierarchia wywołań.
 
 :::note
-To narzędzie jest dostępne tylko wtedy, gdy `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (lub `CODEMATE_EXPERIMENTAL=true`).
+To narzędzie jest dostępne tylko wtedy, gdy `codemate_EXPERIMENTAL_LSP_TOOL=true` (lub `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Umożliwia LLM pobieranie i odczytywanie stron internetowych. Przydatne do wyszu
 Wyszukaj informacje w Internecie.
 
 :::note
-To narzędzie jest dostępne tylko w przypadku korzystania z dostawcy Codemate lub gdy zmienna środowiskowa `CODEMATE_ENABLE_EXA` jest ustawiona na dowolną wartość prawdziwą (np. `true` lub `1`).
+To narzędzie jest dostępne tylko w przypadku korzystania z dostawcy codemate lub gdy zmienna środowiskowa `codemate_ENABLE_EXA` jest ustawiona na dowolną wartość prawdziwą (np. `true` lub `1`).
 
-Aby włączyć przy uruchamianiu Codemate:
+Aby włączyć przy uruchamianiu codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

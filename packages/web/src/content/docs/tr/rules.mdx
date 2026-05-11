@@ -77,16 +77,16 @@ codemate, Claude Code'dan geçiş yapan kullanıcılar için yedek olarak Claude
 Claude Code uyumluluğunu kapatmak için aşağıdaki ortam değişkenlerinden birini ayarlayın:
 
 ```bash
-export CODEMATE_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
-export CODEMATE_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
-export CODEMATE_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
+export codemate_DISABLE_CLAUDE_CODE=1        # Disable all .claude support
+export codemate_DISABLE_CLAUDE_CODE_PROMPT=1 # Disable only ~/.claude/CLAUDE.md
+export codemate_DISABLE_CLAUDE_CODE_SKILLS=1 # Disable only .claude/skills
 ```
 
 ---
 
 ## Öncelik
 
-Codemate başlatıldığında kural dosyalarını şu sırayla arar:
+codemate başlatıldığında kural dosyalarını şu sırayla arar:
 
 1. **Yerel dosyalar** geçerli dizinden yukarıya doğru giderek (`AGENTS.md`, `CLAUDE.md`)
 2. **Global dosya** `~/.config/codemate/AGENTS.md` adresinde
@@ -126,7 +126,7 @@ Tüm talimat dosyaları `AGENTS.md` dosyalarınızla birleştirilir.
 
 ## Harici Dosyalara Referans Verme
 
-Codemate, `AGENTS.md`'daki dosya referanslarını otomatik olarak ayrıştırmasa da, benzer işlevleri iki şekilde elde edebilirsiniz:
+codemate, `AGENTS.md`'daki dosya referanslarını otomatik olarak ayrıştırmasa da, benzer işlevleri iki şekilde elde edebilirsiniz:
 
 ### codemate.json'u kullanma
 

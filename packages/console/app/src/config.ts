@@ -22,7 +22,7 @@ export const config = {
 
   // Static stats (used on landing page)
   stats: {
-    contributors: "850",
+    contributors: "—",
     commits: "11,000",
     monthlyUsers: "6.5M",
   },

@@ -1,5 +1,4 @@
 import { cmd } from "@/cli/cmd/cmd"
-import { tui } from "./app"
 import { Rpc } from "@/util/rpc"
 import { type rpc } from "./worker"
 import path from "path"
@@ -16,15 +15,15 @@ import { win32DisableProcessedInput, win32InstallCtrlCGuard } from "./win32"
 import { writeHeapSnapshot } from "v8"
 import { TuiConfig } from "./config/tui"
 import {
-  CODEMATE_PROCESS_ROLE,
-  CODEMATE_RUN_ID,
+  codemate_PROCESS_ROLE,
+  codemate_RUN_ID,
   ensureRunID,
   sanitizedProcessEnv,
 } from "@codemate-ai/core/util/codemate-process"
 import { validateSession } from "./validate-session"
 
 declare global {
-  const CODEMATE_WORKER_PATH: string
+  const codemate_WORKER_PATH: string
 }
 
 type RpcClient = ReturnType<typeof Rpc.client<typeof rpc>>
@@ -58,7 +57,7 @@ function createEventSource(client: RpcClient): EventSource {
 }
 
 async function target() {
-  if (typeof CODEMATE_WORKER_PATH !== "undefined") return CODEMATE_WORKER_PATH
+  if (typeof codemate_WORKER_PATH !== "undefined") return codemate_WORKER_PATH
   const dist = new URL("./cli/cmd/tui/worker.js", import.meta.url)
   if (await Filesystem.exists(fileURLToPath(dist))) return dist
   return new URL("./worker.ts", import.meta.url)
@@ -140,8 +139,8 @@ export const TuiThreadCommand = cmd({
       }
       const cwd = Filesystem.resolve(process.cwd())
       const env = sanitizedProcessEnv({
-        [CODEMATE_PROCESS_ROLE]: "worker",
-        [CODEMATE_RUN_ID]: ensureRunID(),
+        [codemate_PROCESS_ROLE]: "worker",
+        [codemate_RUN_ID]: ensureRunID(),
       })
 
       const worker = new Worker(file, {
@@ -229,6 +228,7 @@ export const TuiThreadCommand = cmd({
       }, 1000).unref?.()
 
       try {
+        const { tui } = await import("./app")
         await tui({
           url: transport.url,
           async onSnapshot() {

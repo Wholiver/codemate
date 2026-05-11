@@ -3,6 +3,7 @@ import { Config } from "@/config/config"
 import { ModelsDev } from "@/provider/models"
 import { Provider } from "@/provider/provider"
 import { ProviderID } from "@/provider/schema"
+import { ProviderUnsupported } from "@/provider/unsupported"
 import { mapValues } from "remeda"
 import { Effect, Schema } from "effect"
 import { HttpServerRequest, HttpServerResponse } from "effect/unstable/http"
@@ -17,8 +18,9 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
 
     const list = Effect.fn("ProviderHttpApi.list")(function* () {
       const config = yield* cfg.get()
-      const all = yield* Effect.promise(() => ModelsDev.get())
+      const all = yield* ModelsDev.Service.use((s) => s.get())
       const disabled = new Set(config.disabled_providers ?? [])
+      for (const providerID of ProviderUnsupported.UNSUPPORTED_PROVIDER_IDS) disabled.add(providerID)
       const enabled = config.enabled_providers ? new Set(config.enabled_providers) : undefined
       const filtered: Record<string, (typeof all)[string]> = {}
       for (const [key, value] of Object.entries(all)) {
@@ -30,7 +32,7 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
         connected,
       )
       return {
-        all: Object.values(providers),
+        all: Object.values(providers).map(Provider.toPublicInfo),
         default: Provider.defaultModelIDs(providers),
         connected: Object.keys(connected),
       }
@@ -61,9 +63,11 @@ export const providerHandlers = HttpApiBuilder.group(InstanceHttpApi, "provider"
       const payload = yield* Schema.decodeUnknownEffect(Schema.fromJsonString(ProviderAuth.AuthorizeInput))(body).pipe(
         Effect.mapError(() => new HttpApiError.BadRequest({})),
       )
+      // Match legacy Hono behavior: when authorize() resolves without a
+      // result (e.g. no further redirect), serialize as JSON `null` instead
+      // of an empty body so clients can `.json()` parse the response.
       const result = yield* authorize({ params: ctx.params, payload })
-      if (result === undefined) return HttpServerResponse.empty({ status: 200 })
-      return HttpServerResponse.jsonUnsafe(result)
+      return HttpServerResponse.jsonUnsafe(result ?? null)
     })
 
     const callback = Effect.fn("ProviderHttpApi.callback")(function* (ctx: {

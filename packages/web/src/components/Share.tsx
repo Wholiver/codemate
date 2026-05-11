@@ -2,7 +2,7 @@ import { For, Show, onMount, Suspense, onCleanup, createMemo, createSignal, Susp
 import { DateTime } from "luxon"
 import { createStore, reconcile } from "solid-js/store"
 import { IconArrowDown } from "./icons"
-import { IconCodemate } from "./icons/custom"
+import { Iconcodemate } from "./icons/custom"
 import { ShareI18nProvider, formatCurrency, formatNumber, normalizeLocale } from "./share/common"
 import styles from "./share.module.css"
 import type { MessageV2 } from "codemate/session/message-v2"
@@ -305,7 +305,7 @@ export default function Share(props: {
               <ul data-component="header-stats">
                 <li title={props.messages.codemate_version} data-slot="item">
                   <div data-slot="icon" title={props.messages.codemate_name}>
-                    <IconCodemate width={16} height={16} />
+                    <Iconcodemate width={16} height={16} />
                   </div>
                   <Show when={store.info?.version} fallback="v0.0.1">
                     <span>v{store.info?.version}</span>

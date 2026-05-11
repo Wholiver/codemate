@@ -7,15 +7,15 @@ import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Go ist ein kostengünstiges Abonnement — **5 $ für deinen ersten Monat**, danach **10 $/Monat** —, das dir zuverlässigen Zugriff auf beliebte offene Coding-Modelle bietet.
+codemate Go ist ein kostengünstiges Abonnement — **5 $ für deinen ersten Monat**, danach **10 $/Monat** —, das dir zuverlässigen Zugriff auf beliebte offene Coding-Modelle bietet.
 
 :::note
-Codemate Go befindet sich derzeit in der Beta-Phase.
+codemate Go befindet sich derzeit in der Beta-Phase.
 :::
 
-Go funktioniert wie jeder andere Provider in Codemate. Du abonnierst Codemate Go und
+Go funktioniert wie jeder andere Provider in codemate. Du abonnierst codemate Go und
 erhältst deinen API-Key. Es ist **völlig optional** und du musst es nicht nutzen, um
-Codemate zu verwenden.
+codemate zu verwenden.
 
 Es wurde primär für internationale Nutzer entwickelt, wobei die Modelle für einen stabilen weltweiten Zugriff in den USA, der EU und Singapur gehostet werden.
 
@@ -28,7 +28,7 @@ Offene Modelle sind richtig gut geworden. Sie erreichen bei Coding-Aufgaben mitt
 Allerdings kann es schwierig sein, zuverlässigen Zugriff mit geringer Latenz auf sie zu erhalten. Provider variieren in Qualität und Verfügbarkeit.
 
 :::tip
-Wir haben eine ausgewählte Gruppe von Modellen und Providern getestet, die gut mit Codemate funktionieren.
+Wir haben eine ausgewählte Gruppe von Modellen und Providern getestet, die gut mit codemate funktionieren.
 :::
 
 Um dies zu beheben, haben wir einige Dinge getan:
@@ -37,20 +37,20 @@ Um dies zu beheben, haben wir einige Dinge getan:
 2. Anschließend haben wir mit einigen Providern zusammengearbeitet, um sicherzustellen, dass diese korrekt bereitgestellt werden.
 3. Zuletzt haben wir die Kombination aus Modell und Provider einem Benchmark unterzogen und eine Liste erstellt, die wir mit gutem Gewissen empfehlen können.
 
-Codemate Go bietet dir Zugriff auf diese Modelle für **5 $ im ersten Monat**, danach **10 $/Monat**.
+codemate Go bietet dir Zugriff auf diese Modelle für **5 $ im ersten Monat**, danach **10 $/Monat**.
 
 ---
 
 ## Wie es funktioniert
 
-Codemate Go funktioniert wie jeder andere Provider in Codemate.
+codemate Go funktioniert wie jeder andere Provider in codemate.
 
-1. Du meldest dich bei **<a href={console}>Codemate Zen</a>** an, abonnierst Go und kopierst deinen API-Key.
-2. Du führst den Befehl `/connect` in der TUI aus, wählst `Codemate Go` und fügst deinen API-Key ein.
+1. Du meldest dich bei **<a href={console}>codemate Zen</a>** an, abonnierst Go und kopierst deinen API-Key.
+2. Du führst den Befehl `/connect` in der TUI aus, wählst `codemate Go` und fügst deinen API-Key ein.
 3. Führe `/models` in der TUI aus, um die Liste der über Go verfügbaren Modelle zu sehen.
 
 :::note
-Nur ein Mitglied pro Workspace kann Codemate Go abonnieren.
+Nur ein Mitglied pro Workspace kann codemate Go abonnieren.
 :::
 
 Die aktuelle Liste der Modelle umfasst:
@@ -59,10 +59,8 @@ Die aktuelle Liste der Modelle umfasst:
 - **GLM-5.1**
 - **Kimi K2.5**
 - **Kimi K2.6**
-- **MiMo-V2-Pro**
-- **MiMo-V2-Omni**
-- **MiMo-V2.5-Pro**
 - **MiMo-V2.5**
+- **MiMo-V2.5-Pro**
 - **MiniMax M2.5**
 - **Qwen3.5 Plus**
 - **Qwen3.6 Plus**
@@ -76,7 +74,7 @@ Die Liste der Modelle kann sich ändern, während wir neue testen und hinzufüge
 
 ## Nutzungslimits
 
-Codemate Go beinhaltet die folgenden Limits:
+codemate Go beinhaltet die folgenden Limits:
 
 - **5-Stunden-Limit** — 12 $ Nutzung
 - **Wöchentliches Limit** — 30 $ Nutzung
@@ -92,10 +90,8 @@ Die folgende Tabelle zeigt eine geschätzte Anzahl von Anfragen basierend auf ty
 | GLM-5              | 1,150                  | 2,880              | 5,750              |
 | Kimi K2.5          | 1,850                  | 4,630              | 9,250              |
 | Kimi K2.6          | 1,150                  | 2,880              | 5,750              |
-| MiMo-V2-Pro        | 1,290                  | 3,225              | 6,450              |
-| MiMo-V2-Omni       | 2,150                  | 5,450              | 10,900             |
-| MiMo-V2.5-Pro      | 1,290                  | 3,225              | 6,450              |
 | MiMo-V2.5 (≤ 256K) | 2,150                  | 5,450              | 10,900             |
+| MiMo-V2.5-Pro      | 1,290                  | 3,225              | 6,450              |
 | MiniMax M2.7       | 3,400                  | 8,500              | 17,000             |
 | MiniMax M2.5       | 6,300                  | 15,900             | 31,800             |
 | Qwen3.6 Plus       | 3,300                  | 8,200              | 16,300             |
@@ -112,10 +108,8 @@ Die Schätzungen basieren auf beobachteten durchschnittlichen Anfragemustern:
 - MiniMax M2.7/M2.5 — 300 Input-, 55.000 Cached-, 125 Output-Tokens pro Anfrage
 - Qwen3.5 Plus — 410 Input-, 47.000 Cached-, 140 Output-Tokens pro Anfrage
 - Qwen3.6 Plus — 500 Input-, 57.000 Cached-, 190 Output-Tokens pro Anfrage
-- MiMo-V2-Pro — 350 Input-, 41.000 Cached-, 250 Output-Tokens pro Anfrage
-- MiMo-V2-Omni — 1.000 Input-, 60.000 Cached-, 140 Output-Tokens pro Anfrage
-- MiMo-V2.5-Pro — 350 Input-, 41.000 Cached-, 250 Output-Tokens pro Anfrage
 - MiMo-V2.5 — 1.000 Input-, 60.000 Cached-, 140 Output-Tokens pro Anfrage
+- MiMo-V2.5-Pro — 350 Input-, 41.000 Cached-, 250 Output-Tokens pro Anfrage
 
 Du kannst deine aktuelle Nutzung in der **<a href={console}>Console</a>** verfolgen.
 
@@ -145,16 +139,14 @@ Du kannst auf die Go-Modelle auch über die folgenden API-Endpunkte zugreifen.
 | Kimi K2.6         | kimi-k2.6         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Pro   | deepseek-v4-pro   | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Flash | deepseek-v4-flash | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Pro       | mimo-v2-pro       | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Omni      | mimo-v2-omni      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiMo-V2.5         | mimo-v2.5         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
+| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiniMax M2.7      | minimax-m2.7      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | MiniMax M2.5      | minimax-m2.5      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | Qwen3.6 Plus      | qwen3.6-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 | Qwen3.5 Plus      | qwen3.5-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 
-Die [Modell-ID](/docs/config/#models) in deiner Codemate Config verwendet das Format `codemate-go/<model-id>`. Für Kimi K2.6 würdest du beispielsweise `codemate-go/kimi-k2.6` in deiner Config verwenden.
+Die [Modell-ID](/docs/config/#models) in deiner codemate Config verwendet das Format `codemate-go/<model-id>`. Für Kimi K2.6 würdest du beispielsweise `codemate-go/kimi-k2.6` in deiner Config verwenden.
 
 ---
 
@@ -176,9 +168,9 @@ Der Plan ist in erster Linie für internationale Nutzer konzipiert, mit in US, E
 
 ## Ziele
 
-Wir haben Codemate Go entwickelt, um:
+Wir haben codemate Go entwickelt, um:
 
 1. AI Coding durch ein kostengünstiges Abonnement für mehr Menschen **zugänglich** zu machen.
 2. **Zuverlässigen** Zugriff auf die besten offenen Coding-Modelle zu bieten.
 3. Modelle zu kuratieren, die für den Einsatz als Coding Agent **getestet und einem Benchmark unterzogen** wurden.
-4. **Keinen Lock-in-Effekt** zu haben, indem wir dir ermöglichen, auch jeden anderen Provider mit Codemate zu nutzen.
+4. **Keinen Lock-in-Effekt** zu haben, indem wir dir ermöglichen, auch jeden anderen Provider mit codemate zu nutzen.

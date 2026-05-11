@@ -45,7 +45,7 @@ export function resource(): { serviceName: string; serviceVersion: string; attri
     attributes: {
       ...attributes,
       "deployment.environment.name": InstallationChannel,
-      "codemate.client": Flag.CODEMATE_CLIENT,
+      "codemate.client": Flag.codemate_CLIENT,
       "codemate.process_role": processMetadata.processRole,
       "codemate.run_id": processMetadata.runID,
       "service.instance.id": processID,

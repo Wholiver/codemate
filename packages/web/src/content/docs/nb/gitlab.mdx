@@ -3,31 +3,31 @@ title: GitLab
 description: Bruk codemate i GitLab-problemer og Merge Requests.
 ---
 
-Codemate integreres med GitLab arbeidsflyten gjennom GitLab CI/CD pipeline eller med GitLab Duo.
+codemate integreres med GitLab arbeidsflyten gjennom GitLab CI/CD pipeline eller med GitLab Duo.
 
-I begge tilfeller vil Codemate kjøre på GitLab Runners.
+I begge tilfeller vil codemate kjøre på GitLab Runners.
 
 ---
 
 ## GitLab CI
 
-Codemate fungerer i en vanlig GitLab-pipeline. Du kan bygge den inn i en pipeline som en [CI-komponent](https://docs.gitlab.com/ee/ci/components/)
+codemate fungerer i en vanlig GitLab-pipeline. Du kan bygge den inn i en pipeline som en [CI-komponent](https://docs.gitlab.com/ee/ci/components/)
 
-Her bruker vi en fellesskapsskapt CI/CD-komponent for Codemate — [nagyv/gitlab-codemate](https://gitlab.com/nagyv/gitlab-codemate).
+Her bruker vi en fellesskapsskapt CI/CD-komponent for codemate — [nagyv/gitlab-codemate](https://gitlab.com/nagyv/gitlab-codemate).
 
 ---
 
 ### Funksjoner
 
-- **Bruk tilpasset konfigurasjon per jobb**: Konfigurer Codemate med en tilpasset konfigurasjonskatalog, for eksempel `./config/#custom-directory` for å aktivere eller deaktivere funksjonalitet per Codemate-anrop.
-- **Minimalt oppsett**: CI-komponenten setter opp Codemate i bakgrunnen, du trenger bare å lage Codemate-konfigurasjonen og den første ledeteksten.
+- **Bruk tilpasset konfigurasjon per jobb**: Konfigurer codemate med en tilpasset konfigurasjonskatalog, for eksempel `./config/#custom-directory` for å aktivere eller deaktivere funksjonalitet per codemate-anrop.
+- **Minimalt oppsett**: CI-komponenten setter opp codemate i bakgrunnen, du trenger bare å lage codemate-konfigurasjonen og den første ledeteksten.
 - **Fleksibel**: CI-komponenten støtter flere innganger for å tilpasse virkemåten
 
 ---
 
 ### Oppsett
 
-1. Lagre Codemate sin autentiserings-JSON som en CI-miljøvariabel av typen Fil under **Innstillinger** > **CI/CD** > **Variabler**. Sørg for å merke dem som "Masked and hidden".
+1. Lagre codemate sin autentiserings-JSON som en CI-miljøvariabel av typen Fil under **Innstillinger** > **CI/CD** > **Variabler**. Sørg for å merke dem som "Masked and hidden".
 2. Legg til følgende i `.gitlab-ci.yml`-filen.
 
    ```yaml title=".gitlab-ci.yml"
@@ -35,7 +35,7 @@ Her bruker vi en fellesskapsskapt CI/CD-komponent for Codemate — [nagyv/gitlab
      - component: $CI_SERVER_FQDN/nagyv/gitlab-codemate/codemate@2
        inputs:
          config_dir: ${CI_PROJECT_DIR}/codemate-config
-         auth_json: $CODEMATE_AUTH_JSON # The variable name for your Codemate authentication JSON
+         auth_json: $codemate_AUTH_JSON # The variable name for your codemate authentication JSON
          command: optional-custom-command
          message: "Your prompt here"
    ```
@@ -46,23 +46,23 @@ For flere inndata og brukstilfeller [sjekk ut dokumentene](https://gitlab.com/ex
 
 ## GitLab Duo
 
-Codemate integreres med din GitLab arbeidsflyt.
-Nevn `@codemate` i en kommentar, og Codemate vil utføre oppgaver innenfor din GitLab CI-pipeline.
+codemate integreres med din GitLab arbeidsflyt.
+Nevn `@codemate` i en kommentar, og codemate vil utføre oppgaver innenfor din GitLab CI-pipeline.
 
 ---
 
 ### Funksjoner
 
-- **Triage av saker**: Be Codemate se på en sak og forklare den for deg.
-- **Fiks og implementer**: Be Codemate om å fikse en sak eller implementere en funksjon.
+- **Triage av saker**: Be codemate se på en sak og forklare den for deg.
+- **Fiks og implementer**: Be codemate om å fikse en sak eller implementere en funksjon.
   Det vil opprette en ny gren og sende en Merge Request med endringene.
-- **Sikkert**: Codemate kjører på GitLab Runners.
+- **Sikkert**: codemate kjører på GitLab Runners.
 
 ---
 
 ### Oppsett
 
-Codemate kjører i GitLab CI/CD pipeline, her er det du trenger for å sette den opp:
+codemate kjører i GitLab CI/CD pipeline, her er det du trenger for å sette den opp:
 
 :::tip
 Sjekk ut [**GitLab-dokumentene**](https://docs.gitlab.com/user/duo_agent_platform/agent_assistant/) for oppdaterte instruksjoner.
@@ -85,13 +85,13 @@ Sjekk ut [**GitLab-dokumentene**](https://docs.gitlab.com/user/duo_agent_platfor
       - echo "Installing codemate"
       - npm install --global codemate-ai
       - echo "Installing glab"
-      - export GITLAB_TOKEN=$GITLAB_TOKEN_CODEMATE
+      - export GITLAB_TOKEN=$GITLAB_TOKEN_codemate
       - apt-get update --quiet && apt-get install --yes curl wget gpg git && rm --recursive --force /var/lib/apt/lists/*
       - curl --silent --show-error --location "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash
       - apt-get install --yes glab
       - echo "Configuring glab"
       - echo $GITLAB_HOST
-      - echo "Creating Codemate auth configuration"
+      - echo "Creating codemate auth configuration"
       - mkdir --parents ~/.local/share/codemate
       - |
         cat > ~/.local/share/codemate/auth.json << EOF
@@ -104,10 +104,10 @@ Sjekk ut [**GitLab-dokumentene**](https://docs.gitlab.com/user/duo_agent_platfor
         EOF
       - echo "Configuring git"
       - git config --global user.email "codemate@gitlab.com"
-      - git config --global user.name "Codemate"
+      - git config --global user.name "codemate"
       - echo "Testing glab"
       - glab issue list
-      - echo "Running Codemate"
+      - echo "Running codemate"
       - |
         codemate run "
         You are an AI assistant helping with GitLab operations.
@@ -146,7 +146,7 @@ Sjekk ut [**GitLab-dokumentene**](https://docs.gitlab.com/user/duo_agent_platfor
         fi
     variables:
       - ANTHROPIC_API_KEY
-      - GITLAB_TOKEN_CODEMATE
+      - GITLAB_TOKEN_codemate
       - GITLAB_HOST
     ```
 
@@ -158,7 +158,7 @@ Du kan se [GitLab CLI agents docs](https://docs.gitlab.com/user/duo_agent_platfo
 
 ### Eksempler
 
-Her er noen eksempler på hvordan du kan bruke Codemate i GitLab.
+Her er noen eksempler på hvordan du kan bruke codemate i GitLab.
 
 :::tip
 Du kan konfigurere til å bruke en annen triggerfrase enn `@codemate`.
@@ -172,7 +172,7 @@ Du kan konfigurere til å bruke en annen triggerfrase enn `@codemate`.
   @codemate explain this issue
   ```
 
-  Codemate vil lese saken og svare med en klar forklaring.
+  codemate vil lese saken og svare med en klar forklaring.
 
 - **Fiks en sak**
 
@@ -182,7 +182,7 @@ Du kan konfigurere til å bruke en annen triggerfrase enn `@codemate`.
   @codemate fix this
   ```
 
-  Codemate vil opprette en ny gren, implementere endringene og åpne en Merge Request med endringene.
+  codemate vil opprette en ny gren, implementere endringene og åpne en Merge Request med endringene.
 
 - **Review av Merge Requests**
 
@@ -192,4 +192,4 @@ Du kan konfigurere til å bruke en annen triggerfrase enn `@codemate`.
   @codemate review this merge request
   ```
 
-  Codemate vil gjennomgå Merge Request-en og gi tilbakemelding.
+  codemate vil gjennomgå Merge Request-en og gi tilbakemelding.

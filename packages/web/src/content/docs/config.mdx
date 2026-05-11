@@ -1,15 +1,15 @@
 ---
 title: Config
-description: Using the Codemate JSON config.
+description: Using the codemate JSON config.
 ---
 
-You can configure Codemate using a JSON config file.
+You can configure codemate using a JSON config file.
 
 ---
 
 ## Format
 
-Codemate supports both **JSON** and **JSONC** (JSON with Comments) formats.
+codemate supports both **JSON** and **JSONC** (JSON with Comments) formats.
 
 ```jsonc title="codemate.jsonc"
 {
@@ -45,10 +45,10 @@ Config sources are loaded in this order (later sources override earlier ones):
 
 1. **Remote config** (from `.well-known/codemate`) - organizational defaults
 2. **Global config** (`~/.config/codemate/codemate.json`) - user preferences
-3. **Custom config** (`CODEMATE_CONFIG` env var) - custom overrides
+3. **Custom config** (`codemate_CONFIG` env var) - custom overrides
 4. **Project config** (`codemate.json` in project) - project-specific settings
 5. **`.codemate` directories** - agents, commands, plugins
-6. **Inline config** (`CODEMATE_CONFIG_CONTENT` env var) - runtime overrides
+6. **Inline config** (`codemate_CONFIG_CONTENT` env var) - runtime overrides
 7. **Managed config files** (`/Library/Application Support/codemate/` on macOS) - admin-controlled
 8. **macOS managed preferences** (`.mobileconfig` via MDM) - highest priority, not user-overridable
 
@@ -98,7 +98,7 @@ You can enable specific servers in your local config:
 
 ### Global
 
-Place your global Codemate config in `~/.config/codemate/codemate.json`. Use global config for user-wide server/runtime preferences like providers, models, and permissions.
+Place your global codemate config in `~/.config/codemate/codemate.json`. Use global config for user-wide server/runtime preferences like providers, models, and permissions.
 
 For TUI-specific settings, use `~/.config/codemate/tui.json`.
 
@@ -116,7 +116,7 @@ For project-specific TUI settings, add `tui.json` alongside it.
 Place project specific config in the root of your project.
 :::
 
-When Codemate starts up, it looks for a config file in the current directory or traverse up to the nearest Git directory.
+When codemate starts up, it looks for a config file in the current directory or traverse up to the nearest Git directory.
 
 This is also safe to be checked into Git and uses the same schema as the global one.
 
@@ -124,10 +124,10 @@ This is also safe to be checked into Git and uses the same schema as the global 
 
 ### Custom path
 
-Specify a custom config file path using the `CODEMATE_CONFIG` environment variable.
+Specify a custom config file path using the `codemate_CONFIG` environment variable.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -137,13 +137,13 @@ Custom config is loaded between global and project configs in the precedence ord
 
 ### Custom directory
 
-Specify a custom config directory using the `CODEMATE_CONFIG_DIR`
+Specify a custom config directory using the `codemate_CONFIG_DIR`
 environment variable. This directory will be searched for agents, commands,
 modes, and plugins just like the standard `.codemate` directory, and should
 follow the same structure.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -169,9 +169,9 @@ These directories require admin/root access to write, so users cannot modify the
 
 #### macOS managed preferences
 
-On macOS, Codemate reads managed preferences from the `ai.codemate.managed` preference domain. Deploy a `.mobileconfig` via MDM (Jamf, Kandji, FleetDM) and the settings are enforced automatically.
+On macOS, codemate reads managed preferences from the `ai.codemate.managed` preference domain. Deploy a `.mobileconfig` via MDM (Jamf, Kandji, FleetDM) and the settings are enforced automatically.
 
-Codemate checks these paths:
+codemate checks these paths:
 
 1. `/Library/Managed Preferences/<user>/ai.codemate.managed.plist`
 2. `/Library/Managed Preferences/ai.codemate.managed.plist`
@@ -180,7 +180,7 @@ The plist keys map directly to `codemate.json` fields. MDM metadata keys (`Paylo
 
 **Creating a `.mobileconfig`**
 
-Use the `ai.codemate.managed` PayloadType. The Codemate config keys go directly in the payload dict:
+Use the `ai.codemate.managed` PayloadType. The codemate config keys go directly in the payload dict:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -277,7 +277,7 @@ Use a dedicated `tui.json` (or `tui.jsonc`) file for TUI-specific settings.
 }
 ```
 
-Use `CODEMATE_TUI_CONFIG` to point to a custom TUI config file.
+Use `codemate_TUI_CONFIG` to point to a custom TUI config file.
 
 Legacy `theme`, `keybinds`, and `tui` keys in `codemate.json` are deprecated and automatically migrated when possible.
 
@@ -304,7 +304,7 @@ Available options:
 
 - `port` - Port to listen on.
 - `hostname` - Hostname to listen on. When `mdns` is enabled and no hostname is set, defaults to `0.0.0.0`.
-- `mdns` - Enable mDNS service discovery. This allows other devices on the network to discover your Codemate server.
+- `mdns` - Enable mDNS service discovery. This allows other devices on the network to discover your codemate server.
 - `mdnsDomain` - Custom domain name for mDNS service. Defaults to `codemate.local`. Useful for running multiple instances on the same network.
 - `cors` - Additional origins to allow for CORS when using the HTTP server from a browser-based client. Values must be full origins (scheme + host + optional port), eg `https://app.example.com`.
 
@@ -323,7 +323,7 @@ You can configure the shell used for the interactive terminal using the `shell` 
 }
 ```
 
-If not specified, Codemate will automatically discover and use a sensible default based on your operating system (e.g. `pwsh` or `cmd.exe` on Windows, `/bin/zsh` or `/bin/bash` on macOS/Linux). You can provide an absolute path or a short name.
+If not specified, codemate will automatically discover and use a sensible default based on your operating system (e.g. `pwsh` or `cmd.exe` on Windows, `/bin/zsh` or `/bin/bash` on macOS/Linux). You can provide an absolute path or a short name.
 
 ---
 
@@ -347,7 +347,7 @@ You can manage the tools an LLM can use through the `tools` option.
 
 ### Models
 
-You can configure the providers and models you want to use in your Codemate config through the `provider`, `model` and `small_model` options.
+You can configure the providers and models you want to use in your codemate config through the `provider`, `model` and `small_model` options.
 
 ```json title="codemate.json"
 {
@@ -358,7 +358,7 @@ You can configure the providers and models you want to use in your Codemate conf
 }
 ```
 
-The `small_model` option configures a separate model for lightweight tasks like title generation. By default, Codemate tries to use a cheaper model if one is available from your provider, otherwise it falls back to your main model.
+The `small_model` option configures a separate model for lightweight tasks like title generation. By default, codemate tries to use a cheaper model if one is available from your provider, otherwise it falls back to your main model.
 
 Provider options can include `timeout`, `chunkTimeout`, and `setCacheKey`:
 
@@ -472,7 +472,7 @@ You can set the default agent using the `default_agent` option. This determines 
 }
 ```
 
-The default agent must be a primary agent (not a subagent). This can be a built-in agent like `"build"` or `"plan"`, or a [custom agent](/docs/agents) you've defined. If the specified agent doesn't exist or is a subagent, Codemate will fall back to `"build"` with a warning.
+The default agent must be a primary agent (not a subagent). This can be a built-in agent like `"build"` or `"plan"`, or a [custom agent](/docs/agents) you've defined. If the specified agent doesn't exist or is a subagent, codemate will fall back to `"build"` with a warning.
 
 This setting applies across all interfaces: TUI, CLI (`codemate run`), desktop app, and GitHub Action.
 
@@ -527,14 +527,18 @@ You can also define commands using markdown files in `~/.config/codemate/command
 
 ### Keybinds
 
-Customize keybinds in `tui.json`.
+Customize TUI keyboard shortcuts in `tui.json` with `keybinds`.
 
 ```json title="tui.json"
 {
   "$schema": "https://codemate.ai/tui.json",
-  "keybinds": {}
+  "keybinds": {
+    "command_list": "ctrl+p"
+  }
 }
 ```
+
+`keybinds` is merged with built-in defaults, so you only need to configure the shortcuts you want to change.
 
 [Learn more here](/docs/keybinds).
 
@@ -542,7 +546,7 @@ Customize keybinds in `tui.json`.
 
 ### Snapshot
 
-Codemate uses snapshots to track file changes during agent operations, enabling you to undo and revert changes within a session. Snapshots are enabled by default.
+codemate uses snapshots to track file changes during agent operations, enabling you to undo and revert changes within a session. Snapshots are enabled by default.
 
 For large repositories or projects with many submodules, the snapshot system can cause slow indexing and significant disk usage as it tracks all changes using an internal git repository. You can disable snapshots using the `snapshot` option.
 
@@ -559,7 +563,7 @@ Note that disabling snapshots means changes made by the agent cannot be rolled b
 
 ### Autoupdate
 
-Codemate will automatically download any new updates when it starts up. You can disable this with the `autoupdate` option.
+codemate will automatically download any new updates when it starts up. You can disable this with the `autoupdate` option.
 
 ```json title="codemate.json"
 {
@@ -575,7 +579,16 @@ Notice that this only works if it was not installed using a package manager such
 
 ### Formatters
 
-You can configure code formatters through the `formatter` option.
+You can enable and configure code formatters through the `formatter` option. Omit it to keep formatters disabled.
+
+```json title="codemate.json"
+{
+  "$schema": "https://codemate.ai/config.json",
+  "formatter": true
+}
+```
+
+Use an object to keep built-ins enabled while configuring overrides or custom formatters.
 
 ```json title="codemate.json"
 {
@@ -596,6 +609,34 @@ You can configure code formatters through the `formatter` option.
 ```
 
 [Learn more about formatters here](/docs/formatters).
+
+---
+
+### LSP Servers
+
+You can enable and configure LSP servers through the `lsp` option. Omit it to keep LSP disabled.
+
+```json title="codemate.json"
+{
+  "$schema": "https://codemate.ai/config.json",
+  "lsp": true
+}
+```
+
+Use an object to keep built-ins enabled while configuring overrides or custom LSP servers.
+
+```json title="codemate.json"
+{
+  "$schema": "https://codemate.ai/config.json",
+  "lsp": {
+    "typescript": {
+      "disabled": true
+    }
+  }
+}
+```
+
+[Learn more about LSP servers here](/docs/lsp).
 
 ---
 
@@ -674,7 +715,7 @@ You can configure MCP servers you want to use through the `mcp` option.
 
 ### Plugins
 
-[Plugins](/docs/plugins) extend Codemate with custom tools, hooks, and integrations.
+[Plugins](/docs/plugins) extend codemate with custom tools, hooks, and integrations.
 
 Place plugin files in `.codemate/plugins/` or `~/.config/codemate/plugins/`. You can also load plugins from npm through the `plugin` option.
 
@@ -739,7 +780,7 @@ You can specify an allowlist of providers through the `enabled_providers` option
 }
 ```
 
-This is useful when you want to restrict Codemate to only use specific providers rather than disabling them one by one.
+This is useful when you want to restrict codemate to only use specific providers rather than disabling them one by one.
 
 :::note
 The `disabled_providers` takes priority over `enabled_providers`.
@@ -779,7 +820,7 @@ Use `{env:VARIABLE_NAME}` to substitute environment variables:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

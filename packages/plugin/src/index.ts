@@ -1,6 +1,6 @@
 import type {
   Event,
-  createCodemateClient,
+  createcodemateClient,
   Project,
   Model,
   Provider,
@@ -45,7 +45,7 @@ export type WorkspaceTarget =
       headers?: HeadersInit
     }
 
-export type WorkspaceAdaptor = {
+export type WorkspaceAdapter = {
   name: string
   description: string
   configure(config: WorkspaceInfo): WorkspaceInfo | Promise<WorkspaceInfo>
@@ -55,12 +55,12 @@ export type WorkspaceAdaptor = {
 }
 
 export type PluginInput = {
-  client: ReturnType<typeof createCodemateClient>
+  client: ReturnType<typeof createcodemateClient>
   project: Project
   directory: string
   worktree: string
   experimental_workspace: {
-    register(type: string, adaptor: WorkspaceAdaptor): void
+    register(type: string, adapter: WorkspaceAdapter): void
   }
   serverUrl: URL
   $: BunShell

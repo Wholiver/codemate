@@ -1,11 +1,11 @@
 ---
 title: Web
-description: Using Codemate in your browser.
+description: Using codemate in your browser.
 ---
 
-Codemate can run as a web application in your browser, providing the same powerful AI coding experience without needing a terminal.
+codemate can run as a web application in your browser, providing the same powerful AI coding experience without needing a terminal.
 
-![Codemate Web - New Session](../../assets/web/web-homepage-new-session.png)
+![codemate Web - New Session](../../assets/web/web-homepage-new-session.png)
 
 ## Getting Started
 
@@ -15,10 +15,10 @@ Start the web interface by running:
 codemate web
 ```
 
-This starts a local server on `127.0.0.1` with a random available port and automatically opens Codemate in your default browser.
+This starts a local server on `127.0.0.1` with a random available port and automatically opens codemate in your default browser.
 
 :::caution
-If `CODEMATE_SERVER_PASSWORD` is not set, the server will be unsecured. This is fine for local use but should be set for network access.
+If `codemate_SERVER_PASSWORD` is not set, the server will be unsecured. This is fine for local use but should be set for network access.
 :::
 
 :::tip[Windows Users]
@@ -33,7 +33,7 @@ You can configure the web server using command line flags or in your [config fil
 
 ### Port
 
-By default, Codemate picks an available port. You can specify a port:
+By default, codemate picks an available port. You can specify a port:
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### Hostname
 
-By default, the server binds to `127.0.0.1` (localhost only). To make Codemate accessible on your network:
+By default, the server binds to `127.0.0.1` (localhost only). To make codemate accessible on your network:
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-When using `0.0.0.0`, Codemate will display both local and network addresses:
+When using `0.0.0.0`, codemate will display both local and network addresses:
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### Authentication
 
-To protect access, set a password using the `CODEMATE_SERVER_PASSWORD` environment variable:
+To protect access, set a password using the `codemate_SERVER_PASSWORD` environment variable:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-The username defaults to `codemate` but can be changed with `CODEMATE_SERVER_USERNAME`.
+The username defaults to `codemate` but can be changed with `codemate_SERVER_USERNAME`.
 
 ---
 
 ## Using the Web Interface
 
-Once started, the web interface provides access to your Codemate sessions.
+Once started, the web interface provides access to your codemate sessions.
 
 ### Sessions
 
 View and manage your sessions from the homepage. You can see active sessions and start new ones.
 
-![Codemate Web - Active Session](../../assets/web/web-homepage-active-session.png)
+![codemate Web - Active Session](../../assets/web/web-homepage-active-session.png)
 
 ### Server Status
 
 Click "See Servers" to view connected servers and their status.
 
-![Codemate Web - See Servers](../../assets/web/web-homepage-see-servers.png)
+![codemate Web - See Servers](../../assets/web/web-homepage-see-servers.png)
 
 ---
 

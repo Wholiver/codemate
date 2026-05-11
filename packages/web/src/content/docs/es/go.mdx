@@ -7,15 +7,15 @@ import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Go es una suscripción de bajo costo — **$5 por tu primer mes**, luego **$10/mes** — que te brinda acceso confiable a modelos abiertos de programación populares.
+codemate Go es una suscripción de bajo costo — **$5 por tu primer mes**, luego **$10/mes** — que te brinda acceso confiable a modelos abiertos de programación populares.
 
 :::note
-Codemate Go está actualmente en beta.
+codemate Go está actualmente en beta.
 :::
 
-Go funciona como cualquier otro proveedor en Codemate. Te suscribes a Codemate Go y
+Go funciona como cualquier otro proveedor en codemate. Te suscribes a codemate Go y
 obtienes tu API key. Es **completamente opcional** y no necesitas usarlo para
-usar Codemate.
+usar codemate.
 
 Está diseñado principalmente para usuarios internacionales, con modelos alojados en EE. UU., la UE y Singapur para un acceso global estable.
 
@@ -31,7 +31,7 @@ Sin embargo, obtener un acceso confiable y de baja latencia a ellos puede ser di
 varían en calidad y disponibilidad.
 
 :::tip
-Probamos un grupo selecto de modelos y proveedores que funcionan bien con Codemate.
+Probamos un grupo selecto de modelos y proveedores que funcionan bien con codemate.
 :::
 
 Para solucionar esto, hicimos un par de cosas:
@@ -43,22 +43,22 @@ Para solucionar esto, hicimos un par de cosas:
 3. Finalmente, evaluamos el rendimiento de la combinación del modelo/proveedor y elaboramos
    una lista que nos sentimos seguros de recomendar.
 
-Codemate Go te da acceso a estos modelos por **$5 por tu primer mes**, luego **$10/mes**.
+codemate Go te da acceso a estos modelos por **$5 por tu primer mes**, luego **$10/mes**.
 
 ---
 
 ## Cómo funciona
 
-Codemate Go funciona como cualquier otro proveedor en Codemate.
+codemate Go funciona como cualquier otro proveedor en codemate.
 
-1. Inicias sesión en **<a href={console}>Codemate Zen</a>**, te suscribes a Go y
+1. Inicias sesión en **<a href={console}>codemate Zen</a>**, te suscribes a Go y
    copias tu API key.
-2. Ejecutas el comando `/connect` en la TUI, seleccionas `Codemate Go` y pegas
+2. Ejecutas el comando `/connect` en la TUI, seleccionas `codemate Go` y pegas
    tu API key.
 3. Ejecutas `/models` en la TUI para ver la lista de modelos disponibles a través de Go.
 
 :::note
-Solo un miembro por espacio de trabajo puede suscribirse a Codemate Go.
+Solo un miembro por espacio de trabajo puede suscribirse a codemate Go.
 :::
 
 La lista actual de modelos incluye:
@@ -67,10 +67,8 @@ La lista actual de modelos incluye:
 - **GLM-5.1**
 - **Kimi K2.5**
 - **Kimi K2.6**
-- **MiMo-V2-Pro**
-- **MiMo-V2-Omni**
-- **MiMo-V2.5-Pro**
 - **MiMo-V2.5**
+- **MiMo-V2.5-Pro**
 - **MiniMax M2.5**
 - **Qwen3.5 Plus**
 - **Qwen3.6 Plus**
@@ -84,7 +82,7 @@ La lista de modelos puede cambiar a medida que probamos y agregamos otros nuevos
 
 ## Límites de uso
 
-Codemate Go incluye los siguientes límites:
+codemate Go incluye los siguientes límites:
 
 - **Límite de 5 horas** — $12 de uso
 - **Límite semanal** — $30 de uso
@@ -100,10 +98,8 @@ La siguiente tabla proporciona una cantidad estimada de peticiones basada en los
 | GLM-5              | 1,150                  | 2,880                 | 5,750              |
 | Kimi K2.5          | 1,850                  | 4,630                 | 9,250              |
 | Kimi K2.6          | 1,150                  | 2,880                 | 5,750              |
-| MiMo-V2-Pro        | 1,290                  | 3,225                 | 6,450              |
-| MiMo-V2-Omni       | 2,150                  | 5,450                 | 10,900             |
-| MiMo-V2.5-Pro      | 1,290                  | 3,225                 | 6,450              |
 | MiMo-V2.5 (≤ 256K) | 2,150                  | 5,450                 | 10,900             |
+| MiMo-V2.5-Pro      | 1,290                  | 3,225                 | 6,450              |
 | MiniMax M2.7       | 3,400                  | 8,500                 | 17,000             |
 | MiniMax M2.5       | 6,300                  | 15,900                | 31,800             |
 | Qwen3.6 Plus       | 3,300                  | 8,200                 | 16,300             |
@@ -120,10 +116,8 @@ Las estimaciones se basan en los patrones de peticiones promedio observados:
 - MiniMax M2.7/M2.5 — 300 tokens de entrada, 55,000 en caché, 125 tokens de salida por petición
 - Qwen3.5 Plus — 410 tokens de entrada, 47,000 en caché, 140 tokens de salida por petición
 - Qwen3.6 Plus — 500 tokens de entrada, 57,000 en caché, 190 tokens de salida por petición
-- MiMo-V2-Pro — 350 tokens de entrada, 41,000 en caché, 250 tokens de salida por petición
-- MiMo-V2-Omni — 1000 tokens de entrada, 60,000 en caché, 140 tokens de salida por petición
-- MiMo-V2.5-Pro — 350 tokens de entrada, 41,000 en caché, 250 tokens de salida por petición
 - MiMo-V2.5 — 1000 tokens de entrada, 60,000 en caché, 140 tokens de salida por petición
+- MiMo-V2.5-Pro — 350 tokens de entrada, 41,000 en caché, 250 tokens de salida por petición
 
 Puedes realizar un seguimiento de tu uso actual en la **<a href={console}>consola</a>**.
 
@@ -155,16 +149,14 @@ También puedes acceder a los modelos de Go a través de los siguientes endpoint
 | Kimi K2.6         | kimi-k2.6         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Pro   | deepseek-v4-pro   | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | DeepSeek V4 Flash | deepseek-v4-flash | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Pro       | mimo-v2-pro       | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2-Omni      | mimo-v2-omni      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
-| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiMo-V2.5         | mimo-v2.5         | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
+| MiMo-V2.5-Pro     | mimo-v2.5-pro     | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/openai-compatible` |
 | MiniMax M2.7      | minimax-m2.7      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | MiniMax M2.5      | minimax-m2.5      | `https://codemate.ai/zen/go/v1/messages`         | `@ai-sdk/anthropic`         |
 | Qwen3.6 Plus      | qwen3.6-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 | Qwen3.5 Plus      | qwen3.5-plus      | `https://codemate.ai/zen/go/v1/chat/completions` | `@ai-sdk/alibaba`           |
 
-El [ID del modelo](/docs/config/#models) en tu configuración de Codemate
+El [ID del modelo](/docs/config/#models) en tu configuración de codemate
 usa el formato `codemate-go/<model-id>`. Por ejemplo, para Kimi K2.6, usarías
 `codemate-go/kimi-k2.6` en tu configuración.
 
@@ -188,9 +180,9 @@ El plan está diseñado principalmente para usuarios internacionales, con modelo
 
 ## Objetivos
 
-Creamos Codemate Go para:
+Creamos codemate Go para:
 
 1. Hacer que la programación con IA sea **accesible** para más personas con una suscripción de bajo costo.
 2. Proporcionar un acceso **confiable** a los mejores modelos abiertos de programación.
 3. Seleccionar modelos que estén **probados y evaluados** para su uso en agentes de programación.
-4. Evitar la **dependencia (lock-in)** al permitirte usar también cualquier otro proveedor con Codemate.
+4. Evitar la **dependencia (lock-in)** al permitirte usar también cualquier otro proveedor con codemate.

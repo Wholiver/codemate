@@ -1,6 +1,6 @@
 import type {
   Config,
-  CodemateClient,
+  codemateClient,
   Path,
   PermissionRequest,
   Project,
@@ -18,7 +18,7 @@ import { reconcile, type SetStoreFunction, type Store } from "solid-js/store"
 import type { State, VcsCache } from "./types"
 import { cmp, normalizeAgentList, normalizeProviderList } from "./utils"
 import { formatServerError } from "@/utils/server-errors"
-import { QueryClient, queryOptions, skipToken } from "@tanstack/solid-query"
+import { QueryClient, queryOptions } from "@tanstack/solid-query"
 import { loadMcpQuery } from "../global-sync"
 
 type GlobalStore = {
@@ -83,48 +83,29 @@ function showErrors(input: {
   })
 }
 
-export const loadGlobalConfigQuery = (
-  sdk?: CodemateClient,
-  transform?: (x: Awaited<ReturnType<CodemateClient["global"]["config"]["get"]>>) => void,
-) =>
+export const loadGlobalConfigQuery = (sdk: codemateClient) =>
   queryOptions({
     queryKey: ["config"],
-    queryFn: sdk
-      ? () =>
-          retry(() =>
-            sdk.global.config.get().then((x) => {
-              transform?.(x)
-              return x.data!
-            }),
-          )
-      : skipToken,
+    queryFn: () => retry(() => sdk.global.config.get().then((x) => x.data!)),
   })
 
-export const loadProjectsQuery = (
-  sdk?: CodemateClient,
-  transform?: (x: Awaited<ReturnType<CodemateClient["project"]["list"]>>["data"]) => void,
-) =>
+export const loadProjectsQuery = (sdk: codemateClient) =>
   queryOptions({
     queryKey: ["project"],
-    queryFn: sdk
-      ? () =>
-          retry(() =>
-            sdk.project
-              .list()
-              .then((x) => {
-                return (x.data ?? [])
-                  .filter((p) => !!p?.id)
-                  .filter((p) => !!p.worktree && !p.worktree.includes("codemate-test"))
-                  .slice()
-                  .sort((a, b) => cmp(a.id, b.id))
-              })
-              .then(transform),
-          )
-      : skipToken,
+    queryFn: () =>
+      retry(() =>
+        sdk.project.list().then((x) => {
+          return (x.data ?? [])
+            .filter((p) => !!p?.id)
+            .filter((p) => !!p.worktree && !p.worktree.includes("codemate-test"))
+            .slice()
+            .sort((a, b) => cmp(a.id, b.id))
+        }),
+      ),
   })
 
 export async function bootstrapGlobal(input: {
-  globalSDK: CodemateClient
+  globalSDK: codemateClient
   requestFailedTitle: string
   translate: (key: string, vars?: Record<string, string | number>) => string
   formatMoreCount: (count: number) => string
@@ -136,9 +117,9 @@ export async function bootstrapGlobal(input: {
     () => input.queryClient.fetchQuery(loadProvidersQuery(null, input.globalSDK)),
     () => input.queryClient.fetchQuery(loadPathQuery(null, input.globalSDK)),
     () =>
-      input.queryClient.fetchQuery(
-        loadProjectsQuery(input.globalSDK, (data) => input.setGlobalStore("project", data ?? [])),
-      ),
+      input.queryClient
+        .fetchQuery(loadProjectsQuery(input.globalSDK))
+        .then((data) => input.setGlobalStore("project", data)),
   ]
   await runAll(slow)
   // showErrors({
@@ -181,7 +162,7 @@ function warmSessions(input: {
   ids: string[]
   store: Store<State>
   setStore: SetStoreFunction<State>
-  sdk: CodemateClient
+  sdk: codemateClient
 }) {
   const known = new Set(input.store.session.map((item) => item.id))
   const ids = [...new Set(input.ids)].filter((id) => !!id && !known.has(id))
@@ -197,51 +178,27 @@ function warmSessions(input: {
   ).then(() => undefined)
 }
 
-export const loadProvidersQuery = (directory: string | null, sdk?: CodemateClient) =>
+export const loadProvidersQuery = (directory: string | null, sdk: codemateClient) =>
   queryOptions({
     queryKey: [directory, "providers"],
-    queryFn: sdk ? () => retry(() => sdk.provider.list().then((x) => normalizeProviderList(x.data!))) : skipToken,
+    queryFn: () => retry(() => sdk.provider.list().then((x) => normalizeProviderList(x.data!))),
   })
 
-export const loadAgentsQuery = (
-  directory: string | null,
-  sdk?: CodemateClient,
-  transform?: (x: Awaited<ReturnType<CodemateClient["app"]["agents"]>>) => void,
-) =>
+export const loadAgentsQuery = (directory: string | null, sdk: codemateClient) =>
   queryOptions({
     queryKey: [directory, "agents"],
-    queryFn: sdk
-      ? () =>
-          retry(() =>
-            sdk.app.agents().then((x) => {
-              transform?.(x)
-              return x.data!
-            }),
-          )
-      : skipToken,
+    queryFn: () => retry(() => sdk.app.agents().then((x) => normalizeAgentList(x.data))),
   })
 
-export const loadPathQuery = (
-  directory: string | null,
-  sdk?: CodemateClient,
-  transform?: (x: Awaited<ReturnType<CodemateClient["path"]["get"]>>) => void,
-) =>
+export const loadPathQuery = (directory: string | null, sdk: codemateClient) =>
   queryOptions<Path>({
     queryKey: [directory, "path"],
-    queryFn: sdk
-      ? () =>
-          retry(() =>
-            sdk.path.get().then(async (x) => {
-              transform?.(x)
-              return x.data!
-            }),
-          )
-      : skipToken,
+    queryFn: () => retry(() => sdk.path.get().then((x) => x.data!)),
   })
 
 export async function bootstrapDirectory(input: {
   directory: string
-  sdk: CodemateClient
+  sdk: codemateClient
   store: Store<State>
   setStore: SetStoreFunction<State>
   vcsCache: VcsCache
@@ -260,9 +217,6 @@ export async function bootstrapDirectory(input: {
   const seededPath = input.global.path.directory === input.directory ? input.global.path : undefined
   if (seededProject) input.setStore("project", seededProject)
   if (seededPath) input.setStore("path", seededPath)
-  if (input.store.provider.all.length === 0 && input.global.provider.all.length > 0) {
-    input.setStore("provider", input.global.provider)
-  }
   if (Object.keys(input.store.config).length === 0 && Object.keys(input.global.config).length > 0) {
     input.setStore("config", reconcile(input.global.config, { merge: false }))
   }
@@ -274,9 +228,9 @@ export async function bootstrapDirectory(input: {
     const slow = [
       () => Promise.resolve(input.loadSessions(input.directory)),
       () =>
-        input.queryClient.ensureQueryData(
-          loadAgentsQuery(input.directory, input.sdk, (x) => input.setStore("agent", normalizeAgentList(x.data))),
-        ),
+        input.queryClient
+          .ensureQueryData(loadAgentsQuery(input.directory, input.sdk))
+          .then((data) => input.setStore("agent", data)),
       () =>
         retry(() => input.sdk.config.get().then((x) => input.setStore("config", reconcile(x.data!, { merge: false })))),
       () => retry(() => input.sdk.session.status().then((x) => input.setStore("session_status", x.data!))),
@@ -284,12 +238,10 @@ export async function bootstrapDirectory(input: {
         (() => retry(() => input.sdk.project.current()).then((x) => input.setStore("project", x.data!.id))),
       !seededPath &&
         (() =>
-          input.queryClient.ensureQueryData(
-            loadPathQuery(input.directory, input.sdk, (x) => {
-              const next = projectID(x.data?.directory ?? input.directory, input.global.project)
-              if (next) input.setStore("project", next)
-            }),
-          )),
+          input.queryClient.ensureQueryData(loadPathQuery(input.directory, input.sdk)).then((data) => {
+            const next = projectID(data.directory ?? input.directory, input.global.project)
+            if (next) input.setStore("project", next)
+          })),
       () =>
         retry(() =>
           input.sdk.vcs.get().then((x) => {

@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### المصادقة
 
-عيّن `CODEMATE_SERVER_PASSWORD` لحماية الخادم باستخدام مصادقة HTTP الأساسية. اسم المستخدم افتراضيا هو `codemate`، أو عيّن `CODEMATE_SERVER_USERNAME` لتغييره. ينطبق ذلك على كل من `codemate serve` و `codemate web`.
+عيّن `codemate_SERVER_PASSWORD` لحماية الخادم باستخدام مصادقة HTTP الأساسية. اسم المستخدم افتراضيا هو `codemate`، أو عيّن `codemate_SERVER_USERNAME` لتغييره. ينطبق ذلك على كل من `codemate serve` و `codemate web`.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -65,7 +65,7 @@ CODEMATE_SERVER_PASSWORD=your-password codemate serve
 
 عند بدء الـ TUI تقوم بتعيين منفذ واسم مضيف عشوائيا. يمكنك بدلا من ذلك تمرير [الخيارات](/docs/cli) `--hostname` و `--port`، ثم استخدامهما للاتصال بخادمها.
 
-يمكن استخدام نقطة النهاية [`/tui`](#tui) للتحكم في الـ TUI عبر الخادم. على سبيل المثال، يمكنك تعبئة الموجّه مسبقا أو تشغيله. يُستخدم هذا الإعداد بواسطة ملحقات Codemate لـ [IDE](/docs/ide).
+يمكن استخدام نقطة النهاية [`/tui`](#tui) للتحكم في الـ TUI عبر الخادم. على سبيل المثال، يمكنك تعبئة الموجّه مسبقا أو تشغيله. يُستخدم هذا الإعداد بواسطة ملحقات codemate لـ [IDE](/docs/ide).
 
 ---
 

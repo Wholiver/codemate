@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Главная",
   "nav.openMenu": "Открыть меню",
   "nav.getStartedFree": "Начать бесплатно",
-  "nav.logoAlt": "Codemate",
+  "nav.logoAlt": "codemate",
 
   "nav.context.copyLogo": "Скопировать логотип как SVG",
   "nav.context.copyWordmark": "Скопировать название как SVG",
@@ -81,9 +81,9 @@ export const dict = {
   "error.reloadAmountMin": "Сумма пополнения должна быть не менее ${{amount}}",
   "error.reloadTriggerMin": "Порог баланса должен быть не менее ${{amount}}",
 
-  "app.meta.description": "Codemate - AI-агент с открытым кодом для программирования.",
+  "app.meta.description": "codemate - AI-агент с открытым кодом для программирования.",
 
-  "home.title": "Codemate | AI-агент с открытым кодом для программирования",
+  "home.title": "codemate | AI-агент с открытым кодом для программирования",
 
   "temp.title": "codemate | AI-агент для программирования в терминале",
   "temp.hero.title": "AI-агент для программирования в терминале",
@@ -96,8 +96,8 @@ export const dict = {
   "temp.feature.zen.afterLink": "от codemate",
   "temp.feature.models.beforeLink": "Поддерживает 75+ провайдеров LLM через",
   "temp.feature.models.afterLink": ", включая локальные модели",
-  "temp.screenshot.caption": "Codemate TUI с темой tokyonight",
-  "temp.screenshot.alt": "Codemate TUI с темой tokyonight",
+  "temp.screenshot.caption": "codemate TUI с темой tokyonight",
+  "temp.screenshot.alt": "codemate TUI с темой tokyonight",
   "temp.logoLightAlt": "светлый логотип codemate",
   "temp.logoDarkAlt": "темный логотип codemate",
 
@@ -113,9 +113,9 @@ export const dict = {
 
   "home.install.ariaLabel": "Варианты установки",
 
-  "home.what.title": "Что такое Codemate?",
+  "home.what.title": "Что такое codemate?",
   "home.what.body":
-    "Codemate — это агент с открытым исходным кодом, который помогает писать код в терминале, IDE или на десктопе.",
+    "codemate — это агент с открытым исходным кодом, который помогает писать код в терминале, IDE или на десктопе.",
   "home.what.lsp.title": "Поддержка LSP",
   "home.what.lsp.body": "Автоматически загружает нужные LSP для LLM",
   "home.what.multiSession.title": "Мульти-сессии",
@@ -134,44 +134,44 @@ export const dict = {
 
   "home.growth.title": "AI-агент с открытым кодом для программирования",
   "home.growth.body":
-    "С более чем <strong>{{stars}}</strong> звезд на GitHub, <strong>{{contributors}}</strong> контрибьюторов и <strong>{{commits}}</strong> коммитов, Codemate доверяют более <strong>{{monthlyUsers}}</strong> разработчиков ежемесячно.",
+    "С более чем <strong>{{stars}}</strong> звезд на GitHub, <strong>{{contributors}}</strong> контрибьюторов и <strong>{{commits}}</strong> коммитов, codemate доверяют более <strong>{{monthlyUsers}}</strong> разработчиков ежемесячно.",
   "home.growth.githubStars": "Звезд на GitHub",
   "home.growth.contributors": "Контрибьюторов",
   "home.growth.monthlyDevs": "Разработчиков в месяц",
 
   "home.privacy.title": "Создан с заботой о приватности",
   "home.privacy.body":
-    "Codemate не хранит ваш код или контекстные данные, поэтому он может работать в средах, чувствительных к приватности.",
+    "codemate не хранит ваш код или контекстные данные, поэтому он может работать в средах, чувствительных к приватности.",
   "home.privacy.learnMore": "Подробнее о",
   "home.privacy.link": "приватности",
 
-  "home.faq.q1": "Что такое Codemate?",
+  "home.faq.q1": "Что такое codemate?",
   "home.faq.a1":
-    "Codemate — это агент с открытым исходным кодом, который помогает писать и запускать код с любой AI-моделью. Доступен как терминальный интерфейс, десктопное приложение или расширение для IDE.",
-  "home.faq.q2": "Как использовать Codemate?",
+    "codemate — это агент с открытым исходным кодом, который помогает писать и запускать код с любой AI-моделью. Доступен как терминальный интерфейс, десктопное приложение или расширение для IDE.",
+  "home.faq.q2": "Как использовать codemate?",
   "home.faq.a2.before": "Проще всего начать с чтения",
   "home.faq.a2.link": "введения",
-  "home.faq.q3": "Нужны ли дополнительные подписки на AI для использования Codemate?",
+  "home.faq.q3": "Нужны ли дополнительные подписки на AI для использования codemate?",
   "home.faq.a3.p1":
-    "Не обязательно, Codemate поставляется с набором бесплатных моделей, которые можно использовать без создания аккаунта.",
+    "Не обязательно, codemate поставляется с набором бесплатных моделей, которые можно использовать без создания аккаунта.",
   "home.faq.a3.p2.beforeZen":
     "Помимо этого, вы можете использовать любые популярные модели для кодинга, создав аккаунт",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "Хотя мы рекомендуем использовать Zen, Codemate также работает со всеми популярными провайдерами, такими как OpenAI, Anthropic, xAI и др.",
+    "Хотя мы рекомендуем использовать Zen, codemate также работает со всеми популярными провайдерами, такими как OpenAI, Anthropic, xAI и др.",
   "home.faq.a3.p4.beforeLocal": "Вы даже можете подключить ваши",
   "home.faq.a3.p4.localLink": "локальные модели",
-  "home.faq.q4": "Могу ли я использовать мои существующие AI-подписки с Codemate?",
+  "home.faq.q4": "Могу ли я использовать мои существующие AI-подписки с codemate?",
   "home.faq.a4.p1":
-    "Да, Codemate поддерживает подписки всех основных провайдеров. Вы можете использовать ваши подписки Claude Pro/Max, ChatGPT Plus/Pro или GitHub Copilot.",
-  "home.faq.q5": "Можно ли использовать Codemate только в терминале?",
-  "home.faq.a5.beforeDesktop": "Больше нет! Codemate теперь доступен как приложение для",
+    "Да, codemate поддерживает подписки всех основных провайдеров. Вы можете использовать ваши подписки Claude Pro/Max, ChatGPT Plus/Pro или GitHub Copilot.",
+  "home.faq.q5": "Можно ли использовать codemate только в терминале?",
+  "home.faq.a5.beforeDesktop": "Больше нет! codemate теперь доступен как приложение для",
   "home.faq.a5.desktop": "десктопа",
   "home.faq.a5.and": "и",
   "home.faq.a5.web": "веба",
-  "home.faq.q6": "Сколько стоит Codemate?",
+  "home.faq.q6": "Сколько стоит codemate?",
   "home.faq.a6":
-    "Codemate на 100% бесплатен. Он также включает набор бесплатных моделей. Дополнительные расходы могут возникнуть, если вы подключите другого провайдера.",
+    "codemate на 100% бесплатен. Он также включает набор бесплатных моделей. Дополнительные расходы могут возникнуть, если вы подключите другого провайдера.",
   "home.faq.q7": "Как насчет данных и приватности?",
   "home.faq.a7.p1":
     "Ваши данные сохраняются только тогда, когда вы используете наши бесплатные модели или создаете ссылки для шеринга.",
@@ -179,8 +179,8 @@ export const dict = {
   "home.faq.a7.p2.modelsLink": "наших моделях",
   "home.faq.a7.p2.and": "и",
   "home.faq.a7.p2.shareLink": "страницах шеринга",
-  "home.faq.q8": "Codemate — это open source?",
-  "home.faq.a8.p1": "Да, Codemate полностью open source. Исходный код доступен публично на",
+  "home.faq.q8": "codemate — это open source?",
+  "home.faq.a8.p1": "Да, codemate полностью open source. Исходный код доступен публично на",
   "home.faq.a8.p2": "под",
   "home.faq.a8.mitLicense": "лицензией MIT",
   "home.faq.a8.p3":
@@ -188,23 +188,23 @@ export const dict = {
 
   "home.zenCta.title": "Доступ к надежным оптимизированным моделям для кодинг-агентов",
   "home.zenCta.body":
-    "Zen дает доступ к отобранному набору AI-моделей, которые Codemate протестировал и проверил специально для кодинг-агентов. Не нужно беспокоиться о нестабильной производительности и качестве разных провайдеров, используйте проверенные модели, которые работают.",
+    "Zen дает доступ к отобранному набору AI-моделей, которые codemate протестировал и проверил специально для кодинг-агентов. Не нужно беспокоиться о нестабильной производительности и качестве разных провайдеров, используйте проверенные модели, которые работают.",
   "home.zenCta.link": "Узнать о Zen",
 
-  "zen.title": "Codemate Zen | Набор надежных оптимизированных моделей для кодинг-агентов",
+  "zen.title": "codemate Zen | Набор надежных оптимизированных моделей для кодинг-агентов",
   "zen.hero.title": "Надежные оптимизированные модели для кодинг-агентов",
   "zen.hero.body":
-    "Zen дает доступ к отобранному набору AI-моделей, которые Codemate протестировал и проверил специально для кодинг-агентов. Не нужно беспокоиться о нестабильной производительности и качестве, используйте проверенные модели, которые работают.",
+    "Zen дает доступ к отобранному набору AI-моделей, которые codemate протестировал и проверил специально для кодинг-агентов. Не нужно беспокоиться о нестабильной производительности и качестве, используйте проверенные модели, которые работают.",
 
-  "zen.faq.q1": "Что такое Codemate Zen?",
+  "zen.faq.q1": "Что такое codemate Zen?",
   "zen.faq.a1":
-    "Zen — это отобранный набор AI-моделей, протестированных и проверенных для кодинг-агентов командой, стоящей за Codemate.",
+    "Zen — это отобранный набор AI-моделей, протестированных и проверенных для кодинг-агентов командой, стоящей за codemate.",
   "zen.faq.q2": "Почему Zen точнее?",
   "zen.faq.a2":
     "Zen предоставляет только те модели, которые были специально протестированы и проверены для кодинг-агентов. Вы же не режете стейк ножом для масла, не используйте плохие модели для кодинга.",
   "zen.faq.q3": "Zen дешевле?",
   "zen.faq.a3":
-    "Zen — некоммерческий проект. Zen транслирует расходы от провайдеров моделей вам. Чем больше использование Zen, тем лучшие тарифы Codemate может согласовать и передать вам.",
+    "Zen — некоммерческий проект. Zen транслирует расходы от провайдеров моделей вам. Чем больше использование Zen, тем лучшие тарифы codemate может согласовать и передать вам.",
   "zen.faq.q4": "Сколько стоит Zen?",
   "zen.faq.a4.p1.beforePricing": "Zen",
   "zen.faq.a4.p1.pricingLink": "взимает плату за запрос",
@@ -214,7 +214,7 @@ export const dict = {
     "Общая стоимость зависит от использования, и вы можете установить ежемесячные лимиты расходов в своем",
   "zen.faq.a4.p2.accountLink": "аккаунте",
   "zen.faq.a4.p3":
-    "Для покрытия расходов Codemate добавляет лишь небольшую комиссию за обработку платежа в размере $1.23 при пополнении баланса на $20.",
+    "Для покрытия расходов codemate добавляет лишь небольшую комиссию за обработку платежа в размере $1.23 при пополнении баланса на $20.",
   "zen.faq.q5": "Как насчет данных и приватности?",
   "zen.faq.a5.beforeExceptions":
     "Все модели Zen размещены в США. Провайдеры следуют политике нулевого хранения и не используют ваши данные для обучения моделей, за",
@@ -225,7 +225,7 @@ export const dict = {
   "zen.faq.a7": "Да, вы можете отключить оплату в любое время и использовать оставшийся баланс.",
   "zen.faq.q8": "Могу ли я использовать Zen с другими кодинг-агентами?",
   "zen.faq.a8":
-    "Хотя Zen отлично работает с Codemate, вы можете использовать Zen с любым агентом. Следуйте инструкциям по настройке в вашем любимом агенте.",
+    "Хотя Zen отлично работает с codemate, вы можете использовать Zen с любым агентом. Следуйте инструкциям по настройке в вашем любимом агенте.",
 
   "zen.cta.start": "Начать работу с Zen",
   "zen.pricing.title": "Пополнить баланс на $20 (Pay as you go)",
@@ -234,12 +234,12 @@ export const dict = {
   "zen.problem.title": "Какую проблему решает Zen?",
   "zen.problem.body":
     "Доступно множество моделей, но лишь немногие хорошо работают с кодинг-агентами. Большинство провайдеров настраивают их по-разному с разными результатами.",
-  "zen.problem.subtitle": "Мы исправляем это для всех, а не только для пользователей Codemate.",
+  "zen.problem.subtitle": "Мы исправляем это для всех, а не только для пользователей codemate.",
   "zen.problem.item1": "Тестирование избранных моделей и консультации с их командами",
   "zen.problem.item2": "Работа с провайдерами для обеспечения правильной доставки",
   "zen.problem.item3": "Бенчмаркинг всех рекомендуемых нами комбинаций модель-провайдер",
   "zen.how.title": "Как работает Zen",
-  "zen.how.body": "Хотя мы предлагаем использовать Zen с Codemate, вы можете использовать его с любым агентом.",
+  "zen.how.body": "Хотя мы предлагаем использовать Zen с codemate, вы можете использовать его с любым агентом.",
   "zen.how.step1.title": "Зарегистрируйтесь и пополните баланс на $20",
   "zen.how.step1.beforeLink": "следуйте",
   "zen.how.step1.link": "инструкциям по настройке",
@@ -253,9 +253,9 @@ export const dict = {
     "Все модели Zen размещены в США. Провайдеры следуют политике нулевого хранения и не используют ваши данные для обучения моделей, за",
   "zen.privacy.exceptionsLink": "следующими исключениями",
 
-  "go.title": "Codemate Go | Недорогие модели для кодинга для всех",
+  "go.title": "codemate Go | Недорогие модели для кодинга для всех",
   "go.meta.description":
-    "Go начинается с $5 за первый месяц, затем $10/месяц, с щедрыми лимитами запросов за 5 часов для GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash.",
+    "Go начинается с $5 за первый месяц, затем $10/месяц, с щедрыми лимитами запросов за 5 часов для GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash.",
   "go.hero.title": "Недорогие модели для кодинга для всех",
   "go.hero.body":
     "Go открывает доступ к агентам-программистам разработчикам по всему миру. Предлагая щедрые лимиты и надежный доступ к наиболее способным моделям с открытым исходным кодом, вы можете создавать проекты с мощными агентами, не беспокоясь о затратах или доступности.",
@@ -267,8 +267,6 @@ export const dict = {
   "go.cta.promo": "$5 первый месяц",
   "go.pricing.body":
     "Используйте с любым агентом. $5 за первый месяц, затем $10/месяц. Пополняйте баланс при необходимости. Отменить можно в любое время.",
-  "go.banner.badge": "3x",
-  "go.banner.text": "Kimi K2.6: лимит использования увеличен в 3 раза до 27 апреля",
   "go.graph.free": "Бесплатно",
   "go.graph.freePill": "Big Pickle и бесплатные модели",
   "go.graph.go": "Go",
@@ -279,7 +277,7 @@ export const dict = {
 
   "go.testimonials.brand.zen": "Zen",
   "go.testimonials.brand.go": "Go",
-  "go.testimonials.handle": "@Codemate",
+  "go.testimonials.handle": "@codemate",
   "go.testimonials.dax.name": "Dax Raad",
   "go.testimonials.dax.title": "ex-CEO, Terminal Products",
   "go.testimonials.dax.quoteAfter": "изменил мою жизнь, это действительно очевидный выбор.",
@@ -301,16 +299,16 @@ export const dict = {
   "go.testimonials.frank.quote": "Жаль, что я больше не в Nvidia.",
   "go.problem.title": "Какую проблему решает Go?",
   "go.problem.body":
-    "Мы стремимся сделать Codemate доступным для как можно большего числа людей. Codemate Go - это недорогая подписка: $5 за первый месяц, затем $10/месяц. Она предоставляет щедрые лимиты и надежный доступ к самым мощным моделям с открытым исходным кодом.",
+    "Мы стремимся сделать codemate доступным для как можно большего числа людей. codemate Go - это недорогая подписка: $5 за первый месяц, затем $10/месяц. Она предоставляет щедрые лимиты и надежный доступ к самым мощным моделям с открытым исходным кодом.",
   "go.problem.subtitle": " ",
   "go.problem.item1": "Недорогая подписка",
   "go.problem.item2": "Щедрые лимиты и надежный доступ",
   "go.problem.item3": "Создан для максимального числа программистов",
   "go.problem.item4":
-    "Включает GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash",
+    "Включает GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash",
   "go.how.title": "Как работает Go",
   "go.how.body":
-    "Go начинается с $5 за первый месяц, затем $10/месяц. Вы можете использовать его с Codemate или любым агентом.",
+    "Go начинается с $5 за первый месяц, затем $10/месяц. Вы можете использовать его с codemate или любым агентом.",
   "go.how.step1.title": "Создайте аккаунт",
   "go.how.step1.beforeLink": "следуйте",
   "go.how.step1.link": "инструкциям по настройке",
@@ -326,14 +324,14 @@ export const dict = {
   "go.privacy.beforeExceptions":
     "Модели Go размещены в США. Провайдеры следуют политике нулевого хранения и не используют ваши данные для обучения моделей, за",
   "go.privacy.exceptionsLink": "следующими исключениями",
-  "go.faq.q1": "Что такое Codemate Go?",
+  "go.faq.q1": "Что такое codemate Go?",
   "go.faq.a1":
     "Go — это недорогая подписка, дающая надежный доступ к мощным моделям с открытым исходным кодом для агентов-программистов.",
   "go.faq.q2": "Какие модели включает Go?",
   "go.faq.a2": "Go включает перечисленные ниже модели с щедрыми лимитами и надежным доступом.",
   "go.faq.q3": "Go — это то же самое, что и Zen?",
   "go.faq.a3":
-    "Нет. Zen - это оплата по мере использования, в то время как Go начинается с $5 за первый месяц, затем $10/месяц, с щедрыми лимитами и надежным доступом к моделям с открытым исходным кодом GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash.",
+    "Нет. Zen - это оплата по мере использования, в то время как Go начинается с $5 за первый месяц, затем $10/месяц, с щедрыми лимитами и надежным доступом к моделям с открытым исходным кодом GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash.",
   "go.faq.q4": "Сколько стоит Go?",
   "go.faq.a4.p1.beforePricing": "Go стоит",
   "go.faq.a4.p1.pricingLink": "$5 за первый месяц",
@@ -357,7 +355,7 @@ export const dict = {
 
   "go.faq.q9": "В чем разница между бесплатными моделями и Go?",
   "go.faq.a9":
-    "Бесплатные модели включают Big Pickle плюс промо-модели, доступные на данный момент, с квотой 200 запросов/день. Go включает GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2-Pro, MiMo-V2-Omni, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash с более высокими квотами запросов, применяемыми в скользящих окнах (5 часов, неделя и месяц), что примерно эквивалентно $12 за 5 часов, $30 в неделю и $60 в месяц (фактическое количество запросов зависит от модели и использования).",
+    "Бесплатные модели включают Big Pickle плюс промо-модели, доступные на данный момент, с квотой 200 запросов/день. Go включает GLM-5.1, GLM-5, Kimi K2.5, Kimi K2.6, MiMo-V2.5-Pro, MiMo-V2.5, Qwen3.5 Plus, Qwen3.6 Plus, MiniMax M2.5, MiniMax M2.7, DeepSeek V4 Pro и DeepSeek V4 Flash с более высокими квотами запросов, применяемыми в скользящих окнах (5 часов, неделя и месяц), что примерно эквивалентно $12 за 5 часов, $30 в неделю и $60 в месяц (фактическое количество запросов зависит от модели и использования).",
 
   "zen.api.error.rateLimitExceeded": "Превышен лимит запросов. Пожалуйста, попробуйте позже.",
   "zen.api.error.modelNotSupported": "Модель {{model}} не поддерживается",
@@ -367,8 +365,12 @@ export const dict = {
   "zen.api.error.missingApiKey": "Отсутствует API ключ.",
   "zen.api.error.invalidApiKey": "Неверный API ключ.",
   "zen.api.error.subscriptionQuotaExceeded": "Квота подписки превышена. Повторите попытку через {{retryIn}}.",
-  "zen.api.error.subscriptionQuotaExceededUseFreeModels":
-    "Квота подписки превышена. Вы можете продолжить использовать бесплатные модели.",
+  "zen.api.error.goSubscriptionRollingLimitExceeded":
+    "Достигнут лимит использования за 5 часов. Сбросится через {{retryIn}}. Чтобы продолжить использовать эту модель сейчас, включите оплату с доступного баланса: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionWeeklyLimitExceeded":
+    "Достигнут недельный лимит использования. Сбросится через {{retryIn}}. Чтобы продолжить использовать эту модель сейчас, включите оплату с доступного баланса: {{consoleGoUrl}}",
+  "zen.api.error.goSubscriptionMonthlyLimitExceeded":
+    "Достигнут месячный лимит использования. Сбросится через {{retryIn}}. Чтобы продолжить использовать эту модель сейчас, включите оплату с доступного баланса: {{consoleGoUrl}}",
   "zen.api.error.noPaymentMethod": "Нет способа оплаты. Добавьте способ оплаты здесь: {{billingUrl}}",
   "zen.api.error.insufficientBalance": "Недостаточно средств. Управляйте оплатой здесь: {{billingUrl}}",
   "zen.api.error.workspaceMonthlyLimitReached":
@@ -377,13 +379,13 @@ export const dict = {
     "Вы достигли ежемесячного лимита расходов в ${{amount}}. Управляйте лимитами здесь: {{membersUrl}}",
   "zen.api.error.modelDisabled": "Модель отключена",
   "zen.api.error.trialEnded":
-    "Бесплатная акция для {{model}} завершена. Вы можете продолжить использование модели, подписавшись на Codemate Go - {{link}}",
+    "Бесплатная акция для {{model}} завершена. Вы можете продолжить использование модели, подписавшись на codemate Go - {{link}}",
 
-  "black.meta.title": "Codemate Black | Доступ к лучшим моделям для кодинга в мире",
-  "black.meta.description": "Получите доступ к Claude, GPT, Gemini и другим моделям с подпиской Codemate Black.",
+  "black.meta.title": "codemate Black | Доступ к лучшим моделям для кодинга в мире",
+  "black.meta.description": "Получите доступ к Claude, GPT, Gemini и другим моделям с подпиской codemate Black.",
   "black.hero.title": "Доступ к лучшим моделям для кодинга в мире",
   "black.hero.subtitle": "Включая Claude, GPT, Gemini и другие",
-  "black.title": "Codemate Black | Цены",
+  "black.title": "codemate Black | Цены",
   "black.paused": "Регистрация на план Black временно приостановлена.",
   "black.plan.icon20": "План Black 20",
   "black.plan.icon100": "План Black 100",
@@ -403,10 +405,10 @@ export const dict = {
   "black.action.continue": "Продолжить",
   "black.finePrint.beforeTerms": "Указанные цены не включают применимые налоги",
   "black.finePrint.terms": "Условия обслуживания",
-  "black.workspace.title": "Codemate Black | Выбор рабочего пространства",
+  "black.workspace.title": "codemate Black | Выбор рабочего пространства",
   "black.workspace.selectPlan": "Выберите рабочее пространство для этого плана",
   "black.workspace.name": "Рабочее пространство {{n}}",
-  "black.subscribe.title": "Подписаться на Codemate Black",
+  "black.subscribe.title": "Подписаться на codemate Black",
   "black.subscribe.paymentMethod": "Способ оплаты",
   "black.subscribe.loadingPaymentForm": "Загрузка формы оплаты...",
   "black.subscribe.selectWorkspaceToContinue": "Выберите рабочее пространство для продолжения",
@@ -418,9 +420,9 @@ export const dict = {
   "black.subscribe.processing": "Обработка...",
   "black.subscribe.submit": "Подписаться на ${{plan}}",
   "black.subscribe.form.chargeNotice": "Оплата будет списана только при активации вашей подписки",
-  "black.subscribe.success.title": "Вы в списке ожидания Codemate Black",
+  "black.subscribe.success.title": "Вы в списке ожидания codemate Black",
   "black.subscribe.success.subscriptionPlan": "План подписки",
-  "black.subscribe.success.planName": "Codemate Black {{plan}}",
+  "black.subscribe.success.planName": "codemate Black {{plan}}",
   "black.subscribe.success.amount": "Сумма",
   "black.subscribe.success.amountValue": "${{plan}} в месяц",
   "black.subscribe.success.paymentMethod": "Способ оплаты",
@@ -622,15 +624,15 @@ export const dict = {
   "workspace.black.time.minutes": "минут",
   "workspace.black.time.fewSeconds": "несколько секунд",
   "workspace.black.subscription.title": "Подписка",
-  "workspace.black.subscription.message": "Вы подписаны на Codemate Black за ${{plan}} в месяц.",
+  "workspace.black.subscription.message": "Вы подписаны на codemate Black за ${{plan}} в месяц.",
   "workspace.black.subscription.manage": "Управление подпиской",
   "workspace.black.subscription.rollingUsage": "5-часовое использование",
   "workspace.black.subscription.weeklyUsage": "Недельное использование",
   "workspace.black.subscription.resetsIn": "Сброс через",
   "workspace.black.subscription.useBalance": "Использовать доступный баланс после достижения лимитов",
   "workspace.black.waitlist.title": "Список ожидания",
-  "workspace.black.waitlist.joined": "Вы в списке ожидания плана Codemate Black за ${{plan}} в месяц.",
-  "workspace.black.waitlist.ready": "Мы готовы подключить вас к плану Codemate Black за ${{plan}} в месяц.",
+  "workspace.black.waitlist.joined": "Вы в списке ожидания плана codemate Black за ${{plan}} в месяц.",
+  "workspace.black.waitlist.ready": "Мы готовы подключить вас к плану codemate Black за ${{plan}} в месяц.",
   "workspace.black.waitlist.leave": "Покинуть список ожидания",
   "workspace.black.waitlist.leaving": "Выход...",
   "workspace.black.waitlist.left": "Вы покинули",
@@ -648,7 +650,7 @@ export const dict = {
   "workspace.lite.time.minute": "минута",
   "workspace.lite.time.minutes": "минут",
   "workspace.lite.time.fewSeconds": "несколько секунд",
-  "workspace.lite.subscription.message": "Вы подписаны на Codemate Go.",
+  "workspace.lite.subscription.message": "Вы подписаны на codemate Go.",
   "workspace.lite.subscription.manage": "Управление подпиской",
   "workspace.lite.subscription.rollingUsage": "Скользящее использование",
   "workspace.lite.subscription.weeklyUsage": "Недельное использование",
@@ -656,13 +658,13 @@ export const dict = {
   "workspace.lite.subscription.resetsIn": "Сброс через",
   "workspace.lite.subscription.useBalance": "Использовать доступный баланс после достижения лимитов",
   "workspace.lite.subscription.selectProvider":
-    'Выберите "Codemate Go" в качестве провайдера в настройках codemate для использования моделей Go.',
+    'Выберите "codemate Go" в качестве провайдера в настройках codemate для использования моделей Go.',
   "workspace.lite.black.message":
-    "Вы подписаны на Codemate Black или находитесь в списке ожидания. Пожалуйста, сначала отмените подписку, если хотите перейти на Go.",
+    "Вы подписаны на codemate Black или находитесь в списке ожидания. Пожалуйста, сначала отмените подписку, если хотите перейти на Go.",
   "workspace.lite.other.message":
-    "Другой участник в этом рабочем пространстве уже подписан на Codemate Go. Только один участник в рабочем пространстве может оформить подписку.",
+    "Другой участник в этом рабочем пространстве уже подписан на codemate Go. Только один участник в рабочем пространстве может оформить подписку.",
   "workspace.lite.promo.description":
-    "Codemate Go начинается с {{price}}, затем $10/месяц и предоставляет надежный доступ к популярным открытым моделям кодирования с щедрыми лимитами использования.",
+    "codemate Go начинается с {{price}}, затем $10/месяц и предоставляет надежный доступ к популярным открытым моделям кодирования с щедрыми лимитами использования.",
   "workspace.lite.promo.price": "$5 за первый месяц",
   "workspace.lite.promo.modelsTitle": "Что включено",
   "workspace.lite.promo.footer":
@@ -672,15 +674,15 @@ export const dict = {
   "workspace.lite.promo.otherMethods": "Другие способы оплаты",
   "workspace.lite.promo.selectMethod": "Выберите способ оплаты",
 
-  "download.title": "Codemate | Скачать",
-  "download.meta.description": "Скачать Codemate для macOS, Windows и Linux",
-  "download.hero.title": "Скачать Codemate",
+  "download.title": "codemate | Скачать",
+  "download.meta.description": "Скачать codemate для macOS, Windows и Linux",
+  "download.hero.title": "Скачать codemate",
   "download.hero.subtitle": "Доступна бета для macOS, Windows и Linux",
   "download.hero.button": "Скачать для {{os}}",
-  "download.section.terminal": "Codemate Terminal",
-  "download.section.desktop": "Codemate Desktop (Beta)",
-  "download.section.extensions": "Расширения Codemate",
-  "download.section.integrations": "Интеграции Codemate",
+  "download.section.terminal": "codemate Terminal",
+  "download.section.desktop": "codemate Desktop (Beta)",
+  "download.section.extensions": "Расширения codemate",
+  "download.section.integrations": "Интеграции codemate",
   "download.action.download": "Скачать",
   "download.action.install": "Установить",
 
@@ -691,26 +693,26 @@ export const dict = {
   "download.platform.linuxRpm": "Linux (.rpm)",
 
   "download.faq.a3.beforeLocal":
-    "Не обязательно, но возможно. Вам понадобится AI подписка, если вы хотите подключить Codemate к платному провайдеру, хотя вы можете работать с",
+    "Не обязательно, но возможно. Вам понадобится AI подписка, если вы хотите подключить codemate к платному провайдеру, хотя вы можете работать с",
   "download.faq.a3.localLink": "локальными моделями",
   "download.faq.a3.afterLocal.beforeZen": "бесплатно. Хотя мы рекомендуем использовать",
   "download.faq.a3.afterZen":
-    ", Codemate работает со всеми популярными провайдерами, такими как OpenAI, Anthropic, xAI и др.",
+    ", codemate работает со всеми популярными провайдерами, такими как OpenAI, Anthropic, xAI и др.",
 
-  "download.faq.a5.p1": "Codemate на 100% бесплатен.",
+  "download.faq.a5.p1": "codemate на 100% бесплатен.",
   "download.faq.a5.p2.beforeZen":
-    "Любые дополнительные расходы будут связаны с вашей подпиской у провайдера моделей. Хотя Codemate работает с любым провайдером моделей, мы рекомендуем использовать",
+    "Любые дополнительные расходы будут связаны с вашей подпиской у провайдера моделей. Хотя codemate работает с любым провайдером моделей, мы рекомендуем использовать",
   "download.faq.a5.p2.afterZen": ".",
 
-  "download.faq.a6.p1": "Ваши данные и информация сохраняются только при создании ссылок для шеринга в Codemate.",
+  "download.faq.a6.p1": "Ваши данные и информация сохраняются только при создании ссылок для шеринга в codemate.",
   "download.faq.a6.p2.beforeShare": "Подробнее о",
   "download.faq.a6.shareLink": "страницах шеринга",
 
-  "enterprise.title": "Codemate | Корпоративные решения для вашей организации",
-  "enterprise.meta.description": "Свяжитесь с Codemate для корпоративных решений",
+  "enterprise.title": "codemate | Корпоративные решения для вашей организации",
+  "enterprise.meta.description": "Свяжитесь с codemate для корпоративных решений",
   "enterprise.hero.title": "Ваш код принадлежит вам",
   "enterprise.hero.body1":
-    "Codemate безопасно работает внутри вашей организации: не хранит данные и контекст, без лицензионных ограничений и претензий на собственность. Начните пробный период с командой, затем разверните по всей организации, интегрировав с SSO и внутренним AI-шлюзом.",
+    "codemate безопасно работает внутри вашей организации: не хранит данные и контекст, без лицензионных ограничений и претензий на собственность. Начните пробный период с командой, затем разверните по всей организации, интегрировав с SSO и внутренним AI-шлюзом.",
   "enterprise.hero.body2": "Сообщите нам, чем мы можем помочь.",
   "enterprise.form.name.label": "Полное имя",
   "enterprise.form.name.placeholder": "Джефф Безос",
@@ -732,29 +734,29 @@ export const dict = {
   "enterprise.form.error.invalidEmailFormat": "Неверный формат email.",
   "enterprise.form.error.internalServer": "Внутренняя ошибка сервера.",
   "enterprise.faq.title": "FAQ",
-  "enterprise.faq.q1": "Что такое Codemate Enterprise?",
+  "enterprise.faq.q1": "Что такое codemate Enterprise?",
   "enterprise.faq.a1":
-    "Codemate Enterprise предназначен для организаций, которые хотят гарантировать, что их код и данные никогда не покинут их инфраструктуру. Это достигается за счет централизованной конфигурации, интегрированной с вашим SSO и внутренним AI-шлюзом.",
-  "enterprise.faq.q2": "Как начать работу с Codemate Enterprise?",
+    "codemate Enterprise предназначен для организаций, которые хотят гарантировать, что их код и данные никогда не покинут их инфраструктуру. Это достигается за счет централизованной конфигурации, интегрированной с вашим SSO и внутренним AI-шлюзом.",
+  "enterprise.faq.q2": "Как начать работу с codemate Enterprise?",
   "enterprise.faq.a2":
-    "Просто начните с внутреннего триала с вашей командой. Codemate по умолчанию не хранит ваш код или контекстные данные, поэтому начать легко. Затем свяжитесь с нами, чтобы обсудить цены и варианты внедрения.",
+    "Просто начните с внутреннего триала с вашей командой. codemate по умолчанию не хранит ваш код или контекстные данные, поэтому начать легко. Затем свяжитесь с нами, чтобы обсудить цены и варианты внедрения.",
   "enterprise.faq.q3": "Как работает корпоративное ценообразование?",
   "enterprise.faq.a3":
     "Мы предлагаем модель ценообразования за рабочее место (per-seat). Если у вас есть собственный LLM-шлюз, мы не взимаем плату за использованные токены. Для получения подробной информации свяжитесь с нами для индивидуального расчета на основе потребностей вашей организации.",
-  "enterprise.faq.q4": "Безопасны ли мои данные с Codemate Enterprise?",
+  "enterprise.faq.q4": "Безопасны ли мои данные с codemate Enterprise?",
   "enterprise.faq.a4":
-    "Да. Codemate не хранит ваш код или контекстные данные. Вся обработка происходит локально или через прямые вызовы API к вашему AI-провайдеру. Благодаря централизованной конфигурации и интеграции SSO ваши данные остаются защищенными внутри инфраструктуры вашей организации.",
+    "Да. codemate не хранит ваш код или контекстные данные. Вся обработка происходит локально или через прямые вызовы API к вашему AI-провайдеру. Благодаря централизованной конфигурации и интеграции SSO ваши данные остаются защищенными внутри инфраструктуры вашей организации.",
 
-  "brand.title": "Codemate | Бренд",
-  "brand.meta.description": "Гайдлайны бренда Codemate",
+  "brand.title": "codemate | Бренд",
+  "brand.meta.description": "Гайдлайны бренда codemate",
   "brand.heading": "Гайдлайны бренда",
-  "brand.subtitle": "Ресурсы и активы, которые помогут вам работать с брендом Codemate.",
+  "brand.subtitle": "Ресурсы и активы, которые помогут вам работать с брендом codemate.",
   "brand.downloadAll": "Скачать все ресурсы",
 
-  "changelog.title": "Codemate | Список изменений",
-  "changelog.meta.description": "Примечания к релизам и список изменений Codemate",
+  "changelog.title": "codemate | Список изменений",
+  "changelog.meta.description": "Примечания к релизам и список изменений codemate",
   "changelog.hero.title": "Список изменений",
-  "changelog.hero.subtitle": "Новые обновления и улучшения Codemate",
+  "changelog.hero.subtitle": "Новые обновления и улучшения codemate",
   "changelog.empty": "Записи в списке изменений не найдены.",
   "changelog.viewJson": "Посмотреть JSON",
 

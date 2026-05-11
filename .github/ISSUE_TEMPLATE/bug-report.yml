@@ -1,6 +1,5 @@
 name: Bug report
 description: Report an issue that should be fixed
-labels: ["bug"]
 body:
   - type: textarea
     id: description
@@ -22,8 +21,8 @@ body:
   - type: input
     id: codemate-version
     attributes:
-      label: Codemate version
-      description: What version of Codemate are you using?
+      label: codemate version
+      description: What version of codemate are you using?
     validations:
       required: false
 

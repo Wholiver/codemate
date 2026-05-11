@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: Brug Codemate i GitHub-problemer og Pull Requests.
+description: Brug codemate i GitHub-problemer og Pull Requests.
 ---
 
-Codemate integreres med din GitHub arbejdsgang. Nævn `/codemate` eller `/oc` i din kommentar, og Codemate vil udføre opgaver i din GitHub Actions-løber.
+codemate integreres med din GitHub arbejdsgang. Nævn `/codemate` eller `/oc` i din kommentar, og codemate vil udføre opgaver i din GitHub Actions-løber.
 
 ---
 
 ## Funktioner
 
-- **Triageproblemer**: Bed Codemate om at undersøge et problem og forklare dig det.
-- **Ret og implementer**: Bed Codemate om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
-- **Sikker**: Codemate løber inde i din GitHubs løbere.
+- **Triageproblemer**: Bed codemate om at undersøge et problem og forklare dig det.
+- **Ret og implementer**: Bed codemate om at løse et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle ændringerne.
+- **Sikker**: codemate løber inde i din GitHubs løbere.
 
 ---
 
@@ -63,7 +63,7 @@ Eller du kan indstille det manuelt.
               fetch-depth: 1
               persist-credentials: false
 
-          - name: Run Codemate
+          - name: Run codemate
            uses: anomalyco/codemate/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -81,13 +81,13 @@ Eller du kan indstille det manuelt.
 
 ## Konfiguration
 
-- `model`: Den model, der skal bruges med Codemate. Antager formatet `provider/model`. Dette er **påkrævet**.
+- `model`: Den model, der skal bruges med codemate. Antager formatet `provider/model`. Dette er **påkrævet**.
 - `agent`: Agenten, der skal bruges. Skal være en primær agent. Falder tilbage til `default_agent` fra config eller `"build"`, hvis den ikke findes.
-- `share`: Om Codemate-sessionen skal dele. Standard er **true** for offentlige arkiver.
-- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan Codemate behandler anmodninger.
-- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger Codemate installationsadgangstokenet fra Codemate GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
+- `share`: Om codemate-sessionen skal dele. Standard er **true** for offentlige arkiver.
+- `prompt`: Valgfri brugerdefineret prompt for at tilsidesætte standardadfærden. Brug dette til at tilpasse, hvordan codemate behandler anmodninger.
+- `token`: Valgfrit GitHub adgangstoken til at udføre operationer såsom oprettelse af kommentarer, begå ændringer og åbning af Pull Requests. Som standard bruger codemate installationsadgangstokenet fra codemate GitHub-appen, så commits, kommentarer og Pull Requests ser ud til at komme fra appen.
 
-  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](Codemate) uden at installere Codemate GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
+  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](codemate) uden at installere codemate GitHub appen. Bare sørg for at give de nødvendige tilladelser i dit workflow:
 
   ```yaml
   permissions:
@@ -103,23 +103,23 @@ Eller du kan indstille det manuelt.
 
 ## Understøttede begivenheder
 
-Codemate kan udløses af følgende GitHub hændelser:
+codemate kan udløses af følgende GitHub hændelser:
 
 | Begivenhedstype               | Udløst af                               | Detaljer                                                                                                                |
 | ----------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/codemate` eller `/oc` i din kommentar. Codemate læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
-| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/codemate` eller `/oc`, mens du gennemgår koden. Codemate modtager filsti, linjenumre og diff-kontekst.           |
-| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk Codemate, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
-| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk Codemate, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
-| `schedule`                    | Cron-baseret tidsplan                   | Kør Codemate efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
-| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs Codemate efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
+| `issue_comment`               | Kommentarer og problemer eller PR       | Nævn `/codemate` eller `/oc` i din kommentar. codemate læser kontekst og kan oprette brancher, åbne PR'er eller svare.  |
+| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | Nævn `/codemate` eller `/oc`, mens du gennemgår koden. codemate modtager filsti, linjenumre og diff-kontekst.           |
+| `issues`                      | Udgave åbnet eller redigeret            | Udløs automatisk codemate, når problemer oprettes eller ændres. Kræver `prompt` input.                                  |
+| `pull_request`                | PR åbnet eller opdateret                | Udløs automatisk codemate, når PR'er åbnes, synkroniseres eller genåbnes. Nyttigt til automatiserede kodegennemgange.   |
+| `schedule`                    | Cron-baseret tidsplan                   | Kør codemate efter en tidsplan. Kræver `prompt` input. Output går til logfiler og PR'er (intet problem ved kommentere). |
+| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | Udløs codemate efter behov via fanen Handlinger. Kræver `prompt` input. Output går til logfiler og PR'er.               |
 
 ### Tidsplan eksempel
 
-Kør Codemate efter en tidsplan for at udføre automatiske opgaver:
+Kør codemate efter en tidsplan for at udføre automatiske opgaver:
 
 ```yaml title=".github/workflows/codemate-scheduled.yml"
-name: Scheduled Codemate Task
+name: Scheduled codemate Task
 
 on:
   schedule:
@@ -139,7 +139,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run Codemate
+      - name: Run codemate
         uses: anomalyco/codemate/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -150,7 +150,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at Codemate skal oprette brancher eller PR'er.
+For planlagte begivenheder er `prompt` input **påkrævet**, da der ikke er nogen kommentarer at udtrække instruktioner fra. Planlagte arbejdsgange kører uden en brugerkontekst til kontrol af tilladelser, så arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at codemate skal oprette brancher eller PR'er.
 
 ---
 
@@ -191,7 +191,7 @@ jobs:
             - Suggest improvements
 ```
 
-For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil Codemate som standard gennemgå Pull Requesten.
+For `pull_request` hændelser, hvis der ikke er angivet nogen `prompt`, vil codemate som standard gennemgå Pull Requesten.
 
 ---
 
@@ -252,7 +252,7 @@ For `issues` begivenheder er `prompt` input **påkrævet**, da der ikke er nogen
 
 ## Brugerdefinerede prompter
 
-Tilsidesæt standardprompten for at tilpasse Codemates adfærd til din arbejdsgang.
+Tilsidesæt standardprompten for at tilpasse codemates adfærd til din arbejdsgang.
 
 ```yaml title=".github/workflows/codemate.yml"
 - uses: anomalyco/codemate/github@latest
@@ -271,7 +271,7 @@ Dette er nyttigt til at håndhæve specifikke gennemgangskriterier, kodningsstan
 
 ## Eksempler
 
-Her er nogle eksempler på, hvordan du kan bruge Codemate i GitHub.
+Her er nogle eksempler på, hvordan du kan bruge codemate i GitHub.
 
 - **Forklar et problem**
 
@@ -281,7 +281,7 @@ Her er nogle eksempler på, hvordan du kan bruge Codemate i GitHub.
   /codemate explain this issue
   ```
 
-  Codemate vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
+  codemate vil læse hele tråden, inklusive alle kommentarer, og svare med en klar forklaring.
 
 - **Løs et problem**
 
@@ -291,7 +291,7 @@ Her er nogle eksempler på, hvordan du kan bruge Codemate i GitHub.
   /codemate fix this
   ```
 
-  Og Codemate vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
+  Og codemate vil oprette en ny branch, implementere ændringer og åbne en PR med ændringer.
 
 - **Gennemgå PR'er og foretag ændringer**
 
@@ -301,18 +301,18 @@ Her er nogle eksempler på, hvordan du kan bruge Codemate i GitHub.
   Delete the attachment from S3 when the note is removed /oc
   ```
 
-  Codemate vil implementere den ønskede ændring og forpligtelse til den samme PR.
+  codemate vil implementere den ønskede ændring og forpligtelse til den samme PR.
 
 - **Gennemgå specifikke kodelinjer**
 
-  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". Codemate detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
+  Efterlad en kommentar direkte på kodelinjer i PR's faneblad "Filer". codemate detekterer automatisk filer, linjenumrene og diff-konteksten for at give præcise svar.
 
   ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
   ```
 
-  Når du kommenterer på specifikke linjer, modtager Codemate:
+  Når du kommenterer på specifikke linjer, modtager codemate:
   - Den nøjagtige fil bliver gennemgået
   - De specifikke kodelinjer
   - Den omgivende forskellig kontekst

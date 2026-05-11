@@ -1,17 +1,17 @@
 ---
 title: GitHub
-description: Koristite Codemate u GitHub problemima i zahtjevima za povlačenjem.
+description: Koristite codemate u GitHub problemima i zahtjevima za povlačenjem.
 ---
 
-Codemate se integriše sa vašim GitHub tokovom rada. Spomenite `/codemate` ili `/oc` u svom komentaru i Codemate će izvršiti zadatke unutar vašeg GitHub Actions runnera.
+codemate se integriše sa vašim GitHub tokovom rada. Spomenite `/codemate` ili `/oc` u svom komentaru i codemate će izvršiti zadatke unutar vašeg GitHub Actions runnera.
 
 ---
 
 ## Funkcije
 
-- **Problemi trijaže**: Zamolite Codemate da ispita problem i objasni vam ga.
-- **Popravi i implementiraj**: Zamolite Codemate da popravi problem ili implementira funkciju. I radit će u novoj poslovnici i dostavljati PR sa svim promjenama.
-- **Secure**: Codemate se pokreće unutar pokretača vašeg GitHub-a.
+- **Problemi trijaže**: Zamolite codemate da ispita problem i objasni vam ga.
+- **Popravi i implementiraj**: Zamolite codemate da popravi problem ili implementira funkciju. I radit će u novoj poslovnici i dostavljati PR sa svim promjenama.
+- **Secure**: codemate se pokreće unutar pokretača vašeg GitHub-a.
 
 ---
 
@@ -60,7 +60,7 @@ Ili ga možete postaviti ručno.
               fetch-depth: 1
               persist-credentials: false
 
-          - name: Run Codemate
+          - name: Run codemate
            uses: anomalyco/codemate/github@latest
            env:
              ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -77,12 +77,12 @@ Ili ga možete postaviti ručno.
 
 ## Konfiguracija
 
-- `model`: Model za korištenje s Codemate. Uzima format `provider/model`. Ovo je **obavezno**.
+- `model`: Model za korištenje s codemate. Uzima format `provider/model`. Ovo je **obavezno**.
 - `agent`: Agent za korištenje. Mora biti primarni agent. Vraća se na `default_agent` iz konfiguracije ili `"build"` ako nije pronađen.
-- `share`: Da li dijeliti Codemate sesiju. Podrazumevano je **true** za javna spremišta.
-- `prompt`: Opcioni prilagođeni upit za nadjačavanje zadanog ponašanja. Koristite ovo da prilagodite kako Codemate obrađuje zahtjeve.
-- `token`: Opcionalni GitHub pristupni token za izvođenje operacija kao što su kreiranje komentara, upisivanje promjena i otvaranje zahtjeva za povlačenjem. Codemate prema zadanim postavkama koristi token za pristup instalaciji iz aplikacije Codemate GitHub, tako da se urezivanje, komentari i zahtjevi za povlačenjem pojavljuju kao da dolaze iz aplikacije.
-  Alternativno, možete koristiti GitHub Action runner [ugrađeni `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) bez instaliranja Codemate GitHub aplikacije. Samo se pobrinite da date potrebna odobrenja u svom toku rada:
+- `share`: Da li dijeliti codemate sesiju. Podrazumevano je **true** za javna spremišta.
+- `prompt`: Opcioni prilagođeni upit za nadjačavanje zadanog ponašanja. Koristite ovo da prilagodite kako codemate obrađuje zahtjeve.
+- `token`: Opcionalni GitHub pristupni token za izvođenje operacija kao što su kreiranje komentara, upisivanje promjena i otvaranje zahtjeva za povlačenjem. codemate prema zadanim postavkama koristi token za pristup instalaciji iz aplikacije codemate GitHub, tako da se urezivanje, komentari i zahtjevi za povlačenjem pojavljuju kao da dolaze iz aplikacije.
+  Alternativno, možete koristiti GitHub Action runner [ugrađeni `GITHUB_TOKEN`](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) bez instaliranja codemate GitHub aplikacije. Samo se pobrinite da date potrebna odobrenja u svom toku rada:
 
 ```yaml
 permissions:
@@ -98,22 +98,22 @@ Također možete koristiti [Personal Access Tokens](https://docs.github.com/en/a
 
 ## Podržani događaji
 
-Codemate se može pokrenuti sljedećim GitHub događajima:
+codemate se može pokrenuti sljedećim GitHub događajima:
 | Vrsta događaja | Pokrenuo | Detalji
 |----------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `issue_comment` | Komentirajte problem ili PR | Navedite `/codemate` ili `/oc` u svom komentaru. Codemate čita kontekst i može kreirati grane, otvarati PR-ove ili odgovarati. |
-| `pull_request_review_comment` | Komentirajte određene linije koda u PR-u | Navedite `/codemate` ili `/oc` dok pregledavate kod. Codemate prima putanju datoteke, brojeve redova i kontekst razlike. |
-| `issues` | Broj otvoren ili uređen | Automatski pokrenite Codemate kada se problemi kreiraju ili modificiraju. Zahtijeva `prompt` unos. |
-| `pull_request` | PR otvoren ili ažuriran | Automatski pokrenite Codemate kada se PR-ovi otvore, sinkroniziraju ili ponovo otvore. Korisno za automatske recenzije. |
-| `schedule` | Cron baziran raspored | Pokrenite Codemate prema rasporedu. Zahtijeva `prompt` unos. Izlaz ide u dnevnike i PR-ove (nema problema za komentarisanje). |
-| `workflow_dispatch` | Ručni okidač iz GitHub korisničkog sučelja | Aktivirajte Codemate na zahtjev preko kartice Akcije. Zahtijeva `prompt` unos. Izlaz ide u dnevnike i PR-ove. |
+| `issue_comment` | Komentirajte problem ili PR | Navedite `/codemate` ili `/oc` u svom komentaru. codemate čita kontekst i može kreirati grane, otvarati PR-ove ili odgovarati. |
+| `pull_request_review_comment` | Komentirajte određene linije koda u PR-u | Navedite `/codemate` ili `/oc` dok pregledavate kod. codemate prima putanju datoteke, brojeve redova i kontekst razlike. |
+| `issues` | Broj otvoren ili uređen | Automatski pokrenite codemate kada se problemi kreiraju ili modificiraju. Zahtijeva `prompt` unos. |
+| `pull_request` | PR otvoren ili ažuriran | Automatski pokrenite codemate kada se PR-ovi otvore, sinkroniziraju ili ponovo otvore. Korisno za automatske recenzije. |
+| `schedule` | Cron baziran raspored | Pokrenite codemate prema rasporedu. Zahtijeva `prompt` unos. Izlaz ide u dnevnike i PR-ove (nema problema za komentarisanje). |
+| `workflow_dispatch` | Ručni okidač iz GitHub korisničkog sučelja | Aktivirajte codemate na zahtjev preko kartice Akcije. Zahtijeva `prompt` unos. Izlaz ide u dnevnike i PR-ove. |
 
 ### Primjer rasporeda
 
-Pokrenite Codemate po rasporedu za obavljanje automatiziranih zadataka:
+Pokrenite codemate po rasporedu za obavljanje automatiziranih zadataka:
 
 ```yaml title=".github/workflows/codemate-scheduled.yml"
-name: Scheduled Codemate Task
+name: Scheduled codemate Task
 
 on:
   schedule:
@@ -133,7 +133,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run Codemate
+      - name: Run codemate
         uses: anomalyco/codemate/github@latest
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -144,7 +144,7 @@ jobs:
             If you find issues worth addressing, open an issue to track them.
 ```
 
-Za zakazane događaje, unos `prompt` je **potreban** jer nema komentara za izvlačenje instrukcija. Planirani tokovi posla se pokreću bez korisničkog konteksta za provjeru dozvola, tako da tok posla mora odobriti `contents: write` i `pull-requests: write` ako očekujete da će Codemate kreirati grane ili PR-ove.
+Za zakazane događaje, unos `prompt` je **potreban** jer nema komentara za izvlačenje instrukcija. Planirani tokovi posla se pokreću bez korisničkog konteksta za provjeru dozvola, tako da tok posla mora odobriti `contents: write` i `pull-requests: write` ako očekujete da će codemate kreirati grane ili PR-ove.
 
 ---
 
@@ -185,7 +185,7 @@ jobs:
             - Suggest improvements
 ```
 
-Za `pull_request` događaje, ako nije naveden `prompt`, Codemate podrazumevano pregledava zahtjev za povlačenjem.
+Za `pull_request` događaje, ako nije naveden `prompt`, codemate podrazumevano pregledava zahtjev za povlačenjem.
 
 ---
 
@@ -246,7 +246,7 @@ Za `issues` događaje, `prompt` unos je **potreban** jer nema komentara za izvla
 
 ## Prilagođeni upiti
 
-Zaobiđite zadani prompt da biste prilagodili ponašanje Codemate za vaš tok posla.
+Zaobiđite zadani prompt da biste prilagodili ponašanje codemate za vaš tok posla.
 
 ```yaml title=".github/workflows/codemate.yml"
 - uses: anomalyco/codemate/github@latest
@@ -265,7 +265,7 @@ Ovo je korisno za provođenje specifičnih kriterija pregleda, standarda kodiran
 
 ## Primjeri
 
-Evo nekoliko primjera kako možete koristiti Codemate u GitHub.
+Evo nekoliko primjera kako možete koristiti codemate u GitHub.
 
 - **Objasnite problem**
   Dodajte ovaj komentar u GitHub izdanje.
@@ -274,7 +274,7 @@ Evo nekoliko primjera kako možete koristiti Codemate u GitHub.
   /codemate explain this issue
 ```
 
-Codemate će pročitati cijelu temu, uključujući sve komentare, i odgovoriti s jasnim objašnjenjem.
+codemate će pročitati cijelu temu, uključujući sve komentare, i odgovoriti s jasnim objašnjenjem.
 
 - **Popravi problem**
   U izdanju na GitHub-u recite:
@@ -283,7 +283,7 @@ Codemate će pročitati cijelu temu, uključujući sve komentare, i odgovoriti s
   /codemate fix this
 ```
 
-I Codemate će kreirati novu granu, implementirati promjene i otvoriti PR sa promjenama.
+I codemate će kreirati novu granu, implementirati promjene i otvoriti PR sa promjenama.
 
 - **Pregledajte PR-ove i izvršite izmjene**
   Ostavite sljedeći komentar na GitHub PR-u.
@@ -292,17 +292,17 @@ I Codemate će kreirati novu granu, implementirati promjene i otvoriti PR sa pro
   Delete the attachment from S3 when the note is removed /oc
 ```
 
-Codemate će implementirati traženu promjenu i posvetiti je istom PR-u.
+codemate će implementirati traženu promjenu i posvetiti je istom PR-u.
 
 - **Pregledajte određene linije koda**
-  Ostavite komentar direktno na linije koda u PR kartici "Files". Codemate automatski detektuje datoteku, brojeve redova i kontekst razlike kako bi pružio precizne odgovore.
+  Ostavite komentar direktno na linije koda u PR kartici "Files". codemate automatski detektuje datoteku, brojeve redova i kontekst razlike kako bi pružio precizne odgovore.
 
 ```
   [Comment on specific lines in Files tab]
   /oc add error handling here
 ```
 
-Kada komentarišete određene linije, Codemate prima:
+Kada komentarišete određene linije, codemate prima:
 
 - Tačan fajl se pregleda
 - Specifične linije koda

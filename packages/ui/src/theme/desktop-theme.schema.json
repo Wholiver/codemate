@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://codemate.ai/desktop-theme.json",
-  "title": "Codemate Desktop Theme",
-  "description": "A theme definition for the Codemate desktop application",
+  "title": "codemate Desktop Theme",
+  "description": "A theme definition for the codemate desktop application",
   "type": "object",
   "required": ["name", "id", "light", "dark"],
   "properties": {

@@ -22,8 +22,8 @@ jobs:
         id: committer
         uses: ./.github/actions/setup-git-committer
         with:
-          codemate-app-id: ${{ vars.CODEMATE_APP_ID }}
-          codemate-app-secret: ${{ secrets.CODEMATE_APP_SECRET }}
+          codemate-app-id: ${{ vars.codemate_APP_ID }}
+          codemate-app-secret: ${{ secrets.codemate_APP_SECRET }}
 
       - name: Generate
         run: ./script/generate.ts

@@ -13,21 +13,15 @@ export type SessionRoute = {
   prompt?: PromptInfo
 }
 
-export type PluginRoute = {
-  type: "plugin"
-  id: string
-  data?: Record<string, unknown>
-}
-
-export type Route = HomeRoute | SessionRoute | PluginRoute
+export type Route = HomeRoute | SessionRoute
 
 export const { use: useRoute, provider: RouteProvider } = createSimpleContext({
   name: "Route",
   init: (props: { initialRoute?: Route }) => {
     const [store, setStore] = createStore<Route>(
       props.initialRoute ??
-        (process.env["CODEMATE_ROUTE"]
-          ? JSON.parse(process.env["CODEMATE_ROUTE"])
+        (process.env["codemate_ROUTE"]
+          ? JSON.parse(process.env["codemate_ROUTE"])
           : {
               type: "home",
             }),

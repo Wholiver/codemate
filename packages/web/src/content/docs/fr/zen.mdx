@@ -1,19 +1,19 @@
 ---
 title: Zen
-description: Liste organisée de modèles fournis par Codemate.
+description: Liste organisée de modèles fournis par codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 export const email = `mailto:${config.email}`
 
-Codemate Zen est une liste de modèles testés et vérifiés fournie par l'équipe Codemate.
+codemate Zen est une liste de modèles testés et vérifiés fournie par l'équipe codemate.
 
 :::note
-Codemate Zen est actuellement en version bêta.
+codemate Zen est actuellement en version bêta.
 :::
 
-Zen fonctionne comme n'importe quel autre fournisseur dans Codemate. Vous vous connectez à Codemate Zen et obtenez votre clé API. C'est **entièrement facultatif** et vous n'avez pas besoin de l'utiliser pour utiliser Codemate.
+Zen fonctionne comme n'importe quel autre fournisseur dans codemate. Vous vous connectez à codemate Zen et obtenez votre clé API. C'est **entièrement facultatif** et vous n'avez pas besoin de l'utiliser pour utiliser codemate.
 
 ---
 
@@ -22,7 +22,7 @@ Zen fonctionne comme n'importe quel autre fournisseur dans Codemate. Vous vous c
 Il existe un grand nombre de modèles, mais seuls quelques-uns fonctionnent bien comme agents de codage. De plus, la plupart des fournisseurs sont configurés très différemment ; vous obtenez donc des performances et une qualité très variables.
 
 :::tip
-Nous avons testé un groupe sélectionné de modèles et de fournisseurs qui fonctionnent bien avec Codemate.
+Nous avons testé un groupe sélectionné de modèles et de fournisseurs qui fonctionnent bien avec codemate.
 :::
 
 Donc, si vous utilisez un modèle via quelque chose comme OpenRouter, vous ne pouvez jamais être sûr d'obtenir la meilleure version du modèle que vous voulez.
@@ -33,16 +33,16 @@ Pour corriger cela, nous avons fait plusieurs choses :
 2. Nous avons ensuite travaillé avec quelques fournisseurs pour nous assurer qu'ils étaient correctement servis.
 3. Enfin, nous avons comparé la combinaison modèle/fournisseur et établi une liste que nous recommandons en toute confiance.
 
-Codemate Zen est une passerelle AI qui vous donne accès à ces modèles.
+codemate Zen est une passerelle AI qui vous donne accès à ces modèles.
 
 ---
 
 ## Comment ça marche
 
-Codemate Zen fonctionne comme n'importe quel autre fournisseur dans Codemate.
+codemate Zen fonctionne comme n'importe quel autre fournisseur dans codemate.
 
-1. Vous vous connectez à **<a href={console}>Codemate Zen</a>**, ajoutez vos informations de facturation et copiez votre clé API.
-2. Vous exécutez la commande `/connect` dans le TUI, sélectionnez Codemate Zen et collez votre clé API.
+1. Vous vous connectez à **<a href={console}>codemate Zen</a>**, ajoutez vos informations de facturation et copiez votre clé API.
+2. Vous exécutez la commande `/connect` dans le TUI, sélectionnez codemate Zen et collez votre clé API.
 3. Exécutez `/models` dans le TUI pour voir la liste des modèles que nous recommandons.
 
 La facturation se fait à la requête et vous pouvez ajouter des crédits à votre compte.
@@ -93,11 +93,10 @@ Vous pouvez également accéder à nos modèles via les points de terminaison AP
 | Kimi K2.5             | kimi-k2.5             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Kimi K2.6             | kimi-k2.6             | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Big Pickle            | big-pickle            | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Ling 2.6 Flash        | ling-2.6-flash        | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
-| Hy3 Preview Free      | hy3-preview-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
+| Ring 2.6 1T           | ring-2.6-1t-free      | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 | Nemotron 3 Super Free | nemotron-3-super-free | `https://codemate.ai/zen/v1/chat/completions`      | `@ai-sdk/openai-compatible` |
 
-Le [model id](/docs/config/#models) dans votre configuration Codemate utilise le format `codemate/<model-id>`. Par exemple, pour GPT 5.5, vous utiliseriez `codemate/gpt-5.5` dans votre configuration.
+Le [model id](/docs/config/#models) dans votre configuration codemate utilise le format `codemate/<model-id>`. Par exemple, pour GPT 5.5, vous utiliseriez `codemate/gpt-5.5` dans votre configuration.
 
 ---
 
@@ -119,8 +118,7 @@ Nous prenons en charge un modèle de paiement à l'utilisation. Vous trouverez c
 | --------------------------------- | ------ | ------- | ----------- | ------------ |
 | Big Pickle                        | Free   | Free    | Free        | -            |
 | MiniMax M2.5 Free                 | Free   | Free    | Free        | -            |
-| Ling 2.6 Flash Free               | Free   | Free    | Free        | -            |
-| Hy3 Preview Free                  | Free   | Free    | Free        | -            |
+| Ring 2.6 1T Free                  | Free   | Free    | Free        | -            |
 | Nemotron 3 Super Free             | Free   | Free    | Free        | -            |
 | MiniMax M2.7                      | $0.30  | $1.20   | $0.06       | $0.375       |
 | MiniMax M2.5                      | $0.30  | $1.20   | $0.06       | $0.375       |
@@ -161,7 +159,7 @@ Nous prenons en charge un modèle de paiement à l'utilisation. Vous trouverez c
 | GPT 5.1 Codex Mini                | $0.25  | $2.00   | $0.025      | -            |
 | GPT 5                             | $1.07  | $8.50   | $0.107      | -            |
 | GPT 5 Codex                       | $1.07  | $8.50   | $0.107      | -            |
-| GPT 5 Nano                        | Free   | Free    | Free        | -            |
+| GPT 5 Nano                        | $0.05  | $0.40   | $0.005      | -            |
 
 Vous remarquerez peut-être _Claude Haiku 3.5_ dans votre historique d'utilisation. Il s'agit d'un [modèle à faible coût](/docs/config/#models) utilisé pour générer les titres de vos sessions.
 
@@ -171,11 +169,10 @@ Les frais de carte de crédit sont répercutés au prix coûtant (4.4% + $0.30 p
 
 Les modèles gratuits :
 
-- MiniMax M2.5 Free est disponible sur Codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
-- Ling 2.6 Flash Free est disponible sur Codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
-- Hy3 Preview Free est disponible sur Codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
-- Nemotron 3 Super Free est disponible sur Codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
-- Big Pickle est un modèle stealth gratuit sur Codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
+- MiniMax M2.5 Free est disponible sur codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
+- Ring 2.6 1T Free est disponible sur codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
+- Nemotron 3 Super Free est disponible sur codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
+- Big Pickle est un modèle stealth gratuit sur codemate pour une durée limitée. L'équipe utilise cette période pour recueillir des retours et améliorer le modèle.
 
 <a href={email}>Contactez-nous</a> si vous avez des questions.
 
@@ -225,8 +222,7 @@ Tous nos modèles sont hébergés aux US. Nos fournisseurs suivent une politique
 
 - Big Pickle : Pendant sa période gratuite, les données collectées peuvent être utilisées pour améliorer le modèle.
 - MiniMax M2.5 Free : Pendant sa période gratuite, les données collectées peuvent être utilisées pour améliorer le modèle.
-- Ling 2.6 Flash Free : Pendant sa période gratuite, les données collectées peuvent être utilisées pour améliorer le modèle.
-- Hy3 Preview Free : Pendant sa période gratuite, les données collectées peuvent être utilisées pour améliorer le modèle.
+- Ring 2.6 1T Free : Pendant sa période gratuite, les données collectées peuvent être utilisées pour améliorer le modèle.
 - Nemotron 3 Super Free (endpoints NVIDIA gratuits) : Fourni dans le cadre des [NVIDIA API Trial Terms of Service](https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf). Réservé à un usage d'essai, pas à la production ni aux données sensibles. Les prompts et les sorties sont journalisés par NVIDIA pour améliorer ses modèles et services. N'envoyez pas de données personnelles ou confidentielles.
 - OpenAI APIs : Les requêtes sont conservées pendant 30 jours conformément à [OpenAI's Data Policies](https://platform.openai.com/docs/guides/your-data).
 - Anthropic APIs : Les requêtes sont conservées pendant 30 jours conformément à [Anthropic's Data Policies](https://docs.anthropic.com/en/docs/claude-code/data-usage).
@@ -276,9 +272,9 @@ Par exemple, votre organisation a peut-être déjà une clé pour OpenAI ou Anth
 
 ## Objectifs
 
-Nous avons créé Codemate Zen pour :
+Nous avons créé codemate Zen pour :
 
 1. **Benchmark** les meilleurs modèles/fournisseurs pour les agents de codage.
 2. Avoir accès aux options de **la plus haute qualité** sans dégrader les performances ni basculer vers des fournisseurs moins chers.
 3. Répercuter toute **baisse de prix** en vendant au prix coûtant ; la seule marge sert à couvrir nos frais de traitement.
-4. N'avoir **aucun lock-in** en vous permettant de l'utiliser avec n'importe quel autre agent de codage. Et toujours vous permettre d'utiliser n'importe quel autre fournisseur avec Codemate également.
+4. N'avoir **aucun lock-in** en vous permettant de l'utiliser avec n'importe quel autre agent de codage. Et toujours vous permettre d'utiliser n'importe quel autre fournisseur avec codemate également.

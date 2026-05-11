@@ -1154,7 +1154,7 @@ class Event extends _HeyApiClient {
   }
 }
 
-export class CodemateClient extends _HeyApiClient {
+export class codemateClient extends _HeyApiClient {
   /**
    * Respond to a permission request
    */

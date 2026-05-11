@@ -3,7 +3,7 @@ title: MCP-servere
 description: Tilføj lokale og eksterne MCP værktøjer.
 ---
 
-Du kan tilføje eksterne værktøjer til Codemate ved hjælp af _Model Context Protocol_ eller MCP. Codemate understøtter både lokale og eksterne servere.
+Du kan tilføje eksterne værktøjer til codemate ved hjælp af _Model Context Protocol_ eller MCP. codemate understøtter både lokale og eksterne servere.
 
 Når de er tilføjet, er MCP automatisk tilgængelig for LLM sammen med indbyggede værktøjer.
 
@@ -23,7 +23,7 @@ Visse MCP-servere, som GitHub MCP-servere, har en tendens til at tilføje mange 
 
 ## Aktivering
 
-Du kan definere MCP-servere i din [Codemate Config](https://codemate.ai/docs/config/) under `mcp`. Tilføj hver MCP med et unikt navn. Du kan henvise til denne MCP ved navn, når du spørger LLM.
+Du kan definere MCP-servere i din [codemate Config](https://codemate.ai/docs/config/) under `mcp`. Tilføj hver MCP med et unikt navn. Du kan henvise til denne MCP ved navn, når du spørger LLM.
 
 ```jsonc title="codemate.jsonc" {6}
 {
@@ -165,7 +165,7 @@ Tilføj ekstern MCP-server ved at indstille `type` til `"remote"`.
 
 ## OAuth
 
-Codemate håndterer automatisk OAuth-godkendelse for eksterne MCP-servere. Når en server kræver godkendelse, vil Codemate:
+codemate håndterer automatisk OAuth-godkendelse for eksterne MCP-servere. Når en server kræver godkendelse, vil codemate:
 
 1. Registrer 401-svaret, og start OAuth-flowet
 2. Brug **Dynamic Client Registration (RFC 7591)**, hvis det understøtter af serveren
@@ -189,7 +189,7 @@ For de fleste OAuth-aktiverede MCP-servere kræver ingen speciel konfiguration. 
 }
 ```
 
-Hvis serveren kræver godkendelse, vil Codemate bede dig om at godkende, når du prøver at bruge den første gang. Hvis ikke, kan du [manually trigger the flow](#authenticating) med `codemate mcp auth <server-name>`.
+Hvis serveren kræver godkendelse, vil codemate bede dig om at godkende, når du prøver at bruge den første gang. Hvis ikke, kan du [manually trigger the flow](#authenticating) med `codemate mcp auth <server-name>`.
 
 ---
 
@@ -238,7 +238,7 @@ Fjern gemte legitimationsoplysninger:
 codemate mcp logout my-oauth-server
 ```
 
-Kommandoen `mcp auth` åbner din browser for godkendelse. Når du har godkendt, vil Codemate opbevare tokens sikkert i `~/.local/share/codemate/mcp-auth.json`.
+Kommandoen `mcp auth` åbner din browser for godkendelse. Når du har godkendt, vil codemate opbevare tokens sikkert i `~/.local/share/codemate/mcp-auth.json`.
 
 ---
 
@@ -291,7 +291,7 @@ Kommandoen `mcp debug` viser den aktuelle godkendelsesstatus, tester HTTP-forbin
 
 ## Administration
 
-Dine MCPs er tilgængelige som værktøjer i **TK\_** sammen med indbyggede værktøjer. Så du kan administrere dem gennem Codemate-konfigurationen som ethvert andet værktøj.
+Dine MCPs er tilgængelige som værktøjer i **TK\_** sammen med indbyggede værktøjer. Så du kan administrere dem gennem codemate-konfigurationen som ethvert andet værktøj.
 
 ---
 
@@ -423,7 +423,7 @@ Efter tilføjelse af konfigurationen skal du godkende med Sentry:
 codemate mcp auth sentry
 ```
 
-Dette åbner et browservindue for at fuldføre OAuth-flowet og forbinde Codemate til din Sentry-konto.
+Dette åbner et browservindue for at fuldføre OAuth-flowet og forbinde codemate til din Sentry-konto.
 
 Når du er godkendt, kan du bruge Sentry-værktøjer i dine prompter til at forespørge om problemer, projekter og fejldata.
 

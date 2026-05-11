@@ -1,5 +1,5 @@
 {
-  description = "Codemate development flake";
+  description = "codemate development flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

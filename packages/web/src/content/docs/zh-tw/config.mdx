@@ -1,15 +1,15 @@
 ---
 title: 設定
-description: 使用 Codemate JSON 設定。
+description: 使用 codemate JSON 設定。
 ---
 
-您可以使用 JSON 設定檔來設定 Codemate。
+您可以使用 JSON 設定檔來設定 codemate。
 
 ---
 
 ## 格式
 
-Codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
+codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
 
 ```jsonc title="codemate.jsonc"
 {
@@ -44,10 +44,10 @@ Codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
 
 1. **遠端設定**（來自 `.well-known/codemate`）- 組織預設值
 2. **全域設定**（`~/.config/codemate/codemate.json`）- 使用者偏好
-3. **自訂設定**（`CODEMATE_CONFIG` 環境變數）- 自訂覆寫
+3. **自訂設定**（`codemate_CONFIG` 環境變數）- 自訂覆寫
 4. **專案設定**（專案中的 `codemate.json`）- 專案特定設定
 5. **`.codemate` 目錄** - 代理、指令、外掛程式
-6. **內嵌設定**（`CODEMATE_CONFIG_CONTENT` 環境變數）- 執行時覆寫
+6. **內嵌設定**（`codemate_CONFIG_CONTENT` 環境變數）- 執行時覆寫
 
 這意味著專案設定可以覆寫全域預設值，全域設定可以覆寫遠端組織預設值。
 
@@ -95,7 +95,7 @@ Codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
 
 ### 全域
 
-將全域 Codemate 設定放在 `~/.config/codemate/codemate.json` 中。使用全域設定來設定使用者層級的偏好，例如主題、供應商或快捷鍵。
+將全域 codemate 設定放在 `~/.config/codemate/codemate.json` 中。使用全域設定來設定使用者層級的偏好，例如主題、供應商或快捷鍵。
 
 全域設定覆寫遠端組織預設值。
 
@@ -109,7 +109,7 @@ Codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
 將專案特定設定放在專案的根目錄中。
 :::
 
-當 Codemate 啟動時，它會在當前目錄中尋找設定檔，或向上遍歷到最近的 Git 目錄。
+當 codemate 啟動時，它會在當前目錄中尋找設定檔，或向上遍歷到最近的 Git 目錄。
 
 該設定檔也可以安全地提交到 Git 中，並使用與全域設定相同的 Schema。
 
@@ -117,10 +117,10 @@ Codemate 支援 **JSON** 和 **JSONC**（帶註解的 JSON）格式。
 
 ### 自訂路徑
 
-使用 `CODEMATE_CONFIG` 環境變數指定自訂設定檔路徑。
+使用 `codemate_CONFIG` 環境變數指定自訂設定檔路徑。
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -130,10 +130,10 @@ codemate run "Hello world"
 
 ### 自訂目錄
 
-使用 `CODEMATE_CONFIG_DIR` 環境變數指定自訂設定目錄。該目錄會像標準 `.codemate` 目錄一樣被搜尋代理、指令、模式和外掛程式，並且應遵循相同的結構。
+使用 `codemate_CONFIG_DIR` 環境變數指定自訂設定目錄。該目錄會像標準 `.codemate` 目錄一樣被搜尋代理、指令、模式和外掛程式，並且應遵循相同的結構。
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -172,7 +172,7 @@ codemate run "Hello world"
 - `scroll_speed` - 自訂捲動速度倍率（預設值：`3`，最小值：`1`）。如果 `scroll_acceleration.enabled` 為 `true`，則忽略此選項。
 - `diff_style` - 控制差異呈現方式。`"auto"` 根據終端機寬度自適應，`"stacked"` 始終顯示單列。
 
-使用 `CODEMATE_TUI_CONFIG` 指向自訂 TUI 設定檔。
+使用 `codemate_TUI_CONFIG` 指向自訂 TUI 設定檔。
 
 `codemate.json` 中的舊版 `theme`、`keybinds` 和 `tui` 鍵已被棄用，並將在可能的情況下自動遷移。
 
@@ -201,7 +201,7 @@ codemate run "Hello world"
 
 - `port` - 監聽連接埠。
 - `hostname` - 監聽主機名稱。當 `mdns` 啟用且未設定主機名稱時，預設為 `0.0.0.0`。
-- `mdns` - 啟用 mDNS 服務探索。這允許網路上的其他裝置發現您的 Codemate 伺服器。
+- `mdns` - 啟用 mDNS 服務探索。這允許網路上的其他裝置發現您的 codemate 伺服器。
 - `mdnsDomain` - mDNS 服務的自訂網域名稱。預設為 `codemate.local`。適用於在同一網路上執行多個實例的情境。
 - `cors` - 從基於瀏覽器的用戶端使用 HTTP 伺服器時允許 CORS 的額外來源。值必須是完整的來源（通訊協定 + 主機 + 可選連接埠），例如 `https://app.example.com`。
 
@@ -229,7 +229,7 @@ codemate run "Hello world"
 
 ### 模型
 
-您可以透過 `provider`、`model` 和 `small_model` 選項在 Codemate 設定中設定要使用的供應商和模型。
+您可以透過 `provider`、`model` 和 `small_model` 選項在 codemate 設定中設定要使用的供應商和模型。
 
 ```json title="codemate.json"
 {
@@ -240,7 +240,7 @@ codemate run "Hello world"
 }
 ```
 
-`small_model` 選項為標題生成等輕量級任務設定單獨的模型。預設情況下，如果您的供應商有更便宜的模型可用，Codemate 會嘗試使用該模型，否則會回退到您的主模型。
+`small_model` 選項為標題生成等輕量級任務設定單獨的模型。預設情況下，如果您的供應商有更便宜的模型可用，codemate 會嘗試使用該模型，否則會回退到您的主模型。
 
 供應商選項可以包括 `timeout` 和 `setCacheKey`：
 
@@ -352,7 +352,7 @@ Bearer Token（`AWS_BEARER_TOKEN_BEDROCK` 或 `/connect`）優先於基於設定
 }
 ```
 
-預設代理必須是主代理（不能是子代理）。可以是內建代理（如 `"build"` 或 `"plan"`），也可以是您定義的[自訂代理](/docs/agents)。如果指定的代理不存在或是子代理，Codemate 將回退到 `"build"` 並發出警告。
+預設代理必須是主代理（不能是子代理）。可以是內建代理（如 `"build"` 或 `"plan"`），也可以是您定義的[自訂代理](/docs/agents)。如果指定的代理不存在或是子代理，codemate 將回退到 `"build"` 並發出警告。
 
 此設定適用於所有介面：TUI、CLI（`codemate run`）、桌面應用程式和 GitHub Action。
 
@@ -422,7 +422,7 @@ Bearer Token（`AWS_BEARER_TOKEN_BEDROCK` 或 `/connect`）優先於基於設定
 
 ### 自動更新
 
-Codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項停用此功能。
+codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項停用此功能。
 
 ```json title="codemate.json"
 {
@@ -464,7 +464,7 @@ Codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項
 
 ### 權限
 
-預設情況下，Codemate **允許所有操作**，無需明確批准。您可以使用 `permission` 選項變更此行為。
+預設情況下，codemate **允許所有操作**，無需明確批准。您可以使用 `permission` 選項變更此行為。
 
 例如，要讓 `edit` 和 `bash` 工具需要使用者確認：
 
@@ -537,7 +537,7 @@ Codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項
 
 ### 外掛程式
 
-[外掛程式](/docs/plugins)透過自訂工具、掛鉤和整合來擴展 Codemate。
+[外掛程式](/docs/plugins)透過自訂工具、掛鉤和整合來擴展 codemate。
 
 將外掛程式檔案放置在 `.codemate/plugins/` 或 `~/.config/codemate/plugins/` 中。您還可以透過 `plugin` 選項從 npm 載入外掛程式。
 
@@ -601,7 +601,7 @@ Codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項
 }
 ```
 
-當您希望限制 Codemate 僅使用特定供應商，而不是逐一停用其他供應商時，此選項非常有用。
+當您希望限制 codemate 僅使用特定供應商，而不是逐一停用其他供應商時，此選項非常有用。
 
 :::note
 `disabled_providers` 優先於 `enabled_providers`。
@@ -641,7 +641,7 @@ Codemate 啟動時會自動下載新版本。您可以使用 `autoupdate` 選項
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### Autenticazione
 
-Imposta `CODEMATE_SERVER_PASSWORD` per proteggere il server con HTTP basic auth. Lo username predefinito e `codemate`, oppure imposta `CODEMATE_SERVER_USERNAME` per sovrascriverlo. Questo vale sia per `codemate serve` sia per `codemate web`.
+Imposta `codemate_SERVER_PASSWORD` per proteggere il server con HTTP basic auth. Lo username predefinito e `codemate`, oppure imposta `codemate_SERVER_USERNAME` per sovrascriverlo. Questo vale sia per `codemate serve` sia per `codemate web`.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -62,7 +62,7 @@ Puoi eseguire `codemate serve` per avviare un server standalone. Se la TUI di co
 
 Quando avvii la TUI assegna casualmente porta e hostname. In alternativa puoi passare i [flag](/docs/cli) `--hostname` e `--port` e poi usare questi valori per connetterti al suo server.
 
-L'endpoint [`/tui`](#tui) puo essere usato per pilotare la TUI tramite il server. Per esempio, puoi precompilare o eseguire un prompt. Questa configurazione e usata dai plugin [IDE](/docs/ide) di Codemate.
+L'endpoint [`/tui`](#tui) puo essere usato per pilotare la TUI tramite il server. Per esempio, puoi precompilare o eseguire un prompt. Questa configurazione e usata dai plugin [IDE](/docs/ide) di codemate.
 
 ---
 

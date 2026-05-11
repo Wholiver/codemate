@@ -3,7 +3,7 @@ title: Outils
 description: Gérez les outils qu'un LLM peut utiliser.
 ---
 
-Les outils permettent au LLM d'effectuer des actions dans votre base de code. Codemate est livré avec un ensemble d'outils intégrés, mais vous pouvez l'étendre avec [outils personnalisés](/docs/custom-tools) ou [serveurs MCP](/docs/mcp-servers).
+Les outils permettent au LLM d'effectuer des actions dans votre base de code. codemate est livré avec un ensemble d'outils intégrés, mais vous pouvez l'étendre avec [outils personnalisés](/docs/custom-tools) ou [serveurs MCP](/docs/mcp-servers).
 
 Par défaut, tous les outils sont **activés** et n'ont pas besoin d'autorisation pour s'exécuter. Vous pouvez contrôler le comportement de l'outil via [permissions](/docs/permissions).
 
@@ -41,7 +41,7 @@ Vous pouvez également utiliser des caractères génériques pour contrôler plu
 
 ## Intégré
 
-Voici tous les outils intégrés disponibles dans Codemate.
+Voici tous les outils intégrés disponibles dans codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Recherchez des fichiers à l'aide de modèles globaux tels que `**/*.js` ou `src
 Interagissez avec vos serveurs LSP configurés pour obtenir des fonctionnalités d'intelligence du code telles que des définitions, des références, des informations de survol et une hiérarchie d'appels.
 
 :::note
-Cet outil n'est disponible que lorsque `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (ou `CODEMATE_EXPERIMENTAL=true`).
+Cet outil n'est disponible que lorsque `codemate_EXPERIMENTAL_LSP_TOOL=true` (ou `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -253,12 +253,12 @@ Permet au LLM de récupérer et de lire des pages Web. Utile pour rechercher de 
 Recherchez des informations sur le Web.
 
 :::note
-Cet outil n'est disponible que lors de l'utilisation du fournisseur Codemate ou lorsque la variable d'environnement `CODEMATE_ENABLE_EXA` est définie sur une valeur véridique (par exemple, `true` ou `1`).
+Cet outil n'est disponible que lors de l'utilisation du fournisseur codemate ou lorsque la variable d'environnement `codemate_ENABLE_EXA` est définie sur une valeur véridique (par exemple, `true` ou `1`).
 
-À activer lors du lancement de Codemate :
+À activer lors du lancement de codemate :
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

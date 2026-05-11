@@ -3,13 +3,13 @@ title: Modeller
 description: Konfigurere en LLM leverandør og modell.
 ---
 
-Codemate bruker [AI SDK](https://ai-sdk.dev/) og [Models.dev](https://models.dev) for å støtte **75+ LLM leverandører** og den støtter kjøring av lokale modeller.
+codemate bruker [AI SDK](https://ai-sdk.dev/) og [Models.dev](https://models.dev) for å støtte **75+ LLM leverandører** og den støtter kjøring av lokale modeller.
 
 ---
 
 ## Leverandører
 
-De fleste populære leverandørene er forhåndslastet som standard. Hvis du har lagt til legitimasjonen for en leverandør gjennom kommandoen `/connect`, vil den være tilgjengelig når du starter Codemate.
+De fleste populære leverandørene er forhåndslastet som standard. Hvis du har lagt til legitimasjonen for en leverandør gjennom kommandoen `/connect`, vil den være tilgjengelig når du starter codemate.
 
 Finn ut mer om [leverandører](/docs/providers).
 
@@ -35,7 +35,7 @@ Vurder å bruke en av modellene vi anbefaler.
 
 Imidlertid er det bare noen få av dem som er gode til både å generere kode og verktøykalling.
 
-Her er flere modeller som fungerer godt med Codemate, uten spesiell rekkefølge. (Dette er ikke en uttømmende liste og er heller ikke nødvendigvis oppdatert):
+Her er flere modeller som fungerer godt med codemate, uten spesiell rekkefølge. (Dette er ikke en uttømmende liste og er heller ikke nødvendigvis oppdatert):
 
 - GPT 5.2
 - GPT 5.1 Codex
@@ -49,7 +49,7 @@ Her er flere modeller som fungerer godt med Codemate, uten spesiell rekkefølge.
 ## Angi en standard
 
 For å angi en av disse som standardmodell, kan du angi `model`-tasten i din
-Codemate-konfigurasjon.
+codemate-konfigurasjon.
 
 ```json title="codemate.json" {3}
 {
@@ -58,7 +58,7 @@ Codemate-konfigurasjon.
 }
 ```
 
-Her er hele ID `provider_id/model_id`. For eksempel, hvis du bruker [Codemate Zen](/docs/zen), vil du bruke `codemate/gpt-5.1-codex` for GPT 5.1 Codex.
+Her er hele ID `provider_id/model_id`. For eksempel, hvis du bruker [codemate Zen](/docs/zen), vil du bruke `codemate/gpt-5.1-codex` for GPT 5.1 Codex.
 
 Hvis du har konfigurert en [egendefinert leverandør](/docs/providers#custom), er `provider_id` nøkkelen fra `provider`-delen av konfigurasjonen din, og `model_id` er nøkkelen fra `provider.models`.
 
@@ -141,7 +141,7 @@ Mange modeller støtter flere varianter med forskjellige konfigurasjoner. codema
 
 ### Innebygde varianter
 
-Codemate leveres med standardvarianter for mange leverandører:
+codemate leveres med standardvarianter for mange leverandører:
 
 **Anthropic**:
 
@@ -203,11 +203,11 @@ Bruk tastebindingen `variant_cycle` for raskt å bytte mellom varianter. [Finn u
 
 ## Lasting av modeller
 
-Når Codemate starter opp, ser den etter modeller i følgende prioriterte rekkefølge:
+Når codemate starter opp, ser den etter modeller i følgende prioriterte rekkefølge:
 
 1. Kommandolinjeflagget `--model` eller `-m`. Formatet er det samme som i konfigurasjonsfilen: `provider_id/model_id`.
 
-2. Modelllisten i Codemate-konfigurasjonen.
+2. Modelllisten i codemate-konfigurasjonen.
 
    ```json title="codemate.json"
    {

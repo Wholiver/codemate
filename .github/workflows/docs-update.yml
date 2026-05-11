@@ -45,7 +45,7 @@ jobs:
         if: steps.commits.outputs.has_commits == 'true'
         uses: sst/codemate/github@latest
         env:
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
         with:
           model: codemate/gpt-5.2
           agent: docs

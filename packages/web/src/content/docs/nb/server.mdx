@@ -1,12 +1,12 @@
 ---
 title: Tjener
-description: Samhandle med Codemate-tjener over HTTP.
+description: Samhandle med codemate-tjener over HTTP.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Kommandoen `codemate serve` kjører en hodeløs HTTP-server som eksponerer et OpenAPI-endepunkt som en Codemate-klient kan bruke.
+Kommandoen `codemate serve` kjører en hodeløs HTTP-server som eksponerer et OpenAPI-endepunkt som en codemate-klient kan bruke.
 
 ---
 
@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### Autentisering
 
-Sett `CODEMATE_SERVER_PASSWORD` for å beskytte serveren med HTTP grunnleggende autentisering. Brukernavnet er satt til `codemate` som standard, eller sett `CODEMATE_SERVER_USERNAME` for å overstyre det. Dette gjelder både `codemate serve` og `codemate web`.
+Sett `codemate_SERVER_PASSWORD` for å beskytte serveren med HTTP grunnleggende autentisering. Brukernavnet er satt til `codemate` som standard, eller sett `codemate_SERVER_USERNAME` for å overstyre det. Dette gjelder både `codemate serve` og `codemate web`.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -51,13 +51,13 @@ klient som snakker med serveren. Serveren viser en OpenAPI 3.1-spesifikasjon
 endepunkt. Dette endepunktet brukes også til å generere en [SDK](/docs/sdk).
 
 :::tip
-Bruk Codemate-serveren til å samhandle med Codemate programmatisk.
+Bruk codemate-serveren til å samhandle med codemate programmatisk.
 :::
 
-Denne arkitekturen lar Codemate støtte flere klienter og lar deg samhandle med Codemate programmatisk.
+Denne arkitekturen lar codemate støtte flere klienter og lar deg samhandle med codemate programmatisk.
 
 Du kan kjøre `codemate serve` for å starte en frittstående server. Hvis du har
-Codemate TUI kjører, vil `codemate serve` starte en ny server.
+codemate TUI kjører, vil `codemate serve` starte en ny server.
 
 ---
 
@@ -65,7 +65,7 @@ Codemate TUI kjører, vil `codemate serve` starte en ny server.
 
 Når du starter TUI, tildeler den tilfeldig en port og vertsnavn. Du kan i stedet sende inn `--hostname` og `--port` [flagg](/docs/cli). Bruk deretter denne til å koble til serveren.
 
-[`/tui`](#tui) endepunktet kan brukes til å kjøre TUI gjennom serveren. Du kan for eksempel forhåndsutfylle eller kjøre en forespørsel. Dette oppsettet brukes av Codemate [IDE](/docs/ide) plugins.
+[`/tui`](#tui) endepunktet kan brukes til å kjøre TUI gjennom serveren. Du kan for eksempel forhåndsutfylle eller kjøre en forespørsel. Dette oppsettet brukes av codemate [IDE](/docs/ide) plugins.
 
 ---
 

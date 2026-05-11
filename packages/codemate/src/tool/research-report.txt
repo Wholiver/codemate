@@ -1,3 +1,0 @@
-Generate a markdown report from deep-research JSON results.
-
-This tool reads the saved outline, field definitions, and result JSON files, validates field coverage, skips uncertain values, and writes `report.md` back into the research workspace.

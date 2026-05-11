@@ -1,12 +1,12 @@
-export const CODEMATE_RUN_ID = "CODEMATE_RUN_ID"
-export const CODEMATE_PROCESS_ROLE = "CODEMATE_PROCESS_ROLE"
+export const codemate_RUN_ID = "codemate_RUN_ID"
+export const codemate_PROCESS_ROLE = "codemate_PROCESS_ROLE"
 
 export function ensureRunID() {
-  return (process.env[CODEMATE_RUN_ID] ??= crypto.randomUUID())
+  return (process.env[codemate_RUN_ID] ??= crypto.randomUUID())
 }
 
 export function ensureProcessRole(fallback: "main" | "worker") {
-  return (process.env[CODEMATE_PROCESS_ROLE] ??= fallback)
+  return (process.env[codemate_PROCESS_ROLE] ??= fallback)
 }
 
 export function ensureProcessMetadata(fallback: "main" | "worker") {

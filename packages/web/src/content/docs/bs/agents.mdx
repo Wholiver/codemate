@@ -15,7 +15,7 @@ Možete se prebacivati ​​između agenata tokom sesije ili ih pozvati spominj
 
 ## Vrste
 
-Postoje dvije vrste agenata u Codemate: primarni agenti i podagenti.
+Postoje dvije vrste agenata u codemate: primarni agenti i podagenti.
 
 ---
 
@@ -27,7 +27,7 @@ Primarni agenti su glavni pomoćnici s kojima direktno komunicirate. Možete se 
 Možete koristiti tipku **Tab** za prebacivanje između primarnih agenata tokom sesije.
 :::
 
-Codemate dolazi sa dva ugrađena primarna agenta, **Build** i **Plan**. Pogledat ćemo ih u nastavku.
+codemate dolazi sa dva ugrađena primarna agenta, **Build** i **Plan**. Pogledat ćemo ih u nastavku.
 
 ---
 
@@ -35,13 +35,13 @@ Codemate dolazi sa dva ugrađena primarna agenta, **Build** i **Plan**. Pogledat
 
 Subagenti su specijalizovani pomoćnici koje primarni agenti mogu pozvati za određene zadatke. Možete ih i ručno pozvati **@ spominjanjem** u svojim porukama.
 
-Codemate dolazi sa dva ugrađena subagenta, **General** i **Explore**. Ovo ćemo pogledati u nastavku.
+codemate dolazi sa tri ugrađena subagenta, **General**, **Explore** i **Scout**. Ovo ćemo pogledati u nastavku.
 
 ---
 
 ## Ugrađeni
 
-Codemate dolazi sa dva ugrađena primarna agenta i dva ugrađena subagenta.
+codemate dolazi sa dva ugrađena primarna agenta i tri ugrađena subagenta.
 
 ---
 
@@ -80,6 +80,14 @@ Agent opće namjene za istraživanje složenih pitanja i izvršavanje zadataka u
 _Režim_: `subagent`
 
 Brzi agent samo za čitanje za istraživanje kodnih baza. Nije moguće mijenjati fajlove. Koristite ovo kada trebate brzo pronaći datoteke po uzorku, pretražiti kod za ključne riječi ili odgovoriti na pitanja o bazi kodova.
+
+---
+
+### Scout agent
+
+_Režim_: `subagent`
+
+Agent samo za čitanje za istraživanje eksterne dokumentacije i zavisnosti. Koristite ga kada trebate klonirati repozitorij zavisnosti u codemate-ov upravljani cache, pregledati izvorni kod biblioteke ili uporediti lokalni kod sa upstream implementacijama bez mijenjanja vašeg radnog prostora.
 
 ---
 
@@ -276,7 +284,7 @@ Vrijednosti temperature se obično kreću od 0.0 do 1.0:
 }
 ```
 
-Ako temperatura nije navedena, Codemate koristi standardne postavke specifične za model; obično 0 za većinu modela, 0.55 za Qwen modele.
+Ako temperatura nije navedena, codemate koristi standardne postavke specifične za model; obično 0 za većinu modela, 0.55 za Qwen modele.
 
 ---
 
@@ -336,7 +344,7 @@ Navedite prilagođenu sistemsku prompt datoteku za ovog agenta sa `prompt` konfi
 }
 ```
 
-Ova putanja je relativna u odnosu na mjesto gdje se nalazi konfiguracijski fajl. Dakle, ovo radi i za globalnu Codemate konfiguraciju i za konfiguraciju specifične za projekat.
+Ova putanja je relativna u odnosu na mjesto gdje se nalazi konfiguracijski fajl. Dakle, ovo radi i za globalnu codemate konfiguraciju i za konfiguraciju specifične za projekat.
 
 ---
 
@@ -358,7 +366,7 @@ Ako ne navedete model, primarni agenti koriste [model globalno konfiguriran](/do
 }
 ```
 
-ID modela u vašoj Codemate konfiguraciji koristi format `provider/model-id`. Na primjer, ako koristite [Codemate Zen](/docs/zen), koristili biste `codemate/gpt-5.1-codex` za GPT 5.1 Codex.
+ID modela u vašoj codemate konfiguraciji koristi format `provider/model-id`. Na primjer, ako koristite [codemate Zen](/docs/zen), koristili biste `codemate/gpt-5.1-codex` za GPT 5.1 Codex.
 
 ---
 

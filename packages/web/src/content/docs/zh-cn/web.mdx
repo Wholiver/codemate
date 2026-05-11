@@ -1,11 +1,11 @@
 ---
 title: Web
-description: 在浏览器中使用 Codemate。
+description: 在浏览器中使用 codemate。
 ---
 
-Codemate 可以作为 Web 应用在浏览器中运行，无需终端即可获得同样强大的 AI 编码体验。
+codemate 可以作为 Web 应用在浏览器中运行，无需终端即可获得同样强大的 AI 编码体验。
 
-![Codemate Web - New Session](../../../assets/web/web-homepage-new-session.png)
+![codemate Web - New Session](../../../assets/web/web-homepage-new-session.png)
 
 ## 快速开始
 
@@ -15,10 +15,10 @@ Codemate 可以作为 Web 应用在浏览器中运行，无需终端即可获得
 codemate web
 ```
 
-这会在 `127.0.0.1` 上启动一个本地服务器，使用随机可用端口，并自动在默认浏览器中打开 Codemate。
+这会在 `127.0.0.1` 上启动一个本地服务器，使用随机可用端口，并自动在默认浏览器中打开 codemate。
 
 :::caution
-如果未设置 `CODEMATE_SERVER_PASSWORD`，服务器将没有安全保护。本地使用没有问题，但在网络访问时应当设置密码。
+如果未设置 `codemate_SERVER_PASSWORD`，服务器将没有安全保护。本地使用没有问题，但在网络访问时应当设置密码。
 :::
 
 :::tip[Windows 用户]
@@ -33,7 +33,7 @@ codemate web
 
 ### 端口
 
-默认情况下，Codemate 会选择一个可用端口。你也可以指定端口：
+默认情况下，codemate 会选择一个可用端口。你也可以指定端口：
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### 主机名
 
-默认情况下，服务器绑定到 `127.0.0.1`（仅限本地访问）。要使 Codemate 在网络中可访问：
+默认情况下，服务器绑定到 `127.0.0.1`（仅限本地访问）。要使 codemate 在网络中可访问：
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-使用 `0.0.0.0` 时，Codemate 会同时显示本地地址和网络地址：
+使用 `0.0.0.0` 时，codemate 会同时显示本地地址和网络地址：
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### 身份验证
 
-要保护服务器访问，可以通过 `CODEMATE_SERVER_PASSWORD` 环境变量设置密码：
+要保护服务器访问，可以通过 `codemate_SERVER_PASSWORD` 环境变量设置密码：
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-用户名默认为 `codemate`，可以通过 `CODEMATE_SERVER_USERNAME` 进行更改。
+用户名默认为 `codemate`，可以通过 `codemate_SERVER_USERNAME` 进行更改。
 
 ---
 
 ## 使用 Web 界面
 
-启动后，Web 界面提供对 Codemate 会话的访问。
+启动后，Web 界面提供对 codemate 会话的访问。
 
 ### 会话
 
 在主页上查看和管理你的会话。你可以查看活跃的会话，也可以创建新的会话。
 
-![Codemate Web - Active Session](../../../assets/web/web-homepage-active-session.png)
+![codemate Web - Active Session](../../../assets/web/web-homepage-active-session.png)
 
 ### 服务器状态
 
 点击"See Servers"可以查看已连接的服务器及其状态。
 
-![Codemate Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web - See Servers](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

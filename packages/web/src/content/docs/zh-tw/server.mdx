@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### 認證
 
-設定 `CODEMATE_SERVER_PASSWORD` 以使用 HTTP 基本認證保護伺服器。使用者名稱預設為 `codemate`，也可以設定 `CODEMATE_SERVER_USERNAME` 來覆蓋它。這適用於 `codemate serve` 和 `codemate web`。
+設定 `codemate_SERVER_PASSWORD` 以使用 HTTP 基本認證保護伺服器。使用者名稱預設為 `codemate`，也可以設定 `codemate_SERVER_USERNAME` 來覆蓋它。這適用於 `codemate serve` 和 `codemate web`。
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -62,7 +62,7 @@ CODEMATE_SERVER_PASSWORD=your-password codemate serve
 
 當你啟動 TUI 時，它會隨機分配連接埠和主機名稱。你也可以傳入 `--hostname` 和 `--port` [旗標](/docs/cli)，然後用它來連接對應的伺服器。
 
-[`/tui`](#tui) 端點可用於透過伺服器驅動 TUI。例如，你可以預填充或執行一個提示詞。此方式被 Codemate [IDE](/docs/ide) 外掛所使用。
+[`/tui`](#tui) 端點可用於透過伺服器驅動 TUI。例如，你可以預填充或執行一個提示詞。此方式被 codemate [IDE](/docs/ide) 外掛所使用。
 
 ---
 

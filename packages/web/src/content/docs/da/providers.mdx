@@ -1,17 +1,17 @@
 ---
 title: Udbydere
-description: Brug en hvilken som helst LLM-udbyder i Codemate.
+description: Brug en hvilken som helst LLM-udbyder i codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 
-Codemate bruger [AI SDK](https://ai-sdk.dev/) og [Models.dev](https://models.dev) til at understøtte **75+ LLM-udbydere** og understøtter kørsel af lokale modeller.
+codemate bruger [AI SDK](https://ai-sdk.dev/) og [Models.dev](https://models.dev) til at understøtte **75+ LLM-udbydere** og understøtter kørsel af lokale modeller.
 
 For at tilføje en udbyder skal du:
 
 1. Tilføje API-nøglerne for udbyderen ved at bruge kommandoen `/connect`.
-2. Konfigurere udbyderen i Codemate-konfigurationen.
+2. Konfigurere udbyderen i codemate-konfigurationen.
 
 ---
 
@@ -23,7 +23,7 @@ Når du tilføjer en udbyders API-nøgler med `/connect`-kommandoen, gemmes de i
 
 ### Konfiguration
 
-Du kan tilpasse udbyderne gennem `provider`-delen i Codemate-konfigurationen.
+Du kan tilpasse udbyderne gennem `provider`-delen i codemate-konfigurationen.
 
 ---
 
@@ -46,12 +46,12 @@ Du kan tilpasse base URL for enhver udbyder ved at angive muligheden `baseURL`. 
 
 ---
 
-## Codemate Zen
+## codemate Zen
 
-Codemate Zen er en liste over modeller leveret af Codemate-teamet, som er blevet testet og verificeret til at fungere godt med Codemate. [Læs mere](/docs/zen).
+codemate Zen er en liste over modeller leveret af codemate-teamet, som er blevet testet og verificeret til at fungere godt med codemate. [Læs mere](/docs/zen).
 
 :::tip
-Hvis du er ny, anbefaler vi at starte med Codemate Zen.
+Hvis du er ny, anbefaler vi at starte med codemate Zen.
 :::
 
 1. Kør kommandoen `/connect` i TUI, vælg codemate og gå til [codemate.ai/auth](https://codemate.ai/auth).
@@ -77,15 +77,15 @@ Hvis du er ny, anbefaler vi at starte med Codemate Zen.
    /models
    ```
 
-Det fungerer som alle andre udbydere i Codemate og er helt valgfrit at bruge.
+Det fungerer som alle andre udbydere i codemate og er helt valgfrit at bruge.
 
 ---
 
-## Codemate Go
+## codemate Go
 
-Codemate Go er en billig abonnementsplan, der giver pålidelig adgang til populære åbne kodningsmodeller leveret af Codemate-teamet, som er testet og verificeret til at fungere godt med Codemate.
+codemate Go er en billig abonnementsplan, der giver pålidelig adgang til populære åbne kodningsmodeller leveret af codemate-teamet, som er testet og verificeret til at fungere godt med codemate.
 
-1. Kør kommandoen `/connect` i TUI, vælg `Codemate Go`, og gå til [codemate.ai/auth](https://codemate.ai/zen).
+1. Kør kommandoen `/connect` i TUI, vælg `codemate Go`, og gå til [codemate.ai/auth](https://codemate.ai/zen).
 
    ```txt
    /connect
@@ -108,7 +108,7 @@ Codemate Go er en billig abonnementsplan, der giver pålidelig adgang til popul�
    /models
    ```
 
-Det fungerer som alle andre udbydere i Codemate og er helt valgfrit at bruge.
+Det fungerer som alle andre udbydere i codemate og er helt valgfrit at bruge.
 
 ---
 
@@ -151,7 +151,7 @@ Ser du ikke en udbyder her? Indsend en PR.
 
 ### Amazon Bedrock
 
-Sådan bruger du Amazon Bedrock med Codemate:
+Sådan bruger du Amazon Bedrock med codemate:
 
 1. Gå til **modelkataloget** i Amazon Bedrock-konsollen og anmod om adgang til de modeller, du ønsker.
 
@@ -304,7 +304,7 @@ For brugerdefinerede inferensprofiler, brug modellen og udbydernavnet i nøglen 
    ```
 
 :::info
-At bruge dit Claude Pro/Max-abonnement i Codemate understøttes ikke officielt af [Anthropic](https://anthropic.com).
+At bruge dit Claude Pro/Max-abonnement i codemate understøttes ikke officielt af [Anthropic](https://anthropic.com).
 :::
 
 ##### Brug API-nøgler
@@ -644,17 +644,17 @@ Cloudflare AI Gateway lader dig få adgang til modeller fra OpenAI, Anthropic, W
 
 ---
 
-### Firmware
+### FrogBot
 
-1. Gå til [Firmware dashboard](https://app.firmware.ai/signup), opret en konto og generer en API-nøgle.
+1. Gå til [FrogBot dashboard](https://app.frogbot.ai/signup), opret en konto og generer en API-nøgle.
 
-2. Kør kommandoen `/connect` og søg efter **Firmware**.
+2. Kør kommandoen `/connect` og søg efter **FrogBot**.
 
    ```txt
    /connect
    ```
 
-3. Indtast firmware API-nøglen.
+3. Indtast frogbot API-nøglen.
 
    ```txt
    ┌ API key
@@ -725,7 +725,7 @@ GitLab Duo giver AI-drevet agentchat med native værktøjskaldsfunktioner gennem
    #### Brug personlig adgangstoken
    1. Gå til [GitLab User Settings > Access Tokens](https://gitlab.com/-/user_settings/personal_access_tokens)
    2. Klik på **Add new token**
-   3. Navn: `Codemate`, omfang: `api`
+   3. Navn: `codemate`, omfang: `api`
    4. Kopier tokenet (starter med `glpat-`)
    5. Indtast den i terminalen
 
@@ -748,8 +748,8 @@ gemme tokenet i codemate auth-lagring.
 ##### Selvhostet GitLab
 
 :::note[overholdelsesbemærkning]
-Codemate bruger en lille model til nogle AI-opgaver som at generere sessionstitlen.
-Den er konfigureret til at bruge gpt-5-nano som standard, hostet af Zen. For at låse Codemate
+codemate bruger en lille model til nogle AI-opgaver som at generere sessionstitlen.
+Den er konfigureret til at bruge gpt-5-nano som standard, hostet af Zen. For at låse codemate
 til kun at bruge din egen GitLab-hostede instans, tilføj følgende i din
 `codemate.json` fil. Det anbefales også at deaktivere sessionsdeling.
 
@@ -845,7 +845,7 @@ Denne plugin giver omfattende GitLab-repository-administrationsfunktioner, inklu
 
 ### GitHub Copilot
 
-Sådan bruger du GitHub Copilot-abonnementet med Codemate:
+Sådan bruger du GitHub Copilot-abonnementet med codemate:
 
 :::note
 Nogle modeller kan kræve et [Pro+
@@ -882,7 +882,7 @@ Nogle modeller skal aktiveres manuelt i [GitHub Copilot-indstillingerne](https:/
 
 ### Google Vertex AI
 
-Sådan bruger du Google Vertex AI med Codemate:
+Sådan bruger du Google Vertex AI med codemate:
 
 1. Gå til **Model Garden** i Google Cloud Console og tjek
    modeller tilgængelig i din region.
@@ -1064,7 +1064,7 @@ Helicone understøtter tilpassede headers for funktioner som caching, brugerspor
 
 ##### Sessionssporing
 
-Helicones [Sessions](https://docs.helicone.ai/features/sessions) funktion lader dig gruppe relaterede LLM anmodninger sammen. Brug [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) plugin for automatisk at logge hver Codemate-samtale som en session i Helicone.
+Helicones [Sessions](https://docs.helicone.ai/features/sessions) funktion lader dig gruppe relaterede LLM anmodninger sammen. Brug [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) plugin for automatisk at logge hver codemate-samtale som en session i Helicone.
 
 ```bash
 npm install -g codemate-helicone-session
@@ -1078,7 +1078,7 @@ Tilføj den til din konfiguration.
 }
 ```
 
-Programmatisk injicerer `Helicone-Session-Id` og `Helicone-Session-Name` headers i dine anmodninger. På Helicones Sessions-side vil du se hver Codemate-samtale opført som en separat session.
+Programmatisk injicerer `Helicone-Session-Id` og `Helicone-Session-Name` headers i dine anmodninger. På Helicones Sessions-side vil du se hver codemate-samtale opført som en separat session.
 
 ##### Almindelige Helicone-headers
 
@@ -1282,7 +1282,7 @@ Sådan bruger du Kimi K2 fra Moonshot AI:
 Du kan konfigurere codemate til at bruge lokale modeller gennem Ollama.
 
 :::tip
-Ollama kan automatisk konfigurere sig selv for Codemate. Se [Ollama-integrationsdokumenterne](https://docs.ollama.com/integrations/codemate) for detaljer.
+Ollama kan automatisk konfigurere sig selv for codemate. Se [Ollama-integrationsdokumenterne](https://docs.ollama.com/integrations/codemate) for detaljer.
 :::
 
 ```json title="codemate.json" "ollama" {5, 6, 8, 10-14}
@@ -1321,13 +1321,13 @@ Hvis værktøjskald ikke fungerer, prøv at øge `num_ctx` i Ollama. Start omkri
 
 ### Ollama Cloud
 
-Sådan bruger du Ollama Cloud med Codemate:
+Sådan bruger du Ollama Cloud med codemate:
 
 1. Gå til [https://ollama.com/](https://ollama.com/) og log på eller opret en konto.
 
 2. Naviger til **Settings** > **Keys** og klik på **Add API Key** for at generere en ny API-nøgle.
 
-3. Kopier API-nøglen til brug i Codemate.
+3. Kopier API-nøglen til brug i codemate.
 
 4. Kør kommandoen `/connect` og søg efter **Ollama Cloud**.
 
@@ -1344,7 +1344,7 @@ Sådan bruger du Ollama Cloud med Codemate:
    └ enter
    ```
 
-6. **Vigtigt**: Før du bruger skymodeller i Codemate, skal du hente modelinformationen lokalt:
+6. **Vigtigt**: Før du bruger skymodeller i codemate, skal du hente modelinformationen lokalt:
 
    ```bash
    ollama pull gpt-oss:20b-cloud
@@ -1391,19 +1391,19 @@ Hvis du allerede har en API-nøgle, kan du vælge **Manually enter API Key** og 
 
 ---
 
-### Codemate Zen
+### codemate Zen
 
-Codemate Zen er en liste over testede og verificerede modeller leveret af Codemate-teamet. [Læs mere](/docs/zen).
+codemate Zen er en liste over testede og verificerede modeller leveret af codemate-teamet. [Læs mere](/docs/zen).
 
-1. Log på **<a href={console}>Codemate Zen</a>** og klik på **Create API Key**.
+1. Log på **<a href={console}>codemate Zen</a>** og klik på **Create API Key**.
 
-2. Kør kommandoen `/connect` og søg efter **Codemate Zen**.
+2. Kør kommandoen `/connect` og søg efter **codemate Zen**.
 
    ```txt
    /connect
    ```
 
-3. Indtast Codemate API-nøglen.
+3. Indtast codemate API-nøglen.
 
    ```txt
    ┌ API key
@@ -1601,7 +1601,7 @@ STACKIT AI Model Serving leverer fuldt administreret suverænt hostingmiljø til
 
 ### Scaleway
 
-Sådan bruger du [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) med Codemate:
+Sådan bruger du [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) med codemate:
 
 1. Gå til [Scaleway Console IAM indstillinger](https://console.scaleway.com/iam/api-keys) for at generere en ny API-nøgle.
 
@@ -1962,7 +1962,7 @@ Konfigurationsdetaljer:
 - **limit.context**: Maksimalt input-tokens som modellen accepterer.
 - **limit.output**: Maksimalt antal tokens modellen kan generere.
 
-`limit`-felterne lader Codemate forstå hvor meget kontekst du har tilbage. Standardudbydere henter disse automatisk fra models.dev.
+`limit`-felterne lader codemate forstå hvor meget kontekst du har tilbage. Standardudbydere henter disse automatisk fra models.dev.
 
 ---
 

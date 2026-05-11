@@ -21,7 +21,7 @@ codemate run "Explain how closures work in JavaScript"
 
 ### tui
 
-Codemate 터미널 사용자 인터페이스를 시작합니다.
+codemate 터미널 사용자 인터페이스를 시작합니다.
 
 ```bash
 codemate [project]
@@ -29,16 +29,16 @@ codemate [project]
 
 #### 플래그
 
-| 플래그       | 축약 | 설명                                                                   |
-| ------------ | ---- | ---------------------------------------------------------------------- |
-| `--continue` | `-c` | 마지막 세션 이어서 실행                                                |
-| `--session`  | `-s` | 이어서 실행할 세션 ID                                                  |
-| `--fork`     |      | 세션을 이어갈 때 포크 생성 (`--continue` 또는 `--session`과 함께 사용) |
-| `--prompt`   |      | 사용할 프롬프트                                                        |
-| `--model`    | `-m` | 사용할 모델 (`provider/model` 형식)                                    |
-| `--agent`    |      | 사용할 에이전트                                                        |
-| `--port`     |      | 수신 포트                                                              |
-| `--hostname` |      | 수신 호스트명                                                          |
+| 플래그                                   | 축약 | 설명                                                                   |
+| ---------------------------------------- | ---- | ---------------------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 마지막 세션 이어서 실행                                                |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 이어서 실행할 세션 ID                                                  |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 세션을 이어갈 때 포크 생성 (`--continue` 또는 `--session`과 함께 사용) |
+| <nobr><code>{"--prompt"}</code></nobr>   |      | 사용할 프롬프트                                                        |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | 사용할 모델 (`provider/model` 형식)                                    |
+| <nobr><code>{"--agent"}</code></nobr>    |      | 사용할 에이전트                                                        |
+| <nobr><code>{"--port"}</code></nobr>     |      | 수신 포트                                                              |
+| <nobr><code>{"--hostname"}</code></nobr> |      | 수신 호스트명                                                          |
 
 ---
 
@@ -78,10 +78,14 @@ codemate attach http://10.20.30.40:4096
 
 #### 플래그
 
-| 플래그      | 축약 | 설명                       |
-| ----------- | ---- | -------------------------- |
-| `--dir`     |      | TUI를 시작할 작업 디렉터리 |
-| `--session` | `-s` | 이어서 실행할 세션 ID      |
+| 플래그                                   | 축약 | 설명                                                                       |
+| ---------------------------------------- | ---- | -------------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |      | TUI를 시작할 작업 디렉터리                                                 |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 마지막 세션 이어서 실행                                                    |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 이어서 실행할 세션 ID                                                      |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 이어서 실행할 때 세션 포크 (`--continue` 또는 `--session`과 함께 사용)     |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 기본 인증 비밀번호 (기본값: `codemate_SERVER_PASSWORD`)                    |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 기본 인증 사용자 이름 (기본값: `codemate_SERVER_USERNAME` 또는 `codemate`) |
 
 ---
 
@@ -119,13 +123,13 @@ codemate auth [command]
 
 #### login
 
-Codemate는 [Models.dev](https://models.dev)의 provider 목록을 기반으로 동작하므로, `codemate auth login`으로 원하는 provider의 API 키를 설정할 수 있습니다. 인증 정보는 `~/.local/share/codemate/auth.json`에 저장됩니다.
+codemate는 [Models.dev](https://models.dev)의 provider 목록을 기반으로 동작하므로, `codemate auth login`으로 원하는 provider의 API 키를 설정할 수 있습니다. 인증 정보는 `~/.local/share/codemate/auth.json`에 저장됩니다.
 
 ```bash
 codemate auth login
 ```
 
-Codemate 시작 시 인증 파일에서 provider 정보를 불러오며, 시스템 환경 변수나 프로젝트의 `.env`에 정의된 키도 함께 로드합니다.
+codemate 시작 시 인증 파일에서 provider 정보를 불러오며, 시스템 환경 변수나 프로젝트의 `.env`에 정의된 키도 함께 로드합니다.
 
 ---
 
@@ -187,10 +191,10 @@ codemate github run
 
 ##### 플래그
 
-| 플래그    | 설명                      |
-| --------- | ------------------------- |
-| `--event` | 실행할 GitHub 모의 이벤트 |
-| `--token` | GitHub 개인 액세스 토큰   |
+| 플래그                                | 설명                      |
+| ------------------------------------- | ------------------------- |
+| <nobr><code>{"--event"}</code></nobr> | 실행할 GitHub 모의 이벤트 |
+| <nobr><code>{"--token"}</code></nobr> | GitHub 개인 액세스 토큰   |
 
 ---
 
@@ -296,12 +300,12 @@ codemate models anthropic
 
 #### 플래그
 
-| 플래그      | 설명                                              |
-| ----------- | ------------------------------------------------- |
-| `--refresh` | models.dev에서 모델 캐시 새로고침                 |
-| `--verbose` | 더 자세한 모델 출력 사용(비용 등 메타데이터 포함) |
+| 플래그                                  | 설명                                              |
+| --------------------------------------- | ------------------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | models.dev에서 모델 캐시 새로고침                 |
+| <nobr><code>{"--verbose"}</code></nobr> | 더 자세한 모델 출력 사용(비용 등 메타데이터 포함) |
 
-`--refresh` 플래그를 사용하면 캐시된 모델 목록을 갱신할 수 있습니다. provider에 새 모델이 추가된 뒤 Codemate에서 바로 확인하고 싶을 때 유용합니다.
+`--refresh` 플래그를 사용하면 캐시된 모델 목록을 갱신할 수 있습니다. provider에 새 모델이 추가된 뒤 codemate에서 바로 확인하고 싶을 때 유용합니다.
 
 ```bash
 codemate models --refresh
@@ -335,47 +339,52 @@ codemate run --attach http://localhost:4096 "Explain async/await in JavaScript"
 
 #### 플래그
 
-| 플래그       | 축약 | 설명                                                                   |
-| ------------ | ---- | ---------------------------------------------------------------------- |
-| `--command`  |      | 실행할 명령(인수는 message로 전달)                                     |
-| `--continue` | `-c` | 마지막 세션 이어서 실행                                                |
-| `--session`  | `-s` | 이어서 실행할 세션 ID                                                  |
-| `--fork`     |      | 세션을 이어갈 때 포크 생성 (`--continue` 또는 `--session`과 함께 사용) |
-| `--share`    |      | 세션 공유                                                              |
-| `--model`    | `-m` | 사용할 모델 (`provider/model` 형식)                                    |
-| `--agent`    |      | 사용할 에이전트                                                        |
-| `--file`     | `-f` | 메시지에 첨부할 파일                                                   |
-| `--format`   |      | 출력 형식: default(포맷됨) 또는 json(원시 JSON 이벤트)                 |
-| `--title`    |      | 세션 제목(값이 없으면 프롬프트를 잘라 자동 생성)                       |
-| `--attach`   |      | 실행 중인 codemate 서버에 연결(예: http://localhost:4096)              |
-| `--port`     |      | 로컬 서버 포트(기본값: 랜덤 포트)                                      |
+| 플래그                                   | 축약 | 설명                                                                       |
+| ---------------------------------------- | ---- | -------------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |      | 실행할 명령(인수는 message로 전달)                                         |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | 마지막 세션 이어서 실행                                                    |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | 이어서 실행할 세션 ID                                                      |
+| <nobr><code>{"--fork"}</code></nobr>     |      | 세션을 이어갈 때 포크 생성 (`--continue` 또는 `--session`과 함께 사용)     |
+| <nobr><code>{"--share"}</code></nobr>    |      | 세션 공유                                                                  |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | 사용할 모델 (`provider/model` 형식)                                        |
+| <nobr><code>{"--agent"}</code></nobr>    |      | 사용할 에이전트                                                            |
+| <nobr><code>{"--file"}</code></nobr>     | `-f` | 메시지에 첨부할 파일                                                       |
+| <nobr><code>{"--format"}</code></nobr>   |      | 출력 형식: default(포맷됨) 또는 json(원시 JSON 이벤트)                     |
+| <nobr><code>{"--title"}</code></nobr>    |      | 세션 제목(값이 없으면 프롬프트를 잘라 자동 생성)                           |
+| <nobr><code>{"--attach"}</code></nobr>   |      | 실행 중인 codemate 서버에 연결(예: http://localhost:4096)                  |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | 기본 인증 비밀번호 (기본값: `codemate_SERVER_PASSWORD`)                    |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | 기본 인증 사용자 이름 (기본값: `codemate_SERVER_USERNAME` 또는 `codemate`) |
+| <nobr><code>{"--dir"}</code></nobr>      |      | 실행할 디렉터리, 또는 연결 시 원격 서버 경로                               |
+| <nobr><code>{"--variant"}</code></nobr>  |      | 모델 변형 (제공자별 추론 수준)                                             |
+| <nobr><code>{"--thinking"}</code></nobr> |      | 사고 블록 표시                                                             |
+| <nobr><code>{"--port"}</code></nobr>     |      | 로컬 서버 포트(기본값: 랜덤 포트)                                          |
 
 ---
 
 ### serve
 
-API 접근용 headless Codemate 서버를 시작합니다. 전체 HTTP 인터페이스는 [server docs](/docs/server)를 참고하세요.
+API 접근용 headless codemate 서버를 시작합니다. 전체 HTTP 인터페이스는 [server docs](/docs/server)를 참고하세요.
 
 ```bash
 codemate serve
 ```
 
-이 명령은 TUI 없이 codemate 기능에 접근할 수 있는 HTTP 서버를 시작합니다. `CODEMATE_SERVER_PASSWORD`를 설정하면 HTTP basic auth가 활성화됩니다(기본 사용자명: `codemate`).
+이 명령은 TUI 없이 codemate 기능에 접근할 수 있는 HTTP 서버를 시작합니다. `codemate_SERVER_PASSWORD`를 설정하면 HTTP basic auth가 활성화됩니다(기본 사용자명: `codemate`).
 
 #### 플래그
 
-| 플래그       | 설명                              |
-| ------------ | --------------------------------- |
-| `--port`     | 수신 포트                         |
-| `--hostname` | 수신 호스트명                     |
-| `--mdns`     | mDNS 검색 활성화                  |
-| `--cors`     | 허용할 추가 브라우저 origin(CORS) |
+| 플래그                                   | 설명                              |
+| ---------------------------------------- | --------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | 수신 포트                         |
+| <nobr><code>{"--hostname"}</code></nobr> | 수신 호스트명                     |
+| <nobr><code>{"--mdns"}</code></nobr>     | mDNS 검색 활성화                  |
+| <nobr><code>{"--cors"}</code></nobr>     | 허용할 추가 브라우저 origin(CORS) |
 
 ---
 
 ### session
 
-Codemate 세션을 관리합니다.
+codemate 세션을 관리합니다.
 
 ```bash
 codemate session [command]
@@ -385,7 +394,7 @@ codemate session [command]
 
 #### list
 
-Codemate 세션 목록을 표시합니다.
+codemate 세션 목록을 표시합니다.
 
 ```bash
 codemate session list
@@ -393,16 +402,16 @@ codemate session list
 
 ##### 플래그
 
-| 플래그        | 축약 | 설명                                   |
-| ------------- | ---- | -------------------------------------- |
-| `--max-count` | `-n` | 최근 N개 세션만 표시                   |
-| `--format`    |      | 출력 형식: table 또는 json(기본 table) |
+| 플래그                                    | 축약 | 설명                                   |
+| ----------------------------------------- | ---- | -------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n` | 최근 N개 세션만 표시                   |
+| <nobr><code>{"--format"}</code></nobr>    |      | 출력 형식: table 또는 json(기본 table) |
 
 ---
 
 ### stats
 
-Codemate 세션의 토큰 사용량과 비용 통계를 표시합니다.
+codemate 세션의 토큰 사용량과 비용 통계를 표시합니다.
 
 ```bash
 codemate stats
@@ -410,12 +419,12 @@ codemate stats
 
 #### 플래그
 
-| 플래그      | 설명                                                         |
-| ----------- | ------------------------------------------------------------ |
-| `--days`    | 최근 N일 통계 표시(기본값: 전체 기간)                        |
-| `--tools`   | 표시할 도구 개수(기본값: 전체)                               |
-| `--models`  | 모델 사용량 상세 표시(기본 숨김). 숫자를 주면 상위 N개 표시  |
-| `--project` | 프로젝트 필터(기본: 전체 프로젝트, 빈 문자열: 현재 프로젝트) |
+| 플래그                                  | 설명                                                         |
+| --------------------------------------- | ------------------------------------------------------------ |
+| <nobr><code>{"--days"}</code></nobr>    | 최근 N일 통계 표시(기본값: 전체 기간)                        |
+| <nobr><code>{"--tools"}</code></nobr>   | 표시할 도구 개수(기본값: 전체)                               |
+| <nobr><code>{"--models"}</code></nobr>  | 모델 사용량 상세 표시(기본 숨김). 숫자를 주면 상위 N개 표시  |
+| <nobr><code>{"--project"}</code></nobr> | 프로젝트 필터(기본: 전체 프로젝트, 빈 문자열: 현재 프로젝트) |
 
 ---
 
@@ -433,13 +442,13 @@ codemate export [sessionID]
 
 ### import
 
-JSON 파일 또는 Codemate 공유 URL에서 세션 데이터를 가져옵니다.
+JSON 파일 또는 codemate 공유 URL에서 세션 데이터를 가져옵니다.
 
 ```bash
 codemate import <file>
 ```
 
-로컬 파일이나 Codemate 공유 URL에서 가져올 수 있습니다.
+로컬 파일이나 codemate 공유 URL에서 가져올 수 있습니다.
 
 ```bash
 codemate import session.json
@@ -450,22 +459,22 @@ codemate import https://opncd.ai/s/abc123
 
 ### web
 
-웹 인터페이스를 포함한 headless Codemate 서버를 시작합니다.
+웹 인터페이스를 포함한 headless codemate 서버를 시작합니다.
 
 ```bash
 codemate web
 ```
 
-이 명령은 HTTP 서버를 시작하고 웹 브라우저를 열어 웹 인터페이스로 Codemate에 접속합니다. `CODEMATE_SERVER_PASSWORD`를 설정하면 HTTP basic auth가 활성화됩니다(기본 사용자명: `codemate`).
+이 명령은 HTTP 서버를 시작하고 웹 브라우저를 열어 웹 인터페이스로 codemate에 접속합니다. `codemate_SERVER_PASSWORD`를 설정하면 HTTP basic auth가 활성화됩니다(기본 사용자명: `codemate`).
 
 #### 플래그
 
-| 플래그       | 설명                              |
-| ------------ | --------------------------------- |
-| `--port`     | 수신 포트                         |
-| `--hostname` | 수신 호스트명                     |
-| `--mdns`     | mDNS 검색 활성화                  |
-| `--cors`     | 허용할 추가 브라우저 origin(CORS) |
+| 플래그                                   | 설명                              |
+| ---------------------------------------- | --------------------------------- |
+| <nobr><code>{"--port"}</code></nobr>     | 수신 포트                         |
+| <nobr><code>{"--hostname"}</code></nobr> | 수신 호스트명                     |
+| <nobr><code>{"--mdns"}</code></nobr>     | mDNS 검색 활성화                  |
+| <nobr><code>{"--cors"}</code></nobr>     | 허용할 추가 브라우저 origin(CORS) |
 
 ---
 
@@ -481,17 +490,17 @@ codemate acp
 
 #### 플래그
 
-| 플래그       | 설명          |
-| ------------ | ------------- |
-| `--cwd`      | 작업 디렉터리 |
-| `--port`     | 수신 포트     |
-| `--hostname` | 수신 호스트명 |
+| 플래그                                   | 설명          |
+| ---------------------------------------- | ------------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | 작업 디렉터리 |
+| <nobr><code>{"--port"}</code></nobr>     | 수신 포트     |
+| <nobr><code>{"--hostname"}</code></nobr> | 수신 호스트명 |
 
 ---
 
 ### uninstall
 
-Codemate를 제거하고 관련 파일을 삭제합니다.
+codemate를 제거하고 관련 파일을 삭제합니다.
 
 ```bash
 codemate uninstall
@@ -499,12 +508,12 @@ codemate uninstall
 
 #### 플래그
 
-| 플래그          | 축약 | 설명                            |
-| --------------- | ---- | ------------------------------- |
-| `--keep-config` | `-c` | 설정 파일 유지                  |
-| `--keep-data`   | `-d` | 세션 데이터와 스냅샷 유지       |
-| `--dry-run`     |      | 실제 삭제 없이 삭제 대상만 표시 |
-| `--force`       | `-f` | 확인 프롬프트 건너뛰기          |
+| 플래그                                      | 축약 | 설명                            |
+| ------------------------------------------- | ---- | ------------------------------- |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c` | 설정 파일 유지                  |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d` | 세션 데이터와 스냅샷 유지       |
+| <nobr><code>{"--dry-run"}</code></nobr>     |      | 실제 삭제 없이 삭제 대상만 표시 |
+| <nobr><code>{"--force"}</code></nobr>       | `-f` | 확인 프롬프트 건너뛰기          |
 
 ---
 
@@ -530,9 +539,9 @@ codemate upgrade v0.1.48
 
 #### 플래그
 
-| 플래그     | 축약 | 설명                                       |
-| ---------- | ---- | ------------------------------------------ |
-| `--method` | `-m` | 설치 방식 지정: curl, npm, pnpm, bun, brew |
+| 플래그                                 | 축약 | 설명                                       |
+| -------------------------------------- | ---- | ------------------------------------------ |
+| <nobr><code>{"--method"}</code></nobr> | `-m` | 설치 방식 지정: curl, npm, pnpm, bun, brew |
 
 ---
 
@@ -540,44 +549,44 @@ codemate upgrade v0.1.48
 
 codemate CLI는 아래 전역 플래그를 지원합니다.
 
-| 플래그         | 축약 | 설명                                |
-| -------------- | ---- | ----------------------------------- |
-| `--help`       | `-h` | 도움말 표시                         |
-| `--version`    | `-v` | 버전 출력                           |
-| `--print-logs` |      | 로그를 stderr로 출력                |
-| `--log-level`  |      | 로그 레벨(DEBUG, INFO, WARN, ERROR) |
+| 플래그                                     | 축약 | 설명                                |
+| ------------------------------------------ | ---- | ----------------------------------- |
+| <nobr><code>{"--help"}</code></nobr>       | `-h` | 도움말 표시                         |
+| <nobr><code>{"--version"}</code></nobr>    | `-v` | 버전 출력                           |
+| <nobr><code>{"--print-logs"}</code></nobr> |      | 로그를 stderr로 출력                |
+| <nobr><code>{"--log-level"}</code></nobr>  |      | 로그 레벨(DEBUG, INFO, WARN, ERROR) |
 
 ---
 
 ## 환경 변수
 
-Codemate는 환경 변수로도 구성할 수 있습니다.
+codemate는 환경 변수로도 구성할 수 있습니다.
 
 | 변수                                  | 타입    | 설명                                           |
 | ------------------------------------- | ------- | ---------------------------------------------- |
-| `CODEMATE_AUTO_SHARE`                 | boolean | 세션 자동 공유                                 |
-| `CODEMATE_GIT_BASH_PATH`              | string  | Windows에서 Git Bash 실행 파일 경로            |
-| `CODEMATE_CONFIG`                     | string  | 설정 파일 경로                                 |
-| `CODEMATE_CONFIG_DIR`                 | string  | 설정 디렉터리 경로                             |
-| `CODEMATE_CONFIG_CONTENT`             | string  | 인라인 JSON 설정 내용                          |
-| `CODEMATE_DISABLE_AUTOUPDATE`         | boolean | 자동 업데이트 확인 비활성화                    |
-| `CODEMATE_DISABLE_PRUNE`              | boolean | 오래된 데이터 정리(prune) 비활성화             |
-| `CODEMATE_DISABLE_TERMINAL_TITLE`     | boolean | 터미널 제목 자동 업데이트 비활성화             |
-| `CODEMATE_PERMISSION`                 | string  | 인라인 JSON 권한 설정                          |
-| `CODEMATE_DISABLE_DEFAULT_PLUGINS`    | boolean | 기본 플러그인 비활성화                         |
-| `CODEMATE_DISABLE_LSP_DOWNLOAD`       | boolean | LSP 서버 자동 다운로드 비활성화                |
-| `CODEMATE_ENABLE_EXPERIMENTAL_MODELS` | boolean | 실험적 모델 활성화                             |
-| `CODEMATE_DISABLE_AUTOCOMPACT`        | boolean | 자동 컨텍스트 컴팩션 비활성화                  |
-| `CODEMATE_DISABLE_CLAUDE_CODE`        | boolean | `.claude`(프롬프트 + 스킬) 읽기 비활성화       |
-| `CODEMATE_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` 읽기 비활성화            |
-| `CODEMATE_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` 로드 비활성화                 |
-| `CODEMATE_DISABLE_MODELS_FETCH`       | boolean | 원격 소스에서 모델 목록 가져오기 비활성화      |
-| `CODEMATE_FAKE_VCS`                   | string  | 테스트용 가짜 VCS provider                     |
-| `CODEMATE_CLIENT`                     | string  | 클라이언트 식별자(기본값: `cli`)               |
-| `CODEMATE_ENABLE_EXA`                 | boolean | Exa 웹 검색 도구 활성화                        |
-| `CODEMATE_SERVER_PASSWORD`            | string  | `serve`/`web` 기본 인증 활성화                 |
-| `CODEMATE_SERVER_USERNAME`            | string  | 기본 인증 사용자명 오버라이드(기본 `codemate`) |
-| `CODEMATE_MODELS_URL`                 | string  | 모델 설정을 가져올 사용자 지정 URL             |
+| `codemate_AUTO_SHARE`                 | boolean | 세션 자동 공유                                 |
+| `codemate_GIT_BASH_PATH`              | string  | Windows에서 Git Bash 실행 파일 경로            |
+| `codemate_CONFIG`                     | string  | 설정 파일 경로                                 |
+| `codemate_CONFIG_DIR`                 | string  | 설정 디렉터리 경로                             |
+| `codemate_CONFIG_CONTENT`             | string  | 인라인 JSON 설정 내용                          |
+| `codemate_DISABLE_AUTOUPDATE`         | boolean | 자동 업데이트 확인 비활성화                    |
+| `codemate_DISABLE_PRUNE`              | boolean | 오래된 데이터 정리(prune) 비활성화             |
+| `codemate_DISABLE_TERMINAL_TITLE`     | boolean | 터미널 제목 자동 업데이트 비활성화             |
+| `codemate_PERMISSION`                 | string  | 인라인 JSON 권한 설정                          |
+| `codemate_DISABLE_DEFAULT_PLUGINS`    | boolean | 기본 플러그인 비활성화                         |
+| `codemate_DISABLE_LSP_DOWNLOAD`       | boolean | LSP 서버 자동 다운로드 비활성화                |
+| `codemate_ENABLE_EXPERIMENTAL_MODELS` | boolean | 실험적 모델 활성화                             |
+| `codemate_DISABLE_AUTOCOMPACT`        | boolean | 자동 컨텍스트 컴팩션 비활성화                  |
+| `codemate_DISABLE_CLAUDE_CODE`        | boolean | `.claude`(프롬프트 + 스킬) 읽기 비활성화       |
+| `codemate_DISABLE_CLAUDE_CODE_PROMPT` | boolean | `~/.claude/CLAUDE.md` 읽기 비활성화            |
+| `codemate_DISABLE_CLAUDE_CODE_SKILLS` | boolean | `.claude/skills` 로드 비활성화                 |
+| `codemate_DISABLE_MODELS_FETCH`       | boolean | 원격 소스에서 모델 목록 가져오기 비활성화      |
+| `codemate_FAKE_VCS`                   | string  | 테스트용 가짜 VCS provider                     |
+| `codemate_CLIENT`                     | string  | 클라이언트 식별자(기본값: `cli`)               |
+| `codemate_ENABLE_EXA`                 | boolean | Exa 웹 검색 도구 활성화                        |
+| `codemate_SERVER_PASSWORD`            | string  | `serve`/`web` 기본 인증 활성화                 |
+| `codemate_SERVER_USERNAME`            | string  | 기본 인증 사용자명 오버라이드(기본 `codemate`) |
+| `codemate_MODELS_URL`                 | string  | 모델 설정을 가져올 사용자 지정 URL             |
 
 ---
 
@@ -587,16 +596,16 @@ Codemate는 환경 변수로도 구성할 수 있습니다.
 
 | 변수                                            | 타입    | 설명                             |
 | ----------------------------------------------- | ------- | -------------------------------- |
-| `CODEMATE_EXPERIMENTAL`                         | boolean | 모든 실험 기능 활성화            |
-| `CODEMATE_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 아이콘 탐색 활성화               |
-| `CODEMATE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI에서 선택 시 복사 비활성화    |
-| `CODEMATE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 명령 기본 타임아웃(ms)      |
-| `CODEMATE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 응답 최대 출력 토큰 수       |
-| `CODEMATE_EXPERIMENTAL_FILEWATCHER`             | boolean | 전체 디렉터리 파일 감시 활성화   |
-| `CODEMATE_EXPERIMENTAL_OXFMT`                   | boolean | oxfmt 포매터 활성화              |
-| `CODEMATE_EXPERIMENTAL_LSP_TOOL`                | boolean | 실험적 LSP 도구 활성화           |
-| `CODEMATE_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 파일 감시 비활성화               |
-| `CODEMATE_EXPERIMENTAL_EXA`                     | boolean | 실험적 Exa 기능 활성화           |
-| `CODEMATE_EXPERIMENTAL_LSP_TY`                  | boolean | python 파일에 대해 TY LSP 활성화 |
-| `CODEMATE_EXPERIMENTAL_MARKDOWN`                | boolean | 실험적 Markdown 기능 활성화      |
-| `CODEMATE_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan mode 활성화                 |
+| `codemate_EXPERIMENTAL`                         | boolean | 모든 실험 기능 활성화            |
+| `codemate_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | 아이콘 탐색 활성화               |
+| `codemate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | TUI에서 선택 시 복사 비활성화    |
+| `codemate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | number  | bash 명령 기본 타임아웃(ms)      |
+| `codemate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | number  | LLM 응답 최대 출력 토큰 수       |
+| `codemate_EXPERIMENTAL_FILEWATCHER`             | boolean | 전체 디렉터리 파일 감시 활성화   |
+| `codemate_EXPERIMENTAL_OXFMT`                   | boolean | oxfmt 포매터 활성화              |
+| `codemate_EXPERIMENTAL_LSP_TOOL`                | boolean | 실험적 LSP 도구 활성화           |
+| `codemate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | 파일 감시 비활성화               |
+| `codemate_EXPERIMENTAL_EXA`                     | boolean | 실험적 Exa 기능 활성화           |
+| `codemate_EXPERIMENTAL_LSP_TY`                  | boolean | python 파일에 대해 TY LSP 활성화 |
+| `codemate_EXPERIMENTAL_MARKDOWN`                | boolean | 실험적 Markdown 기능 활성화      |
+| `codemate_EXPERIMENTAL_PLAN_MODE`               | boolean | Plan mode 활성화                 |

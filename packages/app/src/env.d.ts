@@ -1,7 +1,11 @@
 interface ImportMetaEnv {
-  readonly VITE_CODEMATE_SERVER_HOST: string
-  readonly VITE_CODEMATE_SERVER_PORT: string
-  readonly VITE_CODEMATE_CHANNEL?: "dev" | "beta" | "prod"
+  readonly VITE_codemate_SERVER_HOST: string
+  readonly VITE_codemate_SERVER_PORT: string
+  readonly VITE_codemate_CHANNEL?: "dev" | "beta" | "prod"
+
+  readonly VITE_SENTRY_DSN?: string
+  readonly VITE_SENTRY_ENVIRONMENT?: string
+  readonly VITE_SENTRY_RELEASE?: string
 }
 
 interface ImportMeta {

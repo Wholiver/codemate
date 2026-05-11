@@ -1,15 +1,15 @@
 import { RequestError, type McpServer } from "@agentclientprotocol/sdk"
 import type { ACPSessionState } from "./types"
 import * as Log from "@codemate-ai/core/util/log"
-import type { CodemateClient } from "@codemate-ai/sdk/v2"
+import type { codemateClient } from "@codemate-ai/sdk/v2"
 
 const log = Log.create({ service: "acp-session-manager" })
 
 export class ACPSessionManager {
   private sessions = new Map<string, ACPSessionState>()
-  private sdk: CodemateClient
+  private sdk: codemateClient
 
-  constructor(sdk: CodemateClient) {
+  constructor(sdk: codemateClient) {
     this.sdk = sdk
   }
 
@@ -111,6 +111,12 @@ export class ACPSessionManager {
     const session = this.get(sessionId)
     session.modeId = modeId
     this.sessions.set(sessionId, session)
+    return session
+  }
+
+  remove(sessionId: string): ACPSessionState | undefined {
+    const session = this.sessions.get(sessionId)
+    this.sessions.delete(sessionId)
     return session
   }
 }

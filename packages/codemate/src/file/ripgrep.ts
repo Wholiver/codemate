@@ -11,8 +11,8 @@ import { Global } from "@codemate-ai/core/global"
 import * as Log from "@codemate-ai/core/util/log"
 import { sanitizedProcessEnv } from "@codemate-ai/core/util/codemate-process"
 import { which } from "@/util/which"
-import { zod } from "@/util/effect-zod"
-import { NonNegativeInt, withStatics } from "@/util/schema"
+import { zod } from "@codemate-ai/core/effect-zod"
+import { NonNegativeInt, withStatics } from "@codemate-ai/core/schema"
 
 const log = Log.create({ service: "ripgrep" })
 const VERSION = "15.1.0"

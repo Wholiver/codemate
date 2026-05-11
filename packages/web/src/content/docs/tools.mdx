@@ -3,7 +3,7 @@ title: Tools
 description: Manage the tools an LLM can use.
 ---
 
-Tools allow the LLM to perform actions in your codebase. Codemate comes with a set of built-in tools, but you can extend it with [custom tools](/docs/custom-tools) or [MCP servers](/docs/mcp-servers).
+Tools allow the LLM to perform actions in your codebase. codemate comes with a set of built-in tools, but you can extend it with [custom tools](/docs/custom-tools) or [MCP servers](/docs/mcp-servers).
 
 By default, all tools are **enabled** and don't need permission to run. You can control tool behavior through [permissions](/docs/permissions).
 
@@ -41,7 +41,7 @@ You can also use wildcards to control multiple tools at once. For example, to re
 
 ## Built-in
 
-Here are all the built-in tools available in Codemate.
+Here are all the built-in tools available in codemate.
 
 ---
 
@@ -156,7 +156,7 @@ Search for files using glob patterns like `**/*.js` or `src/**/*.ts`. Returns ma
 Interact with your configured LSP servers to get code intelligence features like definitions, references, hover info, and call hierarchy.
 
 :::note
-This tool is only available when `CODEMATE_EXPERIMENTAL_LSP_TOOL=true` (or `CODEMATE_EXPERIMENTAL=true`).
+This tool is only available when `codemate_EXPERIMENTAL_LSP_TOOL=true` (or `codemate_EXPERIMENTAL=true`).
 :::
 
 ```json title="codemate.json" {4}
@@ -257,12 +257,12 @@ Allows the LLM to fetch and read web pages. Useful for looking up documentation 
 Search the web for information.
 
 :::note
-This tool is only available when using the Codemate provider or when the `CODEMATE_ENABLE_EXA` environment variable is set to any truthy value (e.g., `true` or `1`).
+This tool is only available when using the codemate provider or when the `codemate_ENABLE_EXA` environment variable is set to any truthy value (e.g., `true` or `1`).
 
-To enable when launching Codemate:
+To enable when launching codemate:
 
 ```bash
-CODEMATE_ENABLE_EXA=1 codemate
+codemate_ENABLE_EXA=1 codemate
 ```
 
 :::

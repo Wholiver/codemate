@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### Kimlik Doğrulama
 
-Sunucuyu HTTP temel kimlik doğrulama (basic auth) ile korumak için `CODEMATE_SERVER_PASSWORD` ayarlayın. Kullanıcı adı varsayılan olarak `codemate` değeridir; değiştirmek isterseniz `CODEMATE_SERVER_USERNAME` ayarlayabilirsiniz. Bu ayar hem `codemate serve` hem de `codemate web` için geçerlidir.
+Sunucuyu HTTP temel kimlik doğrulama (basic auth) ile korumak için `codemate_SERVER_PASSWORD` ayarlayın. Kullanıcı adı varsayılan olarak `codemate` değeridir; değiştirmek isterseniz `codemate_SERVER_USERNAME` ayarlayabilirsiniz. Bu ayar hem `codemate serve` hem de `codemate web` için geçerlidir.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---

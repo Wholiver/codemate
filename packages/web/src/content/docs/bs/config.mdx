@@ -1,15 +1,15 @@
 ---
 title: Konfiguracija
-description: Korištenje Codemate JSON konfiguracije.
+description: Korištenje codemate JSON konfiguracije.
 ---
 
-Možete konfigurirati Codemate koristeći JSON konfiguracijski fajl.
+Možete konfigurirati codemate koristeći JSON konfiguracijski fajl.
 
 ---
 
 ## Format
 
-Codemate podržava i **JSON** i **JSONC** (JSON sa komentarima) formate.
+codemate podržava i **JSON** i **JSONC** (JSON sa komentarima) formate.
 
 ```jsonc title="codemate.jsonc"
 {
@@ -44,10 +44,10 @@ Izvori konfiguracije se učitavaju ovim redoslijedom (kasniji izvori poništavaj
 
 1. **Udaljena konfiguracija** (od `.well-known/codemate`) - organizacijske postavke
 2. **Globalna konfiguracija** (`~/.config/codemate/codemate.json`) - korisničke preferencije
-3. **Prilagođena konfiguracija** (`CODEMATE_CONFIG` env var) - prilagođena preinačenja
+3. **Prilagođena konfiguracija** (`codemate_CONFIG` env var) - prilagođena preinačenja
 4. **Konfiguracija projekta** (`codemate.json` u projektu) - postavke specifične za projekat
 5. **`.codemate` direktoriji** - agenti, komande, dodaci
-6. **Inline konfiguracija** (`CODEMATE_CONFIG_CONTENT` env var) - runtime preinačenja
+6. **Inline konfiguracija** (`codemate_CONFIG_CONTENT` env var) - runtime preinačenja
 
 To znači da konfiguracije projekta mogu nadjačati globalne zadane postavke, a globalne konfiguracije mogu nadjačati postavke udaljene organizacije.
 
@@ -95,7 +95,7 @@ Možete omogućiti određene servere u vašoj lokalnoj konfiguraciji:
 
 ### Globalno
 
-Postavite svoju globalnu Codemate konfiguraciju u `~/.config/codemate/codemate.json`. Koristite globalnu konfiguraciju za korisničke preferencije kao što su provajderi, modeli i dozvole.
+Postavite svoju globalnu codemate konfiguraciju u `~/.config/codemate/codemate.json`. Koristite globalnu konfiguraciju za korisničke preferencije kao što su provajderi, modeli i dozvole.
 
 Za postavke specifične za TUI, koristite `~/.config/codemate/tui.json`.
 
@@ -113,7 +113,7 @@ Za TUI postavke specifične za projekat, dodajte `tui.json` pored njega.
 Postavite specifičnu konfiguraciju projekta u korijen vašeg projekta.
 :::
 
-Kada se Codemate pokrene, traži konfiguracijsku datoteku u trenutnom direktoriju ili prelazi do najbližeg Git direktorija.
+Kada se codemate pokrene, traži konfiguracijsku datoteku u trenutnom direktoriju ili prelazi do najbližeg Git direktorija.
 
 Ovo je također sigurno provjeriti u Git i koristi istu shemu kao globalna.
 
@@ -121,10 +121,10 @@ Ovo je također sigurno provjeriti u Git i koristi istu shemu kao globalna.
 
 ### Prilagođena konfiguracija
 
-Navedite prilagođenu putanju konfiguracijske datoteke koristeći varijablu okruženja `CODEMATE_CONFIG`.
+Navedite prilagođenu putanju konfiguracijske datoteke koristeći varijablu okruženja `codemate_CONFIG`.
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -134,10 +134,10 @@ Prilagođena konfiguracija se učitava između globalne i projektne konfiguracij
 
 ### Prilagođeni direktorij
 
-Navedite prilagođeni konfiguracijski direktorij koristeći `CODEMATE_CONFIG_DIR` varijablu okruženja. U ovom direktoriju će se tražiti agenti, komande, modovi i dodaci baš kao standardni `.codemate` direktorij, i trebali bi pratiti istu strukturu.
+Navedite prilagođeni konfiguracijski direktorij koristeći `codemate_CONFIG_DIR` varijablu okruženja. U ovom direktoriju će se tražiti agenti, komande, modovi i dodaci baš kao standardni `.codemate` direktorij, i trebali bi pratiti istu strukturu.
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -170,7 +170,7 @@ Koristite namjenski `tui.json` (ili `tui.jsonc`) fajl za postavke specifične za
 }
 ```
 
-Koristite `CODEMATE_TUI_CONFIG` da pokažete na prilagođeni TUI konfiguracijski fajl.
+Koristite `codemate_TUI_CONFIG` da pokažete na prilagođeni TUI konfiguracijski fajl.
 
 Stari `theme`, `keybinds`, i `tui` ključevi u `codemate.json` su zastarjeli i automatski će se migrirati kada je to moguće.
 
@@ -199,7 +199,7 @@ Dostupne opcije:
 
 - `port` - Port za slušanje.
 - `hostname` - Hostname za slušanje. Kada je `mdns` omogućen i nije postavljeno ime hosta, podrazumevano je `0.0.0.0`.
-- `mdns` - Omogući mDNS otkrivanje servisa. Ovo omogućava drugim uređajima na mreži da otkriju vaš Codemate server.
+- `mdns` - Omogući mDNS otkrivanje servisa. Ovo omogućava drugim uređajima na mreži da otkriju vaš codemate server.
 - `mdnsDomain` - Prilagođeno ime domene za mDNS servis. Zadano je `codemate.local`. Korisno za pokretanje više instanci na istoj mreži.
 - `cors` - Dodatni origini koji omogućavaju CORS kada koristite HTTP server iz klijenta baziranog na pretraživaču. Vrijednosti moraju biti puni origin (shema + host + opcijski port), npr. `https://app.example.com`.
 
@@ -227,7 +227,7 @@ Možete upravljati alatima koje LLM može koristiti putem opcije `tools`.
 
 ### Model
 
-Možete konfigurirati dobavljače i modele koje želite koristiti u svojoj Codemate konfiguraciji kroz opcije `provider`, `model` i `small_model`.
+Možete konfigurirati dobavljače i modele koje želite koristiti u svojoj codemate konfiguraciji kroz opcije `provider`, `model` i `small_model`.
 
 ```json title="codemate.json"
 {
@@ -238,7 +238,7 @@ Možete konfigurirati dobavljače i modele koje želite koristiti u svojoj Codem
 }
 ```
 
-Opcija `small_model` konfigurira poseban model za lagane zadatke poput generiranja naslova. Podrazumevano, Codemate pokušava da koristi jeftiniji model ako je dostupan od vašeg provajdera, inače se vraća na vaš glavni model.
+Opcija `small_model` konfigurira poseban model za lagane zadatke poput generiranja naslova. Podrazumevano, codemate pokušava da koristi jeftiniji model ako je dostupan od vašeg provajdera, inače se vraća na vaš glavni model.
 
 Opcije provajdera mogu uključivati ​​`timeout` i `setCacheKey`:
 
@@ -350,7 +350,7 @@ Možete postaviti zadanog agenta koristeći opciju `default_agent`. Ovo određuj
 }
 ```
 
-Zadani agent mora biti primarni agent (ne podagent). Ovo može biti ugrađeni agent kao što je `"build"` ili `"plan"`, ili [prilagođeni agent](/docs/agents) koji ste definirali. Ako navedeni agent ne postoji ili je podagent, Codemate će se vratiti na `"build"` s upozorenjem.
+Zadani agent mora biti primarni agent (ne podagent). Ovo može biti ugrađeni agent kao što je `"build"` ili `"plan"`, ili [prilagođeni agent](/docs/agents) koji ste definirali. Ako navedeni agent ne postoji ili je podagent, codemate će se vratiti na `"build"` s upozorenjem.
 
 Ova postavka se primjenjuje na sva sučelja: TUI, CLI (`codemate run`), desktop aplikaciju i GitHub Action.
 
@@ -420,7 +420,7 @@ Prilagodite prečice tipki u `tui.json`.
 
 ### Automatsko ažuriranje
 
-Codemate će automatski preuzeti sva nova ažuriranja kada se pokrene. Ovo možete onemogućiti opcijom `autoupdate`.
+codemate će automatski preuzeti sva nova ažuriranja kada se pokrene. Ovo možete onemogućiti opcijom `autoupdate`.
 
 ```json title="codemate.json"
 {
@@ -462,7 +462,7 @@ Možete konfigurirati formatere koda putem opcije `formatter`.
 
 ### Dozvole
 
-Prema zadanim postavkama, Codemate **dopušta sve operacije** bez potrebe za eksplicitnim dopuštenjem. Ovo možete promijeniti koristeći opciju `permission`.
+Prema zadanim postavkama, codemate **dopušta sve operacije** bez potrebe za eksplicitnim dopuštenjem. Ovo možete promijeniti koristeći opciju `permission`.
 
 Na primjer, da osigurate da alati `edit` i `bash` zahtijevaju odobrenje korisnika:
 
@@ -535,7 +535,7 @@ Možete konfigurirati MCP servere koje želite koristiti putem opcije `mcp`.
 
 ### Dodaci
 
-[Plugins](/docs/plugins) proširuju Codemate sa prilagođenim alatima, kukicama i integracijama.
+[Plugins](/docs/plugins) proširuju codemate sa prilagođenim alatima, kukicama i integracijama.
 
 Postavite datoteke dodataka u `.codemate/plugins/` ili `~/.config/codemate/plugins/`. Također možete učitati dodatke iz npm-a preko opcije `plugin`.
 
@@ -599,7 +599,7 @@ Možete odrediti listu dozvoljenih dobavljača putem opcije `enabled_providers`.
 }
 ```
 
-Ovo je korisno kada želite da ograničite Codemate da koristi samo određene provajdere umjesto da ih onemogućavate jednog po jednog.
+Ovo je korisno kada želite da ograničite codemate da koristi samo određene provajdere umjesto da ih onemogućavate jednog po jednog.
 
 :::note
 `disabled_providers` ima prioritet nad `enabled_providers`.
@@ -639,7 +639,7 @@ Koristite `{env:VARIABLE_NAME}` za zamjenu varijabli okruženja:
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

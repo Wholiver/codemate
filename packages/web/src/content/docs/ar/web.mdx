@@ -1,11 +1,11 @@
 ---
 title: الويب
-description: استخدام Codemate في متصفحك.
+description: استخدام codemate في متصفحك.
 ---
 
-يمكن تشغيل Codemate كتطبيق ويب داخل متصفحك، ليمنحك تجربة البرمجة القوية بالذكاء الاصطناعي نفسها دون الحاجة إلى terminal.
+يمكن تشغيل codemate كتطبيق ويب داخل متصفحك، ليمنحك تجربة البرمجة القوية بالذكاء الاصطناعي نفسها دون الحاجة إلى terminal.
 
-![Codemate Web - جلسة جديدة](../../../assets/web/web-homepage-new-session.png)
+![codemate Web - جلسة جديدة](../../../assets/web/web-homepage-new-session.png)
 
 ## البدء
 
@@ -15,10 +15,10 @@ description: استخدام Codemate في متصفحك.
 codemate web
 ```
 
-يؤدي ذلك إلى تشغيل خادم محلي على `127.0.0.1` بمنفذ عشوائي متاح، ويفتح Codemate تلقائيا في المتصفح الافتراضي لديك.
+يؤدي ذلك إلى تشغيل خادم محلي على `127.0.0.1` بمنفذ عشوائي متاح، ويفتح codemate تلقائيا في المتصفح الافتراضي لديك.
 
 :::caution
-إذا لم يتم تعيين `CODEMATE_SERVER_PASSWORD` فسيكون الخادم دون حماية. هذا مناسب للاستخدام المحلي، لكنه يجب أن يكون مُعينا عند إتاحة الوصول عبر الشبكة.
+إذا لم يتم تعيين `codemate_SERVER_PASSWORD` فسيكون الخادم دون حماية. هذا مناسب للاستخدام المحلي، لكنه يجب أن يكون مُعينا عند إتاحة الوصول عبر الشبكة.
 :::
 
 :::tip[مستخدمو Windows]
@@ -33,7 +33,7 @@ codemate web
 
 ### المنفذ
 
-افتراضيا، يختار Codemate منفذا متاحا. يمكنك تحديد منفذ:
+افتراضيا، يختار codemate منفذا متاحا. يمكنك تحديد منفذ:
 
 ```bash
 codemate web --port 4096
@@ -41,13 +41,13 @@ codemate web --port 4096
 
 ### اسم المضيف
 
-افتراضيا، يرتبط الخادم بـ `127.0.0.1` (للاستخدام المحلي فقط). لجعل Codemate متاحا على شبكتك:
+افتراضيا، يرتبط الخادم بـ `127.0.0.1` (للاستخدام المحلي فقط). لجعل codemate متاحا على شبكتك:
 
 ```bash
 codemate web --hostname 0.0.0.0
 ```
 
-عند استخدام `0.0.0.0` سيعرض Codemate كلا من عناوين الوصول المحلي وعناوين الشبكة:
+عند استخدام `0.0.0.0` سيعرض codemate كلا من عناوين الوصول المحلي وعناوين الشبكة:
 
 ```
   Local access:       http://localhost:4096
@@ -80,31 +80,31 @@ codemate web --cors https://example.com
 
 ### المصادقة
 
-لحماية الوصول، عيّن كلمة مرور عبر متغير البيئة `CODEMATE_SERVER_PASSWORD`:
+لحماية الوصول، عيّن كلمة مرور عبر متغير البيئة `codemate_SERVER_PASSWORD`:
 
 ```bash
-CODEMATE_SERVER_PASSWORD=secret codemate web
+codemate_SERVER_PASSWORD=secret codemate web
 ```
 
-اسم المستخدم الافتراضي هو `codemate`، ويمكن تغييره عبر `CODEMATE_SERVER_USERNAME`.
+اسم المستخدم الافتراضي هو `codemate`، ويمكن تغييره عبر `codemate_SERVER_USERNAME`.
 
 ---
 
 ## استخدام واجهة الويب
 
-بعد التشغيل، تتيح لك واجهة الويب الوصول إلى جلسات Codemate الخاصة بك.
+بعد التشغيل، تتيح لك واجهة الويب الوصول إلى جلسات codemate الخاصة بك.
 
 ### الجلسات
 
 اعرض جلساتك وأدرها من الصفحة الرئيسية. يمكنك رؤية الجلسات النشطة وبدء جلسات جديدة.
 
-![Codemate Web - جلسة نشطة](../../../assets/web/web-homepage-active-session.png)
+![codemate Web - جلسة نشطة](../../../assets/web/web-homepage-active-session.png)
 
 ### حالة الخادم
 
 انقر على "See Servers" لعرض الخوادم المتصلة وحالتها.
 
-![Codemate Web - See Servers (عرض الخوادم)](../../../assets/web/web-homepage-see-servers.png)
+![codemate Web - See Servers (عرض الخوادم)](../../../assets/web/web-homepage-see-servers.png)
 
 ---
 

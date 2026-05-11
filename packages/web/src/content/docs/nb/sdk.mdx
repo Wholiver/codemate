@@ -1,13 +1,13 @@
 ---
 title: SDK
-description: Typesikker JS-klient for Codemate-server.
+description: Typesikker JS-klient for codemate-server.
 ---
 
 import config from "../../../../config.mjs"
 export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
 
-Codemate JS/TS SDK gir en typesikker klient for samhandling med serveren.
-Bruk den til å bygge integrasjoner og kontrollere Codemate programmatisk.
+codemate JS/TS SDK gir en typesikker klient for samhandling med serveren.
+Bruk den til å bygge integrasjoner og kontrollere codemate programmatisk.
 
 [Finn ut mer](/docs/server) om hvordan serveren fungerer. For eksempler, sjekk ut [prosjektene](/docs/ecosystem#projects) bygget av fellesskapet.
 
@@ -25,12 +25,12 @@ npm install @codemate-ai/sdk
 
 ## Opprette klient
 
-Opprett en forekomst av Codemate:
+Opprett en forekomst av codemate:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const { client } = await createCodemate()
+const { client } = await createcodemate()
 ```
 
 Dette starter både en server og en klient
@@ -52,9 +52,9 @@ Dette starter både en server og en klient
 Du kan sende et konfigurasjonsobjekt for å tilpasse virkemåten. Forekomsten henter fortsatt din `codemate.json`, men du kan overstyre eller legge til konfigurasjon inline:
 
 ```javascript
-import { createCodemate } from "@codemate-ai/sdk"
+import { createcodemate } from "@codemate-ai/sdk"
 
-const codemate = await createCodemate({
+const codemate = await createcodemate({
   hostname: "127.0.0.1",
   port: 4096,
   config: {
@@ -69,12 +69,12 @@ codemate.server.close()
 
 ## Kun klient
 
-Hvis du allerede har en kjørende forekomst av Codemate, kan du opprette en klientforekomst for å koble til den:
+Hvis du allerede har en kjørende forekomst av codemate, kan du opprette en klientforekomst for å koble til den:
 
 ```javascript
-import { createCodemateClient } from "@codemate-ai/sdk"
+import { createcodemateClient } from "@codemate-ai/sdk"
 
-const client = createCodemateClient({
+const client = createcodemateClient({
   baseUrl: "http://localhost:4096",
 })
 ```

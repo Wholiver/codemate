@@ -1,13 +1,13 @@
 ---
 title: TUI
-description: استخدام واجهة المستخدم TUI في Codemate.
+description: استخدام واجهة المستخدم TUI في codemate.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components"
 
-يوفّر Codemate واجهة terminal تفاعلية (TUI) للعمل على مشاريعك باستخدام LLM.
+يوفّر codemate واجهة terminal تفاعلية (TUI) للعمل على مشاريعك باستخدام LLM.
 
-يؤدي تشغيل Codemate إلى بدء واجهة TUI للدليل الحالي.
+يؤدي تشغيل codemate إلى بدء واجهة TUI للدليل الحالي.
 
 ```bash
 codemate
@@ -57,7 +57,7 @@ How is auth handled in @packages/functions/src/api/index.ts?
 
 ## الأوامر
 
-عند استخدام واجهة Codemate في terminal، يمكنك كتابة `/` متبوعة باسم أمر لتنفيذ الإجراءات بسرعة. مثلا:
+عند استخدام واجهة codemate في terminal، يمكنك كتابة `/` متبوعة باسم أمر لتنفيذ الإجراءات بسرعة. مثلا:
 
 ```bash frame="none"
 /help
@@ -71,7 +71,7 @@ How is auth handled in @packages/functions/src/api/index.ts?
 
 ### connect
 
-أضف موفّرا إلى Codemate. يتيح لك اختيار أحد الموفّرين المتاحين وإضافة مفاتيح API الخاصة بهم.
+أضف موفّرا إلى codemate. يتيح لك اختيار أحد الموفّرين المتاحين وإضافة مفاتيح API الخاصة بهم.
 
 ```bash frame="none"
 /connect
@@ -117,7 +117,7 @@ How is auth handled in @packages/functions/src/api/index.ts?
 
 ### exit
 
-اخرج من Codemate. _الأسماء المستعارة_: `/quit`, `/q`
+اخرج من codemate. _الأسماء المستعارة_: `/quit`, `/q`
 
 ```bash frame="none"
 /exit
@@ -352,7 +352,7 @@ How is auth handled in @packages/functions/src/api/index.ts?
 
 ## الإعداد
 
-يمكنك تخصيص سلوك واجهة TUI عبر ملف إعدادات Codemate.
+يمكنك تخصيص سلوك واجهة TUI عبر ملف إعدادات codemate.
 
 ```json title="codemate.json"
 {
@@ -372,7 +372,7 @@ How is auth handled in @packages/functions/src/api/index.ts?
 - `scroll_speed` - يتحكم في سرعة تمرير واجهة TUI عند استخدام أوامر التمرير (الحد الأدنى: `1`). القيمة الافتراضية هي `3`. **ملاحظة: يتم تجاهل هذا إذا تم ضبط `scroll_acceleration.enabled` على `true`.**
 - `diff_style` - يتحكم في عرض الفروقات (diff). القيمة `"auto"` تتكيف مع عرض terminal، و`"stacked"` تعرض عمودًا واحدًا دائمًا.
 
-استخدم `CODEMATE_TUI_CONFIG` لتحميل مسار إعدادات TUI مخصص.
+استخدم `codemate_TUI_CONFIG` لتحميل مسار إعدادات TUI مخصص.
 
 ---
 

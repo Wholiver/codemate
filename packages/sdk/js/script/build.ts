@@ -9,14 +9,9 @@ import path from "path"
 
 import { createClient } from "@hey-api/openapi-ts"
 
-const openapiSource = process.env.CODEMATE_SDK_OPENAPI === "httpapi" ? "httpapi" : "hono"
 const codemate = path.resolve(dir, "../../codemate")
 
-if (openapiSource === "httpapi") {
-  await $`bun dev generate --httpapi > ${dir}/openapi.json`.cwd(codemate)
-} else {
-  await $`bun dev generate > ${dir}/openapi.json`.cwd(codemate)
-}
+await $`bun dev generate > ${dir}/openapi.json`.cwd(codemate)
 
 await createClient({
   input: "./openapi.json",
@@ -32,7 +27,7 @@ await createClient({
     },
     {
       name: "@hey-api/sdk",
-      instance: "CodemateClient",
+      instance: "codemateClient",
       exportFromIndex: false,
       auth: false,
       paramsStructure: "flat",

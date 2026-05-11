@@ -24,14 +24,14 @@ jobs:
         id: setup-git-committer
         uses: ./.github/actions/setup-git-committer
         with:
-          codemate-app-id: ${{ vars.CODEMATE_APP_ID }}
-          codemate-app-secret: ${{ secrets.CODEMATE_APP_SECRET }}
+          codemate-app-id: ${{ vars.codemate_APP_ID }}
+          codemate-app-secret: ${{ secrets.codemate_APP_SECRET }}
 
-      - name: Install Codemate
-        run: bun i -g codemate_agent
+      - name: Install codemate
+        run: bun i -g codemate-ai
 
       - name: Sync beta branch
         env:
           GH_TOKEN: ${{ steps.setup-git-committer.outputs.token }}
-          CODEMATE_API_KEY: ${{ secrets.CODEMATE_API_KEY }}
+          codemate_API_KEY: ${{ secrets.codemate_API_KEY }}
         run: bun script/beta.ts

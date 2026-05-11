@@ -30,8 +30,8 @@ export type ServiceClass<Self, Id extends string, Service> = Context.ServiceClas
  * class ServerAuthConfig extends ConfigService.Service<ServerAuthConfig>()(
  *   "@codemate/ServerAuthConfig",
  *   {
- *     password: Config.string("CODEMATE_SERVER_PASSWORD").pipe(Config.option),
- *     username: Config.string("CODEMATE_SERVER_USERNAME").pipe(Config.withDefault("codemate")),
+ *     password: Config.string("codemate_SERVER_PASSWORD").pipe(Config.option),
+ *     username: Config.string("codemate_SERVER_USERNAME").pipe(Config.withDefault("codemate")),
  *   },
  * ) {}
  *

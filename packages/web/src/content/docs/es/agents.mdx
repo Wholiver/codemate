@@ -15,7 +15,7 @@ Puede cambiar entre agentes durante una sesión o invocarlos con la mención `@`
 
 ## Tipos
 
-Hay dos tipos de agentes en Codemate; agentes primarios y subagentes.
+Hay dos tipos de agentes en codemate; agentes primarios y subagentes.
 
 ---
 
@@ -27,7 +27,7 @@ Los agentes primarios son los asistentes principales con los que interactúas di
 Puede utilizar la tecla **Tab** para cambiar entre agentes principales durante una sesión.
 :::
 
-Codemate viene con dos agentes principales integrados, **Build** y **Plan**. Bien
+codemate viene con dos agentes principales integrados, **Build** y **Plan**. Bien
 mira estos a continuación.
 
 ---
@@ -36,13 +36,13 @@ mira estos a continuación.
 
 Los subagentes son asistentes especializados que los agentes principales pueden invocar para tareas específicas. También puedes invocarlos manualmente **@ mencionándolos** en tus mensajes.
 
-Codemate viene con dos subagentes integrados, **General** y **Explore**. Veremos esto a continuación.
+codemate viene con tres subagentes integrados, **General**, **Explore** y **Scout**. Veremos esto a continuación.
 
 ---
 
 ## Integrados
 
-Codemate viene con dos agentes primarios integrados y dos subagentes integrados.
+codemate viene con dos agentes primarios integrados y tres subagentes integrados.
 
 ---
 
@@ -81,6 +81,14 @@ Un agente de uso general para investigar preguntas complejas y ejecutar tareas d
 _Modo_: `subagent`
 
 Un agente rápido y de solo lectura para explorar bases de código. No se pueden modificar archivos. Úselo cuando necesite buscar rápidamente archivos por patrones, buscar palabras clave en el código o responder preguntas sobre el código base.
+
+---
+
+### Scout
+
+_Modo_: `subagent`
+
+Un agente de solo lectura para investigar documentación externa y dependencias. Úsalo cuando necesites clonar el repositorio de una dependencia en la caché administrada de codemate, inspeccionar el código fuente de una librería o contrastar el código local con implementaciones upstream sin modificar tu espacio de trabajo.
 
 ---
 
@@ -277,7 +285,7 @@ Los valores de temperatura suelen oscilar entre 0,0 y 1,0:
 }
 ```
 
-Si no se especifica ninguna temperatura, Codemate utiliza valores predeterminados específicos del modelo; normalmente 0 para la mayoría de los modelos, 0,55 para los modelos Qwen.
+Si no se especifica ninguna temperatura, codemate utiliza valores predeterminados específicos del modelo; normalmente 0 para la mayoría de los modelos, 0,55 para los modelos Qwen.
 
 ---
 
@@ -337,7 +345,7 @@ Especifique un archivo de aviso del sistema personalizado para este agente con l
 }
 ```
 
-Esta ruta es relativa a donde se encuentra el archivo de configuración. Entonces esto funciona tanto para la configuración global Codemate como para la configuración específica del proyecto.
+Esta ruta es relativa a donde se encuentra el archivo de configuración. Entonces esto funciona tanto para la configuración global codemate como para la configuración específica del proyecto.
 
 ---
 
@@ -359,7 +367,7 @@ Si no especifica un modelo, los agentes primarios usarán el [modelo configurado
 }
 ```
 
-El ID del modelo en su configuración Codemate usa el formato `provider/model-id`. Por ejemplo, si usa [Codemate Zen](/docs/zen), usaría `codemate/gpt-5.1-codex` para GPT 5.1 Codex.
+El ID del modelo en su configuración codemate usa el formato `provider/model-id`. Por ejemplo, si usa [codemate Zen](/docs/zen), usaría `codemate/gpt-5.1-codex` para GPT 5.1 Codex.
 
 ---
 

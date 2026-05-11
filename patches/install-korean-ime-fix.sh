@@ -18,8 +18,8 @@ ORANGE='\033[38;5;214m'
 MUTED='\033[0;2m'
 NC='\033[0m'
 
-CODEMATE_DIR="${CODEMATE_DIR:-$HOME/.codemate}"
-CODEMATE_SRC="${CODEMATE_SRC:-$HOME/.codemate-src}"
+codemate_DIR="${codemate_DIR:-$HOME/.codemate}"
+codemate_SRC="${codemate_SRC:-$HOME/.codemate-src}"
 FORK_REPO="${FORK_REPO:-https://github.com/claudianus/codemate.git}"
 FORK_BRANCH="${FORK_BRANCH:-fix-zhipuai-coding-plan-thinking}"
 
@@ -39,18 +39,18 @@ need git
 need bun
 
 # ── 1. Clone or update fork ────────────────────────────────────────────
-if [ -d "$CODEMATE_SRC/.git" ]; then
-  info "Updating existing source at $CODEMATE_SRC ..."
-  git -C "$CODEMATE_SRC" fetch origin "$FORK_BRANCH"
-  git -C "$CODEMATE_SRC" checkout "$FORK_BRANCH"
-  git -C "$CODEMATE_SRC" reset --hard "origin/$FORK_BRANCH"
+if [ -d "$codemate_SRC/.git" ]; then
+  info "Updating existing source at $codemate_SRC ..."
+  git -C "$codemate_SRC" fetch origin "$FORK_BRANCH"
+  git -C "$codemate_SRC" checkout "$FORK_BRANCH"
+  git -C "$codemate_SRC" reset --hard "origin/$FORK_BRANCH"
 else
-  info "Cloning fork (shallow) to $CODEMATE_SRC ..."
-  git clone --depth 1 --branch "$FORK_BRANCH" "$FORK_REPO" "$CODEMATE_SRC"
+  info "Cloning fork (shallow) to $codemate_SRC ..."
+  git clone --depth 1 --branch "$FORK_BRANCH" "$FORK_REPO" "$codemate_SRC"
 fi
 
 # ── 2. Verify the IME fix is present in source ────────────────────────
-PROMPT_FILE="$CODEMATE_SRC/packages/codemate/src/cli/cmd/tui/component/prompt/index.tsx"
+PROMPT_FILE="$codemate_SRC/packages/codemate/src/cli/cmd/tui/component/prompt/index.tsx"
 if [ ! -f "$PROMPT_FILE" ]; then
   err "Prompt file not found: $PROMPT_FILE"
   exit 1
@@ -72,16 +72,16 @@ fi
 
 # ── 3. Install dependencies ────────────────────────────────────────────
 info "Installing dependencies (this may take a minute) ..."
-cd "$CODEMATE_SRC"
+cd "$codemate_SRC"
 bun install --frozen-lockfile 2>/dev/null || bun install
 
 # ── 4. Build (current platform only) ──────────────────────────────────
 info "Building codemate for current platform ..."
-cd "$CODEMATE_SRC/packages/codemate"
+cd "$codemate_SRC/packages/codemate"
 bun run build --single
 
 # ── 5. Install binary ──────────────────────────────────────────────────
-mkdir -p "$CODEMATE_DIR/bin"
+mkdir -p "$codemate_DIR/bin"
 
 PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
@@ -90,23 +90,23 @@ ARCH=$(uname -m)
 [ "$PLATFORM" = "darwin" ] && true
 [ "$PLATFORM" = "linux" ] && true
 
-BUILT_BINARY="$CODEMATE_SRC/packages/codemate/dist/codemate-${PLATFORM}-${ARCH}/bin/codemate"
+BUILT_BINARY="$codemate_SRC/packages/codemate/dist/codemate-${PLATFORM}-${ARCH}/bin/codemate"
 
 if [ ! -f "$BUILT_BINARY" ]; then
-  BUILT_BINARY=$(find "$CODEMATE_SRC/packages/codemate/dist" -name "codemate" -type f -executable 2>/dev/null | head -1)
+  BUILT_BINARY=$(find "$codemate_SRC/packages/codemate/dist" -name "codemate" -type f -executable 2>/dev/null | head -1)
 fi
 
 if [ -f "$BUILT_BINARY" ]; then
-  if [ -f "$CODEMATE_DIR/bin/codemate" ]; then
-    cp "$CODEMATE_DIR/bin/codemate" "$CODEMATE_DIR/bin/codemate.bak.$(date +%Y%m%d%H%M%S)"
+  if [ -f "$codemate_DIR/bin/codemate" ]; then
+    cp "$codemate_DIR/bin/codemate" "$codemate_DIR/bin/codemate.bak.$(date +%Y%m%d%H%M%S)"
   fi
-  cp "$BUILT_BINARY" "$CODEMATE_DIR/bin/codemate"
-  chmod +x "$CODEMATE_DIR/bin/codemate"
-  ok "Installed to $CODEMATE_DIR/bin/codemate"
+  cp "$BUILT_BINARY" "$codemate_DIR/bin/codemate"
+  chmod +x "$codemate_DIR/bin/codemate"
+  ok "Installed to $codemate_DIR/bin/codemate"
 else
   err "Build failed - binary not found in dist/"
   info "Try running manually:"
-  echo "  cd $CODEMATE_SRC/packages/codemate && bun run build --single"
+  echo "  cd $codemate_SRC/packages/codemate && bun run build --single"
   exit 1
 fi
 

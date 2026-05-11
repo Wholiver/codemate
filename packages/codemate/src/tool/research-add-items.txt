@@ -1,3 +1,0 @@
-Merge additional research items into an existing `outline.yaml`.
-
-Use this when the current outline is missing objects to research. The tool auto-locates `outline.yaml` in the workspace unless you provide an explicit path, deduplicates by item name, and rewrites the YAML in place.

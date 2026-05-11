@@ -16,7 +16,7 @@ import { InstanceState } from "@/effect/instance-state"
 import { iife } from "@/util/iife"
 import { init } from "#db"
 
-declare const CODEMATE_MIGRATIONS: { sql: string; timestamp: number; name: string }[] | undefined
+declare const codemate_MIGRATIONS: { sql: string; timestamp: number; name: string }[] | undefined
 
 export const NotFoundError = NamedError.create(
   "NotFoundError",
@@ -28,16 +28,16 @@ export const NotFoundError = NamedError.create(
 const log = Log.create({ service: "db" })
 
 export function getChannelPath() {
-  if (["latest", "beta", "prod"].includes(InstallationChannel) || Flag.CODEMATE_DISABLE_CHANNEL_DB)
+  if (["latest", "beta", "prod"].includes(InstallationChannel) || Flag.codemate_DISABLE_CHANNEL_DB)
     return path.join(Global.Path.data, "codemate.db")
   const safe = InstallationChannel.replace(/[^a-zA-Z0-9._-]/g, "-")
   return path.join(Global.Path.data, `codemate-${safe}.db`)
 }
 
 export const Path = iife(() => {
-  if (Flag.CODEMATE_DB) {
-    if (Flag.CODEMATE_DB === ":memory:" || path.isAbsolute(Flag.CODEMATE_DB)) return Flag.CODEMATE_DB
-    return path.join(Global.Path.data, Flag.CODEMATE_DB)
+  if (Flag.codemate_DB) {
+    if (Flag.codemate_DB === ":memory:" || path.isAbsolute(Flag.codemate_DB)) return Flag.codemate_DB
+    return path.join(Global.Path.data, Flag.codemate_DB)
   }
   return getChannelPath()
 })
@@ -47,6 +47,13 @@ export type Transaction = SQLiteTransaction<"sync", void>
 type Client = SQLiteBunDatabase
 
 type Journal = { sql: string; timestamp: number; name: string }[]
+
+// Drizzle's migrate overloads trigger expensive variance checks here; narrow to the journal overload we actually use.
+const migrateFromJournal = migrate as unknown as (db: SQLiteBunDatabase, entries: Journal) => void
+
+function applyMigrations(db: SQLiteBunDatabase, entries: Journal) {
+  migrateFromJournal(db, entries)
+}
 
 function time(tag: string) {
   const match = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/.exec(tag)
@@ -95,26 +102,27 @@ export const Client = lazy(() => {
 
   // Apply schema migrations
   const entries =
-    typeof CODEMATE_MIGRATIONS !== "undefined"
-      ? CODEMATE_MIGRATIONS
+    typeof codemate_MIGRATIONS !== "undefined"
+      ? codemate_MIGRATIONS
       : migrations(path.join(import.meta.dirname, "../../migration"))
   if (entries.length > 0) {
     log.info("applying migrations", {
       count: entries.length,
-      mode: typeof CODEMATE_MIGRATIONS !== "undefined" ? "bundled" : "dev",
+      mode: typeof codemate_MIGRATIONS !== "undefined" ? "bundled" : "dev",
     })
-    if (Flag.CODEMATE_SKIP_MIGRATIONS) {
+    if (Flag.codemate_SKIP_MIGRATIONS) {
       for (const item of entries) {
         item.sql = "select 1;"
       }
     }
-    migrate(db, entries)
+    applyMigrations(db, entries)
   }
 
   return db
 })
 
 export function close() {
+  if (!Client.loaded()) return
   Client().$client.close()
   Client.reset()
 }

@@ -36,10 +36,10 @@ codemate serve --cors http://localhost:5173 --cors https://app.example.com
 
 ### Autenticación
 
-Configure `CODEMATE_SERVER_PASSWORD` para proteger el servidor con autenticación básica HTTP. El nombre de usuario predeterminado es `codemate`, o configure `CODEMATE_SERVER_USERNAME` para anularlo. Esto se aplica tanto a `codemate serve` como a `codemate web`.
+Configure `codemate_SERVER_PASSWORD` para proteger el servidor con autenticación básica HTTP. El nombre de usuario predeterminado es `codemate`, o configure `codemate_SERVER_USERNAME` para anularlo. Esto se aplica tanto a `codemate serve` como a `codemate web`.
 
 ```bash
-CODEMATE_SERVER_PASSWORD=your-password codemate serve
+codemate_SERVER_PASSWORD=your-password codemate serve
 ```
 
 ---
@@ -65,7 +65,7 @@ codemate TUI ejecutándose, `codemate serve` iniciará un nuevo servidor.
 
 Cuando inicia el TUI, asigna aleatoriamente un puerto y un nombre de host. En su lugar, puede pasar `--hostname` y `--port` [banderas](/docs/cli). Luego use esto para conectarse a su servidor.
 
-El punto final [`/tui`](#tui) se puede utilizar para conducir el TUI a través del servidor. Por ejemplo, puede completar previamente o ejecutar un mensaje. Esta configuración es utilizada por los complementos Codemate [IDE](/docs/ide).
+El punto final [`/tui`](#tui) se puede utilizar para conducir el TUI a través del servidor. Por ejemplo, puede completar previamente o ejecutar un mensaje. Esta configuración es utilizada por los complementos codemate [IDE](/docs/ide).
 
 ---
 

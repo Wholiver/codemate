@@ -16,9 +16,9 @@ app
     openAPIRouteHandler(app, {
       documentation: {
         info: {
-          title: "Codemate Enterprise API",
+          title: "codemate Enterprise API",
           version: "1.0.0",
-          description: "Codemate Enterprise API endpoints",
+          description: "codemate Enterprise API endpoints",
         },
         openapi: "3.1.1",
       },

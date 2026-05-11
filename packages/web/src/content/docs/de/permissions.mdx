@@ -3,7 +3,7 @@ title: Berechtigungen
 description: Steuern Sie, für welche Aktionen eine Genehmigung erforderlich ist.
 ---
 
-Codemate verwendet die `permission`-Konfiguration, um zu entscheiden, ob eine bestimmte Aktion automatisch ausgeführt werden soll, Sie dazu auffordern oder blockiert werden soll.
+codemate verwendet die `permission`-Konfiguration, um zu entscheiden, ob eine bestimmte Aktion automatisch ausgeführt werden soll, Sie dazu auffordern oder blockiert werden soll.
 
 Ab `v1.1.1` ist die alte boolesche Konfiguration `tools` veraltet und wurde in `permission` zusammengeführt. Die alte `tools`-Konfiguration wird aus Gründen der Abwärtskompatibilität weiterhin unterstützt.
 
@@ -88,7 +88,7 @@ Sie können `~` oder `$HOME` am Anfang eines Musters verwenden, um auf Ihr Home-
 
 ### Externe Verzeichnisse
 
-Verwenden Sie `external_directory`, um Toolaufrufe zuzulassen, die Pfade außerhalb des Arbeitsverzeichnisses berühren, in dem Codemate gestartet wurde. Dies gilt für jedes Werkzeug, das einen Pfad als Eingabe verwendet (z. B. `read`, `edit`, `glob`, `grep` und viele `bash`-Befehle).
+Verwenden Sie `external_directory`, um Toolaufrufe zuzulassen, die Pfade außerhalb des Arbeitsverzeichnisses berühren, in dem codemate gestartet wurde. Dies gilt für jedes Werkzeug, das einen Pfad als Eingabe verwendet (z. B. `read`, `edit`, `glob`, `grep` und viele `bash`-Befehle).
 
 Die Home-Erweiterung (wie `~/...`) wirkt sich nur darauf aus, wie ein Muster geschrieben wird. Dadurch wird ein externer Pfad nicht zum Teil des aktuellen Arbeitsbereichs, daher müssen Pfade außerhalb des Arbeitsverzeichnisses weiterhin über `external_directory` zulässig sein.
 
@@ -127,7 +127,7 @@ Konzentrieren Sie sich in der Liste auf vertrauenswürdige Pfade und fügen Sie 
 
 ## Verfügbare Berechtigungen
 
-Codemate-Berechtigungen basieren auf Tool-Namen sowie einigen Sicherheitsvorkehrungen:
+codemate-Berechtigungen basieren auf Tool-Namen sowie einigen Sicherheitsvorkehrungen:
 
 - `read` – eine Datei lesen (entspricht dem Dateipfad)
 - `edit` – alle Dateiänderungen (umfasst `edit`, `write`, `patch`)
@@ -146,7 +146,7 @@ Codemate-Berechtigungen basieren auf Tool-Namen sowie einigen Sicherheitsvorkehr
 
 ## Standardwerte
 
-Wenn Sie nichts angeben, beginnt Codemate mit zulässigen Standardeinstellungen:
+Wenn Sie nichts angeben, beginnt codemate mit zulässigen Standardeinstellungen:
 
 - Die meisten Berechtigungen sind standardmäßig auf `"allow"` eingestellt.
 - `doom_loop` und `external_directory` sind standardmäßig `"ask"`.
@@ -169,10 +169,10 @@ Wenn Sie nichts angeben, beginnt Codemate mit zulässigen Standardeinstellungen:
 
 ## Was „Fragen“ bewirkt
 
-Wenn Codemate zur Genehmigung auffordert, bietet UI drei Ergebnisse:
+Wenn codemate zur Genehmigung auffordert, bietet UI drei Ergebnisse:
 
 - `once` – nur diese Anfrage genehmigen
-- `always` – zukünftige Anfragen genehmigen, die den vorgeschlagenen Mustern entsprechen (für den Rest der aktuellen Codemate-Sitzung)
+- `always` – zukünftige Anfragen genehmigen, die den vorgeschlagenen Mustern entsprechen (für den Rest der aktuellen codemate-Sitzung)
 - `reject` – die Anfrage ablehnen
 
 Der Satz von Mustern, die `always` genehmigen würde, wird vom Tool bereitgestellt (Beispiel: Bash-Genehmigungen setzen normalerweise ein sicheres Befehlspräfix wie `git status*` auf die Whitelist).

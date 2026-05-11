@@ -1,5 +1,9 @@
 import { Global } from "@codemate-ai/core/global"
-import { bootstrap } from "../../bootstrap"
+import { InstallationVersion } from "@codemate-ai/core/installation/version"
+import os from "os"
+import { Duration, Effect } from "effect"
+import { Config } from "@/config/config"
+import { effectCmd } from "../../effect-cmd"
 import { cmd } from "../cmd"
 import { ConfigCommand } from "./config"
 import { FileCommand } from "./file"
@@ -25,18 +29,36 @@ export const DebugCommand = cmd({
       .command(SnapshotCommand)
       .command(StartupCommand)
       .command(AgentCommand)
+      .command(InfoCommand)
       .command(PathsCommand)
-      .command({
-        command: "wait",
-        describe: "wait indefinitely (for debugging)",
-        async handler() {
-          await bootstrap(process.cwd(), async () => {
-            await new Promise((resolve) => setTimeout(resolve, 1_000 * 60 * 60 * 24))
-          })
-        },
-      })
+      .command(WaitCommand)
       .demandCommand(),
   async handler() {},
+})
+
+const WaitCommand = effectCmd({
+  command: "wait",
+  describe: "wait indefinitely (for debugging)",
+  handler: Effect.fn("Cli.debug.wait")(function* () {
+    yield* Effect.sleep(Duration.days(1))
+  }),
+})
+
+const InfoCommand = effectCmd({
+  command: "info",
+  describe: "show debug information",
+  handler: Effect.fn("Cli.debug.info")(function* () {
+    yield* Config.Service.use((cfg) => cfg.get())
+    const termProgram = process.env.TERM_PROGRAM
+      ? `${process.env.TERM_PROGRAM}${process.env.TERM_PROGRAM_VERSION ? ` ${process.env.TERM_PROGRAM_VERSION}` : ""}`
+      : undefined
+    const terminal = [termProgram, process.env.TERM].filter((item): item is string => Boolean(item)).join(" / ")
+
+    console.log(`codemate version: ${InstallationVersion}`)
+    console.log(`os: ${os.type()} ${os.release()} ${os.arch()}`)
+    console.log(`terminal: ${terminal || "unknown"}`)
+    console.log("plugin support: disabled")
+  }),
 })
 
 const PathsCommand = cmd({

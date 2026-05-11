@@ -3,7 +3,7 @@ title: Serveurs MCP
 description: Ajoutez des outils MCP locaux et distants.
 ---
 
-Vous pouvez ajouter des outils externes à Codemate à l'aide du _Model Context Protocol_ ou MCP. Codemate prend en charge les serveurs locaux et distants.
+Vous pouvez ajouter des outils externes à codemate à l'aide du _Model Context Protocol_ ou MCP. codemate prend en charge les serveurs locaux et distants.
 
 Une fois ajoutés, les outils MCP sont automatiquement disponibles pour le LLM aux côtés des outils intégrés.
 
@@ -23,7 +23,7 @@ Certains serveurs MCP, comme le serveur GitHub MCP, ont tendance à ajouter beau
 
 ## Activation
 
-Vous pouvez définir des serveurs MCP dans votre [Codemate Config](https://codemate.ai/docs/config/) sous `mcp`. Ajoutez chaque MCP avec un nom unique. Vous pouvez faire référence à ce MCP par son nom lorsque vous demandez le LLM.
+Vous pouvez définir des serveurs MCP dans votre [codemate Config](https://codemate.ai/docs/config/) sous `mcp`. Ajoutez chaque MCP avec un nom unique. Vous pouvez faire référence à ce MCP par son nom lorsque vous demandez le LLM.
 
 ```jsonc title="codemate.jsonc" {6}
 {
@@ -165,7 +165,7 @@ Le champ `url` est l'URL du serveur MCP distant et l'option `headers` vous perme
 
 ## OAuth
 
-Codemate gère automatiquement l'authentification OAuth pour les serveurs MCP distants. Lorsqu'un serveur nécessite une authentification, Codemate :
+codemate gère automatiquement l'authentification OAuth pour les serveurs MCP distants. Lorsqu'un serveur nécessite une authentification, codemate :
 
 1. Détecte la réponse 401 et lance le flux OAuth
 2. Utilise **Enregistrement client dynamique (RFC 7591)** s'il est pris en charge par le serveur.
@@ -189,7 +189,7 @@ Pour la plupart des serveurs MCP compatibles OAuth, aucune configuration particu
 }
 ```
 
-Si le serveur nécessite une authentification, Codemate vous demandera de vous authentifier lorsque vous essayez de l'utiliser pour la première fois. Sinon, vous pouvez [déclencher manuellement le flux](#authenticating) avec `codemate mcp auth <server-name>`.
+Si le serveur nécessite une authentification, codemate vous demandera de vous authentifier lorsque vous essayez de l'utiliser pour la première fois. Sinon, vous pouvez [déclencher manuellement le flux](#authenticating) avec `codemate mcp auth <server-name>`.
 
 ---
 
@@ -238,7 +238,7 @@ Supprimez les informations d'identification stockées :
 codemate mcp logout my-oauth-server
 ```
 
-La commande `mcp auth` ouvrira votre navigateur pour autorisation. Après votre autorisation, Codemate stockera les jetons en toute sécurité dans `~/.local/share/codemate/mcp-auth.json`.
+La commande `mcp auth` ouvrira votre navigateur pour autorisation. Après votre autorisation, codemate stockera les jetons en toute sécurité dans `~/.local/share/codemate/mcp-auth.json`.
 
 ---
 
@@ -291,7 +291,7 @@ La commande `mcp debug` affiche l'état d'authentification actuel, teste la conn
 
 ## Gestion
 
-Vos MCP sont disponibles sous forme d'outils dans Codemate, aux côtés des outils intégrés. Vous pouvez donc les gérer via la configuration Codemate comme n'importe quel autre outil.
+Vos MCP sont disponibles sous forme d'outils dans codemate, aux côtés des outils intégrés. Vous pouvez donc les gérer via la configuration codemate comme n'importe quel autre outil.
 
 ---
 
@@ -423,7 +423,7 @@ Après avoir ajouté la configuration, authentifiez-vous auprès de Sentry :
 codemate mcp auth sentry
 ```
 
-Cela ouvrira une fenêtre de navigateur pour terminer le flux OAuth et connecter Codemate à votre compte Sentry.
+Cela ouvrira une fenêtre de navigateur pour terminer le flux OAuth et connecter codemate à votre compte Sentry.
 
 Une fois authentifié, vous pouvez utiliser les outils Sentry dans vos prompts pour interroger les problèmes, les projets et les données d'erreur.
 

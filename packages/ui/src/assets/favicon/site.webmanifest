@@ -1,6 +1,6 @@
 {
-  "name": "Codemate",
-  "short_name": "Codemate",
+  "name": "codemate",
+  "short_name": "codemate",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

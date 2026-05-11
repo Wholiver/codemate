@@ -1,17 +1,17 @@
 ---
 title: Fournisseurs
-description: Utiliser n’importe quel fournisseur LLM en Codemate.
+description: Utiliser n’importe quel fournisseur LLM en codemate.
 ---
 
 import config from "../../../../config.mjs"
 export const console = config.console
 
-Codemate utilise [AI SDK](https://ai-sdk.dev/) et [Models.dev](https://models.dev) pour prendre en charge **75+ fournisseurs LLM** et prend en charge l'exécution de modèles locaux.
+codemate utilise [AI SDK](https://ai-sdk.dev/) et [Models.dev](https://models.dev) pour prendre en charge **75+ fournisseurs LLM** et prend en charge l'exécution de modèles locaux.
 
 Pour ajouter un fournisseur, vous devez :
 
 1. Ajoutez les clés API pour le fournisseur à l'aide de la commande `/connect`.
-2. Configurez le fournisseur dans votre configuration Codemate.
+2. Configurez le fournisseur dans votre configuration codemate.
 
 ---
 
@@ -24,7 +24,7 @@ en `~/.local/share/codemate/auth.json`.
 
 ### Configuration
 
-Vous pouvez personnaliser les fournisseurs via la section `provider` de votre Codemate
+Vous pouvez personnaliser les fournisseurs via la section `provider` de votre codemate
 configuration.
 
 ---
@@ -48,13 +48,13 @@ Vous pouvez personnaliser la base URL pour n'importe quel fournisseur en défini
 
 ---
 
-## Codemate Zen
+## codemate Zen
 
-Codemate Zen est une liste de modèles fournis par l'équipe Codemate qui ont été
-testé et vérifié pour fonctionner correctement avec Codemate. [En savoir plus](/docs/zen).
+codemate Zen est une liste de modèles fournis par l'équipe codemate qui ont été
+testé et vérifié pour fonctionner correctement avec codemate. [En savoir plus](/docs/zen).
 
 :::tip
-Si vous êtes nouveau, nous vous recommandons de commencer par Codemate Zen.
+Si vous êtes nouveau, nous vous recommandons de commencer par codemate Zen.
 :::
 
 1. Exécutez la commande `/connect` dans le TUI, sélectionnez codemate et dirigez-vous vers [codemate.ai/auth](https://codemate.ai/auth).
@@ -80,16 +80,16 @@ Si vous êtes nouveau, nous vous recommandons de commencer par Codemate Zen.
    /models
    ```
 
-Il fonctionne comme n’importe quel autre fournisseur dans Codemate et son utilisation est totalement facultative.
+Il fonctionne comme n’importe quel autre fournisseur dans codemate et son utilisation est totalement facultative.
 
 ---
 
-## Codemate Go
+## codemate Go
 
-Codemate Go est un plan d'abonnement à faible coût qui offre un accès fiable aux modèles de codage ouverts populaires fournis par l'équipe Codemate qui ont été
-testé et vérifié pour fonctionner correctement avec Codemate.
+codemate Go est un plan d'abonnement à faible coût qui offre un accès fiable aux modèles de codage ouverts populaires fournis par l'équipe codemate qui ont été
+testé et vérifié pour fonctionner correctement avec codemate.
 
-1. Exécutez la commande `/connect` dans le TUI, sélectionnez `Codemate Go` et rendez-vous sur [codemate.ai/auth](https://codemate.ai/zen).
+1. Exécutez la commande `/connect` dans le TUI, sélectionnez `codemate Go` et rendez-vous sur [codemate.ai/auth](https://codemate.ai/zen).
 
    ```txt
    /connect
@@ -112,7 +112,7 @@ testé et vérifié pour fonctionner correctement avec Codemate.
    /models
    ```
 
-Il fonctionne comme n’importe quel autre fournisseur dans Codemate et son utilisation est totalement facultative.
+Il fonctionne comme n’importe quel autre fournisseur dans codemate et son utilisation est totalement facultative.
 
 ---
 
@@ -156,7 +156,7 @@ Vous ne voyez pas de fournisseur ici ? Soumettez un PR.
 
 ### Amazon Bedrock
 
-Pour utiliser Amazon Bedrock avec Codemate :
+Pour utiliser Amazon Bedrock avec codemate :
 
 1. Rendez-vous sur le **Catalogue de modèles** dans la console Amazon Bedrock et demandez
    accédez aux modèles que vous souhaitez.
@@ -314,7 +314,7 @@ Pour les profils d'inférence personnalisés, utilisez le nom du modèle et du f
    ```
 
 :::info
-L'utilisation de votre abonnement Claude Pro/Max dans Codemate n'est pas officiellement prise en charge par [Anthropic](https://anthropic.com).
+L'utilisation de votre abonnement Claude Pro/Max dans codemate n'est pas officiellement prise en charge par [Anthropic](https://anthropic.com).
 :::
 
 ##### Utilisation des clés API
@@ -654,11 +654,11 @@ Vous pouvez également ajouter des modèles via votre configuration codemate.
 
 ---
 
-### Firmware
+### FrogBot
 
-1. Rendez-vous sur le [Tableau de bord du micrologiciel](https://app.firmware.ai/signup), créez un compte et générez une clé API.
+1. Rendez-vous sur le [Tableau de bord du micrologiciel](https://app.frogbot.ai/signup), créez un compte et générez une clé API.
 
-2. Exécutez la commande `/connect` et recherchez **Firmware**.
+2. Exécutez la commande `/connect` et recherchez **FrogBot**.
 
    ```txt
    /connect
@@ -736,7 +736,7 @@ Sélectionnez **OAuth** et votre navigateur s'ouvrira pour autorisation.
 
 1.  Accédez à [GitLab Paramètres utilisateur > Jetons d'accès](https://gitlab.com/-/user_settings/personal_access_tokens)
 2.  Cliquez sur **Ajouter un nouveau jeton**
-3.  Nom : `Codemate`, Portées : `api`
+3.  Nom : `codemate`, Portées : `api`
 4.  Copiez le jeton (commence par `glpat-`)
 5.  Entrez-le dans le terminal
 
@@ -762,8 +762,8 @@ pour stocker le jeton dans le stockage d'authentification codemate.
 ##### GitLab auto-hébergé
 
 :::note[note de conformité]
-Codemate utilise un petit modèle pour certaines tâches d'IA telles que la génération du titre de la session.
-Il est configuré pour utiliser gpt-5-nano par défaut, hébergé par Zen. Pour verrouiller Codemate
+codemate utilise un petit modèle pour certaines tâches d'IA telles que la génération du titre de la session.
+Il est configuré pour utiliser gpt-5-nano par défaut, hébergé par Zen. Pour verrouiller codemate
 pour utiliser uniquement votre propre instance hébergée par GitLab, ajoutez ce qui suit à votre
 Fichier `codemate.json`. Il est également recommandé de désactiver le partage de session.
 
@@ -896,7 +896,7 @@ Certains modèles doivent être activés manuellement dans vos [GitHub Copilot p
 
 ### Google Vertex AI
 
-Pour utiliser Google Vertex AI avec Codemate :
+Pour utiliser Google Vertex AI avec codemate :
 
 1. Rendez-vous sur **Model Garden** dans Google Cloud Console et vérifiez les
    modèles disponibles dans votre région.
@@ -1078,7 +1078,7 @@ Helicone prend en charge les en-têtes personnalisés pour des fonctionnalités 
 
 ##### Suivi des sessions
 
-La fonctionnalité [Sessions](https://docs.helicone.ai/features/sessions) d'Helicone vous permet de regrouper les requêtes LLM associées. Utilisez le plugin [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) pour enregistrer automatiquement chaque conversation Codemate en tant que session dans Helicone.
+La fonctionnalité [Sessions](https://docs.helicone.ai/features/sessions) d'Helicone vous permet de regrouper les requêtes LLM associées. Utilisez le plugin [codemate-helicone-session](https://github.com/H2Shami/codemate-helicone-session) pour enregistrer automatiquement chaque conversation codemate en tant que session dans Helicone.
 
 ```bash
 npm install -g codemate-helicone-session
@@ -1092,7 +1092,7 @@ Ajoutez-le à votre configuration.
 }
 ```
 
-Le plugin injecte les en-têtes `Helicone-Session-Id` et `Helicone-Session-Name` dans vos requêtes. Sur la page Sessions d'Helicone, vous verrez chaque conversation Codemate répertoriée comme une session distincte.
+Le plugin injecte les en-têtes `Helicone-Session-Id` et `Helicone-Session-Name` dans vos requêtes. Sur la page Sessions d'Helicone, vous verrez chaque conversation codemate répertoriée comme une session distincte.
 
 ##### En-têtes Helicone communs
 
@@ -1296,7 +1296,7 @@ Pour utiliser Kimi K2 de Moonshot AI :
 Vous pouvez configurer codemate pour utiliser des modèles locaux via Ollama.
 
 :::tip
-Ollama peut se configurer automatiquement pour Codemate. Voir les [documents d'intégration Ollama](https://docs.ollama.com/integrations/codemate) pour plus de détails.
+Ollama peut se configurer automatiquement pour codemate. Voir les [documents d'intégration Ollama](https://docs.ollama.com/integrations/codemate) pour plus de détails.
 :::
 
 ```json title="codemate.json" "ollama" {5, 6, 8, 10-14}
@@ -1335,13 +1335,13 @@ Si les appels d'outils ne fonctionnent pas, essayez d'augmenter `num_ctx` dans O
 
 ### Ollama Cloud
 
-Pour utiliser Ollama Cloud avec Codemate :
+Pour utiliser Ollama Cloud avec codemate :
 
 1. Rendez-vous sur [https://ollama.com/](https://ollama.com/) et connectez-vous ou créez un compte.
 
 2. Accédez à **Paramètres** > **Clés** et cliquez sur **Ajouter une clé API** pour générer une nouvelle clé API.
 
-3. Copiez la clé API à utiliser dans Codemate.
+3. Copiez la clé API à utiliser dans codemate.
 
 4. Exécutez la commande `/connect` et recherchez **Ollama Cloud**.
 
@@ -1358,7 +1358,7 @@ Pour utiliser Ollama Cloud avec Codemate :
    └ enter
    ```
 
-6. **Important** : Avant d'utiliser des modèles cloud dans Codemate, vous devez extraire les informations du modèle localement :
+6. **Important** : Avant d'utiliser des modèles cloud dans codemate, vous devez extraire les informations du modèle localement :
 
    ```bash
    ollama pull gpt-oss:20b-cloud
@@ -1405,19 +1405,19 @@ Si vous disposez déjà d'une clé API, vous pouvez sélectionner **Entrer manue
 
 ---
 
-### Codemate Zen
+### codemate Zen
 
-Codemate Zen est une liste de modèles testés et vérifiés fournie par l'équipe Codemate. [En savoir plus](/docs/zen).
+codemate Zen est une liste de modèles testés et vérifiés fournie par l'équipe codemate. [En savoir plus](/docs/zen).
 
-1. Connectez-vous à **<a href={console}>Codemate Zen</a>** et cliquez sur **Créer une clé API**.
+1. Connectez-vous à **<a href={console}>codemate Zen</a>** et cliquez sur **Créer une clé API**.
 
-2. Exécutez la commande `/connect` et recherchez **Codemate Zen**.
+2. Exécutez la commande `/connect` et recherchez **codemate Zen**.
 
    ```txt
    /connect
    ```
 
-3. Entrez votre clé Codemate API.
+3. Entrez votre clé codemate API.
 
    ```txt
    ┌ API key
@@ -1615,7 +1615,7 @@ STACKIT AI Model Serving fournit un environnement d'hébergement souverain enti�
 
 ### Scaleway
 
-Pour utiliser [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) avec Codemate :
+Pour utiliser [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) avec codemate :
 
 1. Rendez-vous dans les [Paramètres IAM de la console Scaleway](https://console.scaleway.com/iam/api-keys) pour générer une nouvelle clé API.
 
@@ -1977,7 +1977,7 @@ Détails de configuration :
 - **limit.context** : nombre maximal de jetons d'entrée acceptés par le modèle.
 - **limit.output** : nombre maximal de jetons que le modèle peut générer.
 
-Les champs `limit` permettent à Codemate de comprendre la quantité de contexte qu'il vous reste. Les fournisseurs standard les extraient automatiquement de models.dev.
+Les champs `limit` permettent à codemate de comprendre la quantité de contexte qu'il vous reste. Les fournisseurs standard les extraient automatiquement de models.dev.
 
 ---
 

@@ -8,10 +8,10 @@ new sst.cloudflare.x.SolidStart("Teams", {
   path: "packages/enterprise",
   buildCommand: "bun run build:cloudflare",
   environment: {
-    CODEMATE_STORAGE_ADAPTER: "r2",
-    CODEMATE_STORAGE_ACCOUNT_ID: sst.cloudflare.DEFAULT_ACCOUNT_ID,
-    CODEMATE_STORAGE_ACCESS_KEY_ID: SECRET.R2AccessKey.value,
-    CODEMATE_STORAGE_SECRET_ACCESS_KEY: SECRET.R2SecretKey.value,
-    CODEMATE_STORAGE_BUCKET: storage.name,
+    codemate_STORAGE_ADAPTER: "r2",
+    codemate_STORAGE_ACCOUNT_ID: sst.cloudflare.DEFAULT_ACCOUNT_ID,
+    codemate_STORAGE_ACCESS_KEY_ID: SECRET.R2AccessKey.value,
+    codemate_STORAGE_SECRET_ACCESS_KEY: SECRET.R2SecretKey.value,
+    codemate_STORAGE_BUCKET: storage.name,
   },
 })

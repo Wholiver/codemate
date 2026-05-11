@@ -1,5 +1,5 @@
 import type { McpServer } from "@agentclientprotocol/sdk"
-import type { CodemateClient } from "@codemate-ai/sdk/v2"
+import type { codemateClient } from "@codemate-ai/sdk/v2"
 import type { ProviderID, ModelID } from "../provider/schema"
 
 export interface ACPSessionState {
@@ -16,7 +16,7 @@ export interface ACPSessionState {
 }
 
 export interface ACPConfig {
-  sdk: CodemateClient
+  sdk: codemateClient
   defaultModel?: {
     providerID: ProviderID
     modelID: ModelID

@@ -1,9 +1,9 @@
-import "@opentui/solid/runtime-plugin-support"
+import { runtimeModules as keymapRuntimeModules } from "@opentui/keymap/runtime-modules"
+import { ensureRuntimePluginSupport } from "@opentui/solid/runtime-plugin-support/configure"
 import {
   type TuiDispose,
   type TuiPlugin,
   type TuiPluginApi,
-  type TuiPluginInstallResult,
   type TuiPluginModule,
   type TuiPluginMeta,
   type TuiPluginStatus,
@@ -16,7 +16,7 @@ import { TuiConfig } from "@/cli/cmd/tui/config/tui"
 import * as Log from "@codemate-ai/core/util/log"
 import { errorData, errorMessage } from "@/util/error"
 import { isRecord } from "@/util/record"
-import { Instance } from "@/project/instance"
+import { WithInstance } from "@/project/with-instance"
 import {
   readPackageThemes,
   readPluginId,
@@ -27,17 +27,17 @@ import {
 } from "@/plugin/shared"
 import { PluginLoader } from "@/plugin/loader"
 import { PluginMeta } from "@/plugin/meta"
-import { installPlugin as installModulePlugin, patchPluginConfig, readPluginManifest } from "@/plugin/install"
 import { hasTheme, upsertTheme } from "../context/theme"
 import { Global } from "@codemate-ai/core/global"
 import { Filesystem } from "@/util/filesystem"
-import { Process } from "@/util/process"
 import { Flock } from "@codemate-ai/core/util/flock"
-import { Flag } from "@codemate-ai/core/flag/flag"
 import { INTERNAL_TUI_PLUGINS, type InternalTuiPlugin } from "./internal"
 import { setupSlots, Slot as View } from "./slots"
 import type { HostPluginApi, HostSlots } from "./slots"
 import { ConfigPlugin } from "@/config/plugin"
+import { createCommandShim } from "./command-shim"
+
+ensureRuntimePluginSupport({ additional: keymapRuntimeModules })
 
 type PluginLoad = {
   options: ConfigPlugin.Options | undefined
@@ -70,13 +70,42 @@ type PluginEntry = {
   scope?: PluginScope
 }
 
+const ScopedKeymapMethods = new Set<PropertyKey>([
+  "acquireResource",
+  "registerLayer",
+  "registerLayerFields",
+  "prependLayerBindingsTransformer",
+  "appendLayerBindingsTransformer",
+  "prependBindingTransformer",
+  "appendBindingTransformer",
+  "prependBindingParser",
+  "appendBindingParser",
+  "registerToken",
+  "registerSequencePattern",
+  "prependBindingExpander",
+  "appendBindingExpander",
+  "registerBindingFields",
+  "registerCommandFields",
+  "prependCommandTransformer",
+  "appendCommandTransformer",
+  "prependCommandResolver",
+  "appendCommandResolver",
+  "prependLayerAnalyzer",
+  "appendLayerAnalyzer",
+  "intercept",
+  "on",
+  "prependEventMatchResolver",
+  "appendEventMatchResolver",
+  "prependDisambiguationResolver",
+  "appendDisambiguationResolver",
+])
+
 type RuntimeState = {
   directory: string
   api: Api
   slots: HostSlots
   plugins: PluginEntry[]
   plugins_by_id: Map<string, PluginEntry>
-  pending: Map<string, ConfigPlugin.Origin>
 }
 
 const log = Log.create({ service: "tui.plugin" })
@@ -102,6 +131,25 @@ function fail(message: string, data: Record<string, unknown>) {
 function warn(message: string, data: Record<string, unknown>) {
   log.warn(message, data)
   console.warn(`[tui.plugin] ${message}`, data)
+}
+
+function createScopedKeymap(keymap: TuiPluginApi["keymap"], scope: PluginScope): TuiPluginApi["keymap"] {
+  const cache = new Map<PropertyKey, unknown>()
+  return new Proxy(keymap, {
+    get(target, prop) {
+      const value = Reflect.get(target, prop, target)
+      if (typeof value !== "function") return value
+      if (cache.has(prop)) return cache.get(prop)
+      const fn = ScopedKeymapMethods.has(prop)
+        ? (...args: unknown[]) => {
+            const dispose = (value as (...args: unknown[]) => unknown).apply(target, args)
+            return scope.track(typeof dispose === "function" ? (dispose as () => void) : undefined)
+          }
+        : (...args: unknown[]) => (value as (...args: unknown[]) => unknown).apply(target, args)
+      cache.set(prop, fn)
+      return fn
+    },
+  })
 }
 
 type CleanupResult = { type: "ok" } | { type: "error"; error: unknown } | { type: "timeout" }
@@ -327,14 +375,16 @@ function createPluginScope(load: PluginLoad, id: string) {
 
   const track = (fn: (() => void) | undefined) => {
     if (!fn) return () => {}
-    const off = onDispose(fn)
     let drop = false
-    return () => {
+    let off = () => {}
+    const wrapped = () => {
       if (drop) return
       drop = true
       off()
       fn()
     }
+    off = onDispose(wrapped)
+    return wrapped
   }
 
   const lifecycle: TuiPluginApi["lifecycle"] = {
@@ -395,7 +445,7 @@ function readPluginEnabledMap(value: unknown) {
   )
 }
 
-function pluginEnabledState(state: RuntimeState, config: TuiConfig.Info) {
+function pluginEnabledState(state: RuntimeState, config: TuiConfig.Resolved) {
   return {
     ...readPluginEnabledMap(config.plugin_enabled),
     ...readPluginEnabledMap(state.api.kv.get(KV_KEY, {})),
@@ -484,17 +534,6 @@ function pluginApi(runtime: RuntimeState, plugin: PluginEntry, scope: PluginScop
   const api = runtime.api
   const host = runtime.slots
   const load = plugin.load
-  const command: TuiPluginApi["command"] = {
-    register(cb) {
-      return scope.track(api.command.register(cb))
-    },
-    trigger(value) {
-      api.command.trigger(value)
-    },
-    show() {
-      api.command.show()
-    },
-  }
 
   const route: TuiPluginApi["route"] = {
     register(list) {
@@ -518,6 +557,8 @@ function pluginApi(runtime: RuntimeState, plugin: PluginEntry, scope: PluginScop
     },
   }
 
+  const keymap = createScopedKeymap(api.keymap, scope)
+
   let count = 0
 
   const slots: TuiPluginApi["slots"] = {
@@ -531,10 +572,12 @@ function pluginApi(runtime: RuntimeState, plugin: PluginEntry, scope: PluginScop
 
   return {
     app: api.app,
-    command,
+    // Keep deprecated `api.command` working for v1 plugins; remove in v2.
+    command: createCommandShim(keymap, api.ui.dialog, api.tuiConfig.keybinds),
+    keys: api.keys,
+    keymap,
     route,
     ui: api.ui,
-    keybind: api.keybind,
     tuiConfig: api.tuiConfig,
     kv: api.kv,
     state: api.state,
@@ -555,11 +598,14 @@ function pluginApi(runtime: RuntimeState, plugin: PluginEntry, scope: PluginScop
       deactivate(id) {
         return deactivatePluginById(runtime, id, true)
       },
-      add(spec) {
-        return addPluginBySpec(runtime, spec)
+      async add() {
+        return false
       },
-      install(spec, options) {
-        return installPluginBySpec(runtime, spec, options?.global)
+      async install() {
+        return {
+          ok: false,
+          message: "Plugin support is disabled",
+        }
       },
     },
     lifecycle: scope.lifecycle,
@@ -580,7 +626,7 @@ function addPluginEntry(state: RuntimeState, plugin: PluginEntry) {
   return true
 }
 
-function applyInitialPluginEnabledState(state: RuntimeState, config: TuiConfig.Info) {
+function applyInitialPluginEnabledState(state: RuntimeState, config: TuiConfig.Resolved) {
   const map = pluginEnabledState(state, config)
   for (const plugin of state.plugins) {
     const enabled = map[plugin.id]
@@ -744,186 +790,12 @@ async function addExternalPluginEntries(state: RuntimeState, ready: PluginLoad[]
   return { plugins, ok }
 }
 
-function defaultPluginOrigin(state: RuntimeState, spec: string): ConfigPlugin.Origin {
-  return {
-    spec,
-    scope: "local",
-    source: state.api.state.path.config || path.join(state.directory, ".codemate", "tui.json"),
-  }
-}
-
-function installCause(err: unknown) {
-  if (!err || typeof err !== "object") return
-  if (!("cause" in err)) return
-  return (err as { cause?: unknown }).cause
-}
-
-function installDetail(err: unknown) {
-  const hit = installCause(err) ?? err
-  if (!(hit instanceof Process.RunFailedError)) {
-    return {
-      message: errorMessage(hit),
-      missing: false,
-    }
-  }
-
-  const lines = hit.stderr
-    .toString()
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean)
-  const errs = lines.filter((line) => line.startsWith("error:")).map((line) => line.replace(/^error:\s*/, ""))
-  return {
-    message: errs[0] ?? lines.at(-1) ?? errorMessage(hit),
-    missing: lines.some((line) => line.includes("No version matching")),
-  }
-}
-
-async function addPluginBySpec(state: RuntimeState | undefined, raw: string) {
-  if (!state) return false
-  const spec = raw.trim()
-  if (!spec) return false
-
-  const cfg = state.pending.get(spec) ?? defaultPluginOrigin(state, spec)
-  const next = ConfigPlugin.pluginSpecifier(cfg.spec)
-  if (state.plugins.some((plugin) => plugin.load.spec === next)) {
-    state.pending.delete(spec)
-    return true
-  }
-  const ready = await Instance.provide({
-    directory: state.directory,
-    fn: () => resolveExternalPlugins([cfg], () => TuiConfig.waitForDependencies()),
-  }).catch((error) => {
-    fail("failed to add tui plugin", { path: next, error })
-    return [] as PluginLoad[]
-  })
-  if (!ready.length) {
-    return false
-  }
-
-  const first = ready[0]
-  if (!first) {
-    fail("failed to add tui plugin", { path: next })
-    return false
-  }
-  if (state.plugins_by_id.has(first.id)) {
-    state.pending.delete(spec)
-    return true
-  }
-
-  const out = await addExternalPluginEntries(state, [first])
-  let ok = out.ok && out.plugins.length > 0
-  for (const plugin of out.plugins) {
-    const active = await activatePluginEntry(state, plugin, false)
-    if (!active) ok = false
-  }
-
-  if (ok) state.pending.delete(spec)
-  if (!ok) {
-    fail("failed to add tui plugin", { path: next })
-  }
-  return ok
-}
-
-async function installPluginBySpec(
-  state: RuntimeState | undefined,
-  raw: string,
-  global = false,
-): Promise<TuiPluginInstallResult> {
-  if (!state) {
-    return {
-      ok: false,
-      message: "Plugin runtime is not ready.",
-    }
-  }
-
-  const spec = raw.trim()
-  if (!spec) {
-    return {
-      ok: false,
-      message: "Plugin package name is required",
-    }
-  }
-
-  const dir = state.api.state.path
-  if (!dir.directory) {
-    return {
-      ok: false,
-      message: "Paths are still syncing. Try again in a moment.",
-    }
-  }
-
-  const install = await installModulePlugin(spec)
-  if (!install.ok) {
-    const out = installDetail(install.error)
-    return {
-      ok: false,
-      message: out.message,
-      missing: out.missing,
-    }
-  }
-
-  const manifest = await readPluginManifest(install.target)
-  if (!manifest.ok) {
-    if (manifest.code === "manifest_no_targets") {
-      return {
-        ok: false,
-        message: `"${spec}" does not expose plugin entrypoints or oc-themes in package.json`,
-      }
-    }
-
-    return {
-      ok: false,
-      message: `Installed "${spec}" but failed to read ${manifest.file}`,
-    }
-  }
-
-  const patch = await patchPluginConfig({
-    spec,
-    targets: manifest.targets,
-    global,
-    vcs: dir.worktree && dir.worktree !== "/" ? "git" : undefined,
-    worktree: dir.worktree,
-    directory: dir.directory,
-  })
-  if (!patch.ok) {
-    if (patch.code === "invalid_json") {
-      return {
-        ok: false,
-        message: `Invalid JSON in ${patch.file} (${patch.parse} at line ${patch.line}, column ${patch.col})`,
-      }
-    }
-
-    return {
-      ok: false,
-      message: errorMessage(patch.error),
-    }
-  }
-
-  const tui = manifest.targets.find((item) => item.kind === "tui")
-  if (tui) {
-    const file = patch.items.find((item) => item.kind === "tui")?.file
-    const next = tui.opts ? ([spec, tui.opts] as ConfigPlugin.Spec) : spec
-    state.pending.set(spec, {
-      spec: next,
-      scope: global ? "global" : "local",
-      source: (file ?? dir.config) || path.join(patch.dir, "tui.json"),
-    })
-  }
-
-  return {
-    ok: true,
-    dir: patch.dir,
-    tui: Boolean(tui),
-  }
-}
-
 let dir = ""
 let loaded: Promise<void> | undefined
 let runtime: RuntimeState | undefined
 export const Slot = View
 
-export async function init(input: { api: HostPluginApi; config: TuiConfig.Info }) {
+export async function init(input: { api: HostPluginApi; config: TuiConfig.Resolved }) {
   const cwd = process.cwd()
   if (loaded) {
     if (dir !== cwd) {
@@ -951,11 +823,17 @@ export async function deactivatePlugin(id: string) {
 }
 
 export async function addPlugin(spec: string) {
-  return addPluginBySpec(runtime, spec)
+  void spec
+  return false
 }
 
 export async function installPlugin(spec: string, options?: { global?: boolean }) {
-  return installPluginBySpec(runtime, spec, options?.global)
+  void spec
+  void options
+  return {
+    ok: false,
+    message: "Plugin support is disabled",
+  } as const
 }
 
 export async function dispose() {
@@ -972,7 +850,7 @@ export async function dispose() {
   }
 }
 
-async function load(input: { api: Api; config: TuiConfig.Info }) {
+async function load(input: { api: Api; config: TuiConfig.Resolved }) {
   const { api, config } = input
   const cwd = process.cwd()
   const slots = setupSlots(api)
@@ -982,16 +860,16 @@ async function load(input: { api: Api; config: TuiConfig.Info }) {
     slots,
     plugins: [],
     plugins_by_id: new Map(),
-    pending: new Map(),
   }
   runtime = next
   try {
-    await Instance.provide({
+    await WithInstance.provide({
       directory: cwd,
       fn: async () => {
-        const records = Flag.CODEMATE_PURE || config.pure ? [] : (config.plugin_origins ?? [])
-        if ((Flag.CODEMATE_PURE || config.pure) && config.plugin_origins?.length) {
-          log.info("skipping external tui plugins (pure mode)", { count: config.plugin_origins.length })
+        if (config.plugin_origins?.length) {
+          log.info("ignoring external tui plugins because plugin support is disabled", {
+            count: config.plugin_origins.length,
+          })
         }
 
         for (const item of INTERNAL_TUI_PLUGINS) {
@@ -1004,11 +882,11 @@ async function load(input: { api: Api; config: TuiConfig.Info }) {
             meta,
             themes: {},
             plugin: entry.module.tui,
-            enabled: true,
+            enabled: item.enabled ?? true,
           })
         }
 
-        const ready = await resolveExternalPlugins(records, () => TuiConfig.waitForDependencies())
+        const ready = await resolveExternalPlugins([], () => TuiConfig.waitForDependencies())
         await addExternalPluginEntries(next, ready)
 
         applyInitialPluginEnabledState(next, config)

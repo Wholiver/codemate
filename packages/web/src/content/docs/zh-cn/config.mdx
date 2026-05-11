@@ -1,15 +1,15 @@
 ---
 title: 配置
-description: 使用 Codemate JSON 配置。
+description: 使用 codemate JSON 配置。
 ---
 
-您可以使用 JSON 配置文件来配置 Codemate。
+您可以使用 JSON 配置文件来配置 codemate。
 
 ---
 
 ## 格式
 
-Codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
+codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
 
 ```jsonc title="codemate.jsonc"
 {
@@ -44,10 +44,10 @@ Codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
 
 1. **远程配置**（来自 `.well-known/codemate`）- 组织默认值
 2. **全局配置**（`~/.config/codemate/codemate.json`）- 用户偏好
-3. **自定义配置**（`CODEMATE_CONFIG` 环境变量）- 自定义覆盖
+3. **自定义配置**（`codemate_CONFIG` 环境变量）- 自定义覆盖
 4. **项目配置**（项目中的 `codemate.json`）- 项目特定设置
 5. **`.codemate` 目录** - 代理、命令、插件
-6. **内联配置**（`CODEMATE_CONFIG_CONTENT` 环境变量）- 运行时覆盖
+6. **内联配置**（`codemate_CONFIG_CONTENT` 环境变量）- 运行时覆盖
 
 这意味着项目配置可以覆盖全局默认值，全局配置可以覆盖远程组织默认值。
 
@@ -95,7 +95,7 @@ Codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
 
 ### 全局
 
-将全局 Codemate 配置放在 `~/.config/codemate/codemate.json` 中。使用全局配置来设置用户级别的偏好，例如主题、提供商或快捷键。
+将全局 codemate 配置放在 `~/.config/codemate/codemate.json` 中。使用全局配置来设置用户级别的偏好，例如主题、提供商或快捷键。
 
 全局配置覆盖远程组织默认值。
 
@@ -109,7 +109,7 @@ Codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
 将项目特定配置放在项目的根目录中。
 :::
 
-当 Codemate 启动时，它会在当前目录中查找配置文件，或向上遍历到最近的 Git 目录。
+当 codemate 启动时，它会在当前目录中查找配置文件，或向上遍历到最近的 Git 目录。
 
 该配置文件也可以安全地提交到 Git 中，并使用与全局配置相同的 Schema。
 
@@ -117,10 +117,10 @@ Codemate 支持 **JSON** 和 **JSONC**（带注释的 JSON）格式。
 
 ### 自定义路径
 
-使用 `CODEMATE_CONFIG` 环境变量指定自定义配置文件路径。
+使用 `codemate_CONFIG` 环境变量指定自定义配置文件路径。
 
 ```bash
-export CODEMATE_CONFIG=/path/to/my/custom-config.json
+export codemate_CONFIG=/path/to/my/custom-config.json
 codemate run "Hello world"
 ```
 
@@ -130,10 +130,10 @@ codemate run "Hello world"
 
 ### 自定义目录
 
-使用 `CODEMATE_CONFIG_DIR` 环境变量指定自定义配置目录。该目录会像标准 `.codemate` 目录一样被搜索代理、命令、模式和插件，并且应遵循相同的结构。
+使用 `codemate_CONFIG_DIR` 环境变量指定自定义配置目录。该目录会像标准 `.codemate` 目录一样被搜索代理、命令、模式和插件，并且应遵循相同的结构。
 
 ```bash
-export CODEMATE_CONFIG_DIR=/path/to/my/config-directory
+export codemate_CONFIG_DIR=/path/to/my/config-directory
 codemate run "Hello world"
 ```
 
@@ -197,7 +197,7 @@ codemate run "Hello world"
 
 - `port` - 监听端口。
 - `hostname` - 监听主机名。当 `mdns` 启用且未设置主机名时，默认为 `0.0.0.0`。
-- `mdns` - 启用 mDNS 服务发现。这允许网络上的其他设备发现您的 Codemate 服务器。
+- `mdns` - 启用 mDNS 服务发现。这允许网络上的其他设备发现您的 codemate 服务器。
 - `mdnsDomain` - mDNS 服务的自定义域名。默认为 `codemate.local`。适用于在同一网络上运行多个实例的场景。
 - `cors` - 从基于浏览器的客户端使用 HTTP 服务器时允许 CORS 的额外来源。值必须是完整的来源（协议 + 主机 + 可选端口），例如 `https://app.example.com`。
 
@@ -225,7 +225,7 @@ codemate run "Hello world"
 
 ### 模型
 
-您可以通过 `provider`、`model` 和 `small_model` 选项在 Codemate 配置中设置要使用的提供商和模型。
+您可以通过 `provider`、`model` 和 `small_model` 选项在 codemate 配置中设置要使用的提供商和模型。
 
 ```json title="codemate.json"
 {
@@ -236,7 +236,7 @@ codemate run "Hello world"
 }
 ```
 
-`small_model` 选项为标题生成等轻量级任务配置单独的模型。默认情况下，如果您的提供商有更便宜的模型可用，Codemate 会尝试使用该模型，否则会回退到您的主模型。
+`small_model` 选项为标题生成等轻量级任务配置单独的模型。默认情况下，如果您的提供商有更便宜的模型可用，codemate 会尝试使用该模型，否则会回退到您的主模型。
 
 提供商选项可以包括 `timeout` 和 `setCacheKey`：
 
@@ -298,7 +298,7 @@ Bearer Token（`AWS_BEARER_TOKEN_BEDROCK` 或 `/connect`）优先于基于配置
 
 ### 主题
 
-您可以通过 Codemate 配置中的 `theme` 选项设置要使用的主题。
+您可以通过 codemate 配置中的 `theme` 选项设置要使用的主题。
 
 ```json title="codemate.json"
 {
@@ -348,7 +348,7 @@ Bearer Token（`AWS_BEARER_TOKEN_BEDROCK` 或 `/connect`）优先于基于配置
 }
 ```
 
-默认代理必须是主代理（不能是子代理）。可以是内置代理（如 `"build"` 或 `"plan"`），也可以是您定义的[自定义代理](/docs/agents)。如果指定的代理不存在或是子代理，Codemate 将回退到 `"build"` 并发出警告。
+默认代理必须是主代理（不能是子代理）。可以是内置代理（如 `"build"` 或 `"plan"`），也可以是您定义的[自定义代理](/docs/agents)。如果指定的代理不存在或是子代理，codemate 将回退到 `"build"` 并发出警告。
 
 此设置适用于所有界面：TUI、CLI（`codemate run`）、桌面应用和 GitHub Action。
 
@@ -418,7 +418,7 @@ Bearer Token（`AWS_BEARER_TOKEN_BEDROCK` 或 `/connect`）优先于基于配置
 
 ### 自动更新
 
-Codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项禁用此功能。
+codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项禁用此功能。
 
 ```json title="codemate.json"
 {
@@ -460,7 +460,7 @@ Codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项
 
 ### 权限
 
-默认情况下，Codemate **允许所有操作**，无需明确批准。您可以使用 `permission` 选项更改此行为。
+默认情况下，codemate **允许所有操作**，无需明确批准。您可以使用 `permission` 选项更改此行为。
 
 例如，要让 `edit` 和 `bash` 工具需要用户确认：
 
@@ -533,7 +533,7 @@ Codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项
 
 ### 插件
 
-[插件](/docs/plugins)通过自定义工具、钩子和集成来扩展 Codemate。
+[插件](/docs/plugins)通过自定义工具、钩子和集成来扩展 codemate。
 
 将插件文件放置在 `.codemate/plugins/` 或 `~/.config/codemate/plugins/` 中。您还可以通过 `plugin` 选项从 npm 加载插件。
 
@@ -597,7 +597,7 @@ Codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项
 }
 ```
 
-当您希望限制 Codemate 仅使用特定提供商，而不是逐一禁用其他提供商时，此选项非常有用。
+当您希望限制 codemate 仅使用特定提供商，而不是逐一禁用其他提供商时，此选项非常有用。
 
 :::note
 `disabled_providers` 优先于 `enabled_providers`。
@@ -637,7 +637,7 @@ Codemate 启动时会自动下载新版本。您可以使用 `autoupdate` 选项
 ```json title="codemate.json"
 {
   "$schema": "https://codemate.ai/config.json",
-  "model": "{env:CODEMATE_MODEL}",
+  "model": "{env:codemate_MODEL}",
   "provider": {
     "anthropic": {
       "models": {},

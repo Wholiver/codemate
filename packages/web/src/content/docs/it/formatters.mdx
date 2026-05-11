@@ -1,15 +1,15 @@
 ---
 title: Formattatori
-description: Codemate usa formattatori specifici per linguaggio.
+description: codemate usa formattatori specifici per linguaggio.
 ---
 
-Codemate formatta automaticamente i file dopo che vengono scritti o modificati usando formattatori specifici per linguaggio. Questo assicura che il codice generato segua lo stile del tuo progetto.
+codemate formatta automaticamente i file dopo che vengono scritti o modificati usando formattatori specifici per linguaggio. Questo assicura che il codice generato segua lo stile del tuo progetto.
 
 ---
 
 ## Integrati
 
-Codemate include diversi formattatori integrati per linguaggi e framework popolari. Qui sotto trovi la lista dei formattatori, delle estensioni supportate e dei comandi o opzioni di config richiesti.
+codemate include diversi formattatori integrati per linguaggi e framework popolari. Qui sotto trovi la lista dei formattatori, delle estensioni supportate e dei comandi o opzioni di config richiesti.
 
 | Formattatore         | Estensioni                                                                                               | Requisiti                                                                                                    |
 | -------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -40,13 +40,13 @@ Codemate include diversi formattatori integrati per linguaggi e framework popola
 | uv                   | .py, .pyi                                                                                                | comando `uv` disponibile                                                                                     |
 | zig                  | .zig, .zon                                                                                               | comando `zig` disponibile                                                                                    |
 
-Quindi, se il progetto ha `prettier` in `package.json`, Codemate lo usera automaticamente.
+Quindi, se il progetto ha `prettier` in `package.json`, codemate lo usera automaticamente.
 
 ---
 
 ## Come funziona
 
-Quando Codemate scrive o modifica un file:
+Quando codemate scrive o modifica un file:
 
 1. Controlla l'estensione del file rispetto a tutti i formattatori abilitati.
 2. Esegue il comando del formattatore appropriato sul file.
@@ -58,7 +58,7 @@ Questo processo avviene in background, mantenendo lo stile del codice senza pass
 
 ## Configurazione
 
-Puoi personalizzare i formattatori nella sezione `formatter` della config di Codemate.
+Puoi personalizzare i formattatori nella sezione `formatter` della config di codemate.
 
 ```json title="codemate.json"
 {
