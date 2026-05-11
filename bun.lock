@@ -81,6 +81,27 @@
         "vite-plugin-solid": "catalog:",
       },
     },
+    "packages/cli": {
+      "name": "codemate-agent",
+      "version": "1.0.0-beta.4",
+      "bin": {
+        "codemate": "./bin/codemate",
+      },
+      "optionalDependencies": {
+        "codemate-darwin-arm64": "0.0.0-dev-202605110158",
+        "codemate-darwin-x64": "0.0.0-dev-202605110158",
+        "codemate-darwin-x64-baseline": "0.0.0-dev-202605110158",
+        "codemate-linux-arm64": "0.0.0-dev-202605110158",
+        "codemate-linux-arm64-musl": "0.0.0-dev-202605110158",
+        "codemate-linux-x64": "0.0.0-dev-202605110158",
+        "codemate-linux-x64-baseline": "0.0.0-dev-202605110158",
+        "codemate-linux-x64-baseline-musl": "0.0.0-dev-202605110158",
+        "codemate-linux-x64-musl": "0.0.0-dev-202605110158",
+        "codemate-windows-arm64": "0.0.0-dev-202605110158",
+        "codemate-windows-x64": "0.0.0-dev-202605110158",
+        "codemate-windows-x64-baseline": "0.0.0-dev-202605110158",
+      },
+    },
     "packages/codemate": {
       "name": "codemate",
       "version": "1.14.30",
@@ -2844,6 +2865,32 @@
     "cmd-shim": ["cmd-shim@8.0.0", "", {}, "sha512-Jk/BK6NCapZ58BKUxlSI+ouKRbjH1NLZCgJkYoab+vEHUY3f6OzpNBN9u7HFSv9J6TRDGs4PLOHezoKGaFRSCA=="],
 
     "codemate": ["codemate@workspace:packages/codemate"],
+
+    "codemate-agent": ["codemate-agent@workspace:packages/cli"],
+
+    "codemate-darwin-arm64": ["codemate-darwin-arm64@0.0.0-dev-202605110158", "", { "os": "darwin", "cpu": "arm64" }, "sha512-TWY4Tb/f81dkJvyepKSqXMx2L97+jcydsASFwj31OCFXRuWDMHtM6kTY2IeHcEKzM5aOAGFSBN3gM5xo/jEhMA=="],
+
+    "codemate-darwin-x64": ["codemate-darwin-x64@0.0.0-dev-202605110158", "", { "os": "darwin", "cpu": "x64" }, "sha512-aKpsja1axOA3bwTv3XDmSo3vb+gnmOneI+yUcBtHxcj5RqHUxCuUQjqBa9F2clsrZDCE5zHMBWB4ufHbD2KCkA=="],
+
+    "codemate-darwin-x64-baseline": ["codemate-darwin-x64-baseline@0.0.0-dev-202605110158", "", { "os": "darwin", "cpu": "x64" }, "sha512-7q1PZ/6Qa+ercqq1l6kLGDB3shXVwC6BkqP/R+bdyhMueyw7UgrUQGw+e1lke3HRb58rAboV+bBkO/RT7FSaSw=="],
+
+    "codemate-linux-arm64": ["codemate-linux-arm64@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "arm64" }, "sha512-ShoepccuQTmnrAYsb+1+hs+on7OIdA13dZxOgJBgNKVPf8ruvyt+v9a+pPJy3qBx6+nsUHSuUBlN6OepdWhyZg=="],
+
+    "codemate-linux-arm64-musl": ["codemate-linux-arm64-musl@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "arm64" }, "sha512-/cxc8CDZfm/yCPaaR/P19OVq5t0Dg4VK2wEV39k7We66U7iHRbuwkkP0BFGIpk8FosmlNmKD3N+rDfLlHQLrtw=="],
+
+    "codemate-linux-x64": ["codemate-linux-x64@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "x64" }, "sha512-3T8hMjrsq3yV5c2uIc3Wj1g5n2FLbo4pO2sqcuvlN+BUIe2eoAdvqMWI9x5uyvLt5eU5nm7AVubxKrt14mJ7BQ=="],
+
+    "codemate-linux-x64-baseline": ["codemate-linux-x64-baseline@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "x64" }, "sha512-uvuQIl9rO/KEqNYPwzGCJeJxkRctZb5GZf/fAW3ktWVxdPbLc/TuaKBQFMzbvmWJ4qgClIBzGPNfzcPvEtzG7A=="],
+
+    "codemate-linux-x64-baseline-musl": ["codemate-linux-x64-baseline-musl@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "x64" }, "sha512-eHnMlEwl1yTt6C2sGirWK3qywTzbU170Ef22bit1lHM8RrkIoi1zrIVb9hMQkjFNmuOuUrAlE8v2IfaYTYXvvA=="],
+
+    "codemate-linux-x64-musl": ["codemate-linux-x64-musl@0.0.0-dev-202605110158", "", { "os": "linux", "cpu": "x64" }, "sha512-mEBy2JmGx5CTynfVZKfgMnnUCAKRq7N+AZipP6etJ488uYyg/m8Wcft8OmMTvtJ4+E8wuhrYYbc+BJPDzaQpyA=="],
+
+    "codemate-windows-arm64": ["codemate-windows-arm64@0.0.0-dev-202605110158", "", { "os": "win32", "cpu": "arm64" }, "sha512-t4Ls7rAQzLp2zK+N1W39lsB7IN76UrPYgW6jzaUwli9BAgA2ZvfOpXo2NHiORcLyarWYtEZss9tyABQXVJ50/A=="],
+
+    "codemate-windows-x64": ["codemate-windows-x64@0.0.0-dev-202605110158", "", { "os": "win32", "cpu": "x64" }, "sha512-77teVzugunNuiVosf8vDVlGnR1v3Kao30TCfSjMvHPzOSXSMNZv9en3GDe4t7aiUIpNp2L+z9ZWYiYOWcGrxeg=="],
+
+    "codemate-windows-x64-baseline": ["codemate-windows-x64-baseline@0.0.0-dev-202605110158", "", { "os": "win32", "cpu": "x64" }, "sha512-69pv+cqGaxpe3H7XDxVLbgdf+XPxRgiuSW5JmISyBvv+K2x7cn7X612kKOuR0EPIF2hR9ZozGGMTn0zKFDhE9g=="],
 
     "codepage": ["codepage@1.15.0", "", {}, "sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA=="],
 

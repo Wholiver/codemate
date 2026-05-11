@@ -21,7 +21,7 @@ _Built on top of OPENCODE, with sincere thanks to the OPENCODE team and communit
 
 ---
 
-<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-jsr-sdk">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
+<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-global-cli">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
 
 ## 30-Second Value
 
@@ -35,23 +35,28 @@ Codemate is built for teams that need reliable output over many sessions, not on
 | Deep research   | `research-*` + `websearch` + `webfetch`      | Better decisions under uncertainty                     |
 | Unified runtime | MCP + LSP + ACP in one core                  | Consistent behavior across terminal and automation flows |
 
-<a id="install-jsr-sdk"></a>
+<a id="install-global-cli"></a>
 
-## Install (JSR SDK)
-
-> [!IMPORTANT]
-> `@codemate/codemate` is an SDK package. It does not install a global `codemate` executable.
+## Install (Global CLI)
 
 > [!IMPORTANT]
 > For repository development, use Bun `1.3.13` (exact version expected by this monorepo).
 
 ```bash
-# npm / bun / older pnpm/yarn
+npm install -g codemate-agent
+codemate --help
+```
+
+- Global `codemate` command package: https://www.npmjs.com/package/codemate-agent
+- Docs: https://codemate.ai/docs
+
+## SDK (Optional, JSR)
+
+```bash
 npx jsr add @codemate/codemate
 ```
 
 - SDK package: https://jsr.io/@codemate/codemate
-- Docs: https://codemate.ai/docs
 
 ## Run CLI For Testing
 
