@@ -20,6 +20,8 @@ jobs:
 
       - name: Build package image
         run: |
+          OWNER_LC="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+
           cat > Dockerfile.ghcr <<'EOF'
           FROM alpine:3.20
           LABEL org.opencontainers.image.title="codemate-agent"
@@ -31,11 +33,12 @@ jobs:
 
           docker build \
             -f Dockerfile.ghcr \
-            -t ghcr.io/${{ github.repository_owner }}/codemate-agent:1.0.0-beta.4 \
-            -t ghcr.io/${{ github.repository_owner }}/codemate-agent:beta \
+            -t ghcr.io/${OWNER_LC}/codemate-agent:1.0.0-beta.4 \
+            -t ghcr.io/${OWNER_LC}/codemate-agent:beta \
             .
 
       - name: Push package image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/codemate-agent:1.0.0-beta.4
-          docker push ghcr.io/${{ github.repository_owner }}/codemate-agent:beta
+          OWNER_LC="$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+          docker push ghcr.io/${OWNER_LC}/codemate-agent:1.0.0-beta.4
+          docker push ghcr.io/${OWNER_LC}/codemate-agent:beta
