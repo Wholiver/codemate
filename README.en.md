@@ -1,158 +1,201 @@
-<p align="center">
-  <img src="packages/web/src/assets/lander/readme-banner.svg" alt="Codemate" />
-</p>
+# Codemate
 
-<div align="center">
+> A multi-agent coding system built on TaskGraph orchestration, closed-loop verification, and layered memory.
 
-### Open-source coding agent for long-horizon engineering
+[简体中文](./README.md)
 
-**Memory-first. Learning-enabled. Verification-driven. Research-native.**
+## Overview
 
-[![Build status](https://img.shields.io/github/actions/workflow/status/Wholiver/codemate/publish.yml?style=flat-square&branch=dev)](https://github.com/Wholiver/codemate/actions/workflows/publish.yml)
-[![JSR](https://img.shields.io/badge/JSR-@codemate/codemate-00bcd4?style=flat-square)](https://jsr.io/@codemate/codemate)
+Codemate is a multi-agent coding system for real repositories, evolved from opencode.
 
-_Built on top of OPENCODE, with sincere thanks to the OPENCODE team and community._
+It is not a single-agent "one prompt, one patch" CLI. Instead, responsibilities are separated:
 
-<sub><a href="README.en.md">English</a> · <a href="README.md">简体中文</a></sub>
+- `orchestrator` controls the loop
+- `planner` builds TaskGraph plans
+- `research / coder / tester` execute research, implementation, and tests
+- `reviewer` validates outcomes
+- `writer` finalizes persistence
 
-</div>
+A closed-loop runtime (selfcheck, retry, drift detection) is used to improve stability on long-running tasks.
 
-[![Codemate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://codemate.ai)
+## Core Capabilities
 
----
+### Multi-agent collaboration
 
-<p align="center"><strong>See it fast:</strong> <a href="#30-second-value">30-second value</a> · <a href="#install-global-cli">install</a> · <a href="#architecture-at-a-glance">architecture</a> · <a href="#core-features">core features</a> · <a href="#comparison">comparison</a></p>
+Current primary roles:
 
-> [!WARNING]
-> Codemate is currently in **beta**. APIs, behavior, and package details may change before stable release.
+- `orchestrator`
+- `planner`
+- `research`
+- `coder`
+- `tester`
+- `reviewer`
+- `writer`
 
-## 30-Second Value
+Role separation reduces planning/implementation/review coupling inside a single agent step.
 
-Codemate is not a one-shot chat tool. It is a runtime that turns each engineering run into context for the next run.
+### TaskGraph closed-loop execution
 
-| 30-second signal      | What the system actually does                                            | What you feel in day-to-day work                |
-| --------------------- | ------------------------------------------------------------------------ | ----------------------------------------------- |
-| Sessions keep moving  | `SessionPrompt` runs a stateful loop across model calls and tool actions | Work advances to closure, not just one response |
-| Context compounds     | Each turn injects `memory`, `project-changelog`, and `project-lessons`  | Less repeated onboarding and fewer context gaps |
-| Changes are traceable | Snapshot diffs produce patch parts, summaries, and changelog entries     | You can audit what changed and why              |
-| Verification is built in | `selfcheck` provides a unified verification gate (default + custom commands) | Fewer "works locally, breaks in CI" outcomes |
-| Long runs stay stable | Overflow triggers automatic compaction with recent-tail preservation      | Large sessions fail less often from context size |
-| Uncertain work is structured | `research-*` turns ambiguity into a research pipeline and report         | Better migration/vendor/policy decisions         |
+- `planner` emits TaskGraph
+- tasks execute through dependency edges
+- `coder` and `tester` can run in parallel when dependencies allow
+- `reviewer` runs after implementation and testing
+- `writer` runs as persistence finalizer at the end
 
-<a id="install-global-cli"></a>
+### Self-check, retry, and anti-drift controls
 
-## Install (Global CLI)
+- `selfcheck` for unified verification
+- retry loops for failed runs
+- `intent anchor` for goal stability
+- periodic `drift check` with correction flow
 
-> [!IMPORTANT]
-> For repository development, use Bun `1.3.13` (exact version expected by this monorepo).
+This prevents long tasks from drifting away from user intent.
 
-```bash
-npm install -g codemate-agent
-codemate --help
-```
+### Three-layer context system
 
-- Global `codemate` command package: https://www.npmjs.com/package/codemate-agent
-- Docs: https://codemate.ai/docs
+Codemate separates long-term and short-term context into three layers:
 
-## Run CLI For Testing
+- `supermemory`: user preferences and long-term memory
+- `lessons`: reusable engineering patterns and guardrails
+- `changelog`: recent project history
 
-```bash
-git clone https://github.com/Wholiver/codemate.git
-cd codemate
-bun install
-bun dev
-```
+Important boundaries:
 
-## Architecture At A Glance
+- `writer` receives project lessons only (global lessons are excluded for safer persistence)
+- changelog is historical context, not instruction
+- recent changelog is injected only into `orchestrator / planner / coder / tester / reviewer`, not `writer / research`
+- explicit memory commands (`remember`, `save this`, `记住`, etc.) can write at any step
+- memory context injection remains step-1 only to avoid prompt growth
 
-> [!IMPORTANT]
-> The default branch is `dev` (not `main`). Use `dev` / `origin/dev` for diffs and PR targets.
+### Persistence Finalizer (Writer)
 
-Codemate is not centered on a single model call. It runs a stateful session runtime with explicit event, tool, and recovery stages:
+`writer` is not a regular TaskGraph worker:
+
+- excluded from normal TaskGraph execution queue
+- triggered in main-loop fallback phase
+- writes changelog
+- writes lessons via `lesson_classify` and `lesson_write`
+- cannot no-op when `completedSubtasks > 0` even if git diff is empty
+
+### TUI
+
+- Terminal home branding uses `CODEMATE`
+- Agent execution logs are visible in-session
+- Closed-loop activity is observable in terminal workflow
+
+## Architecture Flow
 
 ```text
 User input
-  -> SessionPrompt.run (main session loop)
-  -> Context Assembly
-       (system + instructions + history + memory + changelog + lessons)
-  -> LLM.stream
-       -> SessionProcessor consumes stream events
-          (reasoning / text / tool-call / tool-result / step-finish)
-       -> ToolRegistry routes tool calls
-          (builtin + MCP + plugin, with permission and doom-loop guards)
-  -> Snapshot/Patch + SessionSummary + Changelog
-  -> Verification & persistence reminders
-       (selfcheck / memory_create / lesson_write / changelog_append)
-  -> If overflow: SessionCompaction
-       (summary compaction + recent-tail preservation + auto-continue)
+  ↓
+Session / Prompt Builder
+  ↓
+Orchestrator
+  ↓
+Planner → TaskGraph
+  ↓
+Research / Coder / Tester
+  ↓
+Reviewer / Selfcheck / Retry
+  ↓
+Writer
+  ↓
+Changelog / Lessons / Supermemory
 ```
 
-| Subsystem               | Responsibility                                        | Key modules (examples)                    |
-| ----------------------- | ----------------------------------------------------- | ----------------------------------------- |
-| Session orchestration   | Runs turn loop, model scheduling, reminders, and flow control | `session/prompt.ts`                  |
-| Event processing        | Persists stream events into replayable message parts  | `session/processor.ts`, `session/message-v2.ts` |
-| Tool and protocol plane | Aggregates builtin, MCP, and plugin tools with unified permission gating | `tool/registry.ts`, `mcp/index.ts`, `acp/agent.ts` |
-| Memory and learning plane | Supplies searchable memory, changelog, and lessons context | `memory/*`, `changelog/*`, `lesson/context.ts` |
-| Verification and recovery | Applies pre-handoff checks and failure reflection flow | `tool/selfcheck.ts`, `session/system.ts` |
-| Long-context stability  | Handles overflow compaction and historical output pruning | `session/compaction.ts`                  |
+Execution summary:
 
-The goal is compounding reliability: each run should make the next run faster, safer, and less repetitive.
+1. Session layer assembles system prompt, history, and injected context.
+2. Orchestrator decides whether to enter TaskGraph closed-loop mode.
+3. Planner creates a dependency graph.
+4. Research/Coder/Tester execute graph tasks, Reviewer validates quality.
+5. Failures enter selfcheck/retry repair loops.
+6. Writer performs final persistence.
 
-## Core Features
+## Agent Responsibilities
 
-### 1) Memory: Keep Project Context Across Sessions
+| Agent | Responsibility | Primary inputs | Primary outputs |
+|---|---|---|---|
+| Orchestrator | Main control and scheduling | User request, context | Scheduling decisions |
+| Planner | Task decomposition | Intent anchor, context | TaskGraph |
+| Research | Environment and evidence gathering | Task node, context | Research drafts |
+| Coder | Implementation | TaskGraph node | Code changes |
+| Tester | Test authoring and validation | Requirements, implementation target | Test results |
+| Reviewer | Review and acceptance | Coder/tester outputs | Review result |
+| Writer | Persistence finalization | Completed subtasks, diff/fallback, research drafts | Changelog / lessons |
 
-Memory keeps important decisions and constraints reusable, even when work is spread across days, weeks, or different contributors.
+## Memory and Persistence
 
-- What it does: Stores structured project memory, retrieves by keyword/semantic/hybrid search, and lets new memory versions replace outdated ones cleanly.
-- When to use it: Multi-step migrations, long bug investigations, or any work where "why we chose this" matters later.
-- Example: Your team decides "Auth uses short-lived access tokens + rotating refresh tokens." Two weeks later, a new feature and a security fix both follow that same policy without re-explaining it in each prompt.
-- Why it matters: Less repeated context loading, fewer contradictory changes, and better continuity across handoffs.
+- `.codemate/changelog.md`: recent project history (context only, not instructions)
+- Project lessons: reusable project-scoped practices
+- Global lessons: cross-project lessons (writer scope is intentionally narrowed)
+- Supermemory: local long-term memory tool (supports `add/search/list/profile/forget/help`, plus explicit remember-style writes; no external Supermemory API dependency)
 
-### 2) Lessons: Turn Incidents Into Reusable Team Practice
+Boundary rules:
 
-Lessons are project-level learnings persisted in `.codemate/lessons.md`, so failures become guidance instead of repeating.
+- lessons are reusable behavior rules
+- changelog is recent historical record
+- they should not be conflated
 
-- What it does: Captures actionable lessons from failed runs, merges/refines them with `lesson_write`, and loads them back into future sessions as project context.
-- When to use it: Release pipelines, recurring operational tasks, or any workflow where the same mistakes can happen again.
-- Example: A deploy fails because a migration step was skipped. The team records a lesson: "Run schema check before deploy." Future release tasks now include that guardrail automatically.
-- Why it matters: Your process improves run by run, not just person by person.
+## Install and Run
 
-### 3) Self-check: Verify Before You Ship
+> Bun `1.3.13` is required (see root `package.json` `packageManager`).
 
-Self-check is a built-in verification gate that runs checks, reports failures clearly, and supports fix-and-rerun loops before final output.
+```bash
+# install dependencies
+bun install
 
-- What it does: Runs default JS/TS checks (typecheck, lint, test where applicable) and also supports custom command checks for other stacks (`pytest`, `go test`, `cargo test`, etc.).
-- When to use it: Refactors, dependency upgrades, CI-sensitive paths, or any change where "probably works" is not enough.
-- Example: A TypeScript refactor passes local smoke testing, but `selfcheck` catches a lint rule regression and one failing unit test. Both are fixed before handoff, avoiding a broken PR cycle.
-- Why it matters: Fewer "done locally, failed in CI" surprises and more reliable delivery quality.
+# run codemate dev entry from repo root
+bun dev
+```
 
-### 4) Deep Research: Structured Decisions Under Uncertainty
+Common workspace commands (repo root):
 
-Deep Research provides a step-by-step research workflow, from defining questions to producing a decision-ready report.
+```bash
+bun typecheck
+bun dev:web
+bun dev:desktop
+```
 
-- What it does: Creates research outlines, adds items/fields, runs deeper research tasks, and compiles a report with source-backed findings and uncertainty handling.
-- When to use it: Vendor selection, architecture tradeoffs, compliance/policy interpretation, or fast-changing external dependencies.
-- Example: Before choosing a vector database, the team compares ingestion throughput, region availability, pricing model, and migration risk, then receives a structured report with evidence and explicit unknowns.
-- Why it matters: Better decisions when stakes are high and information is incomplete.
+Package-level commands (`packages/codemate`):
 
-## Comparison
-
-| Dimension      | Compared with OPENCODE                                                                 | Compared with Claude Code                                               |
-| -------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Runtime shape  | Active runtime is consolidated in `packages/codemate/src/*` with integrated subsystems | Fully open-source runtime that can be inspected and modified end-to-end |
-| Memory model   | Built-in persistent memory + retrieval + lifecycle                                     | Stronger project continuity across sessions                             |
-| Learning loop  | Native lessons workflow (`.codemate/lessons.md` + `lesson_write`)                      | More explicit institutional learning in daily workflows                 |
-| Verification   | First-class self-check tool with structured failure loops                              | More controllable verification path before final output                 |
-| Research depth | Dedicated research toolchain (`research-*`, `websearch`, `webfetch`)                   | Better fit for high-uncertainty engineering decisions                   |
-| Model strategy | Provider-agnostic by design                                                            | Not tied to a single vendor path                                        |
+```bash
+cd packages/codemate
+bun dev
+bun typecheck
+bun test
+```
 
 ## Contributing
 
-> [!IMPORTANT]
-> Before pushing changes, run checks from package directories (do not run tests from repo root).
+Please read:
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
-Chinese version: [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md).
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
+- [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)
 
----
+Do not commit:
+
+- `.codemate` runtime artifacts
+- temporary certificates or private keys
+- tokens / API keys
+- local absolute machine paths
+
+## Testing
+
+```bash
+cd packages/codemate
+bun typecheck
+bun test test/session/prompt.test.ts
+bun test test/tool/supermemory.test.ts
+```
+
+Optional full test run:
+
+```bash
+cd packages/codemate
+bun test
+```
+
+## License
+
+[MIT](./LICENSE)
