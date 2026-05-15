@@ -26,6 +26,7 @@ import { Ripgrep } from "@/file/ripgrep"
 import * as Truncate from "@/tool/truncate"
 import { InstanceState } from "@/effect/instance-state"
 import { Reference } from "@/reference/reference"
+import * as SessionClosedLoop from "@/session/closed-loop"
 
 const node = CrossSpawnSpawner.defaultLayer
 const originalExperimentalScout = Flag.codemate_EXPERIMENTAL_SCOUT
@@ -39,6 +40,7 @@ const registryLayer = ToolRegistry.layer.pipe(
   Layer.provide(Question.defaultLayer),
   Layer.provide(Todo.defaultLayer),
   Layer.provide(Skill.defaultLayer),
+  Layer.provide(SessionClosedLoop.defaultLayer),
   Layer.provide(Agent.defaultLayer),
   Layer.provide(Session.defaultLayer),
   Layer.provide(Provider.defaultLayer),

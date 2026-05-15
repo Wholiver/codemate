@@ -5,7 +5,7 @@ import type { Agent } from "./agent"
  * Build the `permission` ruleset for a subagent's session when it's spawned
  * via the task tool. Combines:
  *
- * 1. The parent **agent's** deny rules — Plan Mode and other agent-level
+ * 1. The parent **agent's** deny rules — Orchestrator Mode and other agent-level
  *    restrictions live on the agent ruleset, not on the session, so a
  *    subagent that only inherited the parent SESSION's permission would
  *    silently bypass them. (#26514)

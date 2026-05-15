@@ -5,11 +5,12 @@ import { Global } from "@codemate-ai/core/global"
 
 const id = "internal:sidebar-footer"
 
-function View(props: { api: TuiPluginApi }) {
+function View(props: { api: TuiPluginApi; session_id: string }) {
   const theme = () => props.api.theme.current
   const has = createMemo(() => props.api.state.provider.length > 0)
   const done = createMemo(() => props.api.kv.get("dismissed_getting_started", false))
   const show = createMemo(() => !has() && !done())
+  const stats = createMemo(() => props.api.state.session.lessonStats(props.session_id))
   const path = createMemo(() => {
     const dir = props.api.state.path.directory || process.cwd()
     const out = dir.replace(Global.Path.home, "~")
@@ -59,12 +60,10 @@ function View(props: { api: TuiPluginApi }) {
         <span style={{ fg: theme().textMuted }}>{path().parent}/</span>
         <span style={{ fg: theme().text }}>{path().name}</span>
       </text>
-      <text fg={theme().textMuted}>
-        <span style={{ fg: theme().success }}>•</span> <b>Open</b>
-        <span style={{ fg: theme().text }}>
-          <b>Code</b>
-        </span>{" "}
-        <span>{props.api.app.version}</span>
+      <text fg={theme().text}>
+        <b>Lessons</b>
+        <span style={{ fg: theme().success }}>{`  +${String(stats().learned)} learned`}</span>
+        <span style={{ fg: theme().textMuted }}>{`  ·  ${String(stats().total)} total`}</span>
       </text>
     </box>
   )
@@ -74,8 +73,8 @@ const tui: TuiPlugin = async (api) => {
   api.slots.register({
     order: 100,
     slots: {
-      sidebar_footer() {
-        return <View api={api} />
+      sidebar_footer(_ctx, props) {
+        return <View api={api} session_id={props.session_id} />
       },
     },
   })

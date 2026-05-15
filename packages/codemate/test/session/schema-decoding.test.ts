@@ -294,7 +294,7 @@ describe("SessionPrompt input schemas", () => {
 
   test("ShellInput requires agent + command", () => {
     const decode = decodeUnknown(SessionPrompt.ShellInput)
-    const expected = { sessionID, agent: "build", command: "echo hi" }
+    const expected = { sessionID, agent: "orchestrator", command: "echo hi" }
     const input: unknown = expected
     expect(decode(input)).toEqual(expected)
     expect(SessionPrompt.ShellInput.zod.parse(input as unknown)).toEqual(expected)

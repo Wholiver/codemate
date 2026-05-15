@@ -8,8 +8,8 @@ import { webSearchEnabled } from "../../src/tool/registry"
 const SESSION_ID = "ses_0196aabbccddeeff001122334455"
 
 describe("websearch provider", () => {
-  test("selects a stable provider per session", () => {
-    expect(selectWebSearchProvider(SESSION_ID)).toBe(selectWebSearchProvider(SESSION_ID))
+  test("defaults to Exa without explicit flags", () => {
+    expect(selectWebSearchProvider(SESSION_ID)).toBe("exa")
   })
 
   test("supports an operational override", () => {
@@ -35,9 +35,9 @@ describe("websearch provider", () => {
     expect(selectWebSearchProvider(SESSION_ID, { exa: false, parallel: true })).toBe("parallel")
   })
 
-  test("is only enabled for codemate or explicit websearch provider flags", () => {
+  test("is enabled by default across providers", () => {
     expect(webSearchEnabled(ProviderID.codemate, { exa: false, parallel: false })).toBe(true)
-    expect(webSearchEnabled(ProviderID.openai, { exa: false, parallel: false })).toBe(false)
+    expect(webSearchEnabled(ProviderID.openai, { exa: false, parallel: false })).toBe(true)
     expect(webSearchEnabled(ProviderID.openai, { exa: true, parallel: false })).toBe(true)
     expect(webSearchEnabled(ProviderID.openai, { exa: false, parallel: true })).toBe(true)
   })

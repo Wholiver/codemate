@@ -8,6 +8,7 @@ import { MessageV2 } from "../../src/session/message-v2"
 import type { SessionPrompt } from "../../src/session/prompt"
 import { MessageID, PartID, SessionID } from "../../src/session/schema"
 import { ModelID, ProviderID } from "../../src/provider/schema"
+import * as SessionClosedLoop from "../../src/session/closed-loop"
 import { TaskTool, type TaskPromptOps } from "../../src/tool/task"
 import { Truncate } from "@/tool/truncate"
 import { ToolRegistry } from "@/tool/registry"
@@ -29,6 +30,7 @@ const it = testEffect(
     Config.defaultLayer,
     CrossSpawnSpawner.defaultLayer,
     Session.defaultLayer,
+    SessionClosedLoop.defaultLayer,
     Truncate.defaultLayer,
     ToolRegistry.defaultLayer,
   ),
@@ -49,7 +51,7 @@ const seed = Effect.fn("TaskToolTest.seed")(function* (title = "Pinned") {
     id: MessageID.ascending(),
     role: "user",
     sessionID: chat.id,
-    agent: "build",
+    agent: "orchestrator",
     model: ref,
     time: { created: Date.now() },
   })
@@ -58,8 +60,8 @@ const seed = Effect.fn("TaskToolTest.seed")(function* (title = "Pinned") {
     role: "assistant",
     parentID: user.id,
     sessionID: chat.id,
-    mode: "build",
-    agent: "build",
+    mode: "orchestrator",
+    agent: "orchestrator",
     cost: 0,
     path: { cwd: "/tmp", root: "/tmp" },
     tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
@@ -91,8 +93,8 @@ function reply(input: SessionPrompt.PromptInput, text: string): MessageV2.WithPa
       role: "assistant",
       parentID: input.messageID ?? MessageID.ascending(),
       sessionID: input.sessionID,
-      mode: input.agent ?? "general",
-      agent: input.agent ?? "general",
+      mode: input.agent ?? "coder",
+      agent: input.agent ?? "coder",
       cost: 0,
       path: { cwd: "/tmp", root: "/tmp" },
       tokens: { input: 0, output: 0, reasoning: 0, cache: { read: 0, write: 0 } },
@@ -119,7 +121,7 @@ describe("tool.task", () => {
     () =>
       Effect.gen(function* () {
         const agent = yield* Agent.Service
-        const build = yield* agent.get("build")
+        const build = yield* agent.get("orchestrator")
         const registry = yield* ToolRegistry.Service
         const get = Effect.fnUntraced(function* () {
           const tools = yield* registry.tools({ ...ref, agent: build })
@@ -131,14 +133,14 @@ describe("tool.task", () => {
         expect(first).toBe(second)
 
         const alpha = first.indexOf("- alpha: Alpha agent")
-        const explore = first.indexOf("- explore:")
-        const general = first.indexOf("- general:")
+        const coder = first.indexOf("- coder:")
+        const planner = first.indexOf("- planner:")
         const zebra = first.indexOf("- zebra: Zebra agent")
 
         expect(alpha).toBeGreaterThan(-1)
-        expect(explore).toBeGreaterThan(alpha)
-        expect(general).toBeGreaterThan(explore)
-        expect(zebra).toBeGreaterThan(general)
+        expect(coder).toBeGreaterThan(alpha)
+        expect(planner).toBeGreaterThan(coder)
+        expect(zebra).toBeGreaterThan(planner)
       }),
     {
       config: {
@@ -161,7 +163,7 @@ describe("tool.task", () => {
     () =>
       Effect.gen(function* () {
         const agent = yield* Agent.Service
-        const build = yield* agent.get("build")
+        const build = yield* agent.get("orchestrator")
         const registry = yield* ToolRegistry.Service
         const description =
           (yield* registry.tools({ ...ref, agent: build })).find((tool) => tool.id === TaskTool.id)?.description ?? ""
@@ -205,13 +207,13 @@ describe("tool.task", () => {
         {
           description: "inspect bug",
           prompt: "look into the cache key path",
-          subagent_type: "general",
+          subagent_type: "coder",
           task_id: child.id,
         },
         {
           sessionID: chat.id,
           messageID: assistant.id,
-          agent: "build",
+          agent: "orchestrator",
           abort: new AbortController().signal,
           extra: { promptOps },
           messages: [],
@@ -242,12 +244,12 @@ describe("tool.task", () => {
           {
             description: "inspect bug",
             prompt: "look into the cache key path",
-            subagent_type: "general",
+            subagent_type: "coder",
           },
           {
             sessionID: chat.id,
             messageID: assistant.id,
-            agent: "build",
+            agent: "orchestrator",
             abort: new AbortController().signal,
             extra: { promptOps, ...extra },
             messages: [],
@@ -265,11 +267,11 @@ describe("tool.task", () => {
       expect(calls).toHaveLength(1)
       expect(calls[0]).toEqual({
         permission: "task",
-        patterns: ["general"],
+        patterns: ["coder"],
         always: ["*"],
         metadata: {
           description: "inspect bug",
-          subagent_type: "general",
+          subagent_type: "coder",
         },
       })
     }),
@@ -301,12 +303,12 @@ describe("tool.task", () => {
           {
             description: "inspect bug",
             prompt: "look into the cache key path",
-            subagent_type: "general",
+            subagent_type: "coder",
           },
           {
             sessionID: chat.id,
             messageID: assistant.id,
-            agent: "build",
+            agent: "orchestrator",
             abort: abort.signal,
             extra: { promptOps },
             messages: [],
@@ -338,13 +340,13 @@ describe("tool.task", () => {
         {
           description: "inspect bug",
           prompt: "look into the cache key path",
-          subagent_type: "general",
+          subagent_type: "coder",
           task_id: "ses_missing",
         },
         {
           sessionID: chat.id,
           messageID: assistant.id,
-          agent: "build",
+          agent: "orchestrator",
           abort: new AbortController().signal,
           extra: { promptOps },
           messages: [],
@@ -355,10 +357,44 @@ describe("tool.task", () => {
 
       const kids = yield* sessions.children(chat.id)
       expect(kids).toHaveLength(1)
-      expect(kids[0]?.id).toBe(result.metadata.sessionId)
-      expect(result.metadata.sessionId).not.toBe("ses_missing")
-      expect(result.output).toContain(`task_id: ${result.metadata.sessionId}`)
-      expect(seen?.sessionID).toBe(result.metadata.sessionId)
+      expect(result.metadata.sessionId).toBeDefined()
+      const sessionID = result.metadata.sessionId as SessionID
+      expect(kids[0]?.id).toBe(sessionID)
+      expect(sessionID).not.toBe("ses_missing")
+      expect(result.output).toContain(`task_id: ${sessionID}`)
+      expect(seen?.sessionID).toBe(sessionID)
+    }),
+  )
+
+  it.instance("execute rejects legacy subagent aliases with migration hint", () =>
+    Effect.gen(function* () {
+      const { chat, assistant } = yield* seed()
+      const tool = yield* TaskTool
+      const def = yield* tool.init()
+      const promptOps = stubOps()
+      const exit = yield* def
+        .execute(
+          {
+            description: "inspect bug",
+            prompt: "look into the cache key path",
+            subagent_type: "general",
+          },
+          {
+            sessionID: chat.id,
+            messageID: assistant.id,
+            agent: "orchestrator",
+            abort: new AbortController().signal,
+            extra: { promptOps },
+            messages: [],
+            metadata: () => Effect.void,
+            ask: () => Effect.void,
+          },
+        )
+        .pipe(Effect.exit)
+      expect(Exit.isFailure(exit)).toBe(true)
+      if (Exit.isFailure(exit)) {
+        expect(String(exit.cause)).toContain('Subagent "general" has been removed. Use "coder" instead')
+      }
     }),
   )
 
@@ -382,7 +418,7 @@ describe("tool.task", () => {
           {
             sessionID: chat.id,
             messageID: assistant.id,
-            agent: "build",
+            agent: "orchestrator",
             abort: new AbortController().signal,
             extra: { promptOps },
             messages: [],
@@ -391,7 +427,9 @@ describe("tool.task", () => {
           },
         )
 
-        const child = yield* sessions.get(result.metadata.sessionId)
+        expect(result.metadata.sessionId).toBeDefined()
+        const sessionID = result.metadata.sessionId as SessionID
+        const child = yield* sessions.get(sessionID)
         expect(child.parentID).toBe(chat.id)
         expect(child.permission).toEqual([
           {

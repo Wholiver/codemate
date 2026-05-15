@@ -198,15 +198,15 @@ Allowed top-level frontmatter fields: `name, model, variant, description, mode,
 hidden, color, steps, options, permission, disable, temperature, top_p`. Any
 unknown field is silently routed into `options`.
 
-To disable a built-in agent: `agent: { build: { disable: true } }`, or in a
+To disable a built-in agent: `agent: { orchestrator: { disable: true } }`, or in a
 file, `disable: true` in frontmatter.
 
 `default_agent` must point to a non-hidden, primary-mode agent.
 
 ### Built-in agents
 
-codemate ships with `build`, `plan`, `general`, `explore`, plus optionally
-`scout` (gated on `codemate_EXPERIMENTAL_SCOUT`). Hidden internal agents:
+codemate ships with primary `orchestrator`, and specialist subagents
+`planner`, `coder`, `research`, `reviewer`, `writer`. Hidden internal agents:
 `compaction`, `title`, `summary`. To override a built-in's fields, define the
 same key in `agent: { <name>: { ... } }`.
 
@@ -321,8 +321,8 @@ action, not a per-pattern object.
 `external_directory` patterns are filesystem paths (use `~/`, absolute paths,
 or globs like `~/projects/**`).
 
-Per-agent `permission:` overrides top-level `permission:`. Plan Mode lives on
-the `plan` agent's permission ruleset (`edit: deny *`).
+Per-agent `permission:` overrides top-level `permission:`. Orchestrator Mode lives on
+the `orchestrator` agent's permission ruleset (`edit: deny *`).
 
 ## Escape hatches
 

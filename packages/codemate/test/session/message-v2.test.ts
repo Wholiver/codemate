@@ -290,6 +290,7 @@ describe("session.message-v2.toModelMessage", () => {
           {
             ...basePart(messageID, "p7"),
             type: "subtask",
+            task_role: "coder",
             prompt: "prompt",
             description: "desc",
             agent: "agent",

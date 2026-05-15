@@ -9,10 +9,14 @@ import { ProviderTransform } from "@/provider/transform"
 
 import PROMPT_GENERATE from "./generate.txt"
 import PROMPT_COMPACTION from "./prompt/compaction.txt"
-import PROMPT_EXPLORE from "./prompt/explore.txt"
-import PROMPT_SCOUT from "./prompt/scout.txt"
+import PROMPT_CODER from "./prompt/coder.txt"
+import PROMPT_PLANNER from "./prompt/planner.txt"
+import PROMPT_RESEARCH from "./prompt/research.txt"
+import PROMPT_REVIEWER from "./prompt/reviewer.txt"
 import PROMPT_SUMMARY from "./prompt/summary.txt"
+import PROMPT_TESTER from "./prompt/tester.txt"
 import PROMPT_TITLE from "./prompt/title.txt"
+import PROMPT_WRITER from "./prompt/writer.txt"
 import { Permission } from "@/permission"
 import { mergeDeep, pipe, sortBy, values } from "remeda"
 import { Global } from "@codemate-ai/core/global"
@@ -27,6 +31,12 @@ import * as OtelTracer from "@effect/opentelemetry/Tracer"
 import { zod } from "@codemate-ai/core/effect-zod"
 import { withStatics, type DeepMutable } from "@codemate-ai/core/schema"
 import { Reference } from "@/reference/reference"
+
+const LEGACY_SUBAGENT_ALIAS: Record<string, string> = {
+  general: "coder",
+  explore: "planner",
+  scout: "research",
+}
 
 export const Info = Schema.Struct({
   name: Schema.String,
@@ -116,62 +126,105 @@ export const layer = Layer.effect(
         })
 
         const user = Permission.fromConfig(cfg.permission ?? {})
+        const resolvedReferences = Reference.resolveAll({
+          references: cfg.reference ?? {},
+          directory: ctx.directory,
+          worktree: ctx.worktree,
+        })
+        const referenceExternalAllow = Object.fromEntries(
+          resolvedReferences.flatMap((resolved) => {
+            if (resolved.kind === "invalid") return []
+            return [
+              [resolved.path, "allow" as const],
+              [path.join(resolved.path, "*"), "allow" as const],
+            ]
+          }),
+        )
+        const referencePrompt = resolvedReferences
+          .map((resolved) => {
+            if (resolved.kind === "local") return `- @${resolved.name}: local reference at ${resolved.path}`
+            if (resolved.kind === "git")
+              return `- @${resolved.name}: repository ${resolved.repository} cached at ${resolved.path}${resolved.branch ? ` (branch ${resolved.branch})` : ""}`
+            return `- @${resolved.name}: invalid reference ${resolved.repository} (${resolved.message})`
+          })
+          .join("\n")
+        const researchPrompt = [
+          PROMPT_RESEARCH,
+          referencePrompt
+            ? [
+                "## Reference Extension",
+                "Use the following configured references when relevant. These are inputs to research, not separate subagents.",
+                referencePrompt,
+              ].join("\n")
+            : "",
+        ]
+          .filter((x) => x.trim().length > 0)
+          .join("\n\n")
 
         const agents: Record<string, Info> = {
-          build: {
-            name: "build",
-            description: "The default agent. Executes tools based on configured permissions.",
+          orchestrator: {
+            name: "orchestrator",
+            description: "Orchestrator agent. Routes non-trivial work through TaskGraph and specialist subagents.",
             options: {},
             permission: Permission.merge(
-              defaults,
               Permission.fromConfig({
+                "*": "deny",
+                task: "allow",
                 question: "allow",
-                plan_enter: "allow",
+                read: "allow",
+                supermemory: "allow",
+                external_directory: readonlyExternalDirectory,
+              }),
+              Permission.fromConfig({
+                // Redundant explicit denies to keep behavior obvious in merged rulesets.
+                edit: "deny",
+                write: "deny",
+                patch: "deny",
+                bash: "deny",
               }),
               user,
             ),
             mode: "primary",
             native: true,
           },
-          plan: {
-            name: "plan",
-            description: "Plan mode. Disallows all edit tools.",
-            options: {},
+          planner: {
+            name: "planner",
+            description: "Requirement planner. Builds TaskGraph and dependency order. Never writes code.",
             permission: Permission.merge(
-              defaults,
               Permission.fromConfig({
+                "*": "deny",
+                read: "allow",
                 question: "allow",
-                plan_exit: "allow",
-                external_directory: {
-                  [path.join(Global.Path.data, "plans", "*")]: "allow",
-                },
-                edit: {
-                  "*": "deny",
-                  [path.join(".codemate", "plans", "*.md")]: "allow",
-                  [path.relative(ctx.worktree, path.join(Global.Path.data, path.join("plans", "*.md")))]: "allow",
-                },
+                supermemory: "deny",
+                external_directory: readonlyExternalDirectory,
               }),
               user,
             ),
-            mode: "primary",
-            native: true,
-          },
-          general: {
-            name: "general",
-            description: `General-purpose agent for researching complex questions and executing multi-step tasks. Use this agent to execute multiple units of work in parallel.`,
-            permission: Permission.merge(
-              defaults,
-              Permission.fromConfig({
-                todowrite: "deny",
-              }),
-              user,
-            ),
+            prompt: PROMPT_PLANNER,
             options: {},
             mode: "subagent",
             native: true,
           },
-          explore: {
-            name: "explore",
+          coder: {
+            name: "coder",
+            description: "Implementation specialist. Applies code changes for concrete task nodes.",
+            permission: Permission.merge(
+              defaults,
+              Permission.fromConfig({
+                lesson_write: "deny",
+                changelog_append: "deny",
+                supermemory: "allow",
+              }),
+              user,
+            ),
+            prompt: PROMPT_CODER,
+            options: {},
+            mode: "subagent",
+            native: true,
+          },
+          research: {
+            name: "research",
+            description: "External and dependency research specialist. Produces structured summaries only.",
             permission: Permission.merge(
               defaults,
               Permission.fromConfig({
@@ -183,47 +236,93 @@ export const layer = Layer.effect(
                 webfetch: "allow",
                 websearch: "allow",
                 read: "allow",
-                external_directory: readonlyExternalDirectory,
+                supermemory: "deny",
+                ...(Flag.codemate_EXPERIMENTAL_SCOUT
+                  ? {
+                      codesearch: "allow",
+                      repo_clone: "allow",
+                      repo_overview: "allow",
+                    }
+                  : {}),
+                external_directory: {
+                  ...readonlyExternalDirectory,
+                  ...referenceExternalAllow,
+                  ...(Flag.codemate_EXPERIMENTAL_SCOUT ? { [path.join(Global.Path.repos, "*")]: "allow" } : {}),
+                },
               }),
               user,
             ),
-            description: `Fast agent specialized for exploring codebases. Use this when you need to quickly find files by patterns (eg. "src/components/**/*.tsx"), search code for keywords (eg. "API endpoints"), or answer questions about the codebase (eg. "how do API endpoints work?"). When calling this agent, specify the desired thoroughness level: "quick" for basic searches, "medium" for moderate exploration, or "very thorough" for comprehensive analysis across multiple locations and naming conventions.`,
-            prompt: PROMPT_EXPLORE,
+            prompt: researchPrompt,
+            options: { references: resolvedReferences },
+            mode: "subagent",
+            native: true,
+          },
+          reviewer: {
+            name: "reviewer",
+            description: "Review and verification specialist. Runs checks and returns pass/fail with TaskGraph fixes.",
+            permission: Permission.merge(
+              defaults,
+              Permission.fromConfig({
+                edit: "deny",
+                write: "deny",
+                patch: "deny",
+                lesson_write: "deny",
+                changelog_append: "deny",
+                supermemory: "allow",
+              }),
+              user,
+            ),
+            prompt: PROMPT_REVIEWER,
             options: {},
             mode: "subagent",
             native: true,
           },
-          ...(Flag.codemate_EXPERIMENTAL_SCOUT
-            ? {
-                scout: {
-                  name: "scout",
-                  permission: Permission.merge(
-                    defaults,
-                    Permission.fromConfig({
-                      "*": "deny",
-                      grep: "allow",
-                      glob: "allow",
-                      webfetch: "allow",
-                      websearch: "allow",
-                      codesearch: "allow",
-                      read: "allow",
-                      repo_clone: "allow",
-                      repo_overview: "allow",
-                      external_directory: {
-                        ...readonlyExternalDirectory,
-                        [path.join(Global.Path.repos, "*")]: "allow",
-                      },
-                    }),
-                    user,
-                  ),
-                  description: `Docs and dependency-source specialist. Use this when you need to inspect external documentation, clone dependency repositories into the managed cache, and research library implementation details without modifying the user's workspace.`,
-                  prompt: PROMPT_SCOUT,
-                  options: {},
-                  mode: "subagent" as const,
-                  native: true,
+          tester: {
+            name: "tester",
+            description: "Test specialist. Writes and runs tests for implementation tasks without changing production code.",
+            permission: Permission.merge(
+              defaults,
+              Permission.fromConfig({
+                edit: {
+                  "*": "deny",
+                  "**/*.test.*": "allow",
+                  "**/*.spec.*": "allow",
+                  "**/__tests__/**": "allow",
+                  "**/test/**": "allow",
                 },
-              }
-            : {}),
+                lesson_write: "deny",
+                changelog_append: "deny",
+                bash: "allow",
+                read: "allow",
+                glob: "allow",
+                grep: "allow",
+              }),
+              user,
+            ),
+            prompt: PROMPT_TESTER,
+            options: {},
+            mode: "subagent",
+            native: true,
+          },
+          writer: {
+            name: "writer",
+            description: "Documentation and persistence specialist. Writes changelog and lessons.",
+            permission: Permission.merge(
+              defaults,
+              Permission.fromConfig({
+                lesson_classify: "allow",
+                lesson_write: "allow",
+                changelog_append: "allow",
+                todowrite: "deny",
+                supermemory: "allow",
+              }),
+              user,
+            ),
+            prompt: PROMPT_WRITER,
+            options: {},
+            mode: "subagent",
+            native: true,
+          },
           compaction: {
             name: "compaction",
             mode: "primary",
@@ -273,6 +372,12 @@ export const layer = Layer.effect(
         }
 
         for (const [key, value] of Object.entries(cfg.agent ?? {})) {
+          const legacy = LEGACY_SUBAGENT_ALIAS[key]
+          if (legacy) {
+            throw new Error(
+              `agent "${key}" has been removed. Use "${legacy}" instead (migration: general->coder, explore->planner, scout->research).`,
+            )
+          }
           if (value.disable) {
             delete agents[key]
             continue
@@ -301,76 +406,6 @@ export const layer = Layer.effect(
           item.permission = Permission.merge(item.permission, Permission.fromConfig(value.permission ?? {}))
         }
 
-        function referencePrompt(reference: Reference.Resolved) {
-          if (reference.kind === "local") {
-            return [
-              `You are configured reference @${reference.name}, a read-only research agent for external reference material.`,
-              `Local directory: ${reference.path}`,
-              `Inspect this directory as the primary reference source. Prefer repo_overview with path ${JSON.stringify(reference.path)} before broader searches. Do not edit files.`,
-              `Return exact absolute file paths for findings whenever possible.`,
-            ].join("\n\n")
-          }
-
-          if (reference.kind === "invalid") {
-            return [
-              `You are configured reference @${reference.name}, but this reference is not usable yet.`,
-              `Configured repository: ${reference.repository}`,
-              `Problem: ${reference.message}`,
-              `Explain this configuration problem if invoked. Do not edit files or attempt fallback clones.`,
-            ].join("\n\n")
-          }
-
-          return [
-            `You are configured reference @${reference.name}, a read-only research agent for external reference material.`,
-            `Repository: ${reference.repository}`,
-            ...(reference.branch ? [`Branch/ref: ${reference.branch}`] : []),
-            `Cached directory: ${reference.path}`,
-            `codemate materializes this configured repository before use. Do not call repo_clone for this reference.`,
-            `Inspect the cached directory as the primary reference source. Prefer repo_overview with path ${JSON.stringify(reference.path)} before broader searches, then use Glob, Grep, and Read inside that directory. Do not edit files.`,
-            `Return exact absolute file paths for findings whenever possible.`,
-          ].join("\n\n")
-        }
-
-        function referenceDescription(reference: Reference.Resolved) {
-          if (reference.kind === "local") return `Scout reference for local directory ${reference.path}`
-          if (reference.kind === "git") return `Scout reference for repository ${reference.repository}`
-          return `Invalid Scout reference for repository ${reference.repository}`
-        }
-
-        if (Flag.codemate_EXPERIMENTAL_SCOUT) {
-          const resolvedReferences = Reference.resolveAll({
-            references: cfg.reference ?? {},
-            directory: ctx.directory,
-            worktree: ctx.worktree,
-          })
-          for (const resolved of resolvedReferences) {
-            if (agents[resolved.name]) continue
-            const localPath = resolved.kind === "invalid" ? undefined : resolved.path
-            agents[resolved.name] = {
-              name: resolved.name,
-              description: referenceDescription(resolved),
-              permission: Permission.merge(
-                agents.scout.permission,
-                Permission.fromConfig({
-                  repo_clone: "deny",
-                  ...(localPath
-                    ? {
-                        external_directory: {
-                          [localPath]: "allow",
-                          [path.join(localPath, "*")]: "allow",
-                        },
-                      }
-                    : {}),
-                }),
-              ),
-              prompt: referencePrompt(resolved),
-              options: { reference: cfg.reference?.[resolved.name], resolved },
-              mode: "subagent",
-              native: false,
-            }
-          }
-        }
-
         // Ensure Truncate.GLOB is allowed unless explicitly configured
         for (const name in agents) {
           const agent = agents[name]
@@ -397,7 +432,7 @@ export const layer = Layer.effect(
             agents,
             values(),
             sortBy(
-              [(x) => (cfg.default_agent ? x.name === cfg.default_agent : x.name === "build"), "desc"],
+              [(x) => (cfg.default_agent ? x.name === cfg.default_agent : x.name === "orchestrator"), "desc"],
               [(x) => x.name, "asc"],
             ),
           )
@@ -412,6 +447,8 @@ export const layer = Layer.effect(
             if (agent.hidden === true) throw new Error(`default agent "${c.default_agent}" is hidden`)
             return agent.name
           }
+          const preferred = agents.orchestrator
+          if (preferred && preferred.mode !== "subagent" && preferred.hidden !== true) return preferred.name
           const visible = Object.values(agents).find((a) => a.mode !== "subagent" && a.hidden !== true)
           if (!visible) throw new Error("no primary visible agent found")
           return visible.name

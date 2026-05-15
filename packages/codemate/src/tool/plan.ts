@@ -37,12 +37,12 @@ export const PlanExitTool = Tool.define(
             sessionID: ctx.sessionID,
             questions: [
               {
-                question: `Plan at ${plan} is complete. Would you like to switch to the build agent and start implementing?`,
-                header: "Build Agent",
+                question: `Plan at ${plan} is complete. Start implementation now with the orchestrator agent?`,
+                header: "Orchestrator",
                 custom: false,
                 options: [
-                  { label: "Yes", description: "Switch to build agent and start implementing the plan" },
-                  { label: "No", description: "Stay with plan agent to continue refining the plan" },
+                  { label: "Yes", description: "Start implementing the approved plan" },
+                  { label: "No", description: "Stay with orchestrator agent to continue refining the plan" },
                 ],
               },
             ],
@@ -58,7 +58,7 @@ export const PlanExitTool = Tool.define(
             sessionID: ctx.sessionID,
             role: "user",
             time: { created: Date.now() },
-            agent: "build",
+            agent: "orchestrator",
             model,
           }
           yield* session.updateMessage(msg)
@@ -72,8 +72,8 @@ export const PlanExitTool = Tool.define(
           } satisfies MessageV2.TextPart)
 
           return {
-            title: "Switching to build agent",
-            output: "User approved switching to build agent. Wait for further instructions.",
+            title: "Continuing with orchestrator agent",
+            output: "User approved implementation. Wait for further instructions.",
             metadata: {},
           }
         }).pipe(Effect.orDie),

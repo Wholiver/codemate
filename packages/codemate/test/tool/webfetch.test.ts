@@ -15,7 +15,7 @@ const ctx = {
   sessionID: SessionID.make("ses_test"),
   messageID: MessageID.make("msg_message"),
   callID: "",
-  agent: "build",
+  agent: "orchestrator",
   abort: AbortSignal.any([]),
   messages: [],
   metadata: () => Effect.void,

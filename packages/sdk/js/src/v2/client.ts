@@ -2,9 +2,9 @@ export * from "./gen/types.gen.js"
 
 import { createClient } from "./gen/client/client.gen.js"
 import { type Config } from "./gen/client/types.gen.js"
-import { codemateClient } from "./gen/sdk.gen.js"
+import { CodemateClient } from "./gen/sdk.gen.js"
 import { wrapClientError } from "../error-interceptor.js"
-export { type Config as codemateClientConfig, codemateClient }
+export { type Config as codemateClientConfig, CodemateClient as codemateClient }
 
 function pick(value: string | null, fallback?: string, encode?: (value: string) => string) {
   if (!value) return
@@ -86,5 +86,5 @@ export function createcodemateClient(config?: Config & { directory?: string; exp
     return response
   })
   client.interceptors.error.use(wrapClientError)
-  return new codemateClient({ client })
+  return new CodemateClient({ client })
 }

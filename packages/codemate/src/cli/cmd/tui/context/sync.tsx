@@ -34,6 +34,20 @@ import path from "path"
 import { useKV } from "./kv"
 import { aggregateFailures } from "./aggregate-failures"
 
+type TodoWithMeta = Todo & {
+  task_role?: "planner" | "coder" | "tester" | "research" | "reviewer" | "writer"
+  task_id?: string
+  topology_layer?: number
+  started_at?: number
+  completed_at?: number
+  duration_ms?: number
+}
+
+type SessionLessonStats = {
+  learned: number
+  total: number
+}
+
 export const { use: useSync, provider: SyncProvider } = createSimpleContext({
   name: "Sync",
   init: () => {
@@ -61,7 +75,10 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
         [sessionID: string]: Snapshot.FileDiff[]
       }
       todo: {
-        [sessionID: string]: Todo[]
+        [sessionID: string]: TodoWithMeta[]
+      }
+      lesson_stats: {
+        [sessionID: string]: SessionLessonStats
       }
       message: {
         [sessionID: string]: Message[]
@@ -98,6 +115,7 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
       session_status: {},
       session_diff: {},
       todo: {},
+      lesson_stats: {},
       message: {},
       part: {},
       lsp: [],
@@ -131,7 +149,78 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
         .then((x) => (x.data ?? []).toSorted((a, b) => a.id.localeCompare(b.id)))
     }
 
+    function normalizeLessonStats(input?: Partial<SessionLessonStats>) {
+      return {
+        learned: Math.max(0, Math.floor(input?.learned ?? 0)),
+        total: Math.max(0, Math.floor(input?.total ?? 0)),
+      } satisfies SessionLessonStats
+    }
+
+    function learnedFromMessages(
+      sessionID: string,
+      messagesWithParts?: Array<{ parts?: Array<Record<string, unknown>> }>,
+    ) {
+      const source =
+        messagesWithParts ??
+        (store.message[sessionID] ?? []).map((message) => ({
+          parts: (store.part[message.id] as Array<Record<string, unknown>> | undefined) ?? [],
+        }))
+      return source.reduce((sum, message) => {
+        const parts = Array.isArray(message.parts) ? message.parts : []
+        const learned = parts.reduce((partSum, part) => {
+          if (!part || typeof part !== "object") return partSum
+          if ((part as { type?: string }).type !== "tool") return partSum
+          if ((part as { tool?: string }).tool !== "lesson_write") return partSum
+          const state = (part as { state?: Record<string, unknown> }).state
+          if (!state || state.status !== "completed") return partSum
+          const metadata = state.metadata as Record<string, unknown> | undefined
+          const written = typeof metadata?.written_count === "number" ? metadata.written_count : 0
+          return partSum + Math.max(0, Math.floor(written))
+        }, 0)
+        return sum + learned
+      }, 0)
+    }
+
+    async function projectLessonTotal() {
+      const worktree = project.instance.path().worktree
+      if (!worktree) return 0
+      const file = path.join(worktree, ".codemate", "lessons.jsonl")
+      try {
+        const text = await Bun.file(file).text()
+        return text
+          .split(/\\r?\\n/)
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0).length
+      } catch {
+        return 0
+      }
+    }
+
+    async function refreshLessonStats(sessionID: string, messagesWithParts?: Array<{ parts?: Array<Record<string, unknown>> }>) {
+      const stats = normalizeLessonStats({
+        learned: learnedFromMessages(sessionID, messagesWithParts),
+        total: await projectLessonTotal(),
+      })
+      setStore("lesson_stats", sessionID, stats)
+      return stats
+    }
+
     event.subscribe((event) => {
+      const dynamicEvent = event as { type: string; properties?: Record<string, unknown> }
+      if (dynamicEvent.type === "lesson.stats.updated") {
+        const sessionID = typeof dynamicEvent.properties?.sessionID === "string" ? dynamicEvent.properties.sessionID : undefined
+        if (!sessionID) return
+        setStore(
+          "lesson_stats",
+          sessionID,
+          normalizeLessonStats({
+            learned:
+              typeof dynamicEvent.properties?.learned === "number" ? dynamicEvent.properties.learned : undefined,
+            total: typeof dynamicEvent.properties?.total === "number" ? dynamicEvent.properties.total : undefined,
+          }),
+        )
+        return
+      }
       switch (event.type) {
         case "server.instance.disposed":
           void bootstrap()
@@ -212,7 +301,7 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
         }
 
         case "todo.updated":
-          setStore("todo", event.properties.sessionID, event.properties.todos)
+          setStore("todo", event.properties.sessionID, event.properties.todos as TodoWithMeta[])
           break
 
         case "session.diff":
@@ -305,14 +394,20 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
           break
         }
         case "message.part.updated": {
+          const lessonWriteCompleted =
+            event.properties.part.type === "tool" &&
+            event.properties.part.tool === "lesson_write" &&
+            event.properties.part.state.status === "completed"
           const parts = store.part[event.properties.part.messageID]
           if (!parts) {
             setStore("part", event.properties.part.messageID, [event.properties.part])
+            if (lessonWriteCompleted) queueMicrotask(() => void refreshLessonStats(event.properties.part.sessionID))
             break
           }
           const result = Binary.search(parts, event.properties.part.id, (p) => p.id)
           if (result.found) {
             setStore("part", event.properties.part.messageID, result.index, reconcile(event.properties.part))
+            if (lessonWriteCompleted) queueMicrotask(() => void refreshLessonStats(event.properties.part.sessionID))
             break
           }
           setStore(
@@ -322,6 +417,7 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
               draft.splice(result.index, 0, event.properties.part)
             }),
           )
+          if (lessonWriteCompleted) queueMicrotask(() => void refreshLessonStats(event.properties.part.sessionID))
           break
         }
 
@@ -528,12 +624,18 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
             sdk.client.session.todo({ sessionID }),
             sdk.client.session.diff({ sessionID }),
           ])
+          const lessonStats = await refreshLessonStats(
+            sessionID,
+            (messages.data ?? []).map((message) => ({
+              parts: message.parts as Array<Record<string, unknown>>,
+            })),
+          )
           setStore(
             produce((draft) => {
               const match = Binary.search(draft.session, sessionID, (s) => s.id)
               if (match.found) draft.session[match.index] = session.data!
               if (!match.found) draft.session.splice(match.index, 0, session.data!)
-              draft.todo[sessionID] = todo.data ?? []
+              draft.todo[sessionID] = (todo.data ?? []) as TodoWithMeta[]
               const infos: (typeof draft.message)[string] = []
               for (const message of messages.data ?? []) {
                 infos.push(message.info)
@@ -541,6 +643,7 @@ export const { use: useSync, provider: SyncProvider } = createSimpleContext({
               }
               draft.message[sessionID] = infos
               draft.session_diff[sessionID] = diff.data ?? []
+              draft.lesson_stats[sessionID] = lessonStats
             }),
           )
           fullSyncedSessions.add(sessionID)

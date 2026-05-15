@@ -256,7 +256,7 @@ class HeyApiRegistry<T> {
   get(key?: string): T {
     const instance = this.instances.get(key ?? this.defaultKey)
     if (!instance) {
-      throw new Error(`No SDK client found. Create one with "new codemateClient()" to fix this error.`)
+      throw new Error(`No SDK client found. Create one with "new CodemateClient()" to fix this error.`)
     }
     return instance
   }
@@ -4828,12 +4828,12 @@ export class Tui extends HeyApiClient {
   }
 }
 
-export class codemateClient extends HeyApiClient {
-  public static readonly __registry = new HeyApiRegistry<codemateClient>()
+export class CodemateClient extends HeyApiClient {
+  public static readonly __registry = new HeyApiRegistry<CodemateClient>()
 
   constructor(args?: { client?: Client; key?: string }) {
     super(args)
-    codemateClient.__registry.set(this, args?.key)
+    CodemateClient.__registry.set(this, args?.key)
   }
 
   private _auth?: Auth

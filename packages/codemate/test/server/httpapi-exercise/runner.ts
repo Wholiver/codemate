@@ -145,7 +145,7 @@ function withContext<A, E>(
                 sessionID,
                 role: "user",
                 time: { created: Date.now() },
-                agent: "build",
+                agent: "orchestrator",
                 model: {
                   providerID: ProviderID.codemate,
                   modelID: ModelID.make("test"),

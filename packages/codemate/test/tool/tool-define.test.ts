@@ -78,7 +78,7 @@ describe("Tool.define", () => {
     const ctx: Tool.Context = {
       sessionID: SessionID.descending(),
       messageID: MessageID.ascending(),
-      agent: "build",
+      agent: "orchestrator",
       abort: new AbortController().signal,
       messages: [],
       metadata() {

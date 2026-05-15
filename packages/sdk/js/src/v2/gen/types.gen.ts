@@ -8,22 +8,23 @@ export type Event =
   | EventServerInstanceDisposed
   | EventFileEdited
   | EventFileWatcherUpdated
-  | EventLspClientDiagnostics
-  | EventLspUpdated
-  | EventMessagePartDelta
-  | EventPermissionAsked
-  | EventPermissionReplied
-  | EventSessionDiff
-  | EventSessionError
   | EventInstallationUpdated
   | EventInstallationUpdateAvailable
+  | EventPermissionAsked
+  | EventPermissionReplied
   | EventQuestionAsked
   | EventQuestionReplied
   | EventQuestionRejected
   | EventTodoUpdated
+  | EventLspClientDiagnostics
+  | EventLspUpdated
+  | EventMessagePartDelta
+  | EventSessionDiff
+  | EventSessionError
   | EventSessionStatus
   | EventSessionIdle
   | EventSessionCompacted
+  | EventLessonStatsUpdated1
   | EventTuiPromptAppend
   | EventTuiCommandExecute
   | EventTuiToastShow1
@@ -118,75 +119,6 @@ export type PermissionRequest = {
   }
 }
 
-export type SnapshotFileDiff = {
-  file?: string
-  patch?: string
-  additions: number
-  deletions: number
-  status?: "added" | "deleted" | "modified"
-}
-
-export type ProviderAuthError = {
-  name: "ProviderAuthError"
-  data: {
-    providerID: string
-    message: string
-  }
-}
-
-export type UnknownError = {
-  name: "UnknownError"
-  data: {
-    message: string
-  }
-}
-
-export type MessageOutputLengthError = {
-  name: "MessageOutputLengthError"
-  data: {
-    [key: string]: unknown
-  }
-}
-
-export type MessageAbortedError = {
-  name: "MessageAbortedError"
-  data: {
-    message: string
-  }
-}
-
-export type StructuredOutputError = {
-  name: "StructuredOutputError"
-  data: {
-    message: string
-    retries: number
-  }
-}
-
-export type ContextOverflowError = {
-  name: "ContextOverflowError"
-  data: {
-    message: string
-    responseBody?: string
-  }
-}
-
-export type ApiError = {
-  name: "APIError"
-  data: {
-    message: string
-    statusCode?: number
-    isRetryable: boolean
-    responseHeaders?: {
-      [key: string]: string
-    }
-    responseBody?: string
-    metadata?: {
-      [key: string]: string
-    }
-  }
-}
-
 export type QuestionOption = {
   /**
    * Display text (1-5 words, concise)
@@ -256,6 +188,81 @@ export type Todo = {
    * Priority level of the task: high, medium, low
    */
   priority: string
+  task_role?: "planner" | "coder" | "tester" | "research" | "reviewer" | "writer"
+  task_id?: string
+  topology_layer?: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  started_at?: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  completed_at?: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+  duration_ms?: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+}
+
+export type SnapshotFileDiff = {
+  file?: string
+  patch?: string
+  additions: number
+  deletions: number
+  status?: "added" | "deleted" | "modified"
+}
+
+export type ProviderAuthError = {
+  name: "ProviderAuthError"
+  data: {
+    providerID: string
+    message: string
+  }
+}
+
+export type UnknownError = {
+  name: "UnknownError"
+  data: {
+    message: string
+  }
+}
+
+export type MessageOutputLengthError = {
+  name: "MessageOutputLengthError"
+  data: {
+    [key: string]: unknown
+  }
+}
+
+export type MessageAbortedError = {
+  name: "MessageAbortedError"
+  data: {
+    message: string
+  }
+}
+
+export type StructuredOutputError = {
+  name: "StructuredOutputError"
+  data: {
+    message: string
+    retries: number
+  }
+}
+
+export type ContextOverflowError = {
+  name: "ContextOverflowError"
+  data: {
+    message: string
+    responseBody?: string
+  }
+}
+
+export type ApiError = {
+  name: "APIError"
+  data: {
+    message: string
+    statusCode?: number
+    isRetryable: boolean
+    responseHeaders?: {
+      [key: string]: string
+    }
+    responseBody?: string
+    metadata?: {
+      [key: string]: string
+    }
+  }
 }
 
 export type SessionStatus =
@@ -471,11 +478,18 @@ export type TextPart = {
   }
 }
 
+export type TaskRole = "planner" | "coder" | "tester" | "research" | "reviewer" | "writer"
+
 export type SubtaskPart = {
   id: string
   sessionID: string
   messageID: string
   type: "subtask"
+  task_role: TaskRole
+  task_id?: string
+  blocked_by?: Array<string>
+  needs_research?: boolean
+  tags?: Array<string>
   prompt: string
   description: string
   agent: string
@@ -781,22 +795,23 @@ export type GlobalEvent = {
     | EventServerInstanceDisposed
     | EventFileEdited
     | EventFileWatcherUpdated
-    | EventLspClientDiagnostics
-    | EventLspUpdated
-    | EventMessagePartDelta
-    | EventPermissionAsked
-    | EventPermissionReplied
-    | EventSessionDiff
-    | EventSessionError
     | EventInstallationUpdated
     | EventInstallationUpdateAvailable
+    | EventPermissionAsked
+    | EventPermissionReplied
     | EventQuestionAsked
     | EventQuestionReplied
     | EventQuestionRejected
     | EventTodoUpdated
+    | EventLspClientDiagnostics
+    | EventLspUpdated
+    | EventMessagePartDelta
+    | EventSessionDiff
+    | EventSessionError
     | EventSessionStatus
     | EventSessionIdle
     | EventSessionCompacted
+    | EventLessonStatsUpdated
     | EventTuiPromptAppend
     | EventTuiCommandExecute
     | EventTuiToastShow
@@ -891,7 +906,7 @@ export type GlobalEvent = {
 export type LogLevel = "DEBUG" | "INFO" | "WARN" | "ERROR"
 
 /**
- * Server configuration for codemate serve and web commands
+ * Server configuration for codemate serve command
  */
 export type ServerConfig = {
   port?: number
@@ -950,6 +965,11 @@ export type PermissionConfig =
       lsp?: PermissionRuleConfig
       doom_loop?: PermissionActionConfig
       skill?: PermissionRuleConfig
+      supermemory?: PermissionRuleConfig
+      selfcheck?: PermissionRuleConfig
+      lesson_classify?: PermissionRuleConfig
+      lesson_write?: PermissionRuleConfig
+      changelog_append?: PermissionRuleConfig
       [key: string]: PermissionRuleConfig | PermissionActionConfig | undefined
     }
 
@@ -1188,16 +1208,16 @@ export type Config = {
   default_agent?: string
   username?: string
   mode?: {
-    build?: AgentConfig
-    plan?: AgentConfig
+    orchestrator?: AgentConfig
     [key: string]: AgentConfig | undefined
   }
   agent?: {
-    plan?: AgentConfig
-    build?: AgentConfig
-    general?: AgentConfig
-    explore?: AgentConfig
-    scout?: AgentConfig
+    orchestrator?: AgentConfig
+    planner?: AgentConfig
+    coder?: AgentConfig
+    research?: AgentConfig
+    reviewer?: AgentConfig
+    writer?: AgentConfig
     title?: AgentConfig
     summary?: AgentConfig
     compaction?: AgentConfig
@@ -1713,6 +1733,11 @@ export type AgentPartInput = {
 export type SubtaskPartInput = {
   id?: string
   type: "subtask"
+  task_role: TaskRole
+  task_id?: string
+  blocked_by?: Array<string>
+  needs_research?: boolean
+  tags?: Array<string>
   prompt: string
   description: string
   agent: string
@@ -1806,6 +1831,27 @@ export type WorkspaceWarpError = {
   data: {
     message: string
   }
+}
+
+export type Todo1 = {
+  /**
+   * Brief description of the task
+   */
+  content: string
+  /**
+   * Current status of the task: pending, in_progress, completed, cancelled
+   */
+  status: string
+  /**
+   * Priority level of the task: high, medium, low
+   */
+  priority: string
+  task_role?: "planner" | "coder" | "tester" | "research" | "reviewer" | "writer"
+  task_id?: string
+  topology_layer?: number | "NaN" | "Infinity" | "-Infinity"
+  started_at?: number | "NaN" | "Infinity" | "-Infinity"
+  completed_at?: number | "NaN" | "Infinity" | "-Infinity"
+  duration_ms?: number | "NaN" | "Infinity" | "-Infinity"
 }
 
 export type SyncEventMessageUpdated = {
@@ -2355,32 +2401,19 @@ export type EventFileWatcherUpdated = {
   }
 }
 
-export type EventLspClientDiagnostics = {
+export type EventInstallationUpdated = {
   id: string
-  type: "lsp.client.diagnostics"
+  type: "installation.updated"
   properties: {
-    serverID: string
-    path: string
+    version: string
   }
 }
 
-export type EventLspUpdated = {
+export type EventInstallationUpdateAvailable = {
   id: string
-  type: "lsp.updated"
+  type: "installation.update-available"
   properties: {
-    [key: string]: unknown
-  }
-}
-
-export type EventMessagePartDelta = {
-  id: string
-  type: "message.part.delta"
-  properties: {
-    sessionID: string
-    messageID: string
-    partID: string
-    field: string
-    delta: string
+    version: string
   }
 }
 
@@ -2397,47 +2430,6 @@ export type EventPermissionReplied = {
     sessionID: string
     requestID: string
     reply: "once" | "always" | "reject"
-  }
-}
-
-export type EventSessionDiff = {
-  id: string
-  type: "session.diff"
-  properties: {
-    sessionID: string
-    diff: Array<SnapshotFileDiff>
-  }
-}
-
-export type EventSessionError = {
-  id: string
-  type: "session.error"
-  properties: {
-    sessionID?: string
-    error?:
-      | ProviderAuthError
-      | UnknownError
-      | MessageOutputLengthError
-      | MessageAbortedError
-      | StructuredOutputError
-      | ContextOverflowError
-      | ApiError
-  }
-}
-
-export type EventInstallationUpdated = {
-  id: string
-  type: "installation.updated"
-  properties: {
-    version: string
-  }
-}
-
-export type EventInstallationUpdateAvailable = {
-  id: string
-  type: "installation.update-available"
-  properties: {
-    version: string
   }
 }
 
@@ -2468,6 +2460,60 @@ export type EventTodoUpdated = {
   }
 }
 
+export type EventLspClientDiagnostics = {
+  id: string
+  type: "lsp.client.diagnostics"
+  properties: {
+    serverID: string
+    path: string
+  }
+}
+
+export type EventLspUpdated = {
+  id: string
+  type: "lsp.updated"
+  properties: {
+    [key: string]: unknown
+  }
+}
+
+export type EventMessagePartDelta = {
+  id: string
+  type: "message.part.delta"
+  properties: {
+    sessionID: string
+    messageID: string
+    partID: string
+    field: string
+    delta: string
+  }
+}
+
+export type EventSessionDiff = {
+  id: string
+  type: "session.diff"
+  properties: {
+    sessionID: string
+    diff: Array<SnapshotFileDiff>
+  }
+}
+
+export type EventSessionError = {
+  id: string
+  type: "session.error"
+  properties: {
+    sessionID?: string
+    error?:
+      | ProviderAuthError
+      | UnknownError
+      | MessageOutputLengthError
+      | MessageAbortedError
+      | StructuredOutputError
+      | ContextOverflowError
+      | ApiError
+  }
+}
+
 export type EventSessionStatus = {
   id: string
   type: "session.status"
@@ -2490,6 +2536,16 @@ export type EventSessionCompacted = {
   type: "session.compacted"
   properties: {
     sessionID: string
+  }
+}
+
+export type EventLessonStatsUpdated = {
+  id: string
+  type: "lesson.stats.updated"
+  properties: {
+    sessionID: string
+    learned: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
+    total: number | "NaN" | "Infinity" | "-Infinity" | "Infinity" | "-Infinity" | "NaN"
   }
 }
 
@@ -3283,6 +3339,16 @@ export type SessionMessage =
   | SessionMessageShell
   | SessionMessageAssistant
   | SessionMessageCompaction
+
+export type EventLessonStatsUpdated1 = {
+  id: string
+  type: "lesson.stats.updated"
+  properties: {
+    sessionID: string
+    learned: number | "NaN" | "Infinity" | "-Infinity"
+    total: number | "NaN" | "Infinity" | "-Infinity"
+  }
+}
 
 export type EventTuiToastShow1 = {
   id: string

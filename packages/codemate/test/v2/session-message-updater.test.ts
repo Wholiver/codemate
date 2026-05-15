@@ -16,7 +16,7 @@ test("step snapshots carry over to assistant messages", () => {
     data: {
       sessionID,
       timestamp: DateTime.makeUnsafe(1),
-      agent: "build",
+      agent: "orchestrator",
       model: {
         id: Modelv2.ID.make("model"),
         providerID: Modelv2.ProviderID.make("provider"),
@@ -60,7 +60,7 @@ test("text ended populates assistant text content", () => {
     data: {
       sessionID,
       timestamp: DateTime.makeUnsafe(1),
-      agent: "build",
+      agent: "orchestrator",
       model: {
         id: Modelv2.ID.make("model"),
         providerID: Modelv2.ProviderID.make("provider"),
@@ -104,7 +104,7 @@ test("tool completion stores completed timestamp", () => {
     data: {
       sessionID,
       timestamp: DateTime.makeUnsafe(1),
-      agent: "build",
+      agent: "orchestrator",
       model: {
         id: Modelv2.ID.make("model"),
         providerID: Modelv2.ProviderID.make("provider"),

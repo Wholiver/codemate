@@ -12,6 +12,11 @@ import { WebFetchTool } from "./webfetch"
 import { WriteTool } from "./write"
 import { InvalidTool } from "./invalid"
 import { SkillTool } from "./skill"
+import { SupermemoryTool } from "./supermemory"
+import { SelfCheckTool } from "./selfcheck"
+import { LessonClassifyTool } from "./lesson_classify"
+import { LessonWriteTool } from "./lesson_write"
+import { ChangelogAppendTool } from "./changelog_append"
 import * as Tool from "./tool"
 import { Config } from "@/config/config"
 import { type ToolContext as PluginToolContext, type ToolDefinition } from "@codemate-ai/plugin"
@@ -51,14 +56,15 @@ import { Git } from "@/git"
 import { Skill } from "../skill"
 import { Permission } from "@/permission"
 import { Reference } from "@/reference/reference"
+import * as SessionClosedLoop from "@/session/closed-loop"
 
 const log = Log.create({ service: "tool.registry" })
 
 export function webSearchEnabled(
-  providerID: ProviderID,
-  flags = { exa: Flag.codemate_ENABLE_EXA, parallel: Flag.codemate_ENABLE_PARALLEL },
+  _providerID: ProviderID,
+  _flags = { exa: Flag.codemate_ENABLE_EXA, parallel: Flag.codemate_ENABLE_PARALLEL },
 ) {
-  return providerID === ProviderID.codemate || flags.exa || flags.parallel
+  return true
 }
 
 type TaskDef = Tool.InferDef<typeof TaskTool>
@@ -89,6 +95,7 @@ export const layer: Layer.Layer<
   | Todo.Service
   | Agent.Service
   | Skill.Service
+  | SessionClosedLoop.Service
   | Session.Service
   | Provider.Service
   | Git.Service
@@ -110,6 +117,7 @@ export const layer: Layer.Layer<
     const agents = yield* Agent.Service
     const skill = yield* Skill.Service
     const truncate = yield* Truncate.Service
+    yield* SessionClosedLoop.Service
 
     const invalid = yield* InvalidTool
     const task = yield* TaskTool
@@ -130,6 +138,11 @@ export const layer: Layer.Layer<
     const greptool = yield* GrepTool
     const patchtool = yield* ApplyPatchTool
     const skilltool = yield* SkillTool
+    const supermemorytool = yield* SupermemoryTool
+    const selfchecktool = yield* SelfCheckTool
+    const lessonclassifytool = yield* LessonClassifyTool
+    const lessonwritetool = yield* LessonWriteTool
+    const changelogappendtool = yield* ChangelogAppendTool
     const agent = yield* Agent.Service
 
     const state = yield* InstanceState.make<State>(
@@ -226,6 +239,11 @@ export const layer: Layer.Layer<
           repo_clone: Tool.init(repoClone),
           repo_overview: Tool.init(repoOverview),
           skill: Tool.init(skilltool),
+          supermemory: Tool.init(supermemorytool),
+          selfcheck: Tool.init(selfchecktool),
+          lesson_classify: Tool.init(lessonclassifytool),
+          lesson_write: Tool.init(lessonwritetool),
+          changelog_append: Tool.init(changelogappendtool),
           patch: Tool.init(patchtool),
           question: Tool.init(question),
           lsp: Tool.init(lsptool),
@@ -249,6 +267,11 @@ export const layer: Layer.Layer<
             tool.search,
             ...(Flag.codemate_EXPERIMENTAL_SCOUT ? [tool.code, tool.repo_clone, tool.repo_overview] : []),
             tool.skill,
+            tool.supermemory,
+            tool.selfcheck,
+            tool.lesson_classify,
+            tool.lesson_write,
+            tool.changelog_append,
             tool.patch,
             ...(Flag.codemate_EXPERIMENTAL_LSP_TOOL ? [tool.lsp] : []),
             ...(Flag.codemate_EXPERIMENTAL_PLAN_MODE && Flag.codemate_CLIENT === "cli" ? [tool.plan] : []),
@@ -359,6 +382,7 @@ export const defaultLayer = Layer.suspend(() =>
     Layer.provide(Question.defaultLayer),
     Layer.provide(Todo.defaultLayer),
     Layer.provide(Skill.defaultLayer),
+    Layer.provide(SessionClosedLoop.defaultLayer),
     Layer.provide(Agent.defaultLayer),
     Layer.provide(Session.defaultLayer),
     Layer.provide(Provider.defaultLayer),

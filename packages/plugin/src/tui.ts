@@ -312,6 +312,7 @@ export type TuiState = {
     count: () => number
     diff: (sessionID: string) => ReadonlyArray<TuiSidebarFileItem>
     todo: (sessionID: string) => ReadonlyArray<TuiSidebarTodoItem>
+    lessonStats: (sessionID: string) => TuiSessionLessonStats
     messages: (sessionID: string) => ReadonlyArray<Message>
     status: (sessionID: string) => SessionStatus | undefined
     permission: (sessionID: string) => ReadonlyArray<PermissionRequest>
@@ -358,7 +359,19 @@ export type TuiSidebarMcpItem = {
 
 export type TuiSidebarLspItem = Pick<LspStatus, "id" | "root" | "status">
 
-export type TuiSidebarTodoItem = Pick<Todo, "content" | "status">
+export type TuiSidebarTodoItem = Pick<Todo, "content" | "status"> & {
+  task_role?: "planner" | "coder" | "tester" | "research" | "reviewer" | "writer"
+  task_id?: string
+  topology_layer?: number
+  started_at?: number
+  completed_at?: number
+  duration_ms?: number
+}
+
+export type TuiSessionLessonStats = {
+  learned: number
+  total: number
+}
 
 export type TuiSidebarFileItem = {
   file: string

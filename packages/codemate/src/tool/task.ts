@@ -7,6 +7,7 @@ import { Agent } from "../agent/agent"
 import { deriveSubagentSessionPermission } from "../agent/subagent-permissions"
 import type { SessionPrompt } from "../session/prompt"
 import { Config } from "@/config/config"
+import * as SessionClosedLoop from "@/session/closed-loop"
 import { Effect, Exit, Schema } from "effect"
 import { EffectBridge } from "@/effect/bridge"
 
@@ -17,6 +18,30 @@ export interface TaskPromptOps {
 }
 
 const id = "task"
+const LEGACY_SUBAGENT_ALIAS: Record<string, string> = {
+  general: "coder",
+  explore: "planner",
+  scout: "research",
+}
+
+type Metadata = {
+  sessionId?: SessionID
+  model?: {
+    modelID: string
+    providerID: string
+  }
+  reused?: boolean
+  fingerprint?: string
+  researchDraft?: {
+    topic: string
+    lesson: string
+    detail: string
+    fix: string
+    tags: string[]
+  }
+}
+
+const MIN_RESEARCH_LESSON_CHARS = 120
 
 export const Parameters = Schema.Struct({
   description: Schema.String.annotate({ description: "A short (3-5 words) description of the task" }),
@@ -29,18 +54,27 @@ export const Parameters = Schema.Struct({
   command: Schema.optional(Schema.String).annotate({ description: "The command that triggered this task" }),
 })
 
-export const TaskTool = Tool.define(
+export const TaskTool = Tool.define<typeof Parameters, Metadata, Agent.Service | Config.Service | Session.Service | SessionClosedLoop.Service>(
   id,
   Effect.gen(function* () {
     const agent = yield* Agent.Service
     const config = yield* Config.Service
     const sessions = yield* Session.Service
+    const loop = yield* SessionClosedLoop.Service
 
     const run = Effect.fn("TaskTool.execute")(function* (
       params: Schema.Schema.Type<typeof Parameters>,
       ctx: Tool.Context,
     ) {
       const cfg = yield* config.get()
+      const legacy = LEGACY_SUBAGENT_ALIAS[params.subagent_type]
+      if (legacy) {
+        return yield* Effect.fail(
+          new Error(
+            `Subagent "${params.subagent_type}" has been removed. Use "${legacy}" instead (migration: general->coder, explore->planner, scout->research).`,
+          ),
+        )
+      }
 
       if (!ctx.extra?.bypassAgentCheck) {
         yield* ctx.ask({
@@ -57,6 +91,35 @@ export const TaskTool = Tool.define(
       const next = yield* agent.get(params.subagent_type)
       if (!next) {
         return yield* Effect.fail(new Error(`Unknown agent type: ${params.subagent_type} is not a valid agent type`))
+      }
+      const isResearchTask = next.name === "research"
+      const promptText = `${params.description}\n${params.prompt}`.toLowerCase()
+      const wantsRefresh = ["latest", "refresh", "重新", "最新", "实时", "today"].some((word) => promptText.includes(word))
+
+      if (isResearchTask) {
+        const cached = yield* loop.findResearchLesson({
+          topic: `${params.description}\n${params.prompt}`,
+          tags: [next.name],
+          refresh: wantsRefresh,
+        })
+        if (cached) {
+          return {
+            title: `${params.description} (reused research)`,
+            metadata: {
+              sessionId: undefined,
+              model: undefined,
+              reused: true,
+              fingerprint: cached.fingerprint,
+            },
+            output: [
+              "reused_research: true",
+              "",
+              "<task_result>",
+              cached.lesson,
+              "</task_result>",
+            ].join("\n"),
+          }
+        }
       }
 
       const taskID = params.task_id
@@ -135,18 +198,30 @@ export const TaskTool = Tool.define(
               },
               parts,
             })
-
+            const resultText = result.parts.findLast((item) => item.type === "text")?.text ?? ""
+            const researchLesson = resultText.trim()
             return {
               title: params.description,
               metadata: {
                 sessionId: nextSession.id,
                 model,
+                ...(isResearchTask && researchLesson.length >= MIN_RESEARCH_LESSON_CHARS
+                  ? {
+                      researchDraft: {
+                        topic: `${params.description}\n${params.prompt}`,
+                        lesson: researchLesson.slice(0, 800),
+                        detail: `subagent=${next.name}`,
+                        fix: "reuse this research summary for similar tasks unless user requests refresh",
+                        tags: ["research"],
+                      },
+                    }
+                  : {}),
               },
               output: [
                 `task_id: ${nextSession.id} (for resuming to continue this task if needed)`,
                 "",
                 "<task_result>",
-                result.parts.findLast((item) => item.type === "text")?.text ?? "",
+                resultText,
                 "</task_result>",
               ].join("\n"),
             }

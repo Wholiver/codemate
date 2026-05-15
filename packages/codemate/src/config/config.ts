@@ -183,7 +183,7 @@ export const Info = Schema.Struct({
   }),
   default_agent: Schema.optional(Schema.String).annotate({
     description:
-      "Default agent to use when none is specified. Must be a primary agent. Falls back to 'build' if not set or if the specified agent is invalid.",
+      "Default agent to use when none is specified. Must be a primary agent. Falls back to 'orchestrator' if not set or if the specified agent is invalid.",
   }),
   username: Schema.optional(Schema.String).annotate({
     description: "Custom username to display in conversations instead of system username",
@@ -191,8 +191,7 @@ export const Info = Schema.Struct({
   mode: Schema.optional(
     Schema.StructWithRest(
       Schema.Struct({
-        build: Schema.optional(ConfigAgent.Info),
-        plan: Schema.optional(ConfigAgent.Info),
+        orchestrator: Schema.optional(ConfigAgent.Info),
       }),
       [Schema.Record(Schema.String, ConfigAgent.Info)],
     ),
@@ -201,12 +200,13 @@ export const Info = Schema.Struct({
     Schema.StructWithRest(
       Schema.Struct({
         // primary
-        plan: Schema.optional(ConfigAgent.Info),
-        build: Schema.optional(ConfigAgent.Info),
+        orchestrator: Schema.optional(ConfigAgent.Info),
         // subagent
-        general: Schema.optional(ConfigAgent.Info),
-        explore: Schema.optional(ConfigAgent.Info),
-        scout: Schema.optional(ConfigAgent.Info),
+        planner: Schema.optional(ConfigAgent.Info),
+        coder: Schema.optional(ConfigAgent.Info),
+        research: Schema.optional(ConfigAgent.Info),
+        reviewer: Schema.optional(ConfigAgent.Info),
+        writer: Schema.optional(ConfigAgent.Info),
         // specialized
         title: Schema.optional(ConfigAgent.Info),
         summary: Schema.optional(ConfigAgent.Info),

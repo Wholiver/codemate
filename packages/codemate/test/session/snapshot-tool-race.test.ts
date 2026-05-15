@@ -19,6 +19,7 @@ import path from "path"
 import { Session } from "@/session/session"
 import { LLM } from "../../src/session/llm"
 import { SessionPrompt } from "../../src/session/prompt"
+import * as SessionClosedLoop from "../../src/session/closed-loop"
 import { SessionRevert } from "../../src/session/revert"
 import { SessionSummary } from "../../src/session/summary"
 import { MessageV2 } from "../../src/session/message-v2"
@@ -137,6 +138,7 @@ function makeHttp() {
     Layer.provide(Reference.defaultLayer),
     Layer.provide(Ripgrep.defaultLayer),
     Layer.provide(Format.defaultLayer),
+    Layer.provide(SessionClosedLoop.defaultLayer),
     Layer.provideMerge(todo),
     Layer.provideMerge(question),
     Layer.provideMerge(deps),
@@ -155,6 +157,8 @@ function makeHttp() {
       Layer.provide(SessionRevert.defaultLayer),
       Layer.provide(Image.defaultLayer),
       Layer.provide(SessionSummary.defaultLayer),
+      Layer.provide(Question.defaultLayer),
+      Layer.provide(SessionClosedLoop.defaultLayer),
       Layer.provideMerge(run),
       Layer.provideMerge(compact),
       Layer.provideMerge(proc),
@@ -221,7 +225,7 @@ it.live("tool execution produces non-empty session diff (snapshot race)", () =>
       // Seed user message
       yield* prompt.prompt({
         sessionID: session.id,
-        agent: "build",
+        agent: "orchestrator",
         noReply: true,
         parts: [{ type: "text", text: "create the file" }],
       })

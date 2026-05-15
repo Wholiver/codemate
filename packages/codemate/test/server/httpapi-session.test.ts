@@ -71,7 +71,7 @@ function createTextMessage(directory: string, sessionID: SessionIDType, text: st
                 id: MessageID.ascending(),
                 role: "user",
                 sessionID,
-                agent: "build",
+                agent: "orchestrator",
                 model: { providerID: ProviderID.make("test"), modelID: ModelID.make("test") },
                 time: { created: Date.now() },
               })
@@ -257,7 +257,7 @@ describe("session HttpApi", () => {
               const message = new SessionMessage.Assistant({
                 id: SessionMessage.ID.create(),
                 type: "assistant",
-                agent: "build",
+                agent: "orchestrator",
                 model: {
                   id: Modelv2.ID.make("model"),
                   providerID: Modelv2.ProviderID.make("provider"),

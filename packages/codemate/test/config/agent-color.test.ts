@@ -26,14 +26,14 @@ it.live("agent color parsed from project config", () =>
   Effect.gen(function* () {
     const dir = yield* tmpdirScoped()
     yield* writeConfig(dir, {
-      build: { color: "#FFA500" },
-      plan: { color: "primary" },
+      orchestrator: { color: "#FFA500" },
+      primary_custom: { color: "primary", mode: "primary" },
     })
 
     yield* Effect.gen(function* () {
       const cfg = yield* Effect.promise(() => AppRuntime.runPromise(Config.Service.use((svc) => svc.get())))
-      expect(cfg.agent?.["build"]?.color).toBe("#FFA500")
-      expect(cfg.agent?.["plan"]?.color).toBe("primary")
+      expect(cfg.agent?.["orchestrator"]?.color).toBe("#FFA500")
+      expect(cfg.agent?.["primary_custom"]?.color).toBe("primary")
     }).pipe(provideInstance(dir))
   }),
 )
@@ -42,15 +42,15 @@ it.live("Agent.get includes color from config", () =>
   Effect.gen(function* () {
     const dir = yield* tmpdirScoped()
     yield* writeConfig(dir, {
-      plan: { color: "#A855F7" },
-      build: { color: "accent" },
+      orchestrator: { color: "#A855F7" },
+      secondary_custom: { color: "accent", mode: "primary" },
     })
 
     yield* Effect.gen(function* () {
-      const plan = yield* AgentSvc.Service.use((svc) => svc.get("plan"))
+      const plan = yield* AgentSvc.Service.use((svc) => svc.get("orchestrator"))
       expect(plan?.color).toBe("#A855F7")
-      const build = yield* AgentSvc.Service.use((svc) => svc.get("build"))
-      expect(build?.color).toBe("accent")
+      const secondary = yield* AgentSvc.Service.use((svc) => svc.get("secondary_custom"))
+      expect(secondary?.color).toBe("accent")
     }).pipe(provideInstance(dir))
   }),
 )

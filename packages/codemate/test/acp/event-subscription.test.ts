@@ -281,7 +281,7 @@ function createFakeAgent() {
         return {
           data: [
             {
-              name: "build",
+              name: "orchestrator",
               description: "build",
               mode: "agent",
             },

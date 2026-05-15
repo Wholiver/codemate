@@ -72,7 +72,7 @@ describe("transcript", () => {
       id: "msg_123",
       sessionID: "ses_123",
       role: "assistant",
-      agent: "build",
+      agent: "orchestrator",
       modelID: "claude-sonnet-4-20250514",
       providerID: "anthropic",
       mode: "",
@@ -105,7 +105,7 @@ describe("transcript", () => {
     })
 
     test("titlecases agent name", () => {
-      const msg = { ...baseMsg, agent: "plan" }
+      const msg = { ...baseMsg, agent: "orchestrator" }
       const result = formatAssistantHeader(msg, true)
       expect(result).toContain("Plan")
     })
@@ -267,7 +267,7 @@ describe("transcript", () => {
         id: "msg_123",
         sessionID: "ses_123",
         role: "user",
-        agent: "build",
+        agent: "orchestrator",
         model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
         time: { created: 1000000 },
       }
@@ -282,7 +282,7 @@ describe("transcript", () => {
         id: "msg_123",
         sessionID: "ses_123",
         role: "assistant",
-        agent: "build",
+        agent: "orchestrator",
         modelID: "claude-sonnet-4-20250514",
         providerID: "anthropic",
         mode: "",
@@ -312,7 +312,7 @@ describe("transcript", () => {
             id: "msg_1",
             sessionID: "ses_abc123",
             role: "user" as const,
-            agent: "build",
+            agent: "orchestrator",
             model: { providerID: "anthropic", modelID: "claude-sonnet-4-20250514" },
             time: { created: 1000000000000 },
           },
@@ -323,7 +323,7 @@ describe("transcript", () => {
             id: "msg_2",
             sessionID: "ses_abc123",
             role: "assistant" as const,
-            agent: "build",
+            agent: "orchestrator",
             modelID: "claude-sonnet-4-20250514",
             providerID: "anthropic",
             mode: "",
@@ -366,7 +366,7 @@ describe("transcript", () => {
             id: "msg_1",
             sessionID: "ses_abc123",
             role: "assistant" as const,
-            agent: "build",
+            agent: "orchestrator",
             modelID: "claude-sonnet-4-20250514",
             providerID: "anthropic",
             mode: "",
@@ -401,7 +401,7 @@ describe("transcript", () => {
             id: "msg_1",
             sessionID: "ses_abc123",
             role: "assistant" as const,
-            agent: "build",
+            agent: "orchestrator",
             modelID: "claude-sonnet-4-20250514",
             providerID: "anthropic",
             mode: "",

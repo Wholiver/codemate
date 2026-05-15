@@ -294,6 +294,7 @@ export function createTuiPluginApi(opts: Opts = {}): HostPluginApi {
         count: opts.state?.session?.count ?? (() => 0),
         diff: opts.state?.session?.diff ?? (() => []),
         todo: opts.state?.session?.todo ?? (() => []),
+        lessonStats: opts.state?.session?.lessonStats ?? (() => ({ learned: 0, total: 0 })),
         messages: opts.state?.session?.messages ?? (() => []),
         status: opts.state?.session?.status ?? (() => undefined),
         permission: opts.state?.session?.permission ?? (() => []),

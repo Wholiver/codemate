@@ -89,6 +89,11 @@ const partBase = {
   messageID: MessageID,
 }
 
+export const TaskRole = Schema.Literals(["planner", "coder", "tester", "research", "reviewer", "writer"]).annotate({
+  identifier: "TaskRole",
+})
+export type TaskRole = Schema.Schema.Type<typeof TaskRole>
+
 export const SnapshotPart = Schema.Struct({
   ...partBase,
   type: Schema.Literal("snapshot"),
@@ -224,6 +229,11 @@ export type CompactionPart = Types.DeepMutable<Schema.Schema.Type<typeof Compact
 export const SubtaskPart = Schema.Struct({
   ...partBase,
   type: Schema.Literal("subtask"),
+  task_role: TaskRole,
+  task_id: Schema.optional(Schema.String),
+  blocked_by: Schema.optional(Schema.mutable(Schema.Array(Schema.String))),
+  needs_research: Schema.optional(Schema.Boolean),
+  tags: Schema.optional(Schema.mutable(Schema.Array(Schema.String))),
   prompt: Schema.String,
   description: Schema.String,
   agent: Schema.String,
@@ -500,6 +510,11 @@ export type AgentPartInput = Types.DeepMutable<Schema.Schema.Type<typeof AgentPa
 export const SubtaskPartInput = Schema.Struct({
   id: Schema.optional(PartID),
   type: Schema.Literal("subtask"),
+  task_role: TaskRole,
+  task_id: Schema.optional(Schema.String),
+  blocked_by: Schema.optional(Schema.mutable(Schema.Array(Schema.String))),
+  needs_research: Schema.optional(Schema.Boolean),
+  tags: Schema.optional(Schema.mutable(Schema.Array(Schema.String))),
   prompt: Schema.String,
   description: Schema.String,
   agent: Schema.String,

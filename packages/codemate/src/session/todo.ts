@@ -16,6 +16,12 @@ export const Info = Schema.Struct({
     description: "Current status of the task: pending, in_progress, completed, cancelled",
   }),
   priority: Schema.String.annotate({ description: "Priority level of the task: high, medium, low" }),
+  task_role: Schema.optional(Schema.Literals(["planner", "coder", "tester", "research", "reviewer", "writer"])),
+  task_id: Schema.optional(Schema.String),
+  topology_layer: Schema.optional(Schema.Number),
+  started_at: Schema.optional(Schema.Number),
+  completed_at: Schema.optional(Schema.Number),
+  duration_ms: Schema.optional(Schema.Number),
 })
   .annotate({ identifier: "Todo" })
   .pipe(withStatics((s) => ({ zod: zod(s) })))
@@ -42,8 +48,10 @@ export const layer = Layer.effect(
   Service,
   Effect.gen(function* () {
     const bus = yield* Bus.Service
+    const cache = new Map<SessionID, Info[]>()
 
     const update = Effect.fn("Todo.update")(function* (input: { sessionID: SessionID; todos: Info[] }) {
+      cache.set(input.sessionID, input.todos)
       yield* Effect.sync(() =>
         Database.transaction((db) => {
           db.delete(TodoTable).where(eq(TodoTable.session_id, input.sessionID)).run()
@@ -65,6 +73,8 @@ export const layer = Layer.effect(
     })
 
     const get = Effect.fn("Todo.get")(function* (sessionID: SessionID) {
+      const cached = cache.get(sessionID)
+      if (cached) return cached
       const rows = yield* Effect.sync(() =>
         Database.use((db) =>
           db.select().from(TodoTable).where(eq(TodoTable.session_id, sessionID)).orderBy(asc(TodoTable.position)).all(),

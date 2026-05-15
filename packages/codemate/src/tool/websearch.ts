@@ -1,10 +1,9 @@
-import { Effect, Schema } from "effect"
+import { Effect, Exit, Schema } from "effect"
 import { HttpClient } from "effect/unstable/http"
 import * as Tool from "./tool"
 import * as McpWebSearch from "./mcp-websearch"
 import DESCRIPTION from "./websearch.txt"
 import { Flag } from "@codemate-ai/core/flag/flag"
-import { checksum } from "@codemate-ai/core/util/encode"
 import { InstallationVersion } from "@codemate-ai/core/installation/version"
 
 export const Parameters = Schema.Struct({
@@ -28,15 +27,14 @@ const WebSearchProviderSchema = Schema.Literals(["exa", "parallel"])
 export type WebSearchProvider = Schema.Schema.Type<typeof WebSearchProviderSchema>
 
 export function selectWebSearchProvider(
-  sessionID: string,
+  _sessionID: string,
   flags = { exa: Flag.codemate_ENABLE_EXA, parallel: Flag.codemate_ENABLE_PARALLEL },
 ): WebSearchProvider {
   const override = process.env.codemate_WEBSEARCH_PROVIDER
   if (override === "exa" || override === "parallel") return override
   if (flags.parallel) return "parallel"
   if (flags.exa) return "exa"
-
-  return Number.parseInt(checksum(sessionID) ?? "0", 36) % 2 === 0 ? "exa" : "parallel"
+  return "exa"
 }
 
 export function webSearchProviderLabel(provider: unknown) {
@@ -111,9 +109,9 @@ export const WebSearchTool = Tool.define(
       parameters: Parameters,
       execute: (params: Schema.Schema.Type<typeof Parameters>, ctx: Tool.Context) =>
         Effect.gen(function* () {
-          const provider = selectWebSearchProvider(ctx.sessionID)
-          const title = webSearchProviderLabel(provider)
-          yield* ctx.metadata({ title: `${title} "${params.query}"`, metadata: { provider } })
+          const primaryProvider = selectWebSearchProvider(ctx.sessionID)
+          const primaryTitle = webSearchProviderLabel(primaryProvider)
+          yield* ctx.metadata({ title: `${primaryTitle} "${params.query}"`, metadata: { provider: primaryProvider } })
 
           yield* ctx.ask({
             permission: "websearch",
@@ -125,17 +123,51 @@ export const WebSearchTool = Tool.define(
               livecrawl: params.livecrawl,
               type: params.type,
               contextMaxCharacters: params.contextMaxCharacters,
-              provider,
+              provider: primaryProvider,
             },
           })
 
-          const result = yield* callProvider(http, provider, params, ctx)
+          const resolved = yield* Effect.gen(function* () {
+            const primaryAttempt = yield* Effect.exit(callProvider(http, primaryProvider, params, ctx))
+            if (Exit.isSuccess(primaryAttempt)) {
+              return {
+                provider: primaryProvider,
+                title: primaryTitle,
+                output: primaryAttempt.value,
+              }
+            }
+
+            if (primaryProvider !== "exa") yield* Effect.failCause(primaryAttempt.cause)
+
+            const fallbackProvider: WebSearchProvider = "parallel"
+            const fallbackTitle = webSearchProviderLabel(fallbackProvider)
+            yield* ctx.metadata({
+              title: `${primaryTitle} unavailable, retrying ${fallbackTitle} "${params.query}"`,
+              metadata: { provider: fallbackProvider, fallback_from: primaryProvider },
+            })
+            const fallbackAttempt = yield* Effect.exit(callProvider(http, fallbackProvider, params, ctx))
+            if (Exit.isSuccess(fallbackAttempt)) {
+              return {
+                provider: fallbackProvider,
+                fallback_from: "exa" as const,
+                title: fallbackTitle,
+                output: fallbackAttempt.value,
+              }
+            }
+
+            yield* Effect.failCause(primaryAttempt.cause)
+            return yield* Effect.die("unreachable")
+          })
 
           return {
-            output: result ?? "No search results found. Please try a different query.",
-            title: `${title}: ${params.query}`,
-            metadata: { provider },
+            output: resolved.output ?? "No search results found. Please try a different query.",
+            title: `${resolved.title}: ${params.query}`,
+            metadata: {
+              provider: resolved.provider,
+              ...(resolved.fallback_from ? { fallback_from: resolved.fallback_from } : {}),
+            },
           }
+
         }).pipe(Effect.orDie),
     }
   }),

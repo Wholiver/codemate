@@ -91,7 +91,7 @@ function userMessage(
       time: {
         created: 1,
       },
-      agent: "build",
+      agent: "orchestrator",
       model: input,
     },
     parts: [],
