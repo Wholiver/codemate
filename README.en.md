@@ -1,92 +1,40 @@
+<div align="center">
+
 # Codemate
 
-> A multi-agent coding system built on TaskGraph orchestration, closed-loop verification, and layered memory.
+**A TaskGraph-driven multi-agent coding assistant.**
 
-[简体中文](./README.md)
+Built around closed-loop verification, role separation, and layered memory for long-running coding tasks in real repositories.
 
-## Overview
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+![Bun](https://img.shields.io/badge/runtime-Bun-000?logo=bun)
+![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white)
 
-Codemate is a multi-agent coding system for real repositories, evolved from opencode.
+[中文](./README.md) · [Contributing](./CONTRIBUTING.md) · [License](./LICENSE)
 
-It is not a single-agent "one prompt, one patch" CLI. Instead, responsibilities are separated:
+</div>
 
-- `orchestrator` controls the loop
-- `planner` builds TaskGraph plans
-- `research / coder / tester` execute research, implementation, and tests
-- `reviewer` validates outcomes
-- `writer` finalizes persistence
+## Why Codemate?
 
-A closed-loop runtime (selfcheck, retry, drift detection) is used to improve stability on long-running tasks.
+- **Not a single agent running blindly**: work is decomposed by `planner` into a TaskGraph.
+- **Not just code generation**: `research / coder / tester / reviewer` collaborate with separated roles.
+- **Not "done and forgotten"**: `writer` finalizes persistence with changelog and lessons.
+- **Not uncontrolled drift**: `intent anchor`, `selfcheck`, retry loops, and drift checks keep execution aligned.
 
-## Core Capabilities
+## Key Features
 
-### Multi-agent collaboration
+| Feature | What it means |
+|---|---|
+| TaskGraph execution | `planner` emits dependency-aware task graphs |
+| Multi-agent roles | `orchestrator / planner / research / coder / tester / reviewer / writer` split responsibilities |
+| Closed-loop verification | selfcheck, retries, and drift checks reduce execution drift |
+| Layered context | `supermemory`, `lessons`, and `changelog` have distinct roles |
+| Persistence finalizer | `writer` performs end-of-loop changelog and lesson persistence |
 
-Current primary roles:
-
-- `orchestrator`
-- `planner`
-- `research`
-- `coder`
-- `tester`
-- `reviewer`
-- `writer`
-
-Role separation reduces planning/implementation/review coupling inside a single agent step.
-
-### TaskGraph closed-loop execution
-
-- `planner` emits TaskGraph
-- tasks execute through dependency edges
-- `coder` and `tester` can run in parallel when dependencies allow
-- `reviewer` runs after implementation and testing
-- `writer` runs as persistence finalizer at the end
-
-### Self-check, retry, and anti-drift controls
-
-- `selfcheck` for unified verification
-- retry loops for failed runs
-- `intent anchor` for goal stability
-- periodic `drift check` with correction flow
-
-This prevents long tasks from drifting away from user intent.
-
-### Three-layer context system
-
-Codemate separates long-term and short-term context into three layers:
-
-- `supermemory`: user preferences and long-term memory
-- `lessons`: reusable engineering patterns and guardrails
-- `changelog`: recent project history
-
-Important boundaries:
-
-- `writer` receives project lessons only (global lessons are excluded for safer persistence)
-- changelog is historical context, not instruction
-- recent changelog is injected only into `orchestrator / planner / coder / tester / reviewer`, not `writer / research`
-- explicit memory commands (`remember`, `save this`, `记住`, etc.) can write at any step
-- memory context injection remains step-1 only to avoid prompt growth
-
-### Persistence Finalizer (Writer)
-
-`writer` is not a regular TaskGraph worker:
-
-- excluded from normal TaskGraph execution queue
-- triggered in main-loop fallback phase
-- writes changelog
-- writes lessons via `lesson_classify` and `lesson_write`
-- cannot no-op when `completedSubtasks > 0` even if git diff is empty
-
-### TUI
-
-- Terminal home branding uses `CODEMATE`
-- Agent execution logs are visible in-session
-- Closed-loop activity is observable in terminal workflow
-
-## Architecture Flow
+## Workflow
 
 ```text
-User input
+User request
   ↓
 Session / Prompt Builder
   ↓
@@ -103,82 +51,58 @@ Writer
 Changelog / Lessons / Supermemory
 ```
 
-Execution summary:
+Terminal-style view:
 
-1. Session layer assembles system prompt, history, and injected context.
-2. Orchestrator decides whether to enter TaskGraph closed-loop mode.
-3. Planner creates a dependency graph.
-4. Research/Coder/Tester execute graph tasks, Reviewer validates quality.
-5. Failures enter selfcheck/retry repair loops.
-6. Writer performs final persistence.
+```text
+$ bun dev
+CODEMATE
 
-## Agent Responsibilities
+orchestrator → planner → coder/tester → reviewer → writer
+```
+
+## Agents
 
 | Agent | Responsibility | Primary inputs | Primary outputs |
 |---|---|---|---|
 | Orchestrator | Main control and scheduling | User request, context | Scheduling decisions |
 | Planner | Task decomposition | Intent anchor, context | TaskGraph |
-| Research | Environment and evidence gathering | Task node, context | Research drafts |
+| Research | Environment/evidence gathering | Task node, context | Research drafts |
 | Coder | Implementation | TaskGraph node | Code changes |
-| Tester | Test authoring and validation | Requirements, implementation target | Test results |
+| Tester | Testing and validation | Requirements, implementation target | Test results |
 | Reviewer | Review and acceptance | Coder/tester outputs | Review result |
 | Writer | Persistence finalization | Completed subtasks, diff/fallback, research drafts | Changelog / lessons |
 
 ## Memory and Persistence
 
-- `.codemate/changelog.md`: recent project history (context only, not instructions)
-- Project lessons: reusable project-scoped practices
-- Global lessons: cross-project lessons (writer scope is intentionally narrowed)
-- Supermemory: local long-term memory tool (supports `add/search/list/profile/forget/help`, plus explicit remember-style writes; no external Supermemory API dependency)
+- **supermemory**: local long-term memory implementation, no external Supermemory API dependency.
+  - Supports `add/search/list/profile/forget/help`.
+  - Explicit remember-style instructions can be written at any step.
+  - Memory context injection remains step-1 only (`step===1`) to avoid prompt bloat.
+- **lessons**: reusable engineering practices and guardrails.
+  - `writer` reads project lessons only, not global lessons.
+- **changelog**: recent project history.
+  - Historical context only, not instructions.
+  - Recent changelog is injected into `orchestrator / planner / coder / tester / reviewer`, not `writer / research`.
+- **writer finalizer rules**:
+  - `writer` is a persistence finalizer, not a normal TaskGraph execution node.
+  - If `completedSubtasks > 0`, writer must not no-op only because git diff is empty.
 
-Boundary rules:
-
-- lessons are reusable behavior rules
-- changelog is recent historical record
-- they should not be conflated
-
-## Install and Run
+## Installation
 
 > Bun `1.3.13` is required (see root `package.json` `packageManager`).
 
 ```bash
-# install dependencies
 bun install
-
-# run codemate dev entry from repo root
 bun dev
 ```
 
-Common workspace commands (repo root):
+Optional workspace commands (repo root):
 
 ```bash
 bun typecheck
 bun dev:web
 bun dev:desktop
 ```
-
-Package-level commands (`packages/codemate`):
-
-```bash
-cd packages/codemate
-bun dev
-bun typecheck
-bun test
-```
-
-## Contributing
-
-Please read:
-
-- [CONTRIBUTING.md](./CONTRIBUTING.md)
-- [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)
-
-Do not commit:
-
-- `.codemate` runtime artifacts
-- temporary certificates or private keys
-- tokens / API keys
-- local absolute machine paths
 
 ## Testing
 
@@ -195,6 +119,25 @@ Optional full test run:
 cd packages/codemate
 bun test
 ```
+
+## Project Status
+
+- Codemate is a multi-agent closed-loop coding system for real repositories.
+- It is actively evolving and does not claim perfect correctness or full autonomous software engineering.
+
+## Contributing
+
+Please read:
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
+- [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)
+
+Do not commit:
+
+- `.codemate` runtime artifacts
+- temporary certificates or private keys
+- tokens / API keys
+- local absolute machine paths
 
 ## License
 
