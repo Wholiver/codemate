@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
 </p>
 
-<p align="center"><a href="./README.en.md">中文</a> · <a href="./CONTRIBUTING.md">Contributing</a> · <a href="./LICENSE">License</a></p>
+<p align="center"><a href="./README.en.md">Chinese</a> | <a href="./CONTRIBUTING.md">Contributing</a> | <a href="./LICENSE">License</a></p>
 
 <p align="center">
   <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
@@ -66,7 +66,7 @@ bun dev:desktop
 
 - **supermemory**: local long-term memory, no external Supermemory API dependency.
   - Supports `add/search/list/profile/forget/help`.
-  - Explicit memory instructions (`remember` / `save this` / `记住`) can be saved at any step.
+  - Explicit memory instructions (`remember` / `save this`) can be saved at any step.
   - Memory context is injected only at `step===1` to avoid prompt bloat.
 - **lessons**: reusable engineering learnings and guardrails.
   - `writer` reads only project lessons, not global lessons.
