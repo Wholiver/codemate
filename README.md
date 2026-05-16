@@ -29,10 +29,6 @@
 - **不是做完就忘**：`writer` 在尾部收口，写 changelog 并沉淀 lessons。
 - **不是无限漂移**：`intent anchor`、`selfcheck`、`retry`、`drift check` 用于保持任务对齐。
 
-## 核心特性
-
-<img src="./packages/docs/images/readme-capabilities-grid-zh.svg" alt="Codemate 核心特性" width="100%" />
-
 ## 安装与运行
 
 > 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
@@ -49,6 +45,10 @@ bun typecheck
 bun dev:web
 bun dev:desktop
 ```
+
+## 核心特性
+
+<img src="./packages/docs/images/readme-capabilities-grid-zh.svg" alt="Codemate 核心特性" width="100%" />
 
 ## 工作流
 
