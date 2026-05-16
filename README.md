@@ -31,13 +31,7 @@
 
 ## 核心特性
 
-| Feature | What it means |
-|---|---|
-| TaskGraph execution | `planner` 将任务拆成带依赖的图 |
-| Multi-agent roles | `orchestrator / planner / research / coder / tester / reviewer / writer` 角色分工 |
-| Closed-loop verification | `selfcheck`、重试回路、drift check 降低任务漂移 |
-| Layered context | `supermemory`、`lessons`、`changelog` 各司其职 |
-| Persistence finalizer | `writer` 在尾部持久化 changelog 与 lessons |
+<img src="./packages/docs/images/readme-capabilities-grid.svg" alt="Codemate capabilities" width="100%" />
 
 ## 安装与运行
 
