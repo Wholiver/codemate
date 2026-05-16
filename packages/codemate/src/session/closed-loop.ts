@@ -1,14 +1,17 @@
 import path from "path"
 import { Session } from "@/session/session"
+import { ProjectTable } from "@/project/project.sql"
 import { SessionID, MessageID } from "@/session/schema"
 import type { MessageV2 } from "@/session/message-v2"
 import { Storage } from "@/storage/storage"
+import { Database } from "@/storage/db"
 import { InstanceState } from "@/effect/instance-state"
 import { AppFileSystem } from "@codemate-ai/core/filesystem"
 import { Global } from "@codemate-ai/core/global"
 import { Config } from "@/config/config"
 import { Process } from "@/util/process"
 import { errorMessage } from "@/util/error"
+import { eq } from "drizzle-orm"
 import { ulid } from "ulid"
 import { Context, Effect, Layer, Schema, Types } from "effect"
 import { NonNegativeInt, withStatics } from "@codemate-ai/core/schema"
@@ -204,11 +207,11 @@ export interface Interface {
     pending: MessageV2.SubtaskPart[]
     completed: string[]
   }) => { layers: MessageV2.SubtaskPart[][]; unresolved: MessageV2.SubtaskPart[] }
-  readonly appendProjectLesson: (record: Record<string, unknown>) => Effect.Effect<void>
+  readonly appendProjectLesson: (input: { sessionID: SessionID; record: Record<string, unknown> }) => Effect.Effect<void>
   readonly appendGlobalLesson: (record: Record<string, unknown>) => Effect.Effect<void>
-  readonly appendChangelog: (input: { title: string; body: string }) => Effect.Effect<void>
-  readonly readRecentChangelog: (input?: { limit?: number; maxChars?: number }) => Effect.Effect<string | undefined>
-  readonly searchReusableLessons: (input: { query: string; topK?: number }) => Effect.Effect<ReusableLessonRecord[]>
+  readonly appendChangelog: (input: { sessionID: SessionID; title: string; body: string }) => Effect.Effect<void>
+  readonly readRecentChangelog: (input: { sessionID: SessionID; limit?: number; maxChars?: number }) => Effect.Effect<string | undefined>
+  readonly searchReusableLessons: (input: { sessionID: SessionID; query: string; topK?: number }) => Effect.Effect<ReusableLessonRecord[]>
   readonly findResearchLesson: (input: {
     topic: string
     stack?: string[]
@@ -295,14 +298,34 @@ export const layer = Layer.effect(
       yield* fs.writeWithDirs(file, text).pipe(Effect.orDie)
     })
 
-    const pathProjectLessons = Effect.fn("SessionClosedLoop.pathProjectLessons")(function* () {
+    const resolveProjectRoot = Effect.fn("SessionClosedLoop.resolveProjectRoot")(function* (sessionID?: SessionID) {
       const ctx = yield* InstanceState.context
-      return path.join(ctx.worktree, ".codemate", "lessons.jsonl")
+      if (!sessionID) {
+        if (ctx.worktree && ctx.worktree !== "/") return ctx.worktree
+        return ctx.directory
+      }
+
+      const info = yield* session.get(sessionID).pipe(Effect.catch(() => Effect.succeed(undefined)))
+      if (!info) {
+        if (ctx.worktree && ctx.worktree !== "/") return ctx.worktree
+        return ctx.directory
+      }
+
+      const project = Database.use((db) =>
+        db.select({ worktree: ProjectTable.worktree }).from(ProjectTable).where(eq(ProjectTable.id, info.projectID)).get(),
+      )
+      if (project?.worktree && project.worktree !== "/") return project.worktree
+      if (info.directory && info.directory !== "/") return info.directory
+      if (ctx.worktree && ctx.worktree !== "/") return ctx.worktree
+      return ctx.directory
     })
 
-    const pathProjectChangelog = Effect.fn("SessionClosedLoop.pathProjectChangelog")(function* () {
-      const ctx = yield* InstanceState.context
-      return path.join(ctx.worktree, ".codemate", "changelog.md")
+    const pathProjectLessons = Effect.fn("SessionClosedLoop.pathProjectLessons")(function* (sessionID?: SessionID) {
+      return path.join(yield* resolveProjectRoot(sessionID), ".codemate", "lessons.jsonl")
+    })
+
+    const pathProjectChangelog = Effect.fn("SessionClosedLoop.pathProjectChangelog")(function* (sessionID?: SessionID) {
+      return path.join(yield* resolveProjectRoot(sessionID), ".codemate", "changelog.md")
     })
 
     const pathGlobalLessons = path.join(Global.Path.data, "lessons", "global.jsonl")
@@ -481,8 +504,8 @@ export const layer = Layer.effect(
     }
 
     const appendProjectLesson: Interface["appendProjectLesson"] = Effect.fn("SessionClosedLoop.appendProjectLesson")(
-      function* (record) {
-        yield* appendJsonl(yield* pathProjectLessons(), record).pipe(Effect.orDie)
+      function* (input) {
+        yield* appendJsonl(yield* pathProjectLessons(input.sessionID), input.record).pipe(Effect.orDie)
       },
     )
 
@@ -493,7 +516,7 @@ export const layer = Layer.effect(
     )
 
     const appendChangelog: Interface["appendChangelog"] = Effect.fn("SessionClosedLoop.appendChangelog")(function* (input) {
-      const file = yield* pathProjectChangelog()
+      const file = yield* pathProjectChangelog(input.sessionID)
       const current = (yield* fs.readFileStringSafe(file).pipe(Effect.orDie)) ?? ""
       const time = new Date().toISOString()
       const block = [`## ${time} - ${input.title}`, "", input.body.trim(), ""].join("\n")
@@ -502,7 +525,7 @@ export const layer = Layer.effect(
 
     const readRecentChangelog: Interface["readRecentChangelog"] = Effect.fn("SessionClosedLoop.readRecentChangelog")(
       function* (input) {
-        const text = (yield* fs.readFileStringSafe(yield* pathProjectChangelog()).pipe(Effect.orDie)) ?? ""
+        const text = (yield* fs.readFileStringSafe(yield* pathProjectChangelog(input.sessionID)).pipe(Effect.orDie)) ?? ""
         if (!text.trim()) return
         const lines = text.replace(/\r/g, "").split("\n")
         const entries = lines.reduce<string[]>((acc, line) => {
@@ -559,7 +582,7 @@ export const layer = Layer.effect(
         return true
       }
 
-      const projectText = (yield* fs.readFileStringSafe(yield* pathProjectLessons()).pipe(Effect.orDie)) ?? ""
+      const projectText = (yield* fs.readFileStringSafe(yield* pathProjectLessons(input.sessionID)).pipe(Effect.orDie)) ?? ""
       const globalText = (yield* fs.readFileStringSafe(pathGlobalLessons).pipe(Effect.orDie)) ?? ""
       const records = [
         ...parseJsonl(projectText).flatMap((item) => {

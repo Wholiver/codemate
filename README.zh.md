@@ -1,6 +1,6 @@
 <div align="center">
 
-# Codemate
+<img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" style="display:block; margin:0 auto; width:1200px; max-width:100%;" />
 
 **TaskGraph 驱动的多 agent 编程助手。**
 
@@ -11,6 +11,8 @@
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white)
 
 [English](./README.en.md) · [贡献指南](./CONTRIBUTING.zh.md) · [License](./LICENSE)
+
+<img src="./packages/docs/images/readme-links-divider.png" alt="README divider" style="display:block; margin:12px auto 0; width:900px; max-width:100%;" />
 
 </div>
 

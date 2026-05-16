@@ -2640,6 +2640,7 @@ Plan file path (for optional reference only): ${plan}
               step === 1 && userText
                 ? yield* closedLoop
                     .searchReusableLessons({
+                      sessionID,
                       query: userText,
                       topK: 5,
                     })
@@ -2654,6 +2655,7 @@ Plan file path (for optional reference only): ${plan}
               ["orchestrator", "planner", "coder", "tester", "reviewer"].includes(agent.name)
                 ? yield* closedLoop
                     .readRecentChangelog({
+                      sessionID,
                       limit: 3,
                       maxChars: 1800,
                     })

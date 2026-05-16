@@ -108,7 +108,7 @@ export const LessonWriteTool = Tool.define(
           let wroteGlobal = false
 
           if (params.scope === "project" || params.scope === "both") {
-            yield* loop.appendProjectLesson(payload)
+            yield* loop.appendProjectLesson({ sessionID: ctx.sessionID, record: payload })
             wroteProject = true
           }
           if ((params.scope === "global" || params.scope === "both") && !isResearchGlobalCandidate) {

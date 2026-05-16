@@ -1,40 +1,42 @@
 <div align="center">
 
-# Codemate
+<img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" style="display:block; margin:0 auto; width:1200px; max-width:100%;" />
 
-**A TaskGraph-driven multi-agent coding assistant.**
+**TaskGraph 驱动的多 agent 编程助手。**
 
-Built around closed-loop verification, role separation, and layered memory for long-running coding tasks in real repositories.
+基于闭环验证、角色分工和多层记忆系统，让 coding agent 更适合真实代码库中的长任务。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 ![Bun](https://img.shields.io/badge/runtime-Bun-000?logo=bun)
 ![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white)
 
-[中文](./README.md) · [Contributing](./CONTRIBUTING.md) · [License](./LICENSE)
+[English](./README.en.md) · [贡献指南](./CONTRIBUTING.zh.md) · [License](./LICENSE)
+
+<img src="./packages/docs/images/readme-links-divider.png" alt="README divider" style="display:block; margin:12px auto 0; width:900px; max-width:100%;" />
 
 </div>
 
-## Why Codemate?
+## 为什么是 Codemate？
 
-- **Not a single agent running blindly**: work is decomposed by `planner` into a TaskGraph.
-- **Not just code generation**: `research / coder / tester / reviewer` collaborate with separated roles.
-- **Not "done and forgotten"**: `writer` finalizes persistence with changelog and lessons.
-- **Not uncontrolled drift**: `intent anchor`, `selfcheck`, retry loops, and drift checks keep execution aligned.
+- **不是单 agent 乱跑**：任务会先被 `planner` 拆成 TaskGraph。
+- **不是只写代码**：`research / coder / tester / reviewer` 分工协作。
+- **不是做完就忘**：`writer` 在尾部收口，写 changelog 并沉淀 lessons。
+- **不是无限漂移**：`intent anchor`、`selfcheck`、`retry`、`drift check` 用于保持任务对齐。
 
-## Key Features
+## 核心特性
 
 | Feature | What it means |
 |---|---|
-| TaskGraph execution | `planner` emits dependency-aware task graphs |
-| Multi-agent roles | `orchestrator / planner / research / coder / tester / reviewer / writer` split responsibilities |
-| Closed-loop verification | selfcheck, retries, and drift checks reduce execution drift |
-| Layered context | `supermemory`, `lessons`, and `changelog` have distinct roles |
-| Persistence finalizer | `writer` performs end-of-loop changelog and lesson persistence |
+| TaskGraph execution | `planner` 将任务拆成带依赖的图 |
+| Multi-agent roles | `orchestrator / planner / research / coder / tester / reviewer / writer` 角色分工 |
+| Closed-loop verification | `selfcheck`、重试回路、drift check 降低任务漂移 |
+| Layered context | `supermemory`、`lessons`、`changelog` 各司其职 |
+| Persistence finalizer | `writer` 在尾部持久化 changelog 与 lessons |
 
-## Workflow
+## 工作流
 
 ```text
-User request
+用户请求
   ↓
 Session / Prompt Builder
   ↓
@@ -51,7 +53,7 @@ Writer
 Changelog / Lessons / Supermemory
 ```
 
-Terminal-style view:
+终端体验（示意）：
 
 ```text
 $ bun dev
@@ -60,43 +62,43 @@ CODEMATE
 orchestrator → planner → coder/tester → reviewer → writer
 ```
 
-## Agents
+## Agent 职责
 
-| Agent | Responsibility | Primary inputs | Primary outputs |
+| Agent | 职责 | 主要输入 | 主要输出 |
 |---|---|---|---|
-| Orchestrator | Main control and scheduling | User request, context | Scheduling decisions |
-| Planner | Task decomposition | Intent anchor, context | TaskGraph |
-| Research | Environment/evidence gathering | Task node, context | Research drafts |
-| Coder | Implementation | TaskGraph node | Code changes |
-| Tester | Testing and validation | Requirements, implementation target | Test results |
-| Reviewer | Review and acceptance | Coder/tester outputs | Review result |
-| Writer | Persistence finalization | Completed subtasks, diff/fallback, research drafts | Changelog / lessons |
+| Orchestrator | 主控与调度 | 用户请求、上下文 | 调度决策 |
+| Planner | 任务拆解 | intent anchor、上下文 | TaskGraph |
+| Research | 环境/资料调查 | 子任务、上下文 | research drafts |
+| Coder | 实现 | TaskGraph 节点 | 代码改动 |
+| Tester | 测试与验证 | 需求、实现目标 | 测试结果 |
+| Reviewer | 审查与验收 | coder/tester 输出 | review 结果 |
+| Writer | 持久化收口 | completed subtasks、diff/fallback、research drafts | changelog / lessons |
 
-## Memory and Persistence
+## 记忆与持久化
 
-- **supermemory**: local long-term memory implementation, no external Supermemory API dependency.
-  - Supports `add/search/list/profile/forget/help`.
-  - Explicit remember-style instructions can be written at any step.
-  - Memory context injection remains step-1 only (`step===1`) to avoid prompt bloat.
-- **lessons**: reusable engineering practices and guardrails.
-  - `writer` reads project lessons only, not global lessons.
-- **changelog**: recent project history.
-  - Historical context only, not instructions.
-  - Recent changelog is injected into `orchestrator / planner / coder / tester / reviewer`, not `writer / research`.
-- **writer finalizer rules**:
-  - `writer` is a persistence finalizer, not a normal TaskGraph execution node.
-  - If `completedSubtasks > 0`, writer must not no-op only because git diff is empty.
+- **supermemory**：本地长期记忆实现，不依赖外部 Supermemory API。
+  - 支持 `add/search/list/profile/forget/help`。
+  - 显式记忆指令（`remember` / `save this` / `记住`）可在任意 step 写入。
+  - memory context 仅在 `step===1` 注入，避免 prompt 持续膨胀。
+- **lessons**：可复用工程经验与防错规则。
+  - `writer` 只读取 project lessons，不读取 global lessons。
+- **changelog**：最近项目历史。
+  - 仅用于 historical context，不是 instructions。
+  - recent changelog 注入 `orchestrator / planner / coder / tester / reviewer`，不注入 `writer / research`。
+- **writer finalizer 规则**：
+  - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
+  - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
 
-## Installation
+## 安装与运行
 
-> Bun `1.3.13` is required (see root `package.json` `packageManager`).
+> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
 
 ```bash
 bun install
 bun dev
 ```
 
-Optional workspace commands (repo root):
+可选开发命令（仓库根目录）：
 
 ```bash
 bun typecheck
@@ -104,7 +106,7 @@ bun dev:web
 bun dev:desktop
 ```
 
-## Testing
+## 测试
 
 ```bash
 cd packages/codemate
@@ -113,31 +115,31 @@ bun test test/session/prompt.test.ts
 bun test test/tool/supermemory.test.ts
 ```
 
-Optional full test run:
+可选完整测试：
 
 ```bash
 cd packages/codemate
 bun test
 ```
 
-## Project Status
+## 当前状态
 
-- Codemate is a multi-agent closed-loop coding system for real repositories.
-- It is actively evolving and does not claim perfect correctness or full autonomous software engineering.
+- 当前为多 agent 闭环系统，适合真实仓库中的中长任务。
+- 仍在持续迭代中，不宣称“完全自主软件工程师”或“绝对正确”。
 
-## Contributing
+## 贡献
 
-Please read:
+请先阅读：
 
-- [CONTRIBUTING.md](./CONTRIBUTING.md)
 - [CONTRIBUTING.zh.md](./CONTRIBUTING.zh.md)
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-Do not commit:
+请勿提交：
 
-- `.codemate` runtime artifacts
-- temporary certificates or private keys
-- tokens / API keys
-- local absolute machine paths
+- `.codemate` 运行产物
+- 临时证书或私钥
+- token / API key
+- 本机绝对路径信息
 
 ## License
 
