@@ -28,7 +28,7 @@ export const ChangelogAppendTool = Tool.define(
             },
           })
 
-          yield* loop.appendChangelog({ title: params.title, body: params.body })
+          yield* loop.appendChangelog({ sessionID: ctx.sessionID, title: params.title, body: params.body })
 
           return {
             title: "Changelog updated",
