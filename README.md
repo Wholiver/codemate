@@ -1,18 +1,24 @@
 <div align="center">
 
-<img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" style="display:block; margin:0 auto; width:1200px; max-width:100%;" />
+<p align="center">
+  <img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" width="1200" />
+</p>
 
-**TaskGraph 驱动的多 agent 编程助手。**
+<p align="center"><strong>TaskGraph 驱动的多 agent 编程助手。</strong></p>
 
-基于闭环验证、角色分工和多层记忆系统，让 coding agent 更适合真实代码库中的长任务。
+<p align="center">基于闭环验证、角色分工和多层记忆系统，让 coding agent 更适合真实代码库中的长任务。</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-![Bun](https://img.shields.io/badge/runtime-Bun-000?logo=bun)
-![TypeScript](https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white)
+<p align="center">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT" /></a>
+  <img src="https://img.shields.io/badge/runtime-Bun-000?logo=bun" alt="runtime Bun" />
+  <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
+</p>
 
-[English](./README.en.md) · [贡献指南](./CONTRIBUTING.zh.md) · [License](./LICENSE)
+<p align="center"><a href="./README.en.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
 
-<img src="./packages/docs/images/readme-links-divider.png" alt="README divider" style="display:block; margin:12px auto 0; width:900px; max-width:100%;" />
+<p align="center">
+  <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
+</p>
 
 </div>
 
