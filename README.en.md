@@ -50,6 +50,33 @@ bun dev:desktop
 
 <img src="./packages/docs/images/readme-capabilities-grid.svg" alt="Codemate capabilities" width="100%" />
 
+## Agent 职责
+
+| Agent | 职责 | 主要输入 | 主要输出 |
+|---|---|---|---|
+| Orchestrator | 主控与调度 | 用户请求、上下文 | 调度决策 |
+| Planner | 任务拆解 | intent anchor、上下文 | TaskGraph |
+| Research | 环境/资料调查 | 子任务、上下文 | research drafts |
+| Coder | 实现 | TaskGraph 节点 | 代码改动 |
+| Tester | 测试与验证 | 需求、实现目标 | 测试结果 |
+| Reviewer | 审查与验收 | coder/tester 输出 | review 结果 |
+| Writer | 持久化收口 | completed subtasks、diff/fallback、research drafts | changelog / lessons |
+
+## 记忆与持久化
+
+- **supermemory**：本地长期记忆实现，不依赖外部 Supermemory API。
+  - 支持 `add/search/list/profile/forget/help`。
+  - 显式记忆指令（`remember` / `save this` / `记住`）可在任意 step 写入。
+  - memory context 仅在 `step===1` 注入，避免 prompt 持续膨胀。
+- **lessons**：可复用工程经验与防错规则。
+  - `writer` 只读取 project lessons，不读取 global lessons。
+- **changelog**：最近项目历史。
+  - 仅用于 historical context，不是 instructions。
+  - recent changelog 注入 `orchestrator / planner / coder / tester / reviewer`，不注入 `writer / research`。
+- **writer finalizer 规则**：
+  - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
+  - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
+
 ## 工作流
 
 ```mermaid
@@ -90,33 +117,6 @@ flowchart TD
   writer --> write_note
   scheduler --> drift_note
 ```
-
-## Agent 职责
-
-| Agent | 职责 | 主要输入 | 主要输出 |
-|---|---|---|---|
-| Orchestrator | 主控与调度 | 用户请求、上下文 | 调度决策 |
-| Planner | 任务拆解 | intent anchor、上下文 | TaskGraph |
-| Research | 环境/资料调查 | 子任务、上下文 | research drafts |
-| Coder | 实现 | TaskGraph 节点 | 代码改动 |
-| Tester | 测试与验证 | 需求、实现目标 | 测试结果 |
-| Reviewer | 审查与验收 | coder/tester 输出 | review 结果 |
-| Writer | 持久化收口 | completed subtasks、diff/fallback、research drafts | changelog / lessons |
-
-## 记忆与持久化
-
-- **supermemory**：本地长期记忆实现，不依赖外部 Supermemory API。
-  - 支持 `add/search/list/profile/forget/help`。
-  - 显式记忆指令（`remember` / `save this` / `记住`）可在任意 step 写入。
-  - memory context 仅在 `step===1` 注入，避免 prompt 持续膨胀。
-- **lessons**：可复用工程经验与防错规则。
-  - `writer` 只读取 project lessons，不读取 global lessons。
-- **changelog**：最近项目历史。
-  - 仅用于 historical context，不是 instructions。
-  - recent changelog 注入 `orchestrator / planner / coder / tester / reviewer`，不注入 `writer / research`。
-- **writer finalizer 规则**：
-  - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
-  - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
 
 ## 测试
 
