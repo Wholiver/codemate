@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
 </p>
 
-<p align="center"><a href="./README.en.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
+<p align="center"><a href="./README.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
 
 <p align="center">
   <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
