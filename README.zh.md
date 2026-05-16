@@ -39,33 +39,46 @@
 | Layered context | `supermemory`、`lessons`、`changelog` 各司其职 |
 | Persistence finalizer | `writer` 在尾部持久化 changelog 与 lessons |
 
-## 工作流
+## 安装与运行
 
-```text
-用户请求
-  ↓
-Session / Prompt Builder
-  ↓
-Orchestrator
-  ↓
-Planner → TaskGraph
-  ↓
-Research / Coder / Tester
-  ↓
-Reviewer / Selfcheck / Retry
-  ↓
-Writer
-  ↓
-Changelog / Lessons / Supermemory
+> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
+
+```bash
+bun install
+bun dev
 ```
 
-终端体验（示意）：
+可选开发命令（仓库根目录）：
 
-```text
-$ bun dev
-CODEMATE
+```bash
+bun typecheck
+bun dev:web
+bun dev:desktop
+```
 
-orchestrator → planner → coder/tester → reviewer → writer
+## 工作流
+
+```mermaid
+mindmap
+  root((Codemate))
+    用户请求
+    Session / Prompt Builder
+    Orchestrator
+    Planner
+      TaskGraph
+    执行层
+      Research
+      Coder
+      Tester
+    质量回路
+      Reviewer
+      Selfcheck
+      Retry
+    Writer
+    持久化
+      Changelog
+      Lessons
+      Supermemory
 ```
 
 ## Agent 职责
@@ -94,23 +107,6 @@ orchestrator → planner → coder/tester → reviewer → writer
 - **writer finalizer 规则**：
   - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
   - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
-
-## 安装与运行
-
-> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
-
-```bash
-bun install
-bun dev
-```
-
-可选开发命令（仓库根目录）：
-
-```bash
-bun typecheck
-bun dev:web
-bun dev:desktop
-```
 
 ## 测试
 
