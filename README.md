@@ -60,12 +60,12 @@ bun dev:desktop
 
 ```mermaid
 flowchart TD
-  request[User Request] --> orchestrator[Orchestrator]
+  request[用户请求] --> orchestrator[Orchestrator]
   orchestrator --> planner[Planner]
   planner --> task_graph[TaskGraph]
-  task_graph --> scheduler[Dependency Scheduler]
+  task_graph --> scheduler[依赖调度器]
 
-  subgraph parallel[Parallel Execution]
+  subgraph parallel[并行执行区]
     research[Research]
     coder[Coder]
     tester[Tester]
@@ -80,16 +80,16 @@ flowchart TD
   tester --> reviewer
 
   reviewer --> selfcheck[Selfcheck]
-  selfcheck -->|pass| writer[Writer]
-  selfcheck -->|fail| retry_loop[Retry Loop max 5]
-  retry_loop -->|retry| scheduler
+  selfcheck -->|通过| writer[Writer]
+  selfcheck -->|失败| retry_loop[重试回路 最多5次]
+  retry_loop -->|重试| scheduler
 
-  writer --> persistence[Persist: lessons / changelog / supermemory]
+  writer --> persistence[落盘 lessons / changelog / supermemory]
 
-  subgraph notes[System Notes]
-    preload_note[Lesson system: preload at task start]
-    write_note[Lesson system: write at task end]
-    drift_note[Intent drift check: every 5 subtasks]
+  subgraph notes[辅助说明]
+    preload_note[Lesson 系统：任务开始时 preload]
+    write_note[Lesson 系统：任务结束时写入]
+    drift_note[意图漂移检测：每5个子任务触发一次]
   end
 
   preload_note --> orchestrator
