@@ -59,26 +59,35 @@ bun dev:desktop
 ## 工作流
 
 ```mermaid
-mindmap
-  root((Codemate))
-    用户请求
-    Session / Prompt Builder
-    Orchestrator
-    Planner
-      TaskGraph
-    执行层
-      Research
-      Coder
-      Tester
-    质量回路
-      Reviewer
-      Selfcheck
-      Retry
-    Writer
-    持久化
-      Changelog
-      Lessons
-      Supermemory
+flowchart TD
+  user[用户请求] --> session[Session / Prompt Builder]
+  session --> orchestrator[Orchestrator]
+  orchestrator --> planner[Planner]
+  planner --> graph[TaskGraph]
+
+  graph --> schedule[依赖调度器]
+  schedule --> research[Research]
+  schedule --> coder[Coder]
+  schedule --> tester[Tester]
+
+  research --> integrate[上下文合并]
+  coder --> integrate
+  tester --> integrate
+  integrate --> reviewer[Reviewer]
+  reviewer --> selfcheck[Selfcheck]
+
+  selfcheck -->|通过| writer[Writer]
+  selfcheck -->|失败| retry[Fix TaskGraph / Retry Loop]
+  retry --> schedule
+
+  writer --> changelog[.codemate/changelog.md]
+  writer --> project_lessons[.codemate/lessons.jsonl]
+  writer --> global_lessons[lessons/global.jsonl]
+  writer --> supermemory[Supermemory]
+
+  project_lessons -. 下次任务 preload .-> session
+  global_lessons -. 下次任务 preload .-> session
+  changelog -. 历史上下文注入 .-> session
 ```
 
 ## Agent 职责
