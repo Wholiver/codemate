@@ -31,7 +31,19 @@
 
 ## Install & Run
 
-> Requires Bun `1.3.13` (see `packageManager` in root `package.json`).
+### Install CLI From npm
+
+> Requires Bun `1.3.13` or newer in `PATH` (the published CLI entrypoint uses `#!/usr/bin/env bun`).
+
+```bash
+npm install -g @codemate-ai/cli
+codemate --version
+codemate
+```
+
+### Run From Source (Development)
+
+> Repository development also requires Bun `1.3.13` (see `packageManager` in root `package.json`).
 
 ```bash
 bun install
