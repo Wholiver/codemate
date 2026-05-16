@@ -63,9 +63,9 @@ flowchart TD
   user[用户请求] --> session[Session / Prompt Builder]
   session --> orchestrator[Orchestrator]
   orchestrator --> planner[Planner]
-  planner --> graph[TaskGraph]
+  planner --> task_graph[TaskGraph]
 
-  graph --> schedule[依赖调度器]
+  task_graph --> schedule[依赖调度器]
   schedule --> research[Research]
   schedule --> coder[Coder]
   schedule --> tester[Tester]
