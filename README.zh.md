@@ -4,7 +4,7 @@
   <img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" width="1200" />
 </p>
 
-<p align="center"><strong>TaskGraph 驱动的多 agent 编程助手。</strong></p>
+<p align="center"><strong>面向真实代码库的多 agent 编程助手。</strong></p>
 
 <p align="center">基于闭环验证、角色分工和多层记忆系统，让 coding agent 更适合真实代码库中的长任务。</p>
 
