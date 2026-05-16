@@ -31,7 +31,7 @@
 
 ## 核心特性
 
-<img src="./packages/docs/images/readme-capabilities-grid.svg" alt="Codemate capabilities" width="100%" />
+<img src="./packages/docs/images/readme-capabilities-grid-zh.svg" alt="Codemate 核心特性" width="100%" />
 
 ## 安装与运行
 
