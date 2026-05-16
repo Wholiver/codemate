@@ -87,7 +87,7 @@ flowchart TD
   writer --> persistence[Persist: lessons / changelog / supermemory]
 
   subgraph notes[System Notes]
-    preload_note[Lesson system: preload at task start]
+    preload_note[Context preload: lessons / memory / changelog]
     write_note[Lesson system: write at task end]
     drift_note[Intent drift check: every 5 subtasks]
   end

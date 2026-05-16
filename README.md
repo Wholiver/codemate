@@ -87,7 +87,7 @@ flowchart TD
   writer --> persistence[落盘 lessons / changelog / supermemory]
 
   subgraph notes[辅助说明]
-    preload_note[Lesson 系统：任务开始时 preload]
+    preload_note[任务开始注入：lessons / memory / changelog]
     write_note[Lesson 系统：任务结束时写入]
     drift_note[意图漂移检测：每5个子任务触发一次]
   end
