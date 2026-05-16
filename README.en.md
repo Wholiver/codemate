@@ -60,34 +60,41 @@ bun dev:desktop
 
 ```mermaid
 flowchart TD
-  user[用户请求] --> session[Session / Prompt Builder]
-  session --> orchestrator[Orchestrator]
+  request[User Request] --> orchestrator[Orchestrator]
   orchestrator --> planner[Planner]
   planner --> task_graph[TaskGraph]
+  task_graph --> scheduler[Dependency Scheduler]
 
-  task_graph --> schedule[依赖调度器]
-  schedule --> research[Research]
-  schedule --> coder[Coder]
-  schedule --> tester[Tester]
+  subgraph parallel[Parallel Execution]
+    research[Research]
+    coder[Coder]
+    tester[Tester]
+  end
 
-  research --> integrate[上下文合并]
-  coder --> integrate
-  tester --> integrate
-  integrate --> reviewer[Reviewer]
+  scheduler --> research
+  scheduler --> coder
+  scheduler --> tester
+
+  research --> reviewer[Reviewer]
+  coder --> reviewer
+  tester --> reviewer
+
   reviewer --> selfcheck[Selfcheck]
+  selfcheck -->|pass| writer[Writer]
+  selfcheck -->|fail| retry_loop[Retry Loop max 5]
+  retry_loop -->|retry| scheduler
 
-  selfcheck -->|通过| writer[Writer]
-  selfcheck -->|失败| retry[Fix TaskGraph / Retry Loop]
-  retry --> schedule
+  writer --> persistence[Persist: lessons / changelog / supermemory]
 
-  writer --> changelog[.codemate/changelog.md]
-  writer --> project_lessons[.codemate/lessons.jsonl]
-  writer --> global_lessons[lessons/global.jsonl]
-  writer --> supermemory[Supermemory]
+  subgraph notes[System Notes]
+    preload_note[Lesson system: preload at task start]
+    write_note[Lesson system: write at task end]
+    drift_note[Intent drift check: every 5 subtasks]
+  end
 
-  project_lessons -. 下次任务 preload .-> session
-  global_lessons -. 下次任务 preload .-> session
-  changelog -. 历史上下文注入 .-> session
+  preload_note --> orchestrator
+  writer --> write_note
+  scheduler --> drift_note
 ```
 
 ## Agent 职责
