@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
 </p>
 
-<p align="center"><a href="./README.en.md">Chinese</a> | <a href="./CONTRIBUTING.md">Contributing</a> | <a href="./LICENSE">License</a></p>
+<p align="center"><a href="./README.en.md">简体中文</a> | <a href="./CONTRIBUTING.md">Contributing</a> | <a href="./LICENSE">License</a></p>
 <p align="center"><sub>Special thanks to opencode — Codemate is developed on top of it.</sub></p>
 
 <p align="center">
