@@ -15,6 +15,7 @@
 </p>
 
 <p align="center"><a href="./README.en.md">Chinese</a> | <a href="./CONTRIBUTING.md">Contributing</a> | <a href="./LICENSE">License</a></p>
+<p align="center"><sub>Special thanks to opencode — Codemate is developed on top of it.</sub></p>
 
 <p align="center">
   <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
