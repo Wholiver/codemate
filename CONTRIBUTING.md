@@ -2,106 +2,180 @@
 
 <sub>English · <a href="./CONTRIBUTING.zh.md">简体中文</a></sub>
 
-Thanks for contributing to Codemate.
+Thanks for helping improve Codemate. Small, clear PRs are the fastest way to get changes merged.
 
-Codemate is currently in **beta**, so we move fast and optimize for clear, reviewable changes.
+## 1. Development Setup
 
-## Quick Checklist
+### Prerequisites
 
-- Work from `dev` branch (default development branch).
-- Keep changes focused and small.
-- Run checks from package directories (never run tests from repo root).
-- Open PRs with clear verification notes.
+- Bun (runtime/package manager)
+- Git
+- A GitHub account
 
-## Development Setup
+Check your Bun version:
+
+```bash
+bun --version
+```
+
+### Install and run
 
 ```bash
 bun install
 bun dev
 ```
 
-For local web app development:
+Main package for core agent/session work:
 
 ```bash
-bun run --cwd packages/codemate --conditions=browser ./src/index.ts serve --port 4096
-bun --cwd packages/app dev -- --port 4444
+cd packages/codemate
 ```
 
-## Branching
+## 2. Project Structure
 
-- Base branch for contributions: `dev`
-- Do not target `main` directly.
-- Use `dev` / `origin/dev` when generating diffs.
+Top-level directories you will touch most:
 
-## Quality Gates
+- `packages/codemate/`: main Codemate package (agent, session loop, tools, tests)
+- `packages/app/`: app frontend
+- `packages/core/`: shared core logic
+- `packages/sdk/js/`: JavaScript SDK
+- `packages/docs/`: docs assets and supporting docs content
+- `script/`: repo-level automation scripts
 
-Run before opening a PR:
+Inside `packages/codemate/`:
+
+- `src/`: implementation
+- `test/`: tests
+- `migration/`: database migrations
+- `script/`: package-level scripts
+
+## 3. Development Workflow
+
+### Branching
+
+- Base branch is `dev`
+- Do not open PRs against `main`
+- Create a short-lived branch from `dev`
 
 ```bash
-bun lint
-bun typecheck
+git checkout dev
+git pull origin dev
+git checkout -b feat/your-change
 ```
 
-Run tests at package level only:
+### Commit style
 
-```bash
-bun --cwd packages/codemate test
-bun --cwd packages/app test:unit
-bun --cwd packages/core test
-```
-
-Do not run tests from repo root (`bun test` at root is intentionally blocked).
-
-## Code Generation and Migrations
-
-Regenerate SDK/OpenAPI artifacts:
-
-```bash
-./script/generate.ts
-```
-
-Generate SQLite migrations:
-
-```bash
-bun --cwd packages/codemate run db generate --name <slug>
-```
-
-## Do Not Edit Generated Files
-
-Examples:
-
-- `packages/sdk/js/src/gen/*.ts`
-- `packages/sdk/js/src/v2/gen/**/*.ts`
-- `packages/codemate/src/provider/models-snapshot.js`
-- `packages/codemate/src/provider/models-snapshot.d.ts`
-- `packages/desktop/src/bindings.ts`
-- `sst-env.d.ts`
-
-Use generation scripts instead of manual edits.
-
-## Commit and PR Requirements
-
-PR titles and commit messages should follow conventional commit style:
+Use conventional commit prefixes:
 
 - `feat: ...`
 - `fix: ...`
 - `docs: ...`
-- `chore: ...`
 - `refactor: ...`
 - `test: ...`
+- `chore: ...`
 
-Also required:
+Example:
 
-- Reference an issue (for example: `Fixes #123`).
-- Include verification details (what commands you ran and results).
-- Include screenshots/videos for UI changes.
+```bash
+git commit -m "fix: prevent planner node from entering execution queue"
+```
 
-## Review Expectations
+### Pull request flow
 
-- Prefer correctness over cleverness.
-- Preserve existing behavior unless change is intentional and documented.
-- Keep naming and structure consistent with surrounding code.
+1. Keep scope focused
+2. Run checks locally
+3. Push your branch
+4. Open PR to `dev`
+5. Add clear verification notes (what you ran, what passed)
+6. Add screenshots for UI changes
 
-## Thank You
+## 4. Code Quality Rules
 
-High-quality small PRs are the fastest way to move this project forward.
+Run checks before opening a PR.
+
+Lint:
+
+```bash
+cd packages/codemate
+bun lint
+```
+
+Type check:
+
+```bash
+cd packages/codemate
+bun typecheck
+```
+
+Notes:
+
+- Codemate code is TypeScript + Bun
+- Keep changes small and readable
+- Follow existing patterns in nearby files
+
+## 5. Testing Requirements
+
+Minimum test command:
+
+```bash
+cd packages/codemate
+bun test
+```
+
+Run targeted tests if your change is scoped.
+
+## 6. Issue Guidelines
+
+### Bug report
+
+Please include:
+
+- What happened
+- What you expected
+- Repro steps
+- Environment (OS, Bun version, package path)
+- Logs/error output
+
+Template:
+
+```md
+## Bug
+Short description
+
+## Repro
+1. ...
+2. ...
+
+## Expected
+...
+
+## Actual
+...
+
+## Environment
+- OS:
+- Bun:
+- Package:
+```
+
+### Feature request
+
+Please include:
+
+- Problem statement
+- Proposed behavior
+- Why it helps
+- Optional alternatives considered
+
+Template:
+
+```md
+## Problem
+...
+
+## Proposal
+...
+
+## Value
+...
+```

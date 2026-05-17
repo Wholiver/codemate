@@ -4,7 +4,7 @@
   <img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" width="1200" />
 </p>
 
-<p align="center"><strong>TaskGraph 驱动的多 agent 编程助手。</strong></p>
+<p align="center"><strong>面向真实代码库的多 agent 编程助手。</strong></p>
 
 <p align="center">基于闭环验证、角色分工和多层记忆系统，让 coding agent 更适合真实代码库中的长任务。</p>
 
@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
 </p>
 
-<p align="center"><a href="./README.en.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
+<p align="center"><a href="./README.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
 
 <p align="center">
   <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
@@ -29,44 +29,26 @@
 - **不是做完就忘**：`writer` 在尾部收口，写 changelog 并沉淀 lessons。
 - **不是无限漂移**：`intent anchor`、`selfcheck`、`retry`、`drift check` 用于保持任务对齐。
 
+## 安装与运行
+
+> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
+
+```bash
+bun install
+bun dev
+```
+
+可选开发命令（仓库根目录）：
+
+```bash
+bun typecheck
+bun dev:web
+bun dev:desktop
+```
+
 ## 核心特性
 
-| Feature | What it means |
-|---|---|
-| TaskGraph execution | `planner` 将任务拆成带依赖的图 |
-| Multi-agent roles | `orchestrator / planner / research / coder / tester / reviewer / writer` 角色分工 |
-| Closed-loop verification | `selfcheck`、重试回路、drift check 降低任务漂移 |
-| Layered context | `supermemory`、`lessons`、`changelog` 各司其职 |
-| Persistence finalizer | `writer` 在尾部持久化 changelog 与 lessons |
-
-## 工作流
-
-```text
-用户请求
-  ↓
-Session / Prompt Builder
-  ↓
-Orchestrator
-  ↓
-Planner → TaskGraph
-  ↓
-Research / Coder / Tester
-  ↓
-Reviewer / Selfcheck / Retry
-  ↓
-Writer
-  ↓
-Changelog / Lessons / Supermemory
-```
-
-终端体验（示意）：
-
-```text
-$ bun dev
-CODEMATE
-
-orchestrator → planner → coder/tester → reviewer → writer
-```
+<img src="./packages/docs/images/readme-capabilities-grid-zh.svg" alt="Codemate 核心特性" width="100%" />
 
 ## Agent 职责
 
@@ -95,21 +77,45 @@ orchestrator → planner → coder/tester → reviewer → writer
   - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
   - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
 
-## 安装与运行
+## 工作流
 
-> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
+```mermaid
+flowchart TD
+  request[用户请求] --> orchestrator[Orchestrator]
+  orchestrator --> planner[Planner]
+  planner --> task_graph[TaskGraph]
+  task_graph --> scheduler[依赖调度器]
 
-```bash
-bun install
-bun dev
-```
+  subgraph parallel[并行执行区]
+    research[Research]
+    coder[Coder]
+    tester[Tester]
+  end
 
-可选开发命令（仓库根目录）：
+  scheduler --> research
+  scheduler --> coder
+  scheduler --> tester
 
-```bash
-bun typecheck
-bun dev:web
-bun dev:desktop
+  research --> reviewer[Reviewer]
+  coder --> reviewer
+  tester --> reviewer
+
+  reviewer --> selfcheck[Selfcheck]
+  selfcheck -->|通过| writer[Writer]
+  selfcheck -->|失败| retry_loop[重试回路 最多5次]
+  retry_loop -->|重试| scheduler
+
+  writer --> persistence[落盘 lessons / changelog / supermemory]
+
+  subgraph notes[辅助说明]
+    preload_note[任务开始注入：lessons / memory / changelog]
+    write_note[Lesson 系统：任务结束时写入]
+    drift_note[意图漂移检测：每5个子任务触发一次]
+  end
+
+  preload_note --> orchestrator
+  writer --> write_note
+  scheduler --> drift_note
 ```
 
 ## 测试

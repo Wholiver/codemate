@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" role="img" aria-label="Codemate 核心特性">
+  <title>Codemate 核心特性</title>
+  <defs>
+    <style>
+      .sans { font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace; }
+      .ttl  { font-weight: 700; }
+    </style>
+    <linearGradient id="igzh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">◈</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">TaskGraph 执行</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">planner 产出带依赖的任务图，</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">调度器按层执行并控制阻塞。</text>
+  </g>
+
+  <g transform="translate(300, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">⌬</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">多 Agent 分工</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">orchestrator / planner / research</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">/ coder / tester / reviewer / writer</text>
+  </g>
+
+  <g transform="translate(590, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">↺</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">闭环验证</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">reviewer + selfcheck + retry 回路。</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">失败自动回到调度器（最多 5 轮）。</text>
+  </g>
+
+  <g transform="translate(10, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">◐</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">意图漂移守卫</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">原始需求锚点注入每轮 prompt，</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">每 5 个子任务触发一次漂移检测。</text>
+  </g>
+
+  <g transform="translate(300, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">◎</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">分层上下文</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">supermemory / lessons / changelog</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">分工明确，注入和回读职责清晰。</text>
+  </g>
+
+  <g transform="translate(590, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#igzh)">¶</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">持久化收口</text>
+    <text x="22" y="72" class="sans" font-size="11" fill="#8b949e">writer 在任务尾部统一写入</text>
+    <text x="22" y="92" class="sans" font-size="11" fill="#8b949e">changelog 与 lessons。</text>
+  </g>
+</svg>

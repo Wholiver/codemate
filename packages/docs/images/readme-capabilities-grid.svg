@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" role="img" aria-label="Codemate capability grid">
+  <title>Codemate capabilities</title>
+  <defs>
+    <style>
+      .sans { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace; }
+      .ttl  { font-weight: 700; }
+    </style>
+    <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="50%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">◈</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">TaskGraph execution</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">Planner outputs dependency-aware task graphs.</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">Scheduler runs layer-by-layer with gating.</text>
+  </g>
+
+  <g transform="translate(300, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">⌬</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">Role-specialized agents</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">orchestrator / planner / research / coder</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">/ tester / reviewer / writer.</text>
+  </g>
+
+  <g transform="translate(590, 10)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">↺</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">Closed-loop verification</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">Reviewer + selfcheck + retry loop.</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">Fail path returns to scheduler (max 5 rounds).</text>
+  </g>
+
+  <g transform="translate(10, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">◐</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">Intent drift guard</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">Intent anchor is injected into every prompt.</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">Code-level drift check every 5 subtasks.</text>
+  </g>
+
+  <g transform="translate(300, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">◎</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">Layered context</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">supermemory, lessons, changelog each has</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">a distinct role in planning and execution.</text>
+  </g>
+
+  <g transform="translate(590, 160)">
+    <rect width="280" height="130" rx="12" ry="12" fill="#0a0c10" stroke="#1e2436"/>
+    <text x="22" y="42" class="mono" font-size="22" fill="url(#ig)">¶</text>
+    <text x="54" y="40" class="sans ttl" font-size="14" fill="#e6edf3">Persistence finalizer</text>
+    <text x="22" y="72" class="sans" font-size="12" fill="#8b949e">Writer persists changelog and lessons</text>
+    <text x="22" y="92" class="sans" font-size="12" fill="#8b949e">after execution and review complete.</text>
+  </g>
+</svg>
