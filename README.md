@@ -33,7 +33,7 @@
 
 ### Install CLI From npm
 
-> Requires Bun `1.3.13` or newer in `PATH` (the published CLI entrypoint uses `#!/usr/bin/env bun`).
+> Requires Bun `1.3.13` or newer in `PATH` to run `codemate` (installation via npm still uses Node/npm).
 
 ```bash
 npm install -g @codemate-ai/cli

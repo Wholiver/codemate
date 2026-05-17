@@ -33,7 +33,7 @@
 
 ### 通过 npm 安装 CLI
 
-> 需要 Bun `1.3.13` 或更高版本，并且在 `PATH` 中可用（发布包入口使用 `#!/usr/bin/env bun`）。
+> 运行 `codemate` 需要 Bun `1.3.13` 或更高版本并在 `PATH` 中可用（通过 npm 安装仍使用 Node/npm）。
 
 ```bash
 npm install -g @codemate-ai/cli
