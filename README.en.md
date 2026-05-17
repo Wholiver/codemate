@@ -31,7 +31,19 @@
 
 ## 安装与运行
 
-> 需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
+### 通过 npm 安装 CLI
+
+> 运行 `codemate` 需要 Bun `1.3.13` 或更高版本并在 `PATH` 中可用（通过 npm 安装仍使用 Node/npm）。
+
+```bash
+npm install -g @codemate-ai/cli
+codemate --version
+codemate
+```
+
+### 从源码运行（开发）
+
+> 仓库开发同样需要 Bun `1.3.13`（见根目录 `package.json` 的 `packageManager`）。
 
 ```bash
 bun install
