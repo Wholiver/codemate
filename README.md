@@ -1,5 +1,6 @@
 <div align="center">
 
+ ## still in dev, please don't download!!!!
 <p align="center">
   <img src="./packages/docs/logo/codemate-ascii.svg" alt="Codemate" width="1200" />
 </p>
