@@ -17,4 +17,13 @@ if (process.versions.bun !== expectedBunVersion) {
   console.warn(`Warning: Bun version ${process.versions.bun} differs from expected ${expectedBunVersion}`);
 }
 '
-bun typecheck
+
+# Keep pre-push checks stable and fast for local blocking.
+# Full workspace typecheck remains a manual/CI gate.
+git diff --check
+
+cd packages/codemate
+bun test test/tool/task.test.ts
+bun test test/session/trajectory.test.ts
+bun test test/session/llm.test.ts
+bun test test/provider/provider-routing.test.ts

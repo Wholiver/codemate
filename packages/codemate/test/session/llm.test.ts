@@ -11,6 +11,17 @@ import { Provider } from "@/provider/provider"
 import { ProviderTransform } from "@/provider/transform"
 import { ModelsDev } from "@/provider/models"
 import { ProviderID, ModelID } from "../../src/provider/schema"
+import type { ProviderRouteDecision } from "@/provider/provider-routing"
+import type { ProviderRouteRecommendation } from "@/provider/provider-route-scoring"
+import { buildProviderRouteDryRunReport } from "@/provider/provider-route-dry-run"
+import { resetDefaultProviderHealthStore } from "@/provider/provider-health"
+import {
+  InMemoryProviderTelemetryStore,
+  JsonlProviderTelemetryStore,
+  getDefaultProviderTelemetryStore,
+  pathProjectProviderTelemetry,
+  resetDefaultProviderTelemetryStore,
+} from "@/provider/provider-telemetry"
 import { Filesystem } from "@/util/filesystem"
 import { tmpdir } from "../fixture/fixture"
 import type { Agent } from "../../src/agent/agent"
@@ -227,6 +238,16 @@ beforeAll(() => {
 
 beforeEach(() => {
   state.queue.length = 0
+  resetDefaultProviderHealthStore({
+    config: {
+      enabled: true,
+      failureThreshold: 1,
+      minAttempts: 1,
+      openMs: 60_000,
+      halfOpenMaxAttempts: 1,
+    },
+  })
+  resetDefaultProviderTelemetryStore()
 })
 
 afterAll(() => {
@@ -297,6 +318,49 @@ function createEventResponse(chunks: unknown[], includeDone = false) {
     status: 200,
     headers: { "Content-Type": "text/event-stream" },
   })
+}
+
+function routeDecision(input: {
+  enabled: boolean
+  selectedProvider: string
+  selectedModel: string
+  fallback?: Array<{ provider: string; model: string }>
+  circuitEnabled?: boolean
+  outcomeMode?: "off" | "dry_run" | "enabled"
+  minConfidence?: number
+  minSamples?: number
+  recommendation?: ProviderRouteRecommendation
+}): ProviderRouteDecision {
+  return {
+    enabled: input.enabled,
+    agent: "coder",
+    selected: {
+      provider: input.selectedProvider,
+      model: input.selectedModel,
+    },
+    fallback: input.fallback ?? [],
+    maxRetries: 1,
+    timeoutMs: undefined,
+    reason: "test-route",
+    warnings: [],
+    source: input.enabled ? "agent-route" : "disabled",
+    circuit_breaker: {
+      enabled: input.circuitEnabled === true,
+      failureThreshold: 3,
+      openMs: 60_000,
+      halfOpenMaxAttempts: 1,
+      minAttempts: 3,
+    },
+    skipped_due_to_circuit: [],
+    fallback_used_due_to_health: false,
+    recommendation: input.recommendation,
+    outcome_routing: {
+      mode: input.outcomeMode ?? "off",
+      effective_mode: input.outcomeMode === "off" || input.outcomeMode === undefined ? "off" : "dry_run",
+      minConfidence: input.minConfidence ?? 0.65,
+      minSamples: input.minSamples ?? 5,
+    },
+  }
 }
 
 describe("session.llm.stream", () => {
@@ -671,7 +735,7 @@ describe("session.llm.stream", () => {
         expect((body.reasoning as { effort?: string } | undefined)?.effort).toBe("high")
 
         const maxTokens = body.max_output_tokens as number | undefined
-        expect(maxTokens).toBe(undefined) // match codex cli behavior
+        expect(maxTokens).toBe(ProviderTransform.maxOutputTokens(resolved))
       },
     })
   })
@@ -1267,6 +1331,927 @@ describe("session.llm.stream", () => {
         expect(config?.temperature).toBe(0.3)
         expect(config?.topP).toBe(0.8)
         expect(config?.maxOutputTokens).toBe(ProviderTransform.maxOutputTokens(resolved))
+      },
+    })
+  })
+
+  test("provider routing disabled does not execute fallback attempts", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const primaryFixture = await loadFixture(primaryProviderID, primaryModelID)
+    const fallbackFixture = await loadFixture(fallbackProviderID, fallbackModelID)
+    const first = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("primary success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("fallback should not run"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryFixture.model.id))
+        const resolvedFallback = await getModel(ProviderID.make(fallbackProviderID), ModelID.make(fallbackFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-disabled")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-disabled"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: false,
+              selectedProvider: primaryProviderID,
+              selectedModel: resolvedPrimary.id,
+              fallback: [{ provider: fallbackProviderID, model: resolvedFallback.id }],
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        await first
+        expect(state.queue.length).toBe(1)
+      },
+    })
+  })
+
+  test("provider routing enabled falls back after primary failure", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const primaryFixture = await loadFixture(primaryProviderID, primaryModelID)
+    const fallbackFixture = await loadFixture(fallbackProviderID, fallbackModelID)
+    const fallbackRequest = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("fallback success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryFixture.model.id))
+        const resolvedFallback = await getModel(ProviderID.make(fallbackProviderID), ModelID.make(fallbackFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-fallback-success")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-fallback-success"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: fallbackProviderID, model: resolvedFallback.id }],
+              outcomeMode: "dry_run",
+              recommendation: {
+                read_only: true,
+                recommended: { provider: fallbackProviderID, model: resolvedFallback.id },
+                scores: [],
+                reason: "test",
+                confidence: 0.9,
+                warnings: [],
+              },
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        const capture = await fallbackRequest
+        expect(capture.headers.get("Authorization")).toBe("Bearer fallback-key")
+        expect(JSON.stringify(capture.body.messages ?? capture.body.input ?? "")).not.toContain("provider_route_dry_run")
+      },
+    })
+  })
+
+  test("provider routing enabled returns readable error when all fallbacks fail", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const primaryFixture = await loadFixture(primaryProviderID, primaryModelID)
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-fallback-fail")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-fallback-fail"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        try {
+          await drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: "unknown-provider-fallback", model: "missing-model-fallback" }],
+              outcomeMode: "off",
+            }),
+          })
+          throw new Error("expected failure")
+        } catch (error) {
+          const message = String(error)
+          expect(message).toContain("provider_route_attempts=")
+          expect(message).not.toContain("provider_route_dry_run=")
+        }
+      },
+    })
+  })
+
+  test("provider routing dry_run mode attaches dry-run metadata on failure", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const primaryFixture = await loadFixture(primaryProviderID, primaryModelID)
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-fallback-fail-dryrun")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-fallback-fail-dryrun"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: "unknown-provider-fallback", model: "missing-model-fallback" }],
+              outcomeMode: "dry_run",
+              recommendation: {
+                read_only: true,
+                recommended: { provider: fallbackProviderID, model: fallbackModelID },
+                scores: [],
+                reason: "test",
+                confidence: 0.9,
+                warnings: [],
+              },
+            }),
+          }),
+        ).rejects.toThrow(/provider_route_dry_run=/)
+      },
+    })
+  })
+
+  test("provider routing with circuit breaker skips open primary and uses healthy fallback", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const fallbackFixture = await loadFixture(fallbackProviderID, fallbackModelID)
+    const fallbackRequest = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("fallback success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: ["alibaba", fallbackProviderID],
+            provider: {
+              alibaba: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    const store = resetDefaultProviderHealthStore({
+      config: { enabled: true, failureThreshold: 1, minAttempts: 1, openMs: 60_000, halfOpenMaxAttempts: 1 },
+    })
+    store.recordAttempt({
+      provider: "unknown-provider-primary",
+      model: "missing-model-primary",
+      status: "failure",
+      error_category: "provider_unavailable",
+      retryable: true,
+      fallback_index: 0,
+      latency_ms: 1,
+      created_at: new Date().toISOString(),
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedFallback = await getModel(ProviderID.make(fallbackProviderID), ModelID.make(fallbackFixture.model.id))
+        const resolvedPrimary = await getModel(ProviderID.make("alibaba"), ModelID.make("qwen-plus"))
+        const sessionID = SessionID.make("session-test-route-circuit-primary-open")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-circuit-primary-open"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make("alibaba"), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: fallbackProviderID, model: resolvedFallback.id }],
+              circuitEnabled: true,
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        const capture = await fallbackRequest
+        expect(capture.headers.get("Authorization")).toBe("Bearer fallback-key")
+      },
+    })
+  })
+
+  test("provider routing with circuit breaker skips open fallback targets", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const skippedFallbackProviderID = "vivgrid"
+    const skippedFallbackModelID = "gemini-3.1-pro-preview"
+    const finalFallbackProviderID = "alibaba"
+    const finalFallbackModelID = "qwen-plus"
+    const skippedFallbackFixture = await loadFixture(skippedFallbackProviderID, skippedFallbackModelID)
+    const finalRequest = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("final fallback success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [skippedFallbackProviderID, finalFallbackProviderID],
+            provider: {
+              [skippedFallbackProviderID]: {
+                options: { apiKey: "skip-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [finalFallbackProviderID]: {
+                options: { apiKey: "final-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    const store = resetDefaultProviderHealthStore({
+      config: { enabled: true, failureThreshold: 1, minAttempts: 1, openMs: 60_000, halfOpenMaxAttempts: 1 },
+    })
+    store.recordAttempt({
+      provider: skippedFallbackProviderID,
+      model: skippedFallbackFixture.model.id,
+      status: "failure",
+      error_category: "timeout",
+      retryable: true,
+      fallback_index: 0,
+      latency_ms: 1,
+      created_at: new Date().toISOString(),
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(finalFallbackProviderID), ModelID.make(finalFallbackModelID))
+        const resolvedSkippedFallback = await getModel(
+          ProviderID.make(skippedFallbackProviderID),
+          ModelID.make(skippedFallbackFixture.model.id),
+        )
+        const sessionID = SessionID.make("session-test-route-circuit-skip-fallback")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-circuit-skip-fallback"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(finalFallbackProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [
+                { provider: skippedFallbackProviderID, model: resolvedSkippedFallback.id },
+                { provider: finalFallbackProviderID, model: resolvedPrimary.id },
+              ],
+              circuitEnabled: true,
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        const capture = await finalRequest
+        expect(capture.headers.get("Authorization")).toBe("Bearer final-key")
+      },
+    })
+  })
+
+  test("provider routing with circuit breaker returns readable failure when all targets are open", async () => {
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const store = resetDefaultProviderHealthStore({
+      config: { enabled: true, failureThreshold: 1, minAttempts: 1, openMs: 60_000, halfOpenMaxAttempts: 1 },
+    })
+    store.recordAttempt({
+      provider: primaryProviderID,
+      model: primaryModelID,
+      status: "failure",
+      error_category: "timeout",
+      retryable: true,
+      fallback_index: 0,
+      latency_ms: 1,
+      created_at: new Date().toISOString(),
+    })
+    store.recordAttempt({
+      provider: fallbackProviderID,
+      model: fallbackModelID,
+      status: "failure",
+      error_category: "timeout",
+      retryable: true,
+      fallback_index: 1,
+      latency_ms: 1,
+      created_at: new Date().toISOString(),
+    })
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: "https://example.invalid/v1" },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: "https://example.invalid/v1" },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryModelID))
+        const sessionID = SessionID.make("session-test-route-circuit-all-open")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-circuit-all-open"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: primaryProviderID,
+              selectedModel: primaryModelID,
+              fallback: [{ provider: fallbackProviderID, model: fallbackModelID }],
+              circuitEnabled: true,
+            }),
+          }),
+        ).rejects.toThrow(/provider_route_attempts=.*skipped:provider_unavailable/)
+      },
+    })
+  })
+
+  test("provider routing enabled records aggregate telemetry attempts", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const fallbackFixture = await loadFixture(fallbackProviderID, fallbackModelID)
+    const fallbackRequest = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("fallback success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const telemetry = getDefaultProviderTelemetryStore()
+        expect(telemetry).toBeInstanceOf(InMemoryProviderTelemetryStore)
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryModelID))
+        const resolvedFallback = await getModel(ProviderID.make(fallbackProviderID), ModelID.make(fallbackFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-telemetry-enabled")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-telemetry-enabled"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: fallbackProviderID, model: resolvedFallback.id }],
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        await fallbackRequest
+        const stats = telemetry.queryStats({ group_by: ["agent"] })
+        expect(stats.total_attempts).toBeGreaterThanOrEqual(2)
+        const bucket = stats.buckets.find((item) => item.agent === "test")
+        expect(bucket).toBeDefined()
+        expect((bucket?.failures ?? 0) + (bucket?.successes ?? 0) + (bucket?.skipped ?? 0)).toBeGreaterThanOrEqual(2)
+      },
+    })
+  })
+
+  test("provider routing telemetry jsonl store persists attempts when configured", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const primaryProviderID = "alibaba"
+    const primaryModelID = "qwen-plus"
+    const fallbackProviderID = "vivgrid"
+    const fallbackModelID = "gemini-3.1-pro-preview"
+    const fallbackFixture = await loadFixture(fallbackProviderID, fallbackModelID)
+    const fallbackRequest = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("fallback success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [primaryProviderID, fallbackProviderID],
+            provider: {
+              [primaryProviderID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+              [fallbackProviderID]: {
+                options: { apiKey: "fallback-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+            experimental: {
+              provider_routing: {
+                enabled: true,
+                telemetry: {
+                  store: "jsonl",
+                },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const resolvedPrimary = await getModel(ProviderID.make(primaryProviderID), ModelID.make(primaryModelID))
+        const resolvedFallback = await getModel(ProviderID.make(fallbackProviderID), ModelID.make(fallbackFixture.model.id))
+        const sessionID = SessionID.make("session-test-route-telemetry-jsonl")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-telemetry-jsonl"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(primaryProviderID), modelID: resolvedPrimary.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolvedPrimary,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+            provider_route_decision: routeDecision({
+              enabled: true,
+              selectedProvider: "unknown-provider-primary",
+              selectedModel: "missing-model-primary",
+              fallback: [{ provider: fallbackProviderID, model: resolvedFallback.id }],
+            }),
+          }),
+        ).resolves.toBeUndefined()
+        await fallbackRequest
+
+        const filePath = pathProjectProviderTelemetry(tmp.path)
+        const file = Bun.file(filePath)
+        expect(await file.exists()).toBe(true)
+
+        const persisted = new JsonlProviderTelemetryStore({ filePath })
+        expect(persisted.queryStats().total_attempts).toBeGreaterThanOrEqual(2)
+        expect(getDefaultProviderTelemetryStore().queryStats().total_attempts).toBe(0)
+      },
+    })
+  })
+
+  test("dry-run report can use persisted telemetry after jsonl store re-instantiation", async () => {
+    await using tmp = await tmpdir()
+    const filePath = pathProjectProviderTelemetry(tmp.path)
+    const writer = new JsonlProviderTelemetryStore({ filePath })
+    writer.reset()
+    writer.recordAttempt({
+      provider: "openai",
+      model: "gpt-5",
+      agent: "coder",
+      status: "success",
+      latency_ms: 120,
+      fallback_index: 0,
+      created_at: "2026-01-01T00:00:00.000Z",
+    })
+    writer.recordAttempt({
+      provider: "openai",
+      model: "gpt-5",
+      agent: "coder",
+      status: "failure",
+      error_category: "timeout",
+      retryable: true,
+      latency_ms: 220,
+      fallback_index: 0,
+      created_at: "2026-01-01T00:00:01.000Z",
+    })
+    writer.recordAttempt({
+      provider: "anthropic",
+      model: "claude-sonnet",
+      agent: "coder",
+      status: "success",
+      latency_ms: 90,
+      fallback_index: 1,
+      created_at: "2026-01-01T00:00:02.000Z",
+    })
+    writer.recordAttempt({
+      provider: "anthropic",
+      model: "claude-sonnet",
+      agent: "coder",
+      status: "success",
+      latency_ms: 95,
+      fallback_index: 1,
+      created_at: "2026-01-01T00:00:03.000Z",
+    })
+
+    const recommendation: ProviderRouteRecommendation = {
+      read_only: true,
+      recommended: { provider: "anthropic", model: "claude-sonnet" },
+      scores: [
+        {
+          candidate: { provider: "anthropic", model: "claude-sonnet", source: "fallback" },
+          score: 0.9,
+          sample_size: 6,
+          success_rate: 1,
+          fallback_used_rate: 1,
+          retryable_failure_rate: 0,
+          p95_latency_ms: 95,
+          confidence: 0.9,
+          reasons: ["test"],
+        },
+      ],
+      reason: "test recommendation",
+      confidence: 0.9,
+      warnings: [],
+    }
+    const decision = routeDecision({
+      enabled: true,
+      selectedProvider: "openai",
+      selectedModel: "gpt-5",
+      fallback: [{ provider: "anthropic", model: "claude-sonnet" }],
+      outcomeMode: "dry_run",
+      recommendation,
+    })
+
+    const reader = new JsonlProviderTelemetryStore({ filePath })
+    const report = buildProviderRouteDryRunReport({
+      decision,
+      recommendation,
+      telemetryStore: reader,
+      minConfidence: 0.65,
+      minSamples: 1,
+    })
+    expect(report.telemetry?.selected_success_rate).toBeCloseTo(0.5)
+    expect(report.telemetry?.recommended_success_rate).toBeCloseTo(1)
+  })
+
+  test("routing disabled default does not record aggregate telemetry", async () => {
+    const server = state.server
+    if (!server) throw new Error("Server not initialized")
+    const providerID = "alibaba"
+    const modelID = "qwen-plus"
+    const request = waitRequest(
+      "/chat/completions",
+      new Response(createChatStream("primary success"), {
+        status: 200,
+        headers: { "Content-Type": "text/event-stream" },
+      }),
+    )
+    await using tmp = await tmpdir({
+      init: async (dir) => {
+        await Bun.write(
+          path.join(dir, "codemate.json"),
+          JSON.stringify({
+            $schema: "https://codemate.ai/config.json",
+            enabled_providers: [providerID],
+            provider: {
+              [providerID]: {
+                options: { apiKey: "primary-key", baseURL: `${server.url.origin}/v1` },
+              },
+            },
+          }),
+        )
+      },
+    })
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const telemetry = getDefaultProviderTelemetryStore()
+        const resolved = await getModel(ProviderID.make(providerID), ModelID.make(modelID))
+        const sessionID = SessionID.make("session-test-route-telemetry-disabled")
+        const agent = {
+          name: "test",
+          mode: "primary",
+          options: {},
+          permission: [{ permission: "*", pattern: "*", action: "allow" }],
+        } satisfies Agent.Info
+        const user = {
+          id: MessageID.make("msg_user-route-telemetry-disabled"),
+          sessionID,
+          role: "user",
+          time: { created: Date.now() },
+          agent: agent.name,
+          model: { providerID: ProviderID.make(providerID), modelID: resolved.id },
+        } satisfies MessageV2.User
+        await expect(
+          drain({
+            user,
+            sessionID,
+            model: resolved,
+            agent,
+            system: ["You are a helpful assistant."],
+            messages: [{ role: "user", content: "hello" }],
+            tools: {},
+          }),
+        ).resolves.toBeUndefined()
+        await request
+        expect(telemetry.queryStats().total_attempts).toBe(0)
       },
     })
   })

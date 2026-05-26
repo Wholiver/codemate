@@ -13,6 +13,8 @@ import { LANGUAGE_EXTENSIONS } from "@/lsp/language"
 import { webSearchProviderLabel } from "@/tool/websearch"
 import path from "path"
 import stripAnsi from "strip-ansi"
+import { extractThinkingContent } from "../../util/thinking"
+import { isRecoverableFailureMessage } from "../../util/failure-display"
 import type {
   SessionMessage,
   SessionMessageAgentSwitched,
@@ -360,21 +362,49 @@ function AssistantMessage(props: {
 }
 
 function AssistantText(props: { part: SessionMessageAssistantText; syntax: SyntaxStyle }) {
-  const { theme } = useTheme()
+  const { theme, subtleSyntax } = useTheme()
+  const thinking = createMemo(() => extractThinkingContent(props.part.text))
   return (
-    <Show when={props.part.text.trim()}>
-      <box paddingLeft={3} marginTop={1} flexShrink={0} id="text">
-        <code
-          filetype="markdown"
-          drawUnstyledText={false}
-          streaming={true}
-          syntaxStyle={props.syntax}
-          content={props.part.text.trim()}
-          conceal={true}
-          fg={theme.text}
-        />
-      </box>
-    </Show>
+    <Switch>
+      <Match when={thinking() !== undefined}>
+        <box
+          paddingLeft={2}
+          marginTop={1}
+          flexDirection="column"
+          border={["left"]}
+          customBorderChars={SplitBorder.customBorderChars}
+          borderColor={theme.backgroundElement}
+          flexShrink={0}
+          id="text"
+        >
+          <text fg={theme.warning}>Thinking</text>
+          <Show when={thinking()}>
+            <code
+              filetype="markdown"
+              drawUnstyledText={false}
+              streaming={true}
+              syntaxStyle={subtleSyntax()}
+              content={thinking() ?? ""}
+              conceal={true}
+              fg={theme.textMuted}
+            />
+          </Show>
+        </box>
+      </Match>
+      <Match when={props.part.text.trim()}>
+        <box paddingLeft={3} marginTop={1} flexShrink={0} id="text">
+          <code
+            filetype="markdown"
+            drawUnstyledText={false}
+            streaming={true}
+            syntaxStyle={props.syntax}
+            content={props.part.text.trim()}
+            conceal={true}
+            fg={theme.text}
+          />
+        </box>
+      </Match>
+    </Switch>
   )
 }
 
@@ -392,12 +422,13 @@ function AssistantReasoning(props: { part: SessionMessageAssistantReasoning; sub
         borderColor={theme.backgroundElement}
         flexShrink={0}
       >
+        <text fg={theme.warning}>Thinking</text>
         <code
           filetype="markdown"
           drawUnstyledText={false}
           streaming={true}
           syntaxStyle={props.subtleSyntax}
-          content={"_Thinking:_ " + content()}
+          content={content()}
           conceal={true}
           fg={theme.textMuted}
         />
@@ -530,6 +561,7 @@ function InlineTool(props: {
   const [hover, setHover] = createSignal(false)
   const [showError, setShowError] = createSignal(false)
   const error = createMemo(() => (props.part.state.status === "error" ? props.part.state.error.message : undefined))
+  const recoverable = createMemo(() => isRecoverableFailureMessage(error()))
   const complete = createMemo(() => !!props.complete)
   const denied = createMemo(() => {
     const message = error()
@@ -542,7 +574,7 @@ function InlineTool(props: {
     )
   })
   const fg = createMemo(() => {
-    if (error()) return theme.error
+    if (error()) return recoverable() ? theme.warning : theme.error
     if (complete()) return theme.textMuted
     return theme.text
   })
@@ -608,7 +640,7 @@ function InlineTool(props: {
         </box>
         <Show when={showError() && error()}>
           <box>
-            <text fg={theme.error}>{error()}</text>
+            <text fg={recoverable() ? theme.warning : theme.error}>{error()}</text>
           </box>
         </Show>
       </box>
@@ -627,6 +659,7 @@ function BlockTool(props: {
   const renderer = useRenderer()
   const [hover, setHover] = createSignal(false)
   const error = createMemo(() => (props.part?.state.status === "error" ? props.part.state.error.message : undefined))
+  const errorColor = createMemo(() => (isRecoverableFailureMessage(error()) ? theme.warning : theme.error))
   return (
     <box
       border={["left"]}
@@ -658,7 +691,7 @@ function BlockTool(props: {
       </Show>
       {props.children}
       <Show when={error()}>
-        <text fg={theme.error}>{error()}</text>
+        <text fg={errorColor()}>{error()}</text>
       </Show>
     </box>
   )

@@ -4,7 +4,7 @@ import os from "os"
 import path from "path"
 import { Config } from "@/config/config"
 import { Shell } from "../../src/shell/shell"
-import { ShellTool } from "../../src/tool/shell"
+import { preflightShellTool, ShellTool } from "../../src/tool/shell"
 import { Instance } from "../../src/project/instance"
 import { WithInstance } from "../../src/project/with-instance"
 import { Filesystem } from "@/util/filesystem"
@@ -140,6 +140,11 @@ const mustTruncate = (result: {
 }
 
 describe("tool.shell", () => {
+  test("tree-sitter wasm preflight is available", async () => {
+    const result = await preflightShellTool()
+    expect(result.available).toBe(true)
+  })
+
   each("basic", async () => {
     await WithInstance.provide({
       directory: projectRoot,
@@ -156,6 +161,38 @@ describe("tool.shell", () => {
         )
         expect(result.metadata.exit).toBe(0)
         expect(result.metadata.output).toContain("test")
+      },
+    })
+  })
+
+  each("can run pwd + echo + mkdir preflight commands", async () => {
+    await using tmp = await tmpdir()
+    await WithInstance.provide({
+      directory: tmp.path,
+      fn: async () => {
+        const bash = await initShell()
+        const dir = path.join(tmp.path, ".tmp-shell-tool-check")
+        const normalized = dir.replaceAll("\\", "/")
+        const command =
+          sh() === "cmd"
+            ? `cd && echo ok && mkdir "${dir}" 2>nul && if exist "${dir}" echo made`
+            : PS.has(sh())
+              ? `pwd; echo ok; New-Item -ItemType Directory -Path "${normalized}" -Force | Out-Null; if (Test-Path "${normalized}") { echo made }`
+              : `pwd && echo ok && mkdir -p "${normalized}" && test -d "${normalized}" && echo made`
+
+        const result = await Effect.runPromise(
+          bash.execute(
+            {
+              command,
+              description: "Shell preflight",
+            },
+            ctx,
+          ),
+        )
+
+        expect(result.metadata.exit).toBe(0)
+        expect(result.output.toLowerCase()).toContain("ok")
+        expect(result.output.toLowerCase()).toContain("made")
       },
     })
   })

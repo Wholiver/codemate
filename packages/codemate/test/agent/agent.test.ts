@@ -114,6 +114,24 @@ test("planner agent denies edit and write", async () => {
   })
 })
 
+test("planner prompt enforces default parallel coder planning for implementation tasks", async () => {
+  await using tmp = await tmpdir()
+  await WithInstance.provide({
+    directory: tmp.path,
+    fn: async () => {
+      const planner = await load(tmp.path, (svc) => svc.get("planner"))
+      expect(planner).toBeDefined()
+      expect(planner?.prompt).toContain("User numbered steps are NOT TaskGraph node boundaries")
+      expect(planner?.prompt).toContain("Medium/large tasks should use 2-5 `coder` nodes only when independent work packages exist")
+      expect(planner?.prompt).toContain("A simple/cohesive artifact family can and should stay one `coder` node")
+      expect(planner?.prompt).toContain("single_scope:small_change")
+      expect(planner?.prompt).toContain("depend on all relevant `coder` nodes")
+      expect(planner?.prompt).toContain('Single dependency must be: `"blockedBy": ["impl"]`')
+      expect(planner?.prompt).toContain('Never output: `"tags": "python", "asyncio"`')
+    },
+  })
+})
+
 test("planner agent asks for external directories and allows whitelisted external paths", async () => {
   const { Truncate } = await import("../../src/tool/truncate")
   await using tmp = await tmpdir()
@@ -247,6 +265,20 @@ test("tester agent only edits test files and cannot persist lessons/changelog", 
       expect(evalPerm(tester, "read")).toBe("allow")
       expect(evalPerm(tester, "glob")).toBe("allow")
       expect(evalPerm(tester, "grep")).toBe("allow")
+    },
+  })
+})
+
+test("tester prompt forbids taking primary implementation work", async () => {
+  await using tmp = await tmpdir()
+  await WithInstance.provide({
+    directory: tmp.path,
+    fn: async () => {
+      const tester = await load(tmp.path, (svc) => svc.get("tester"))
+      expect(tester).toBeDefined()
+      expect(tester?.prompt).toContain("Do not implement primary business logic")
+      expect(tester?.prompt).toContain("coder implementation/fix is required")
+      expect(tester?.prompt).toContain("Do not silently absorb missing implementation work")
     },
   })
 })

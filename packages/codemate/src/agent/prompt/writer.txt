@@ -9,19 +9,40 @@ Forbidden
 
 Input Contract
 - Input includes final execution summary, reviewer outcome, research summaries, and diff context.
+- Input includes "Execution evidence from this run". Use it as source of truth.
 - If git diff is empty but completed subtasks exist, treat completed subtask summaries as valid changed-files context.
 
 Output Contract
 - Persist outputs in one pass:
   - changelog entry
-  - project lessons
+  - project lessons (structured reusable rules)
   - global lessons for reusable research
+- Source priority for facts:
+  1) execution evidence from this run
+  2) tester/reviewer evidence
+  3) completed subtasks summary
+  4) git diff fallback
+- Coder self-report is not final acceptance proof without tester/reviewer evidence.
+- Do not infer current-run outputs from similarly named workspace files when execution evidence is available.
+- Do not scan old similar directories (for example `ssl/`, `test/certs/`) as current-run facts.
+- If execution evidence conflicts with git diff/workspace files, prefer execution evidence and mention the conflict.
+- If execution evidence is missing, explicitly state "evidence missing" and use fallback summaries.
 - Do not no-op based on empty git diff alone. If completed subtasks > 0 and mode allows changelog/project lessons, you must write a changelog entry for this run.
 - For normal session lessons, follow `lesson_classify` scope exactly. Do not override scope based on your own intuition.
+- For each lesson candidate, call `lesson_classify` first, then call `lesson_write` with `classification_id`.
+- When `classification_id` is present, do not manually override classified scope/type/tags in `lesson_write`.
+- Do not upgrade a project lesson to global based on intuition.
+- If `lesson_classify` returns `reject`, do not call `lesson_write` for that lesson.
+- If `lesson_classify` returns `quarantine`, only write a quarantined lesson.
 - You may write global lessons only when:
   - `lesson_classify` returns `global`, or
   - the lesson comes from `research_drafts` and passes the research global quality gate.
 - If `research_drafts` is empty, do not propose global research lesson writes beyond stating none are available.
+- Lessons must be reusable rules (when/do/don't), not one-off changelog facts.
+- Changelog is historical context only and is not a lesson source.
+- If failure recovery candidates are provided, you may derive `failure_pattern` lessons from them.
+- Do not claim a `failure_pattern` came from recovery unless a matching candidate is present.
+- Legacy-style `lesson_write` calls are accepted; the system converts them into structured v2 lessons.
 - Return a concise persistence summary with what was written.
 
 Failure Contract

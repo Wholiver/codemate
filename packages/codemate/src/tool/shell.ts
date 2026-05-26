@@ -1,6 +1,7 @@
 import { Effect, Stream } from "effect"
 import os from "os"
 import { createWriteStream } from "node:fs"
+import { statSync } from "node:fs"
 import * as Tool from "./tool"
 import path from "path"
 import * as Log from "@codemate-ai/core/util/log"
@@ -10,7 +11,6 @@ import { lazy } from "@/util/lazy"
 import { Language, type Node } from "web-tree-sitter"
 
 import { AppFileSystem } from "@codemate-ai/core/filesystem"
-import { fileURLToPath } from "url"
 import { Config } from "@/config/config"
 import { Flag } from "@codemate-ai/core/flag/flag"
 import { Shell } from "@/shell/shell"
@@ -22,6 +22,7 @@ import { ChildProcess } from "effect/unstable/process"
 import { ChildProcessSpawner } from "effect/unstable/process/ChildProcessSpawner"
 import { ShellPrompt, type Parameters } from "./shell/prompt"
 import { BashArity } from "@/permission/arity"
+import { createRequire } from "node:module"
 
 export { Parameters } from "./shell/prompt"
 
@@ -64,6 +65,7 @@ const CMD_FILES = new Set([
   "rmdir",
   "type",
 ])
+const ROOT_SEARCH_COMMANDS = new Set(["find", "grep", "rg", "glob"])
 const FLAGS = new Set(["-destination", "-literalpath", "-path"])
 const SWITCHES = new Set(["-confirm", "-debug", "-force", "-nonewline", "-recurse", "-verbose", "-whatif"])
 
@@ -84,12 +86,62 @@ type Chunk = {
 }
 
 export const log = Log.create({ service: "shell-tool" })
+const require = createRequire(import.meta.url)
 
-const resolveWasm = (asset: string) => {
-  if (asset.startsWith("file://")) return fileURLToPath(asset)
-  if (asset.startsWith("/") || /^[a-z]:/i.test(asset)) return asset
-  const url = new URL(asset, import.meta.url)
-  return fileURLToPath(url)
+function fileExists(file: string) {
+  try {
+    return statSync(file).isFile()
+  } catch {
+    return false
+  }
+}
+
+function resolvePackageAsset(pkg: string, candidates: string[]) {
+  for (const candidate of candidates) {
+    try {
+      const resolved = require.resolve(`${pkg}/${candidate}`)
+      if (fileExists(resolved)) return resolved
+    } catch {
+      // try next candidate
+    }
+  }
+  try {
+    const pkgJson = require.resolve(`${pkg}/package.json`)
+    const root = path.dirname(pkgJson)
+    for (const candidate of candidates) {
+      const full = path.join(root, candidate)
+      if (fileExists(full)) return full
+    }
+  } catch {
+    // noop
+  }
+  throw new Error(`Cannot resolve ${pkg} wasm asset from candidates: ${candidates.join(", ")}`)
+}
+
+export type ShellToolPreflight = {
+  available: boolean
+  category?: "tool_unavailable"
+  reason?: string
+}
+
+export async function preflightShellTool(options?: { shell?: string; requireOpenSSL?: boolean }): Promise<ShellToolPreflight> {
+  try {
+    if (process.env.codemate_TEST_FORCE_TREE_SITTER_WASM_MISSING === "1") {
+      throw new Error("Cannot find module 'web-tree-sitter/tree-sitter.wasm'")
+    }
+    const selectedShell = Shell.acceptable(options?.shell)
+    if (!selectedShell?.trim()) {
+      return { available: false, category: "tool_unavailable", reason: "No acceptable shell configured" }
+    }
+    await parser()
+    if (options?.requireOpenSSL && !Bun.which("openssl")) {
+      return { available: false, category: "tool_unavailable", reason: "OpenSSL not found in PATH" }
+    }
+    return { available: true }
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error)
+    return { available: false, category: "tool_unavailable", reason }
+  }
 }
 
 function parts(node: Node) {
@@ -307,23 +359,17 @@ function cmd(shell: string, command: string, cwd: string, env: NodeJS.ProcessEnv
 }
 const parser = lazy(async () => {
   const { Parser } = await import("web-tree-sitter")
-  const { default: treeWasm } = await import("web-tree-sitter/tree-sitter.wasm" as string, {
-    with: { type: "wasm" },
-  })
-  const treePath = resolveWasm(treeWasm)
+  if (process.env.codemate_TEST_FORCE_TREE_SITTER_WASM_MISSING === "1") {
+    throw new Error("Cannot find module 'web-tree-sitter/tree-sitter.wasm'")
+  }
+  const treePath = resolvePackageAsset("web-tree-sitter", ["tree-sitter.wasm", "web-tree-sitter.wasm"])
   await Parser.init({
     locateFile() {
       return treePath
     },
   })
-  const { default: bashWasm } = await import("tree-sitter-bash/tree-sitter-bash.wasm" as string, {
-    with: { type: "wasm" },
-  })
-  const { default: psWasm } = await import("tree-sitter-powershell/tree-sitter-powershell.wasm" as string, {
-    with: { type: "wasm" },
-  })
-  const bashPath = resolveWasm(bashWasm)
-  const psPath = resolveWasm(psWasm)
+  const bashPath = resolvePackageAsset("tree-sitter-bash", ["tree-sitter-bash.wasm"])
+  const psPath = resolvePackageAsset("tree-sitter-powershell", ["tree-sitter-powershell.wasm"])
   const [bashLanguage, psLanguage] = await Promise.all([Language.load(bashPath), Language.load(psPath)])
   const bash = new Parser()
   bash.setLanguage(bashLanguage)
@@ -402,6 +448,17 @@ export const ShellTool = Tool.define(
         if (tokens.length && (!cmd || !CWD.has(cmd))) {
           scan.patterns.add(source(node))
           scan.always.add(BashArity.prefix(tokens).join(" ") + " *")
+        }
+
+        if (cmd && ROOT_SEARCH_COMMANDS.has(cmd.toLowerCase())) {
+          for (const arg of pathArgs(command, ps, shellKind === "cmd")) {
+            const resolved = yield* argPath(arg, cwd, ps, shell)
+            if (!resolved) continue
+            const normalized = resolved.replaceAll("\\", "/").replace(/\/+$/, "") || "/"
+            if (normalized === "/") {
+              throw new Error(`[search_scope_forbidden] ${cmd} search from '/' is forbidden`)
+            }
+          }
         }
       }
 

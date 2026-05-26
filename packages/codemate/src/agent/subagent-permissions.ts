@@ -1,5 +1,6 @@
 import type { Permission } from "../permission"
 import type { Agent } from "./agent"
+import { AGENT_ROLE_TOOL_DENYLIST, agentRoleFromName } from "./role-capability"
 
 /**
  * Build the `permission` ruleset for a subagent's session when it's spawned
@@ -21,6 +22,15 @@ export function deriveSubagentSessionPermission(input: {
 }): Permission.Ruleset {
   const canTask = input.subagent.permission.some((rule) => rule.permission === "task")
   const canTodo = input.subagent.permission.some((rule) => rule.permission === "todowrite")
+  const role = agentRoleFromName(input.subagent.name)
+  const roleDenyRules =
+    role === undefined
+      ? []
+      : AGENT_ROLE_TOOL_DENYLIST[role].map((permission) => ({
+          permission,
+          pattern: "*" as const,
+          action: "deny" as const,
+        }))
   const parentAgentDenies = input.parentAgent?.permission.filter((rule) => rule.action === "deny") ?? []
   return [
     ...parentAgentDenies,
@@ -29,5 +39,6 @@ export function deriveSubagentSessionPermission(input: {
     ),
     ...(canTodo ? [] : [{ permission: "todowrite" as const, pattern: "*" as const, action: "deny" as const }]),
     ...(canTask ? [] : [{ permission: "task" as const, pattern: "*" as const, action: "deny" as const }]),
+    ...roleDenyRules,
   ]
 }

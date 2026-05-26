@@ -1,0 +1,2 @@
+# Place private keys here (server.key, ca.key)
+# WARNING: Never commit real private keys to version control.

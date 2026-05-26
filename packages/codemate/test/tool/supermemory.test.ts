@@ -1,11 +1,14 @@
 import { afterEach, describe, expect } from "bun:test"
 import { Effect, Schema } from "effect"
+import { Global } from "@codemate-ai/core/global"
+import { mkdir, rm } from "fs/promises"
+import path from "path"
 import { ToolRegistry } from "@/tool/registry"
 import { ConfigPermission } from "@/config/permission"
 import { Permission } from "@/permission"
 import type { Tool } from "@/tool/tool"
 import { SessionID, MessageID } from "@/session/schema"
-import { disposeAllInstances } from "../fixture/fixture"
+import { disposeAllInstances, TestInstance } from "../fixture/fixture"
 import { testEffect } from "../lib/effect"
 
 const it = testEffect(ToolRegistry.defaultLayer)
@@ -131,6 +134,118 @@ describe("tool.supermemory", () => {
 
       const forget = yield* tool.execute({ action: "forget", query: "nothing" }, ctx)
       expect(forget.output).toContain("Removed 0 memory entries")
+    }),
+  )
+
+  it.instance("facade uses MemoryRuntime storage and legacy compatibility", () =>
+    Effect.gen(function* () {
+      const tool = yield* getTool()
+      const asks: Array<Omit<Permission.Request, "id" | "sessionID" | "tool">> = []
+      const ctx: Tool.Context = {
+        ...baseCtx,
+        ask: (req) =>
+          Effect.sync(() => {
+            asks.push(req)
+          }),
+      }
+      const instance = yield* TestInstance
+      const token = `sm-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+      const newText = `Remember this project preference ${token} deterministic json`
+      const legacyText = `Legacy preference ${token} json`
+      const legacyPath = path.join(Global.Path.data, "storage", "supermemory", "records.json")
+      const legacyFile = Bun.file(legacyPath)
+      const previousLegacy = yield* Effect.promise(async () =>
+        (await legacyFile.exists()) ? legacyFile.text() : undefined,
+      ).pipe(Effect.orDie)
+
+      yield* Effect.promise(async () => {
+        await mkdir(path.dirname(legacyPath), { recursive: true })
+        const parsed = previousLegacy ? JSON.parse(previousLegacy) : []
+        const records = Array.isArray(parsed) ? parsed : []
+        records.push({
+          id: `legacy-${token}`,
+          content: legacyText,
+          scope: "user",
+          tags: ["legacy", token],
+          created_at: Date.now(),
+          project_id: "legacy-project",
+        })
+        await Bun.write(legacyPath, JSON.stringify(records, null, 2))
+      }).pipe(Effect.orDie)
+
+      const add = yield* tool.execute(
+        {
+          action: "add",
+          content: newText,
+          scope: "project",
+          tags: ["project", token],
+        },
+        ctx,
+      )
+      expect(add.title).toBe("Memory added")
+
+      const projectMemoryPath = path.join(instance.directory, ".codemate", "memory", "records.jsonl")
+      const projectMemoryText = yield* Effect.promise(() => Bun.file(projectMemoryPath).text()).pipe(Effect.orDie)
+      const projectLines = projectMemoryText
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => JSON.parse(line) as { content?: { summary?: string } })
+      expect(projectLines.some((item) => item.content?.summary?.includes(token))).toBe(true)
+
+      const legacySearch = yield* tool.execute(
+        {
+          action: "search",
+          query: legacyText,
+          top_k: 10,
+        },
+        ctx,
+      )
+      const legacyRecords = JSON.parse(legacySearch.output) as Array<{ content: string }>
+      expect(legacyRecords.some((item) => item.content.includes(legacyText))).toBe(true)
+
+      const newSearch = yield* tool.execute(
+        {
+          action: "search",
+          query: newText,
+          scope: "project",
+          top_k: 10,
+        },
+        ctx,
+      )
+      const newRecords = JSON.parse(newSearch.output) as Array<{ content: string }>
+      expect(newRecords.some((item) => item.content.includes(newText))).toBe(true)
+
+      const listed = yield* tool.execute({ action: "list" }, ctx)
+      const listRecords = JSON.parse(listed.output) as Array<{ content: string }>
+      expect(listRecords.some((item) => item.content.includes(legacyText))).toBe(true)
+      expect(listRecords.some((item) => item.content.includes(newText))).toBe(true)
+
+      const profile = yield* tool.execute({ action: "profile" }, ctx)
+      const profileObj = JSON.parse(profile.output) as {
+        total: number
+        by_scope: { user: number; project: number }
+      }
+      expect(profileObj.total).toBeGreaterThan(0)
+      expect(profileObj.by_scope.user).toBeGreaterThan(0)
+      expect(profileObj.by_scope.project).toBeGreaterThan(0)
+
+      const forgetNoop = yield* tool.execute({ action: "forget" }, ctx)
+      expect(forgetNoop.output).toContain("Removed 0 memory entries")
+
+      const listAfterNoop = yield* tool.execute({ action: "list" }, ctx)
+      const listAfterNoopRecords = JSON.parse(listAfterNoop.output) as Array<{ content: string }>
+      expect(listAfterNoopRecords.some((item) => item.content.includes(newText))).toBe(true)
+
+      yield* Effect.promise(async () => {
+        if (previousLegacy === undefined) {
+          await rm(legacyPath, { force: true }).catch(() => undefined)
+          return
+        }
+        await Bun.write(legacyPath, previousLegacy)
+      }).pipe(Effect.orDie)
+
+      expect(asks.every((item) => item.permission === "supermemory")).toBe(true)
     }),
   )
 

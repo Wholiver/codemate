@@ -4,7 +4,8 @@
 // https://github.com/cline/cline/blob/main/evals/diff-edits/diff-apply/diff-06-26-25.ts
 
 import * as path from "path"
-import { Effect, Schema, Semaphore } from "effect"
+import { Effect, Option, Schema, Semaphore } from "effect"
+import { createHash } from "node:crypto"
 import * as Tool from "./tool"
 import { LSP } from "@/lsp/lsp"
 import { createTwoFilesPatch, diffLines } from "diff"
@@ -30,6 +31,22 @@ function detectLineEnding(text: string): "\n" | "\r\n" {
 function convertToLineEnding(text: string, ending: "\n" | "\r\n"): string {
   if (ending === "\n") return text
   return text.replaceAll("\n", "\r\n")
+}
+
+function deriveReadbackFragment(input: string) {
+  const normalized = input.replaceAll("\r\n", "\n")
+  const lines = normalized
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .toSorted((a, b) => b.length - a.length)
+  const candidate = lines[0] ?? normalized.trim()
+  if (!candidate) return ""
+  return candidate.slice(0, Math.min(160, candidate.length))
+}
+
+function sha256Text(input: string) {
+  return createHash("sha256").update(input).digest("hex")
 }
 
 const locks = new Map<string, Semaphore.Semaphore>()
@@ -85,10 +102,12 @@ export const EditTool = Tool.define(
           let diff = ""
           let contentOld = ""
           let contentNew = ""
+          let existedBefore = true
           yield* lock(filePath).withPermits(1)(
             Effect.gen(function* () {
               if (params.oldString === "") {
                 const existed = yield* afs.existsSafe(filePath)
+                existedBefore = existed
                 const source = existed ? yield* Bom.readFile(afs, filePath) : { bom: false, text: "" }
                 const next = Bom.split(params.newString)
                 const desiredBom = source.bom || next.bom
@@ -119,6 +138,7 @@ export const EditTool = Tool.define(
               const info = yield* afs.stat(filePath).pipe(Effect.catch(() => Effect.succeed(undefined)))
               if (!info) throw new Error(`File ${filePath} not found`)
               if (info.type === "Directory") throw new Error(`Path is a directory, not a file: ${filePath}`)
+              existedBefore = true
               const source = yield* Bom.readFile(afs, filePath)
               contentOld = source.text
 
@@ -167,6 +187,42 @@ export const EditTool = Tool.define(
               )
             }).pipe(Effect.orDie),
           )
+          const readback = yield* Bom.readFile(afs, filePath)
+          const expectedFragment = deriveReadbackFragment(contentNew)
+          const readbackFragment = deriveReadbackFragment(readback.text)
+          const readbackVerified =
+            expectedFragment.length > 0 ? readback.text.includes(expectedFragment) : readback.text.length === 0
+          if (!readbackVerified) {
+            return yield* Effect.fail(
+              new Error(
+                `[file_write_verification_failed] ${JSON.stringify({
+                  category: "file_write_verification_failed",
+                  tool_name: "edit",
+                  file_path: filePath,
+                  expected_fragment: expectedFragment,
+                  readback_fragment: readbackFragment,
+                  reason: "edit succeeded but readback content does not include expected fragment",
+                  repair_instruction: "retry edit and verify file content with readback",
+                })}`,
+              ),
+            )
+          }
+          const statInfo = yield* afs.stat(filePath).pipe(Effect.catch(() => Effect.succeed(undefined)))
+          const mtimeMs =
+            statInfo && statInfo.type !== "Directory"
+              ? statInfo.mtime.pipe(
+                  Option.map((time) => time.getTime()),
+                  Option.getOrElse(() => 0),
+                )
+              : 0
+          const readbackWithBom = Bom.join(readback.text, readback.bom)
+          const verification = {
+            file_path: filePath,
+            mtime_ms: mtimeMs,
+            sha256: sha256Text(readbackWithBom),
+            readback_fragment: readbackFragment,
+            expected_fragment: expectedFragment,
+          }
 
           let additions = 0
           let deletions = 0
@@ -186,6 +242,8 @@ export const EditTool = Tool.define(
               diff,
               filediff,
               diagnostics: {},
+              exists: existedBefore,
+              verification,
             },
           })
 
@@ -201,6 +259,8 @@ export const EditTool = Tool.define(
               diagnostics,
               diff,
               filediff,
+              exists: existedBefore,
+              verification,
             },
             title: `${path.relative(instance.worktree, filePath)}`,
             output,

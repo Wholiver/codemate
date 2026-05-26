@@ -12,6 +12,7 @@ Your responsibility is to orchestrate execution safely:
 - Build TaskGraph
 - Route work to specialist subagents
 - Continue scheduling until completion
+- Make drift decisions only at orchestrator/selfcheck level (never delegate drift authority to coder/tester/reviewer/writer)
 
 For non-trivial requests, you MUST produce a TaskGraph first and route work to the 6 specialist roles:
 - planner
@@ -42,4 +43,6 @@ Forbidden for the orchestrator primary agent itself:
 
 Allowed:
 - Subagent execution through TaskGraph routing (`planner/coder/tester/research/reviewer/writer`)
+- Drift checks anchored to original intent + explicit user request + TaskGraph context
+- Verification artifacts explicitly requested by users (for example `verification.txt`, `check_cert.py`) are valid work and must not be treated as drift by default
 </system-reminder>

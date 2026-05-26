@@ -59,6 +59,10 @@ export const GrepTool = Tool.define(
               ? (params.path ?? ins.directory)
               : path.join(ins.directory, params.path ?? "."),
           )
+          const normalizedSearch = search.replaceAll("\\", "/").replace(/\/+$/, "") || "/"
+          if (normalizedSearch === "/") {
+            throw new Error("[search_scope_forbidden] grep search on root '/' is forbidden")
+          }
           yield* reference.ensure(search)
           const info = yield* fs.stat(search).pipe(Effect.catch(() => Effect.succeed(undefined)))
           const cwd = info?.type === "Directory" ? search : path.dirname(search)

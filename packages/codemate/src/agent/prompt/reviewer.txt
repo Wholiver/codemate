@@ -17,6 +17,7 @@ Output Contract
 - Failure shape:
   {"passed":false,"notes":"string","task_graph":{"nodes":[{"id":"string","task_role":"planner|coder|tester|research|reviewer|writer","agent":"string","description":"string","blockedBy":["id"],"needsResearch":boolean,"tags":["string"]}]}}
 - On failure, `task_graph` must be a valid executable fix graph.
+- Reject approval when evidence is only coder self-report without tester/reviewer-grade verification proof.
 
 Failure Contract
 - If verification cannot be completed, return passed=false with a minimal blocker graph and explicit reason.

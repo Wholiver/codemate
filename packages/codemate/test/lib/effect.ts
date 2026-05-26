@@ -28,9 +28,44 @@ const run = <A, E, R, E2>(value: Body<A, E, R | Scope.Scope>, layer: Layer.Layer
   Effect.gen(function* () {
     const exit = yield* body(value).pipe(Effect.scoped, Effect.provide(layer), Effect.exit)
     if (Exit.isFailure(exit)) {
-      for (const err of Cause.prettyErrors(exit.cause)) {
+      const prettyErrors = (() => {
+        try {
+          return Cause.prettyErrors(exit.cause)
+        } catch (error) {
+          return [`Unable to pretty-print errors: ${error instanceof Error ? error.message : String(error)}`]
+        }
+      })()
+      for (const err of prettyErrors) {
         yield* Effect.logError(err)
       }
+      const pretty = (() => {
+        try {
+          return Cause.pretty(exit.cause).trim()
+        } catch (error) {
+          return `Unable to pretty-print cause: ${error instanceof Error ? error.message : String(error)}`
+        }
+      })()
+      const firstFail = Cause.findFail(exit.cause)
+      const firstFailValue =
+        firstFail._tag === "Success" && firstFail && typeof firstFail === "object" && "value" in firstFail
+          ? firstFail.value
+          : undefined
+      const nullFail =
+        !!firstFailValue &&
+        typeof firstFailValue === "object" &&
+        "_tag" in firstFailValue &&
+        firstFailValue["_tag"] === "Fail" &&
+        "error" in firstFailValue &&
+        (firstFailValue["error"] === null || firstFailValue["error"] === undefined)
+      const fallback = JSON.stringify(exit.cause, null, 2)
+      const failure = JSON.stringify(firstFail, null, 2)
+      const defect = JSON.stringify(Cause.findDie(exit.cause), null, 2)
+      const nullFailHint = nullFail
+        ? "\nnull_fail_hint=Cause contains Fail(null/undefined); this usually means missing or mismatched TestLLMServer mocks."
+        : ""
+      throw new Error(
+        `Effect test failed\n${pretty || fallback}\nfirst_fail=${failure}\nfirst_defect=${defect}${nullFailHint}`,
+      )
     }
     return yield* exit
   }).pipe(Effect.runPromise)
