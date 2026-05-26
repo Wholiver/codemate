@@ -1,6 +1,7 @@
 import { Schema } from "effect"
 import * as path from "path"
-import { Effect } from "effect"
+import { Effect, Option } from "effect"
+import { createHash } from "node:crypto"
 import * as Tool from "./tool"
 import { LSP } from "@/lsp/lsp"
 import { createTwoFilesPatch } from "diff"
@@ -16,6 +17,22 @@ import { assertExternalDirectoryEffect } from "./external-directory"
 import * as Bom from "@/util/bom"
 
 const MAX_PROJECT_DIAGNOSTICS_FILES = 5
+
+function deriveReadbackFragment(input: string) {
+  const normalized = input.replaceAll("\r\n", "\n")
+  const lines = normalized
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .toSorted((a, b) => b.length - a.length)
+  const candidate = lines[0] ?? normalized.trim()
+  if (!candidate) return ""
+  return candidate.slice(0, Math.min(160, candidate.length))
+}
+
+function sha256Text(input: string) {
+  return createHash("sha256").update(input).digest("hex")
+}
 
 export const Parameters = Schema.Struct({
   content: Schema.String.annotate({ description: "The content to write to the file" }),
@@ -65,6 +82,42 @@ export const WriteTool = Tool.define(
           if (yield* format.file(filepath)) {
             yield* Bom.syncFile(fs, filepath, desiredBom)
           }
+          const readback = yield* Bom.readFile(fs, filepath)
+          const expectedFragment = deriveReadbackFragment(contentNew)
+          const readbackFragment = deriveReadbackFragment(readback.text)
+          const readbackVerified =
+            expectedFragment.length > 0 ? readback.text.includes(expectedFragment) : readback.text.length === 0
+          if (!readbackVerified) {
+            return yield* Effect.fail(
+              new Error(
+                `[file_write_verification_failed] ${JSON.stringify({
+                  category: "file_write_verification_failed",
+                  tool_name: "write",
+                  file_path: filepath,
+                  expected_fragment: expectedFragment,
+                  readback_fragment: readbackFragment,
+                  reason: "write succeeded but readback content does not include expected fragment",
+                  repair_instruction: "retry write and verify file content with readback",
+                })}`,
+              ),
+            )
+          }
+          const statInfo = yield* fs.stat(filepath).pipe(Effect.catch(() => Effect.succeed(undefined)))
+          const mtimeMs =
+            statInfo && statInfo.type !== "Directory"
+              ? statInfo.mtime.pipe(
+                  Option.map((time) => time.getTime()),
+                  Option.getOrElse(() => 0),
+                )
+              : 0
+          const readbackWithBom = Bom.join(readback.text, readback.bom)
+          const verification = {
+            file_path: filepath,
+            mtime_ms: mtimeMs,
+            sha256: sha256Text(readbackWithBom),
+            readback_fragment: readbackFragment,
+            expected_fragment: expectedFragment,
+          }
           yield* bus.publish(File.Event.Edited, { file: filepath })
           yield* bus.publish(FileWatcher.Event.Updated, {
             file: filepath,
@@ -95,6 +148,7 @@ export const WriteTool = Tool.define(
               diagnostics,
               filepath,
               exists: exists,
+              verification,
             },
             output,
           }

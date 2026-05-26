@@ -41,6 +41,10 @@ export const GlobTool = Tool.define(
 
           let search = params.path ?? ins.directory
           search = path.isAbsolute(search) ? search : path.resolve(ins.directory, search)
+          const normalizedSearch = search.replaceAll("\\", "/").replace(/\/+$/, "") || "/"
+          if (normalizedSearch === "/") {
+            throw new Error("[search_scope_forbidden] glob search on root '/' is forbidden")
+          }
           yield* reference.ensure(search)
           const info = yield* fs.stat(search).pipe(Effect.catch(() => Effect.succeed(undefined)))
           if (info?.type === "File") {
