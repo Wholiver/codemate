@@ -88,6 +88,8 @@ import { getRevertDiffFiles } from "../../util/revert-diff"
 import { useCommandPalette } from "../../context/command-palette"
 import { useBindings, useCommandShortcut } from "../../keymap"
 import { PathFormatterProvider, usePathFormatter } from "../../context/path-format"
+import { extractThinkingContent } from "../../util/thinking"
+import { isRecoverableFailureMessage } from "../../util/failure-display"
 
 addDefaultParsers(parsers.parsers)
 
@@ -1452,12 +1454,13 @@ function ReasoningPart(props: { last: boolean; part: ReasoningPart; message: Ass
         customBorderChars={SplitBorder.customBorderChars}
         borderColor={theme.backgroundElement}
       >
+        <text fg={theme.warning}>Thinking</text>
         <code
           filetype="markdown"
           drawUnstyledText={false}
           streaming={true}
           syntaxStyle={subtleSyntax()}
-          content={"_Thinking:_ " + content()}
+          content={content()}
           conceal={ctx.conceal()}
           fg={theme.textMuted}
         />
@@ -1468,35 +1471,64 @@ function ReasoningPart(props: { last: boolean; part: ReasoningPart; message: Ass
 
 function TextPart(props: { last: boolean; part: TextPart; message: AssistantMessage }) {
   const ctx = use()
-  const { theme, syntax } = useTheme()
+  const { theme, syntax, subtleSyntax } = useTheme()
+  const thinking = createMemo(() => extractThinkingContent(props.part.text))
   return (
-    <Show when={props.part.text.trim()}>
-      <box id={"text-" + props.part.id} paddingLeft={3} marginTop={1} flexShrink={0}>
-        <Switch>
-          <Match when={Flag.codemate_EXPERIMENTAL_MARKDOWN}>
-            <markdown
-              syntaxStyle={syntax()}
-              streaming={true}
-              content={props.part.text.trim()}
-              conceal={ctx.conceal()}
-              fg={theme.markdownText}
-              bg={theme.background}
-            />
-          </Match>
-          <Match when={!Flag.codemate_EXPERIMENTAL_MARKDOWN}>
-            <code
-              filetype="markdown"
-              drawUnstyledText={false}
-              streaming={true}
-              syntaxStyle={syntax()}
-              content={props.part.text.trim()}
-              conceal={ctx.conceal()}
-              fg={theme.text}
-            />
-          </Match>
-        </Switch>
-      </box>
-    </Show>
+    <Switch>
+      <Match when={thinking() !== undefined}>
+        <Show when={ctx.showThinking()}>
+          <box
+            id={"text-" + props.part.id}
+            paddingLeft={2}
+            marginTop={1}
+            flexDirection="column"
+            border={["left"]}
+            customBorderChars={SplitBorder.customBorderChars}
+            borderColor={theme.backgroundElement}
+          >
+            <text fg={theme.warning}>Thinking</text>
+            <Show when={thinking()}>
+              <code
+                filetype="markdown"
+                drawUnstyledText={false}
+                streaming={true}
+                syntaxStyle={subtleSyntax()}
+                content={thinking() ?? ""}
+                conceal={ctx.conceal()}
+                fg={theme.textMuted}
+              />
+            </Show>
+          </box>
+        </Show>
+      </Match>
+      <Match when={props.part.text.trim()}>
+        <box id={"text-" + props.part.id} paddingLeft={3} marginTop={1} flexShrink={0}>
+          <Switch>
+            <Match when={Flag.codemate_EXPERIMENTAL_MARKDOWN}>
+              <markdown
+                syntaxStyle={syntax()}
+                streaming={true}
+                content={props.part.text.trim()}
+                conceal={ctx.conceal()}
+                fg={theme.markdownText}
+                bg={theme.background}
+              />
+            </Match>
+            <Match when={!Flag.codemate_EXPERIMENTAL_MARKDOWN}>
+              <code
+                filetype="markdown"
+                drawUnstyledText={false}
+                streaming={true}
+                syntaxStyle={syntax()}
+                content={props.part.text.trim()}
+                conceal={ctx.conceal()}
+                fg={theme.text}
+              />
+            </Match>
+          </Switch>
+        </box>
+      </Match>
+    </Switch>
   )
 }
 
@@ -1663,6 +1695,7 @@ function InlineTool(props: {
   })
 
   const error = createMemo(() => (props.part.state.status === "error" ? props.part.state.error : undefined))
+  const errorColor = createMemo(() => (isRecoverableFailureMessage(error()) ? theme.warning : theme.error))
 
   const denied = createMemo(
     () =>
@@ -1718,7 +1751,7 @@ function InlineTool(props: {
         </Match>
       </Switch>
       <Show when={error() && !denied()}>
-        <text fg={theme.error}>{error()}</text>
+        <text fg={errorColor()}>{error()}</text>
       </Show>
     </box>
   )
@@ -1735,6 +1768,7 @@ function BlockTool(props: {
   const renderer = useRenderer()
   const [hover, setHover] = createSignal(false)
   const error = createMemo(() => (props.part?.state.status === "error" ? props.part.state.error : undefined))
+  const errorColor = createMemo(() => (isRecoverableFailureMessage(error()) ? theme.warning : theme.error))
   return (
     <box
       border={["left"]}
@@ -1765,7 +1799,7 @@ function BlockTool(props: {
       </Show>
       {props.children}
       <Show when={error()}>
-        <text fg={theme.error}>{error()}</text>
+        <text fg={errorColor()}>{error()}</text>
       </Show>
     </box>
   )
