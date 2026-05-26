@@ -89,45 +89,75 @@ bun dev:desktop
   - `writer` 是 persistence finalizer，不在普通 TaskGraph 执行队列中。
   - `completedSubtasks > 0` 时不能因 git diff 为空而直接 no-op。
 
-## 工作流
+## Architecture A: TaskGraph Closed Loop
 
 ```mermaid
-flowchart TD
-  request[用户请求] --> orchestrator[Orchestrator]
-  orchestrator --> planner[Planner]
-  planner --> task_graph[TaskGraph]
-  task_graph --> scheduler[依赖调度器]
+flowchart LR
+  U[User request] --> P[Planner]
+  P --> N[TaskGraph normalize]
+  N --> S[Scheduler]
+  S --> C[Coder]
+  S --> T[Tester]
+  S --> R[Reviewer]
+  C --> RP[Repair / Replan]
+  T --> RP
+  R --> RP
+  RP --> S
+  R --> W[Runtime Writer]
 
-  subgraph parallel[并行执行区]
-    research[Research]
-    coder[Coder]
-    tester[Tester]
-  end
+  I1[Invariant: single runtime writer]
+  I2[Invariant: coder is not final acceptance]
+  I3[Invariant: tester/reviewer bind current-run actual evidence]
+  W -.-> I1
+  C -.-> I2
+  T -.-> I3
+  R -.-> I3
+```
 
-  scheduler --> research
-  scheduler --> coder
-  scheduler --> tester
+## Architecture B: Worktree / Path / Tool Guardrails
 
-  research --> reviewer[Reviewer]
-  coder --> reviewer
-  tester --> reviewer
+```mermaid
+flowchart LR
+  PC[PathContext] --> RL[required_paths]
+  PC --> TL[target_paths]
+  PC --> SL[sandbox_paths]
+  SL --> WS[Worktree sandbox]
+  WS --> CW[Coder writes sandbox_paths only]
+  CW --> AM[Apply / Merge]
+  AM --> AO[actual_output_paths]
+  AO --> TV[Tester]
+  AO --> RV[Reviewer]
+  AO --> WR[Writer]
 
-  reviewer --> selfcheck[Selfcheck]
-  selfcheck -->|通过| writer[Writer]
-  selfcheck -->|失败| retry_loop[重试回路 最多5次]
-  retry_loop -->|重试| scheduler
+  G1[Rule: claim target paths only after worktree apply]
+  G2[Layering: required > target > sandbox]
+  AM -.-> G1
+  PC -.-> G2
+```
 
-  writer --> persistence[落盘 lessons / changelog / supermemory]
+## Architecture C: Self-study / Provider / Memory
 
-  subgraph notes[辅助说明]
-    preload_note[任务开始注入：lessons / memory / changelog]
-    write_note[Lesson 系统：任务结束时写入]
-    drift_note[意图漂移检测：每5个子任务触发一次]
-  end
+```mermaid
+flowchart LR
+  TR[Trajectory] --> LP[LessonProposal]
+  LP --> LC[lesson_classify / lesson_write]
+  LC --> MI[AgentMemoryIndex]
+  MI --> HY[Hybrid / HNSW retrieval]
+  HY --> PR[pattern retrieval]
+  PR --> PI[prompt injection]
 
-  preload_note --> orchestrator
-  writer --> write_note
-  scheduler --> drift_note
+  PRV[Provider routing] --> FO[failover]
+  FO --> HT[health / telemetry]
+  HT --> DR[dry-run scoring]
+
+  N1[Not connected: AgentDB real adapter]
+  N2[Limit: outcome-aware routing is dry-run/read-only]
+  N3[Not implemented: Dream / swarm / cost routing]
+  N4[Safety: no raw trajectory injection]
+  MI -.-> N1
+  DR -.-> N2
+  PRV -.-> N3
+  TR -.-> N4
 ```
 
 ## 测试
