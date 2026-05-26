@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" alt="language TypeScript" />
 </p>
 
-<p align="center"><a href="./README.md">English</a> · <a href="./CONTRIBUTING.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
+<p align="center"><a href="./README.md">English</a> · <a href="./docs/codemate-self-study-architecture.md">架构文档</a> · <a href="./CONTRIBUTING.zh.md">贡献指南</a> · <a href="./LICENSE">License</a></p>
 
 <p align="center">
   <img src="./packages/docs/images/readme-links-divider.png" alt="README divider" width="900" />
@@ -24,9 +24,9 @@
 
 ## 为什么是 Codemate？
 
-- **不是单 agent 乱跑**：任务会先被 `planner` 拆成 TaskGraph。
+- **不是单 agent 自由运行**：任务会先被 `planner` 拆成 TaskGraph。
 - **不是只写代码**：`research / coder / tester / reviewer` 分工协作。
-- **不是做完就忘**：`writer` 在尾部收口，写 changelog 并沉淀 lessons。
+- **不是做完就忘**：`writer` 在尾部收口，写 changelog 并沉淀经验。
 - **不是无限漂移**：`intent anchor`、`selfcheck`、`retry`、`drift check` 用于保持任务对齐。
 
 ## 安装与运行
@@ -148,7 +148,7 @@ bun test
 
 ## 当前状态
 
-- 当前为多 agent 闭环系统，适合真实仓库中的中长任务。
+- 当前为多 agent 闭环系统，适合真实仓库中的中长期任务。
 - 仍在持续迭代中，不宣称“完全自主软件工程师”或“绝对正确”。
 
 ## 贡献
