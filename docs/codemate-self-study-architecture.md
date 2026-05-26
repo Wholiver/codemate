@@ -14,22 +14,75 @@ Scope note:
 
 - Dream/background consolidation is intentionally not implemented.
 
-## 2. Architecture diagram
+## 2A. Architecture: TaskGraph closed loop
 
 ```mermaid
-flowchart TD
-  U[User Request] --> TG[TaskGraph Runtime]
-  TG --> RB[Role Capability Boundary]
-  RB --> TR[TrajectoryRecord]
-  TR --> LP[LessonProposal]
-  LP --> LV2[LessonRecord v2 Pipeline]
-  LV2 --> AMI[AgentMemoryIndex]
-  AMI --> PR[Pattern-first Retrieval]
-  PR --> TG
-  TG --> PRD[ProviderRouteDecision]
-  TG --> RP[ReplanProposal]
+flowchart LR
+  U[User request] --> P[Planner]
+  P --> N[TaskGraph normalize]
+  N --> S[Scheduler]
+  S --> C[Coder]
+  S --> T[Tester]
+  S --> R[Reviewer]
+  C --> RP[Repair / Replan]
+  T --> RP
+  R --> RP
+  RP --> S
+  R --> W[Runtime Writer]
 
-  D[Dream / Background Consolidation] -. intentionally not implemented .-> TG
+  I1[Invariant: single runtime writer]
+  I2[Invariant: coder is not final acceptance]
+  I3[Invariant: tester/reviewer bind current-run actual evidence]
+  W -.-> I1
+  C -.-> I2
+  T -.-> I3
+  R -.-> I3
+```
+
+## 2B. Architecture: Worktree / Path / Tool guardrails
+
+```mermaid
+flowchart LR
+  PC[PathContext] --> RL[required_paths]
+  PC --> TL[target_paths]
+  PC --> SL[sandbox_paths]
+  SL --> WS[Worktree sandbox]
+  WS --> CW[Coder writes sandbox_paths only]
+  CW --> AM[Apply / Merge]
+  AM --> AO[actual_output_paths]
+  AO --> TV[Tester]
+  AO --> RV[Reviewer]
+  AO --> WR[Writer]
+
+  G1[Rule: claim target paths only after worktree apply]
+  G2[Layering: required > target > sandbox]
+  AM -.-> G1
+  PC -.-> G2
+```
+
+## 2C. Architecture: Self-study / Provider / Memory
+
+```mermaid
+flowchart LR
+  TR[Trajectory] --> LP[LessonProposal]
+  LP --> LC[lesson_classify / lesson_write]
+  LC --> MI[AgentMemoryIndex]
+  MI --> HY[Hybrid / HNSW retrieval]
+  HY --> PR[pattern retrieval]
+  PR --> PI[prompt injection]
+
+  PRV[Provider routing] --> FO[failover]
+  FO --> HT[health / telemetry]
+  HT --> DR[dry-run scoring]
+
+  N1[Not connected: AgentDB real adapter]
+  N2[Limit: outcome-aware routing is dry-run/read-only]
+  N3[Not implemented: Dream / swarm / cost routing]
+  N4[Safety: no raw trajectory injection]
+  MI -.-> N1
+  DR -.-> N2
+  PRV -.-> N3
+  TR -.-> N4
 ```
 
 ## 3. TaskGraph runtime

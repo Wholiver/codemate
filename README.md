@@ -90,45 +90,75 @@ bun dev:desktop
   - `writer` is a persistence finalizer, not a normal TaskGraph execution node.
   - If `completedSubtasks > 0`, writer must not no-op just because git diff is empty.
 
-## Workflow
+## 架构图 A：TaskGraph 执行闭环
 
 ```mermaid
-flowchart TD
-  request[User Request] --> orchestrator[Orchestrator]
-  orchestrator --> planner[Planner]
-  planner --> task_graph[TaskGraph]
-  task_graph --> scheduler[Dependency Scheduler]
+flowchart LR
+  U[用户请求] --> P[Planner]
+  P --> N[TaskGraph 归一化]
+  N --> S[Scheduler]
+  S --> C[Coder]
+  S --> T[Tester]
+  S --> R[Reviewer]
+  C --> RP[Repair / Replan]
+  T --> RP
+  R --> RP
+  RP --> S
+  R --> W[Runtime Writer]
 
-  subgraph parallel[Parallel Execution]
-    research[Research]
-    coder[Coder]
-    tester[Tester]
-  end
+  I1[约束：single runtime writer]
+  I2[约束：coder 不做最终验收]
+  I3[约束：tester/reviewer 绑定 current-run actual evidence]
+  W -.-> I1
+  C -.-> I2
+  T -.-> I3
+  R -.-> I3
+```
 
-  scheduler --> research
-  scheduler --> coder
-  scheduler --> tester
+## 架构图 B：Worktree / Path / Tool Guardrails
 
-  research --> reviewer[Reviewer]
-  coder --> reviewer
-  tester --> reviewer
+```mermaid
+flowchart LR
+  PC[PathContext] --> RL[required_paths]
+  PC --> TL[target_paths]
+  PC --> SL[sandbox_paths]
+  SL --> WS[Worktree sandbox]
+  WS --> CW[Coder 仅写 sandbox_paths]
+  CW --> AM[Apply / Merge]
+  AM --> AO[actual_output_paths]
+  AO --> TV[Tester]
+  AO --> RV[Reviewer]
+  AO --> WR[Writer]
 
-  reviewer --> selfcheck[Selfcheck]
-  selfcheck -->|pass| writer[Writer]
-  selfcheck -->|fail| retry_loop[Retry Loop max 5]
-  retry_loop -->|retry| scheduler
+  G1[规则：worktree apply 后才 claim target paths]
+  G2[语义层：required > target > sandbox]
+  AM -.-> G1
+  PC -.-> G2
+```
 
-  writer --> persistence[Persist: lessons / changelog / supermemory]
+## 架构图 C：Self-study / Provider / Memory
 
-  subgraph notes[System Notes]
-    preload_note[Context preload: lessons / memory / changelog]
-    write_note[Lesson system: write at task end]
-    drift_note[Intent drift check: every 5 subtasks]
-  end
+```mermaid
+flowchart LR
+  TR[Trajectory] --> LP[LessonProposal]
+  LP --> LC[lesson_classify / lesson_write]
+  LC --> MI[AgentMemoryIndex]
+  MI --> HY[Hybrid / HNSW 检索]
+  HY --> PR[Pattern retrieval]
+  PR --> PI[prompt injection]
 
-  preload_note --> orchestrator
-  writer --> write_note
-  scheduler --> drift_note
+  PRV[Provider routing] --> FO[failover]
+  FO --> HT[health / telemetry]
+  HT --> DR[dry-run scoring]
+
+  N1[未接入：AgentDB real adapter]
+  N2[限制：routing outcome-aware 仅 dry-run/read-only]
+  N3[未实现：Dream / swarm / cost routing]
+  N4[安全：no raw trajectory injection]
+  MI -.-> N1
+  DR -.-> N2
+  PRV -.-> N3
+  TR -.-> N4
 ```
 
 ## Testing
