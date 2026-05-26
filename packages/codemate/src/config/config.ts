@@ -25,6 +25,7 @@ import { containsPath } from "../project/instance-context"
 import { zod } from "@codemate-ai/core/effect-zod"
 import { NonNegativeInt, PositiveInt, withStatics, type DeepMutable } from "@codemate-ai/core/schema"
 import { ConfigAgent } from "./agent"
+import { ConfigAgentMemory } from "./agent-memory"
 import { ConfigAttachment } from "./attachment"
 import { ConfigCommand } from "./command"
 import { ConfigFormatter } from "./formatter"
@@ -38,6 +39,7 @@ import { ConfigPaths } from "./paths"
 import { ConfigPermission } from "./permission"
 import { ConfigPlugin } from "./plugin"
 import { ConfigProvider } from "./provider"
+import { ConfigProviderRouting } from "./provider-routing"
 import { ConfigReference } from "./reference"
 import { ConfigServer } from "./server"
 import { ConfigSkills } from "./skills"
@@ -298,6 +300,22 @@ export const Info = Schema.Struct({
       }),
       mcp_timeout: Schema.optional(PositiveInt).annotate({
         description: "Timeout in milliseconds for model context protocol (MCP) requests",
+      }),
+      agent_memory: Schema.optional(ConfigAgentMemory.Info).annotate({
+        description: "Agent memory backend selection and hybrid embedding options",
+      }),
+      provider_routing: Schema.optional(ConfigProviderRouting.Info).annotate({
+        description: "Provider routing rules by agent role with optional fallback chain",
+      }),
+      adaptive_replan: Schema.optional(
+        Schema.Struct({
+          enabled: Schema.optional(Schema.Boolean),
+          minConfidence: Schema.optional(Schema.Number),
+          maxPatchNodes: Schema.optional(PositiveInt),
+          requireTesterAfterRepair: Schema.optional(Schema.Boolean),
+        }),
+      ).annotate({
+        description: "Enable automatic replan-to-taskgraph patching for safe localized retries",
       }),
     }),
   ),
