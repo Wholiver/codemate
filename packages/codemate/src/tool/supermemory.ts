@@ -66,6 +66,15 @@ export const SupermemoryTool = Tool.define<
               content: params.content,
               scope: params.scope ?? "user",
               tags: params.tags ?? [],
+              sessionID: ctx.sessionID,
+              messageID: ctx.messageID,
+              attribution: {
+                session_id: String(ctx.sessionID),
+                message_id: String(ctx.messageID),
+                process_id: "tool",
+                tool_name: "supermemory",
+                agent: ctx.agent,
+              },
             })
             return {
               title: "Memory added",
@@ -86,6 +95,15 @@ export const SupermemoryTool = Tool.define<
               query: params.query,
               scope: params.scope,
               topK: params.top_k,
+              sessionID: ctx.sessionID,
+              messageID: ctx.messageID,
+              attribution: {
+                session_id: String(ctx.sessionID),
+                message_id: String(ctx.messageID),
+                process_id: "tool",
+                tool_name: "supermemory",
+                agent: ctx.agent,
+              },
             })
             return {
               title: `Memory search (${records.length})`,
@@ -95,7 +113,18 @@ export const SupermemoryTool = Tool.define<
           }
 
           if (params.action === "list") {
-            const records = yield* loop.supermemoryList({ scope: params.scope })
+            const records = yield* loop.supermemoryList({
+              scope: params.scope,
+              sessionID: ctx.sessionID,
+              messageID: ctx.messageID,
+              attribution: {
+                session_id: String(ctx.sessionID),
+                message_id: String(ctx.messageID),
+                process_id: "tool",
+                tool_name: "supermemory",
+                agent: ctx.agent,
+              },
+            })
             return {
               title: `Memory list (${records.length})`,
               output: JSON.stringify(records, null, 2),
@@ -104,7 +133,17 @@ export const SupermemoryTool = Tool.define<
           }
 
           if (params.action === "profile") {
-            const profile = yield* loop.supermemoryProfile()
+            const profile = yield* loop.supermemoryProfile({
+              sessionID: ctx.sessionID,
+              messageID: ctx.messageID,
+              attribution: {
+                session_id: String(ctx.sessionID),
+                message_id: String(ctx.messageID),
+                process_id: "tool",
+                tool_name: "supermemory",
+                agent: ctx.agent,
+              },
+            })
             return {
               title: "Memory profile",
               output: JSON.stringify(profile, null, 2),
@@ -112,7 +151,19 @@ export const SupermemoryTool = Tool.define<
             }
           }
 
-          const removed = yield* loop.supermemoryForget({ id: params.id, query: params.query })
+          const removed = yield* loop.supermemoryForget({
+            id: params.id,
+            query: params.query,
+            sessionID: ctx.sessionID,
+            messageID: ctx.messageID,
+            attribution: {
+              session_id: String(ctx.sessionID),
+              message_id: String(ctx.messageID),
+              process_id: "tool",
+              tool_name: "supermemory",
+              agent: ctx.agent,
+            },
+          })
           return {
             title: "Memory forget",
             output: `Removed ${removed} memory entr${removed === 1 ? "y" : "ies"}.`,
