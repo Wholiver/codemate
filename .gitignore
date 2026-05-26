@@ -19,6 +19,7 @@ ts-dist
 refs
 Session.vim
 /codemate.json
+/packages/codemate/codemate.json
 a.out
 target
 .scripts
@@ -30,3 +31,27 @@ UPCOMING_CHANGELOG.md
 logs/
 *.bun-build
 tsconfig.tsbuildinfo
+
+# Codemate runtime artifacts
+.codemate/run-worktrees/
+.codemate/provider-telemetry.jsonl
+.codemate/trajectories.jsonl
+
+# Generated TLS/cert verification artifacts
+**/server.key
+**/server.pem
+**/server.crt
+**/verification.txt
+
+# SSL certificates and private keys (keep .gitkeep only)
+ssl/certs/*.pem
+ssl/certs/*.crt
+ssl/certs/*.cert
+ssl/certs/ca/*.pem
+ssl/certs/ca/*.crt
+ssl/keys/*.key
+ssl/keys/*.pem
+
+# Env and logs
+.env.*
+*.log
