@@ -31,6 +31,7 @@ import * as OtelTracer from "@effect/opentelemetry/Tracer"
 import { zod } from "@codemate-ai/core/effect-zod"
 import { withStatics, type DeepMutable } from "@codemate-ai/core/schema"
 import { Reference } from "@/reference/reference"
+import { AGENT_ROLE_TOOL_DENYLIST, agentRoleFromName, type AgentRole } from "./role-capability"
 
 const LEGACY_SUBAGENT_ALIAS: Record<string, string> = {
   general: "coder",
@@ -160,13 +161,20 @@ export const layer = Layer.effect(
         ]
           .filter((x) => x.trim().length > 0)
           .join("\n\n")
+        const denylistRules = (role: AgentRole) =>
+          Permission.fromConfig(
+            Object.fromEntries(AGENT_ROLE_TOOL_DENYLIST[role].map((tool) => [tool, "deny"])) as Record<string, "deny">,
+          )
+        const enforceRoleDenylist = (role: AgentRole, ...rulesets: Permission.Ruleset[]) =>
+          Permission.merge(...rulesets, denylistRules(role))
 
         const agents: Record<string, Info> = {
           orchestrator: {
             name: "orchestrator",
             description: "Orchestrator agent. Routes non-trivial work through TaskGraph and specialist subagents.",
             options: {},
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "orchestrator",
               Permission.fromConfig({
                 "*": "deny",
                 task: "allow",
@@ -190,7 +198,8 @@ export const layer = Layer.effect(
           planner: {
             name: "planner",
             description: "Requirement planner. Builds TaskGraph and dependency order. Never writes code.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "planner",
               Permission.fromConfig({
                 "*": "deny",
                 read: "allow",
@@ -208,11 +217,10 @@ export const layer = Layer.effect(
           coder: {
             name: "coder",
             description: "Implementation specialist. Applies code changes for concrete task nodes.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "coder",
               defaults,
               Permission.fromConfig({
-                lesson_write: "deny",
-                changelog_append: "deny",
                 supermemory: "allow",
               }),
               user,
@@ -225,7 +233,8 @@ export const layer = Layer.effect(
           research: {
             name: "research",
             description: "External and dependency research specialist. Produces structured summaries only.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "research",
               defaults,
               Permission.fromConfig({
                 "*": "deny",
@@ -260,14 +269,13 @@ export const layer = Layer.effect(
           reviewer: {
             name: "reviewer",
             description: "Review and verification specialist. Runs checks and returns pass/fail with TaskGraph fixes.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "reviewer",
               defaults,
               Permission.fromConfig({
                 edit: "deny",
                 write: "deny",
                 patch: "deny",
-                lesson_write: "deny",
-                changelog_append: "deny",
                 supermemory: "allow",
               }),
               user,
@@ -280,7 +288,8 @@ export const layer = Layer.effect(
           tester: {
             name: "tester",
             description: "Test specialist. Writes and runs tests for implementation tasks without changing production code.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "tester",
               defaults,
               Permission.fromConfig({
                 edit: {
@@ -290,8 +299,6 @@ export const layer = Layer.effect(
                   "**/__tests__/**": "allow",
                   "**/test/**": "allow",
                 },
-                lesson_write: "deny",
-                changelog_append: "deny",
                 bash: "allow",
                 read: "allow",
                 glob: "allow",
@@ -307,13 +314,13 @@ export const layer = Layer.effect(
           writer: {
             name: "writer",
             description: "Documentation and persistence specialist. Writes changelog and lessons.",
-            permission: Permission.merge(
+            permission: enforceRoleDenylist(
+              "writer",
               defaults,
               Permission.fromConfig({
                 lesson_classify: "allow",
                 lesson_write: "allow",
                 changelog_append: "allow",
-                todowrite: "deny",
                 supermemory: "allow",
               }),
               user,
@@ -404,6 +411,8 @@ export const layer = Layer.effect(
           item.steps = value.steps ?? item.steps
           item.options = mergeDeep(item.options, value.options ?? {})
           item.permission = Permission.merge(item.permission, Permission.fromConfig(value.permission ?? {}))
+          const role = agentRoleFromName(key)
+          if (role) item.permission = enforceRoleDenylist(role, item.permission)
         }
 
         // Ensure Truncate.GLOB is allowed unless explicitly configured

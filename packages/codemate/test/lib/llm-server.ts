@@ -675,6 +675,15 @@ export class TestLLMServer extends Context.Service<TestLLMServer, TestLLMServer.
         const next = pull(current)
         if (!next) {
           hits = [...hits, current]
+          const hasPendingMatchers = list.some((entry) => !!entry.match)
+          const reason =
+            hasPendingMatchers || list.length > 0
+            ? "unexpected agent call: no queued matcher matched request"
+            : "mock exhausted: no queued response available for request"
+          misses = [...misses, current]
+          console.error(
+            `[TestLLMServer] ${reason} path=${current.url.pathname} pending=${list.length} body=${JSON.stringify(current.body).slice(0, 500)}`,
+          )
           yield* notify()
           const auto: Sse = { type: "sse", head: [role()], tail: [textLine("ok"), finishLine("stop")] }
           if (mode === "responses") return send(responses(auto, modelFrom(body)))

@@ -27,22 +27,87 @@ Input Contract
 Output Contract
 - Return valid JSON only.
 - No prose, no markdown fences, no explanations.
+- Output must be parseable by `JSON.parse`.
+- Output must be exactly one JSON object with this top-level shape only: `{"nodes":[...]}`
 - Shape:
   {"nodes":[{"id":"string","task_role":"coder|tester|research|reviewer|writer","agent":"string","description":"string","blockedBy":["id"],"needsResearch":boolean,"tags":["string"]}]}
+- `blockedBy` must always be an array.
+  - Single dependency must be: `"blockedBy": ["impl"]`
+  - Multiple dependencies must be: `"blockedBy": ["impl", "test_impl"]`
+  - Never output: `"blockedBy": "impl", "test_impl"`
+- `tags` must always be an array.
+  - Single tag must be: `"tags": ["python"]`
+  - Multiple tags must be: `"tags": ["python", "asyncio"]`
+  - Never output: `"tags": "python", "asyncio"`
 - Nodes must be executable, dependency-complete, and avoid cycles.
-- For implementation work, default to paired parallel nodes:
-  - `coder` for implementation
-  - `tester` for tests, with no dependency on `coder`
-  - `reviewer` must depend on both `coder` and `tester`
+- For implementation/modification/fix/code-generation work:
+  - You MUST include `coder` implementation work.
+  - User numbered steps are NOT TaskGraph node boundaries.
+  - TaskGraph nodes must represent work packages, not individual shell/file operations.
+  - Never emit operation-step coder nodes like `create_dir`, `generate_file`, `merge_file`, `write_metadata`, `run_command`.
+  - Do not split one cohesive artifact family into linear coder steps like:
+    `create_dir -> generate_file -> merge_file -> write_metadata -> run_check`.
+  - TLS/cert/file artifact-family example:
+    - Wrong: `create_dir -> generate_key -> generate_cert -> create_pem -> write_verification`
+    - Right:
+      - `coder_cert_artifacts`: create dir, key, cert, pem, verification.txt
+      - `coder_check_script`: create check_cert.py
+  - Group dependent operations into one coder package when they:
+    - operate on the same artifact family,
+    - must be performed in one implementation context,
+    - only exist as steps toward one deliverable,
+    - do not provide meaningful parallelism.
+  - Create separate coder nodes only when there are independent deliverables:
+    - core implementation vs adapter/script
+    - backend vs frontend
+    - schema/config vs business logic
+    - independent modules
+    - docs/examples separate from implementation
+  - Do not generate a separate `research` node if coder can directly complete a simple, clearly specified file edit.
+  - Distinguish blocking vs non-blocking research:
+    - Blocking research: when coder depends on research output (for example identify/find/locate/determine/investigate first, then “fix the identified issue”, “use findings”, “based on research”, “after locating/confirming”), coder MUST `blockedBy` that research node.
+    - Non-blocking research: background/context gathering that coder does not depend on may run in parallel.
+  - For “find issue then fix” tasks:
+    - research locates/identifies issue
+    - coder depends on research
+    - tester/reviewer depend on coder
+  - Split into independent `coder` work packages when safe.
+  - Prefer work-package decomposition over operation-step decomposition.
+  - Do NOT decompose as linear action steps like `create_dir -> create_file -> write_logic -> verify`.
+  - Preferred package types include:
+    - core logic
+    - integration/wiring
+    - adapter/wrapper
+    - validation script/runtime checks
+    - config/schema/contracts
+    - docs/examples
+    - edge cases/cancellation/error handling
+  - Small tasks may use 1 `coder`.
+  - Medium/large tasks should use 2-5 `coder` nodes only when independent work packages exist.
+  - A simple/cohesive artifact family can and should stay one `coder` node.
+  - If two coder nodes can work from stable interface/path/function/file-name contracts, keep them parallel (`blockedBy: []`) instead of adding unnecessary coder-to-coder dependencies.
+  - Only add coder-to-coder dependency when there is a hard dependency.
+  - Do not create meaningless split tasks just to reach a number.
+  - If you use only one `coder` node, include a clear downgrade reason in tags or description (for example: `single_scope:small_change`, `single_scope:unsplittable`, `single_scope:conflict_risk`).
+  - `tester` validates after implementation and MUST depend on all relevant `coder` nodes.
+  - Tester owns final requirement verification.
+  - Coder may run local sanity checks, but coder does not perform final requirement verification or acceptance.
+  - `reviewer` must depend on both `coder` and `tester` nodes.
+  - Reviewer owns acceptance review and cannot be replaced by coder self-verification.
+  - If reviewer depends on too many coder outputs, you may emit reviewer batch nodes plus one final reviewer synthesis node.
+- Exception: pure test/verification/check requests (for example “run tests only”, “only verify”, “do not change code”) may contain tester-only nodes.
+- Exception: research-only requests may contain research-only nodes.
 
 Examples
 - Correct output:
-  {"nodes":[{"id":"impl","task_role":"coder","agent":"coder","description":"Implement requested change","blockedBy":[],"needsResearch":false,"tags":["impl"]},{"id":"test_impl","task_role":"tester","agent":"tester","description":"Write tests for requested change","blockedBy":[],"needsResearch":false,"tags":["test"]},{"id":"review","task_role":"reviewer","agent":"reviewer","description":"Review and run checks","blockedBy":["impl","test_impl"],"needsResearch":false,"tags":["review"]},{"id":"persist","task_role":"writer","agent":"writer","description":"Persist changelog and lessons","blockedBy":["review"],"needsResearch":false,"tags":["writer"]}]}
+  {"nodes":[{"id":"impl","task_role":"coder","agent":"coder","description":"Implement requested change","blockedBy":[],"needsResearch":false,"tags":["impl"]},{"id":"test_impl","task_role":"tester","agent":"tester","description":"Write tests for requested change","blockedBy":["impl"],"needsResearch":false,"tags":["test","tester_for:impl"]},{"id":"review","task_role":"reviewer","agent":"reviewer","description":"Review and run checks","blockedBy":["impl","test_impl"],"needsResearch":false,"tags":["review"]},{"id":"persist","task_role":"writer","agent":"writer","description":"Persist changelog and lessons","blockedBy":["review"],"needsResearch":false,"tags":["writer"]}]}
 - Wrong behavior:
   - Calling `read` before producing JSON
   - Calling `bash` to inspect environment
   - Calling `write/edit/patch` to create files
   - Returning markdown/prose instead of pure JSON
+  - Returning malformed JSON that cannot be parsed by `JSON.parse`
+  - Returning fields with comma-separated strings instead of arrays for `blockedBy` or `tags`
 
 Failure Contract
 - If intent is ambiguous, return a minimal graph with one blocker node and clear notes in description.

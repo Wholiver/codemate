@@ -114,6 +114,20 @@ export const layer: Layer.Layer<
     const status = yield* SessionStatus.Service
     const image = yield* Image.Service
     const sync = yield* SyncEvent.Service
+    const squashCauseSafe = (cause: Cause.Cause<unknown>) => {
+      try {
+        const squashed = Cause.squash(cause)
+        return squashed instanceof Error ? squashed : new Error(String(squashed))
+      } catch (error) {
+        const firstDie = Cause.findDie(cause)
+        const firstFail = Cause.findFail(cause)
+        const dieDetail = firstDie._tag === "Success" ? ` first_defect=${JSON.stringify(firstDie)}` : ""
+        const failDetail = firstFail._tag === "Success" ? ` first_fail=${JSON.stringify(firstFail)}` : ""
+        return new Error(
+          `SessionProcessor failed to squash cause (${error instanceof Error ? error.message : String(error)}).${dieDetail}${failDetail}`,
+        )
+      }
+    }
 
     const create = Effect.fn("SessionProcessor.create")(function* (input: Input) {
       // Pre-capture snapshot before the LLM stream starts. The AI SDK
@@ -751,7 +765,7 @@ export const layer: Layer.Layer<
             ),
             Effect.catchCauseIf(
               (cause) => !Cause.hasInterruptsOnly(cause),
-              (cause) => Effect.fail(Cause.squash(cause)),
+              (cause) => Effect.fail(squashCauseSafe(cause)),
             ),
             Effect.retry(
               SessionRetry.policy({
